@@ -1,0 +1,28 @@
+<T3DataStructure>
+  <meta>
+    <langDisable>1</langDisable>
+  </meta>
+  <sheets>
+    <sDEF>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang.xml:pi_flexform.sheetTitle.sDEF</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          <settings.flexform.none>
+            <TCEforms>
+                <exclude>0</exclude>
+                <label></label>
+                <displayCond>EXT:ConditionToHideThisRecordIfFlexformIsNotUsed:LOADED:true</displayCond>
+                <config>
+                    <type>none</type>
+                </config>
+            </TCEforms>
+          </settings.flexform.none>
+       </el>
+      </ROOT>
+    </sDEF>
+  </sheets>
+</T3DataStructure>
+

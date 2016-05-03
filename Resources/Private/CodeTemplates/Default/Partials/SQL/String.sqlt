@@ -1,0 +1,8 @@
+<f:if condition="{field.conf_varchar} == 1">
+<f:then>
+varchar(255) DEFAULT '' NOT NULL,
+</f:then>
+<f:else>
+tinytext,
+</f:else>
+</f:if>

@@ -1,0 +1,25 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+<f:form.select id="conf_files_type"
+	name="{section}[fields][{fieldKey}][conf_files_type]"
+	options="{
+  images:'{f:translate(key:\'kickstarter.field.conf_files_type.images\')}',
+  webimages:'{f:translate(key:\'kickstarter.field.conf_files_type.webimages\')}',
+  all:'{f:translate(key:\'kickstarter.field.conf_files_type.all\')}'}"
+	value="{field.conf_files_type}" />
+<label for="conf_files_type"><f:translate
+		key="kickstarter.field.conf_files_type" /></label>
+<f:form.textfield id="conf_files" class="integer"
+	name="{section}[fields][{fieldKey}][conf_files]"
+	value="{field.conf_files}" />
+<label for="conf_files"><f:translate
+		key="kickstarter.field.conf_files" /></label>
+<f:form.textfield id="conf_max_filesize" class="integer"
+	name="{section}[fields][{fieldKey}][conf_max_filesize]"
+	value="{field.conf_max_filesize}" />
+<label for="conf_max_filesize"><f:translate
+		key="kickstarter.field.conf_max_filesize" /></label>
+<f:form.textfield id="conf_files_selsize" class="integer"
+	name="{section}[fields][{fieldKey}][conf_files_selsize]"
+	value="{field.conf_files_selsize}" />
+<label for="conf_files_selsize"><f:translate
+		key="kickstarter.field.conf_files_selsize" /></label>

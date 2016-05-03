@@ -1,0 +1,40 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+<f:comment>Selector for the table in relation</f:comment>
+<f:form.select id="conf_rel_table"
+	name="{section}[fields][{fieldKey}][conf_rel_table]"
+	options="{sav:BuildOptionsForRelationTableSelectorbox(arguments:extension)}"
+	value="{field.conf_rel_table}" />
+<label for="conf_rel_table"><f:translate
+		key="kickstarter.field.conf_rel_table" /></label>
+
+<f:comment>Custom table</f:comment>
+<f:form.textfield class="string" id="conf_custom_table_name"
+	name="{section}[fields][{fieldKey}][conf_custom_table_name]"
+	value="{field.conf_custom_table_name}" />
+<label for="conf_custom_table_name"><f:translate
+		key="kickstarter.field.conf_custom_table_name" /></label>
+
+<f:comment>True MM relation by default</f:comment>
+<f:form.hidden name="{section}[fields][{fieldKey}][conf_relations_mm]"
+	value="1" />
+
+<f:comment>Checkbox for chosing a field with no relation generated</f:comment>
+<f:form.checkbox id="conf_norelation"
+	name="{section}[fields][{fieldKey}][conf_norelation]" value="1"
+	checked="{field.conf_norelation}" />
+<label for="conf_norelation"><f:translate
+		key="kickstarter.field.conf_norelation" /></label>
+
+<f:comment>Max number of relations</f:comment>
+<f:form.textfield id="conf_relations" class="integer"
+	name="{section}[fields][{fieldKey}][conf_relations]"
+	value="{field.conf_relations}" />
+<label for="conf_relations"><f:translate
+		key="kickstarter.field.conf_relations" /></label>
+
+<f:comment>Size of selector box</f:comment>
+<f:form.textfield id="conf_relations_selsize" class="integer"
+	name="{section}[fields][{fieldKey}][conf_relations_selsize]"
+	value="{field.conf_relations_selsize}" />
+<label for="conf_relations_selsize"><f:translate
+		key="kickstarter.field.conf_relations_selsize" /></label>

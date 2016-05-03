@@ -1,0 +1,11 @@
+
+module.tx_savlibrarykickstarter {
+    view {
+        templateRootPaths.10 = {$module.tx_savlibrarykickstarter.view.templateRootPath}
+        partialRootPaths.10 = {$module.tx_savlibrarykickstarter.view.partialRootPath}
+        layoutRootPaths.10 = {$module.tx_savlibrarykickstarter.view.layoutRootPath}{$LayoutRootPathCompatibility}
+    }
+    persistence {
+        storagePid = {$module.tx_savlibrarykickstarter.persistence.storagePid}
+    }
+}

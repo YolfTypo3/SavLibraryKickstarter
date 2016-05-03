@@ -1,0 +1,15 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+
+<div class="header">
+	<div class="logo">
+		<f:translate key="kickstarter.{section}SectionTitle" />
+	</div>
+	<div class="buttons">
+		<f:be.buttons.csh table="xEXT_sav_library_kickstarter_{section}"/>
+		<f:form.submit class="submit" name="submitAction[save]"
+			value="{f:translate(key:'kickstarter.save')}" />
+		<f:form.submit class="submit" name="submitAction[generateExtension]"
+			value="{f:translate(key:'kickstarter.generate')}" />
+	</div>
+</div>

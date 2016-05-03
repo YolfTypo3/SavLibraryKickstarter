@@ -1,0 +1,133 @@
+<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+<f:for each="{extension.newTables}" as="table" key="tableKey">
+<f:alias map="{
+  model:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}'
+}">
+#
+# Table structure for table '{model}'
+#
+CREATE TABLE {model} (
+    uid int(11) DEFAULT '0' NOT NULL auto_increment,
+    pid int(11) DEFAULT '0' NOT NULL,
+    tstamp int(11) DEFAULT '0' NOT NULL,
+    crdate int(11) DEFAULT '0' NOT NULL,
+    cruser_id int(11) DEFAULT '0' NOT NULL,
+    <f:if condition="{table.versioning}">
+    t3ver_oid int(11) DEFAULT '0' NOT NULL,
+    t3ver_id int(11) DEFAULT '0' NOT NULL,
+    t3ver_wsid int(11) DEFAULT '0' NOT NULL,
+    t3ver_label varchar(30) DEFAULT '' NOT NULL,
+    t3ver_state tinyint(4) DEFAULT '0' NOT NULL,
+    t3ver_stage tinyint(4) DEFAULT '0' NOT NULL,
+    t3ver_count int(11) DEFAULT '0' NOT NULL,
+    t3ver_tstamp int(11) DEFAULT '0' NOT NULL,
+    t3_origuid int(11) DEFAULT '0' NOT NULL,
+    </f:if>
+    <f:if condition="{table.localization}">
+    sys_language_uid int(11) DEFAULT '0' NOT NULL,
+    l18n_parent int(11) DEFAULT '0' NOT NULL,
+    l18n_diffsource mediumblob NOT NULL,
+    </f:if>
+    <f:if condition="{table.sorting}">
+    sorting int(10) DEFAULT '0' NOT NULL,
+    </f:if>
+    <f:if condition="{table.add_deleted}">
+    deleted tinyint(4) DEFAULT '0' NOT NULL,
+    </f:if>
+    <f:if condition="{table.add_hidden}">
+    hidden tinyint(4) DEFAULT '0' NOT NULL,
+    </f:if>
+    <f:if condition="{table.add_starttime}">
+    starttime int(11) DEFAULT '0' NOT NULL,
+    </f:if>
+    <f:if condition="{table.add_endtime}">
+    endtime int(11) DEFAULT '0' NOT NULL,
+    </f:if>
+    <f:if condition="{table.add_access}">
+    fe_group int(11) DEFAULT '0' NOT NULL,
+    </f:if>
+    <f:for each="{table.fields}" as="field">
+    <sav:removeIfContainsDoNotCreate>
+    {field.fieldname} <sav:function name="removeLineFeed"><f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" /></sav:function>
+    </sav:removeIfContainsDoNotCreate>
+	</f:for>
+    <f:for each="{extension.forms}" as="form" key="formKey">
+    <f:if condition="{form.specialView}">
+    <f:if condition="{extension.queries->sav:getItem(key:form.query)->sav:getItem(key:'mainTable')} == {model}">
+    _submitted_data_ blob NOT NULL,
+    _validated_ tinyint(4) DEFAULT '0' NOT NULL,
+    </f:if>
+    </f:if>
+    </f:for>
+!
+    PRIMARY KEY (uid),
+    <f:if condition="{table.versioning}">
+    KEY t3ver_oid (t3ver_oid,t3ver_wsid),
+    </f:if>
+    KEY parent (pid)
+);
+!
+<f:for each="{table.fields}" as="field">
+<f:if condition="{field.conf_relations_mm}">
+	<f:then>
+	<f:if condition="{field.conf_norelation} == 1"> 
+		<f:then>
+		</f:then>
+		<f:else>
+#
+# Table structure for table '{model}_{field.fieldname}_mm'
+#
+CREATE TABLE {model}_{field.fieldname}_mm (
+    uid_local int(11) DEFAULT '0' NOT NULL,
+    uid_foreign int(11) DEFAULT '0' NOT NULL,
+    tablenames varchar(30) DEFAULT '' NOT NULL,
+    sorting int(11) DEFAULT '0' NOT NULL,
+    KEY uid_local (uid_local),
+    KEY uid_foreign (uid_foreign)
+);
+!
+		</f:else>
+	</f:if>
+	</f:then>
+</f:if>
+</f:for>
+
+</f:alias>
+</f:for>
+
+<f:for each="{extension.existingTables}" as="table">
+<f:alias map="{
+  model:'{table.tablename}'
+}">
+#
+# Table structure for table '{model}'
+#
+CREATE TABLE {table.tablename} (
+    <f:for each="{table.fields}" as="field">
+    <sav:removeIfContainsDoNotCreate>
+    {sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)} <sav:function name="removeLineFeed"><f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" /></sav:function>
+    </sav:removeIfContainsDoNotCreate>  
+    </f:for>
+);
+!
+<f:for each="{table.fields}" as="field">
+<f:if condition="{field.conf_relations_mm}">
+#
+# Table structure for table '{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model)}_mm'
+#
+CREATE TABLE {sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model)}_mm (
+    uid_local int(11) DEFAULT '0' NOT NULL,
+    uid_foreign int(11) DEFAULT '0' NOT NULL,
+    tablenames varchar(30) DEFAULT '' NOT NULL,
+    sorting int(11) DEFAULT '0' NOT NULL,
+    KEY uid_local (uid_local),
+    KEY uid_foreign (uid_foreign)
+);
+!
+</f:if>
+</f:for>
+
+</f:alias>
+</f:for>
+
+</sav:function>

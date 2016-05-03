@@ -1,0 +1,34 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+<f:comment>Selector for the table in relation</f:comment>
+<f:form.select id="conf_rel_table"
+	name="{section}[fields][{fieldKey}][conf_rel_table]"
+	options="{sav:BuildOptionsForRelationTableSelectorbox(arguments:extension)}"
+	value="{field.conf_rel_table}" />
+<label for="conf_rel_table"><f:translate
+		key="kickstarter.field.conf_rel_table" /></label>
+<f:form.textfield class="string" id="conf_custom_table_name"
+	name="{section}[fields][{fieldKey}][conf_custom_table_name]"
+	value="{field.conf_custom_table_name}" />
+<label for="conf_custom_table_name"><f:translate
+		key="kickstarter.field.conf_custom_table_name" /></label>
+
+<f:comment>Selector for the records storage page</f:comment>
+<f:form.select id="conf_rel_type"
+	name="{section}[fields][{fieldKey}][conf_rel_type]"
+	options="{
+  all:'{f:translate(key:\'kickstarter.field.conf_rel_type.all\')}',
+  select_cur:'{f:translate(key:\'kickstarter.field.conf_rel_type.select_cur\')}',
+  select_root:'{f:translate(key:\'kickstarter.field.conf_rel_type.select_root\')}',
+  select_storage:'{f:translate(key:\'kickstarter.field.conf_rel_type.select_storage\')}'}"
+	value="{field.conf_rel_type}" />
+<label for="conf_rel_type"><f:translate
+		key="kickstarter.field.conf_rel_type" /></label>
+
+<f:comment>Checkbox for adding a blank item to the selector</f:comment>
+<f:form.hidden name="{section}[fields][{fieldKey}][conf_rel_dummyitem]"
+	value="0" />
+<f:form.checkbox id="conf_rel_dummyitem"
+	name="{section}[fields][{fieldKey}][conf_rel_dummyitem]" value="1"
+	checked="{field.conf_rel_dummyitem}" />
+<label for="conf_rel_dummyitem"><f:translate
+		key="kickstarter.field.conf_rel_dummyitem" /></label>

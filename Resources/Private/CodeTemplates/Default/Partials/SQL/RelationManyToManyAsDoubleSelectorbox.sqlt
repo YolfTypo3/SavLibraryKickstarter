@@ -1,0 +1,8 @@
+<f:if condition="{field.conf_relations_mm}">
+  <f:then>
+int(11) DEFAULT '0' NOT NULL,
+  </f:then>
+  <f:else>
+text,
+  </f:else>
+</f:if>

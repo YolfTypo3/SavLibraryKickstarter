@@ -1,0 +1,21 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+<f:be.container addCssFile="{f:uri.resource(path:'Styles/backend.css')}">
+	<div class="typo3-fullDoc">
+		<div id="typo3-docbody">
+			<div id="header">
+				<div class="logo">
+					<div class="kickstarterTitle">
+						<span><f:translate key="kickstarter.extensionListTitle" /></span>
+						<span>{savLibraryKickstarterVersion}</span>
+					</div>
+					<div class="extensionTitle">
+						<span><f:translate key="kickstarter.extensionList" /></span>
+					</div>
+				</div>
+			</div>
+			<sav:flashHtmlMessages class="errorMessage" />
+			<f:render section="content" />
+		</div>
+	</div>
+</f:be.container>
+

@@ -1,0 +1,51 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+<f:alias map="{
+    libraryRootLabel:'kickstarter.generalItem.libraryType.',
+    libraryType:'{extension.general.1.libraryType}'
+    }">
+	<f:alias
+		map="{libraryLabel:'{libraryRootLabel}{extension.general.1.libraryType}'}">
+		<f:alias
+			map="{
+            libraryName:'{sav:upperCamel(string:\'{f:translate(key:libraryLabel)}\')}',
+            isAllowed:'{f:if(condition:\'{libraryType} == 3\', then:0, else:1)}'
+            }">
+			<f:be.container
+				addCssFile="{f:uri.resource(path:'Styles/backend.css')}">
+				<div class="typo3-fullDoc">
+					<div id="typo3-docbody">
+						<div id="savLibraryKickstarter">
+							<div id="header">
+								<div class="logo">
+									<div class="kickstarterTitle">
+										<span><f:translate key="kickstarter.title"
+												arguments="{0:libraryName}" /></span> <span>{savLibraryKickstarterVersion}</span>
+									</div>
+									<div class="extensionTitle">
+										<span>{extKey}</span> <span>v{extension.emconf.1.version}</span>
+										<f:if condition="{extensionNotLoaded}">
+											<span class="extensionNotLoaded"><f:translate
+													key="kickstarter.extensionNotLoaded" /></span>
+										</f:if>
+										<f:if condition="{extension.general.1.debug}">
+											<span class="debugQueryOn"><f:translate
+													key="kickstarter.debugQueryOn" /></span>
+										</f:if>
+									</div>
+								</div>
+							</div>
+							<sav:flashHtmlMessages class="errorMessage" />
+							<sav:link.empty key="kickstarterTop" />
+							
+                            <f:comment>Render the menu section</f:comment>							
+							<f:render section="menu" />
+							
+                            <f:comment>Render the content section</f:comment>							
+							<f:render section="content" />
+						</div>
+					</div>
+				</div>
+			</f:be.container>
+		</f:alias>
+	</f:alias>
+</f:alias>

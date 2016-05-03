@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-02-25T11:04:55Z" product-name="sav_library_kickstarter">
+		<header/>
+		<body>
+			<trans-unit id=".alttitle" xml:space="preserve">
+				<source>SAV Library Kickstarter &gt; Queries</source>
+			</trans-unit>
+			<trans-unit id=".description" xml:space="preserve">
+				<source>This section is used to specify the query associated with your form.</source>
+			</trans-unit>
+            <trans-unit id=".seeAlso" xml:space="preserve">
+                <source>xEXT_sav_library_kickstarter_queries:*</source>
+            </trans-unit> 			
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.queriesItem.title.description" xml:space="preserve">
+				<source>Sets the name of your query.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.queriesItem.mainTable.description" xml:space="preserve">
+				<source>Sets the main table that your extension will use. By default, it is the first table in your &quot;New Database Tables&quot; section.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.queriesItem.foreignTables.description" xml:space="preserve">
+				<source>Define here the foreign tables (tables from other extension for exemple) that are needed for your extension (MySQL syntax).
+It is possible to use LEFT JOIN ou INNER JOIN.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.queriesItem.aliases.description" xml:space="preserve">
+				<source>Define here the aliases associated with your query (MySQL syntax).</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.queriesItem.whereClause.description" xml:space="preserve">
+				<source>Defines the WHERE clause for query. It can be:
+. a conventional MySQL clause.
+- The marker ###user### can be used. It will be replaced by the user uid.
+- The marker ###uid### can be used. It will be replaced by the current uid record.
+- The marker ###CURRENT_PID### can be used. It will be replaced by the current page uid.
+- The marker ###STORAGE_PID### can be used. It will be replaced by the storage page uid.
+. ###group_list = list_of_comma_separed_fe_groups###. To be used with a selector on fe_users. It checks if the user belongs to the group list. 
+. ###group_list != list_of_comma_separed_fe_groups###. To be used with a selector on fe_users. It checks if the user does not belong to the group list. 
+. ###func:WHERE_Clause####. func must be a valid method defined in the tx_savlibrary class. If the method returns true then the WHERE clause is added otherwise it is omitted. The method may have one parameter.
+Existing methods are:
+  - isInputMode which returns true the form is in the input mode,
+  - isNotInputMode which returns true the form is not in the input mode,
+  - isGroupMember(groupName) which returns true if the user is a member of &quot;groupName&quot;,
+  - isNotGroupMember(groupName) which returns true if the user is not a member of &quot;groupName&quot;.
+
+Other methods can be added using sav_library_extends.The WHERE_Clause can be any previous cases.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.queriesItem.orderByClause.description" xml:space="preserve">
+				<source>ORDER BY clause for the query (MySQL syntax).</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.queriesItem.groupByClause.description" xml:space="preserve">
+				<source>GROUP BY clause for the query. Very useful when MM tables are used (MySQL syntax).</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.queriesItem.whereTags.description" xml:space="preserve">
+				<source>WHERE tags are a special feature that makes it possible to use hyperlinks with a parameter &amp;where=tagname.
+To add a new &quot;WHERE Tag&quot;, click on the icon and fill the fields. The first field is name of the parameter you want to use (e.g. tagname) and the two others are respectively a WHERE clause and an ORDER BY clause. Example:
+Name: myTag
+WHERE Clause: myTable.myField &gt; 0
+ORDER BY Clause: myTable.myField desc</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,27 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<f:format.raw><sav:function name="removeEmptyLines">
+<subform type="array">
+    <{configurationKey} type="array">
+        <fields type="array">
+        <f:for each="{configuration.fields}" as="subformField" key="subformFieldKey">
+            <{subformFieldKey} type="array">
+                <config type="array">
+                <f:for each="{subformField.configuration}" as="subformConfiguration" key="subformConfigurationKey">
+                <f:if condition="{subformConfiguration->sav:function(name:'isArray')}">
+                    <f:then>
+                    <sav:indent count="20"><f:render partial="Configuration/Library/SavLibraryPlusSubform.xmlt" arguments="{configurationKey:subformConfigurationKey,configuration:subformConfiguration}" /></sav:indent>
+                    </f:then>                      
+                    <f:else>
+                    <{subformConfigurationKey}>{subformConfiguration}</{subformConfigurationKey}>
+                    </f:else>
+                </f:if>                      
+                </f:for>
+                </config>
+            </{subformFieldKey}>
+        </f:for>
+        </fields>
+    </{configurationKey}>
+</subform>                  
+</sav:function></f:format.raw>
+

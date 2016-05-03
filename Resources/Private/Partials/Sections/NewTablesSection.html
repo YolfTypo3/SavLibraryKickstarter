@@ -1,0 +1,58 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<f:alias map="{section:'newTables'}">
+	<f:alias
+		map="{sectionItem:'{extension->sav:getItem(key:section)->sav:getItem(key:itemKey)}'}">
+		<f:alias map="{sectionItemViewKey:'{sectionItem.viewKey}'}">
+			<f:alias
+				map="{tempFolderKey:'{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}'}">
+				<f:alias
+					map="{selectedFolderKey:'{f:if(condition:tempFolderKey, then:tempFolderKey, else:0)}'}">
+					<f:alias
+						map="{selectedFieldKey:'{sectionItem.activeFields->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:selectedFolderKey)}'}">
+
+						<div id="{section}Section">
+							<f:form method="post" action="save" name="{section}"
+								arguments="{extKey:extKey}">
+								<f:form.hidden name="general[section]" value="{section}" />
+								<f:form.hidden name="general[itemKey]" value="{itemKey}" />
+								<f:form.hidden name="general[fieldKey]" value="{fieldKey}" />
+								<f:form.hidden name="general[showFieldConfiguration]"
+									value="{showFieldConfiguration}" />
+								<div id="content">
+
+									<f:comment>Header</f:comment>
+									<f:render partial="Sections/Partials/Header" arguments="{_all}" />
+
+									<div class="body">
+										<div class="tableName">
+											<f:comment>Table Name</f:comment>
+											<label for="tablename"><f:translate
+													key="kickstarter.{section}Item.tablename" /> <span
+												class="extensionKey">tx_{extKey->sav:function(name:'removeUnderscore')}_domain_model</span></label>
+											<f:form.textfield id="tablename" name="newTables[tablename]"
+												value="{sectionItem.tablename}" />
+
+											<f:comment>Item title</f:comment>
+											<f:render partial="Sections/Partials/ItemTitle"	arguments="{_all}" />
+										</div>
+
+										<f:comment>Flags</f:comment>
+										<f:render partial="Sections/Partials/NewTableFlags" arguments="{_all}" />
+
+									</div>
+								</div>
+
+								<f:comment>Fields overview</f:comment>
+								<f:render partial="Sections/Partials/TableFieldsOverview" arguments="{_all}" />
+
+								<f:comment>Add the field Configuration</f:comment>
+								<f:render partial="Sections/Partials/TableFieldConfiguration" arguments="{_all}" />
+							</f:form>
+						</div>
+					</f:alias>
+				</f:alias>
+			</f:alias>
+		</f:alias>
+	</f:alias>
+</f:alias>

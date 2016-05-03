@@ -1,0 +1,3 @@
+'config' => array(
+    'type' => 'none',
+),

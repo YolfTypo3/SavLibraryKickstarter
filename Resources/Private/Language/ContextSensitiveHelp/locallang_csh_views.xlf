@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2013-02-25T11:05:19Z" product-name="sav_library_kickstarter">
+		<header/>
+		<body>
+			<trans-unit id=".alttitle" xml:space="preserve">
+				<source>SAV Library Kickstarter &gt; Views</source>
+			</trans-unit>
+			<trans-unit id=".description" xml:space="preserve">
+				<source>This section is used to specify the views associated with your extension.</source>
+			</trans-unit>
+            <trans-unit id=".seeAlso" xml:space="preserve">
+                <source>xEXT_sav_library_kickstarter_views:*</source>
+            </trans-unit> 			
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.viewsItem.title.description" xml:space="preserve">
+				<source>Set the name of your view.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.viewsItem.type.description" xml:space="preserve">
+				<source>Use the selector to set the type of the wiew. It is either &quot;List&quot;, &quot;Single&quot;, &quot;Edit&quot; or &quot;Update&quot;.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.viewsItem.viewTitleBar.description" xml:space="preserve">
+				<source>The content will be displayed as the title bar of the view.
+If markers ###fieldName### are used, they will be replaced by the label associated with the fieldname for a list view. For single or edit views, they will be replaced by the value in the main table by default. 
+. Use ###tableName.fieldName### if you want to access to a field which is in another table.
+. By default the raw content of the table is displayed. Use ###render[fieldName]### or ###render[tableName.fieldName]### when rendering is required like for dates or selector boxes.
+Localization by means of the file locallang.xlf can be used with $$$tag$$$ which will be replaced by its value according to the configuration language.
+The marker $$$label[fieldName]$$$ will be replaced by the fieldName title according to the localization. By default, the main table is assumed. Use $$$label[tableName.fieldName]$$$ if necessary.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.viewsItem.itemTemplate.description" xml:space="preserve">
+				<source>Template for the &quot;List&quot;, &quot;Update&quot; or &quot;Print&quot; views. The fields to include are defined using markers ###fieldName###.
+markers ###tablename.fieldname### can also be used. In this case, no processing is performed, the marker is replaced by the value in the selected row.
+
+In the case of a view &quot;Update&quot; or &quot;Print&quot;, markers ###field[fieldName, label]### generate the display of the label (localization can be used with $$$tag$$$ or $$$label[fieldName]$$$), the current value of field &quot;fieldName&quot; and an input element for update.
+markers ###newfield[fieldName, label]### generate the display of the label and an input element for the field &quot;fieldName&quot;. In both cases, label and field will be wrapped with default CSS classes
+. updateCol1 to updateCol4 for an &quot;Update view&quot; (respectively the label, the previous value, the input value, the checkbox),
+. printCol1 and printCol2 for a &quot;Print view&quot; (respectively the label, the field).
+If you do not want this wrapping, just use $$$label[fieldName]$$$ for the label and ###field[fieldName]### for the field. </source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.viewsItem.folders.description" xml:space="preserve">
+				<source>This field is used to define folders associated with the &quot;Single&quot; and &quot;Edit&quot; views. Click on the icon to add a folder and fill its label.
+If the label is defined in the file locallang.xlf, it will be translated to the selected language.
+You can delete or reorganize the folder order using delete, up and down icons.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.viewsItem.folders.configuration.description" xml:space="preserve">
+				<source>Folder parameters can be added. Each parameter should be under the format:
+parameter=value;
+
+. editAdminPlus = 1;
+Make the folder editable in an input form, if the user has the &quot;Admin+&quot; right. To be an &quot;Admin&quot; user, the user's TSConfig must contain a line as follows:
+extKey_Admin=value 
+where extKey is the extension key and value is one of the possible value of the &quot;Input Admin Field&quot; defined in the flexform associated with the extension.
+The user becomes an &quot;Admin+&quot; user, if his TSConfig contains a line as follows:
+extKey_Admin=value+
+
+. cutIf = fiedname=value;
+The folder is cut if the field is equal to the given value.
+
+. cutIf = ###group=group_name###;
+The folder is cut if the group name is a valid group for the current record. It checks the usergroup field in the local table if any. 
+
+. cutIf = ###group!=group_name###;
+The folder is cut if the group name is not a valid group for the current record. It checks the usergroup field in the local table if any.
+
+. cutIf = ###usergroup=group_name###;
+The folder is cut if the group name is a valid group for the current user. 
+
+. cutIf = ###usergroup!=group_name###;
+The folder is cut if the group name is not a valid group for the current user.
+
+Instead of using cufIf attributes, you can also use showIf attributes (only with &quot;plus&quot; library type). In such as case, the condition tells when to show the folder.</source>
+			</trans-unit>
+			<trans-unit id="LLL:EXT:sav_library_kickstarter/Resources/Private/Language/locallang.xlf:kickstarter.viewsItem.addPrintIcon.description" xml:space="preserve">
+				<source>If set, a print icon is added to the view.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

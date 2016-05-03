@@ -1,0 +1,156 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<div class="flags">
+	<div class="col1">
+		<f:comment>Add deleted field</f:comment>
+		<f:form.hidden class="hidden" name="{section}[add_deleted]"
+			value="0" />
+		<f:form.checkbox id="add_deleted" class="checkbox"
+			name="{section}[add_deleted]" value="1"
+			checked="{sav:function(name:'setTrueIfNull', arguments:sectionItem.add_deleted)}" />
+		<label class="clearNone" for="add_deleted"><f:translate
+				key="kickstarter.{section}Item.add_deleted" /></label>
+
+		<f:comment>Add hidden field </f:comment>
+		<f:form.hidden class="hidden" name="{section}[add_hidden]"
+			value="0" />
+		<f:form.checkbox id="add_hidden" class="checkbox"
+			name="{section}[add_hidden]" value="1"
+			checked="{sav:function(name:'setTrueIfNull', arguments:sectionItem.add_hidden)}" />
+		<label class="clearNone" for="add_hidden"><f:translate
+				key="kickstarter.{section}Item.add_hidden" /></label>
+
+		<f:comment>Add starttime field</f:comment>
+		<f:form.hidden class="hidden" name="{section}[add_starttime]"
+			value="0" />
+		<f:form.checkbox id="add_starttime" class="checkbox"
+			name="{section}[add_starttime]" value="1"
+			checked="{sectionItem.add_starttime}" />
+		<label class="clearNone" for="add_starttime"><f:translate
+				key="kickstarter.{section}Item.add_starttime" /></label>
+
+		<f:comment>Add endtime field</f:comment>
+		<f:form.hidden class="hidden" name="{section}[add_endtime]"
+			value="0" />
+		<f:form.checkbox id="add_endtime" class="checkbox"
+			name="{section}[add_endtime]" value="1"
+			checked="{sectionItem.add_endtime}" />
+		<label class="clearNone" for="add_endtime"><f:translate
+				key="kickstarter.{section}Item.add_endtime" /></label>
+
+		<f:comment>Add access group field</f:comment>
+		<f:form.hidden class="hidden" name="{section}[add_access]"
+			value="0" />
+		<f:form.checkbox id="add_access" class="checkbox"
+			name="{section}[add_access]" value="1"
+			checked="{sectionItem.add_access}" />
+		<label class="clearNone" for="add_access"><f:translate
+				key="kickstarter.{section}Item.add_access" /></label>
+	</div>
+	<div class="col2">
+		<f:comment>Add localization</f:comment>
+		<f:form.hidden class="hidden" name="{section}[localization]"
+			value="0" />
+		<f:form.checkbox id="localization" class="checkbox"
+			name="{section}[localization]" value="1"
+			checked="{sectionItem.localization}" />
+		<label class="clearNone" for="localization"><f:translate
+				key="kickstarter.{section}Item.localization" /></label>
+
+		<f:comment>Add versioning</f:comment>
+		<f:form.hidden class="hidden" name="{section}[versioning]"
+			value="0" />
+		<f:form.checkbox id="versioning" class="checkbox"
+			name="{section}[versioning]" value="1"
+			checked="{sectionItem.versioning}" />
+		<label class="clearNone" for="versioning"><f:translate
+				key="kickstarter.{section}Item.versioning" /></label>
+
+		<f:comment>Add Save and New flag</f:comment>
+		<f:form.hidden class="hidden" name="{section}[save_and_new]"
+			value="0" />
+		<f:form.checkbox id="save_and_new" class="checkbox"
+			name="{section}[save_and_new]" value="1"
+			checked="{sectionItem.save_and_new}" />
+		<label class="clearNone" for="save_and_new"><f:translate
+				key="kickstarter.{section}Item.save_and_new" /></label>
+
+		<f:comment>Add Insert Records flag</f:comment>
+		<f:form.hidden class="hidden"
+			name="{section}[allow_ce_insert_records]" value="0" />
+		<f:form.checkbox id="allow_ce_insert_records" class="checkbox"
+			name="{section}[allow_ce_insert_records]" value="1"
+			checked="{sectionItem.allow_ce_insert_records}" />
+		<label class="clearNone" for="allow_ce_insert_records"><f:translate
+				key="kickstarter.{section}Item.allow_ce_insert_records" /></label>
+	</div>
+	<div class="col3">
+		<f:comment>Add Allowed on pages flag</f:comment>
+		<f:form.hidden class="hidden" name="{section}[allow_on_pages]"
+			value="0" />
+		<f:form.checkbox id="allow_on_pages" class="checkbox"
+			name="{section}[allow_on_pages]" value="1"
+			checked="{sav:function(name:'setTrueIfNull', arguments:sectionItem.allow_on_pages)}" />
+		<label class="clearNone" for="allow_on_pages"><f:translate
+				key="kickstarter.{section}Item.allow_on_pages" /></label>
+
+		<f:comment>Field Label</f:comment>
+		<label for="header_field"><f:translate
+				key="kickstarter.{section}Item.header_field" /></label>
+
+		<f:comment>Field type</f:comment>
+		<label for="type_field"><f:translate
+				key="kickstarter.{section}Item.type_field" /></label>
+
+		<f:comment>Add manual ordering</f:comment>
+		<f:form.hidden class="hidden" name="{section}[sorting]" value="0" />
+		<f:form.checkbox id="sorting" class="checkbox"
+			name="{section}[sorting]" value="1"
+			checked="{sectionItem.sorting}" />
+		<label class="clearNone" for="sorting"><f:translate
+				key="kickstarter.{section}Item.sorting" /></label>
+	</div>
+	<div class="col4">
+		<f:comment>Icon</f:comment>
+		<f:form.select id="defIcon" name="{section}[defIcon]"
+			options="{sav:buildOptionsForFileIconSelectorbox()}"
+			value="{sectionItem.defIcon}" />
+		<label class="defIcon clearNone" for="defIcon"><f:translate
+				key="kickstarter.{section}Item.defIcon" /></label>
+
+		<f:comment>Field Label</f:comment>
+		<f:form.select id="header_field" name="{section}[header_field]"
+			options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields, options:'{0:\"
+			\"}')}" value="{sectionItem.header_field}" />
+		<f:form.textfield name="{section}[label_userFunc]"
+			value="{sectionItem.label_userFunc}" />
+
+		<f:comment>Field type</f:comment>
+		<f:form.select id="type_field" name="{section}[type_field]"
+			options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields, options:'{0:\"
+			\"}')}" value="{sectionItem.type_field}" />
+
+		<f:comment>Field for ordering </f:comment>
+		<f:if condition="{sectionItem.sorting} == 0}">
+			<label class="" for="sorting_field"><f:translate
+					key="kickstarter.{section}Item.sorting_field" /></label>
+			<f:form.select id="sorting_field" name="{section}[sorting_field]"
+				options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields, 
+				options:'{crdate:\"[crdate]\", uid:\"[uid]\", cruser_id:\"[cruser_id]\", tstamp:\"[tstamp]\"}')}"
+                value="{sectionItem.sorting_field}" />
+
+			<f:comment>Sorting order</f:comment>
+			<f:form.hidden class="hidden" name="{section}[sorting_desc]"
+				value="0" />
+			<f:form.checkbox id="sorting_desc" class="checkbox"
+				name="{section}[sorting_desc]" value="1"
+				checked="{sectionItem.sorting_desc}" />
+			<label class="clearNone descendingOrder" for="sorting_desc"><f:translate
+					key="kickstarter.{section}Item.sorting_desc" /></label>
+		</f:if>
+	</div>
+	<div class="col1"></div>
+	<div class="col2"></div>
+</div>
+
+

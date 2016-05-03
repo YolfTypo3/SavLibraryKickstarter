@@ -1,0 +1,85 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<f:alias map="{section:'existingTables'}">
+	<f:alias
+		map="{sectionItem:'{extension->sav:getItem(key:section)->sav:getItem(key:itemKey)}'}">
+		<f:alias map="{sectionItemViewKey:'{sectionItem.viewKey}'}">
+			<f:alias
+				map="{tempFolderKey:'{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}'}">
+				<f:alias
+					map="{selectedFolderKey:'{f:if(condition:tempFolderKey,then:tempFolderKey,else:0)}'}">
+					<f:alias
+						map="{selectedFieldKey:'{sectionItem.activeFields->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:selectedFolderKey)}'}">
+
+						<div id="{section}Section">
+							<f:form method="post" action="save" name="{section}"
+								arguments="{extKey:extKey}">
+								<f:form.hidden name="general[section]" value="{section}" />
+								<f:form.hidden name="general[itemKey]" value="{itemKey}" />
+								<f:form.hidden name="general[fieldKey]" value="{fieldKey}" />
+								<f:form.hidden name="general[showFieldConfiguration]"
+									value="{showFieldConfiguration}" />
+								<div id="content">
+									<div class="header">
+										<div class="logo">
+											<f:translate key="kickstarter.{section}SectionTitle" />
+										</div>
+										<div class="buttons">
+											<f:form.submit class="submit" name="submitAction[save]"
+												value="{f:translate(key:'kickstarter.save')}" />
+											<f:form.submit class="submit"
+												name="submitAction[generateExtension]"
+												value="{f:translate(key:'kickstarter.generate')}" />
+										</div>
+									</div>
+
+									<div class="body">
+										<div class="tableName">
+											<f:comment>Table Name</f:comment>
+											<label for="tablename"><f:translate
+													key="kickstarter.{section}Item.tablename" /></label>
+											<f:form.select id="tablename" name="{section}[tablename]"
+												value="{sectionItem.tablename}"
+												options="{sav:buildOptionsForExistingTablesSelectorbox()}" />
+										</div>
+
+										<f:comment>Override the localization</f:comment>
+										<label for="overrideLocalization"><f:translate
+												key="kickstarter.{section}Item.overrideLocalization" /></label>
+										<f:form.hidden class="hidden"
+											name="{section}[overrideLocalization]" value="0" />
+										<f:form.checkbox id="overrideLocalization"
+											class="checkbox clearNone"
+											name="{section}[overrideLocalization]" value="1"
+											checked="{sectionItem.overrideLocalization}" />
+
+										<f:comment>Import fields</f:comment>
+										<f:if condition="{sectionItem.tablename}">
+											<label for="importFields"><f:translate
+													key="kickstarter.{section}Item.importFields" /></label>
+											<f:link.action action="{section}ImportFields"
+												arguments="{extKey:extKey, section:section, itemKey:itemKey}">
+												<f:image class="importFields" 
+												    src="EXT:sav_library_kickstarter/Resources/Public/Icons/import.gif"
+													alt="{f:translate(key:'kickstarter.importFields')}"
+													title="{f:translate(key:'kickstarter.importFields')}" />
+											</f:link.action>
+										</f:if>
+									</div>
+								</div>
+
+								<f:comment>Fields overview</f:comment>
+								<f:render partial="Sections/Partials/TableFieldsOverview" arguments="{_all}" />
+
+								<f:comment>Add the field Configuration</f:comment>
+								<f:render partial="Sections/Partials/TableFieldConfiguration" arguments="{_all}" />
+
+							</f:form>
+						</div>
+					</f:alias>
+				</f:alias>
+			</f:alias>
+		</f:alias>
+	</f:alias>
+</f:alias>
+

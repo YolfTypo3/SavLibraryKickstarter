@@ -1,0 +1,176 @@
+.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+.. ==================================================
+.. DEFINE SOME TEXTROLES
+.. --------------------------------------------------
+.. role::   underline
+.. role::   typoscript(code)
+.. role::   ts(typoscript)
+   :class:  typoscript
+.. role::   php(code)
+
+
+Introduction
+============
+
+What does it do?
+----------------
+
+The `SAV Library Kickstarter <https://typo3.org/extensions/repository/view/sav_library_kickstarter>`_ 
+is a code generator, developed with extbase and fluid, to produce Frontend plugins.
+
+Basic code generation
+^^^^^^^^^^^^^^^^^^^^^
+
+This new feature was introduced in version 1.0.0 to kickstart extensions
+based on fluid and extbase.
+
+Code generation for the SAV Library Plus
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The `SAV Library Plus Extension
+<https://typo3.org/extensions/repository/view/sav_library_plus>`_ is stable since many years. 
+It makes it possible to develop extensions **without any
+PHP coding**, thanks to simple configuration parameters.
+The SAV Library Plus extension relies on a conventional approach for the
+queries but uses fluid for the rendering of views.
+
+The concept used in the SAV Library Plus relies on forms. A form is a
+way of presenting data. It includes list view, single view or edit
+view of the data. An extension may contain several forms. The
+generator handles also special views like print views or update views.
+Data presentation may differ from one view to another. A query is
+associated with each form. Therefore, when several forms are used in
+an extension, data may be different.
+
+The SAV Library Kickstarter generates extensions which include:
+
+- Creation of multiple views of the data,
+
+- Front end input of the data,
+
+- Views with folders,
+
+- Simple interface in the Kickstarter with Context Sensitive Helps,
+
+- Generation of emails,
+
+- Generation of RTF files using database tags,
+
+- Data export in the CSV format or more complex format by means of XSLT
+  processing,
+  
+- Management of different versions of the same extension,
+
+- Many other features.
+
+Code Generation for the SAV Library Mvc
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The `SAV Library Mvc Extension <https://typo3.org/extensions/repository/view/sav_library_mvc>`_ is the new 
+development of the SAV Library which fully relies on the MVC approach
+with extbase and fluid. The configuration parameters to develop extension **without any
+PHP coding** are the same as in SAV Library Plus.
+
+This library is in beta state because it does not implement yet all the features available with SAV Library Plus. 
+However available features are enough for most extensions.
+
+Latest developments
+^^^^^^^^^^^^^^^^^^^
+
+The latest developments of the `SAV Library Kickstarter Project
+<https://github.com/YolfTypo3/SAV-Library-Kickstarter-Project>`_, 
+ are available on GitHub.
+
+Test extensions
+^^^^^^^^^^^^^^^
+
+The extension `SAV Basic Example0
+<https://typo3.org/extensions/repository/view/sav_basic_example0>`_
+was designed to test the SAV Library Kickstarter generation for a basic extension with Fluid and Extbase.
+
+The extension `SAV Library Example0
+<https://typo3.org/extensions/repository/view/sav_library_example0>`_
+was designed to test the SAV Library Kickstarter generation for the SAV Library
+Plus extension. 
+
+The extension `SAV Library Mvc Example0
+<https://typo3.org/extensions/repository/view/sav_librarymvc_example0>`_
+was designed to test the SAV Library Kickstarter generation for the SAV Library
+Mvc extension. It implements the same features as SAV Library Example0.
+
+Other examples are also available in the TER.
+
+.. warning::
+
+   - Do not forget to include the **SAV Library Kickstarter static template** which is now required. 
+   
+.. important::
+
+   - The old "sav\_library" extension which is now obsolete and the code generation for this extension was removed.
+   
+   - The compatibility with TYPO3 4.5 was removed.
+   
+
+
+Screenshots
+-----------
+
+SAV Library Example0: Generated List view
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsExample0ListView.png
+
+
+SAV Library Example0: Generated Single view
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsExample0SingleView.png
+
+
+SAV Library Example0: Generated Edit view
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsExample0EditView.png
+
+
+Kickstarter: Extension List
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsExtensionList.png
+
+
+Kickstarter: “Extension configuration” section
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsExtensionConfigurationSection.png
+
+
+Kickstarter: “New tables” section
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsNewTablesSection.png
+
+
+Kickstarter: “Views” section
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsViewsSection.png
+
+
+Kickstarter: “Queries” section
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsQueriesSection.png
+
+
+Kickstarter: “Forms” section
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: ../Images/ScreenshotsFormsSection.png
+
+
+

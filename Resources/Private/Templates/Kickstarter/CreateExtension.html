@@ -1,0 +1,157 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+<f:layout name="KickstarterExtensionListLayout.html" />
+
+<f:section name="content">
+	<div id="extensionList">
+		<div class="title">
+			<ul>
+				<li class="extensionName">{f:translate(key:'kickstarter.extensionList.extensionName')}</li>
+			</ul>
+		</div>
+
+		<div class="body">
+			<f:for each="{extensionList}" as="extension">
+				<ul>
+					<li class="extensionName"><f:link.action
+							action="editExtension"
+							arguments="{extKey:extension.general.1.extensionKey}">{extension.general.1.extensionKey}</f:link.action></li>
+				</ul>
+			</f:for>
+		</div>
+	</div>
+
+	<f:alias map="{section:'emconf'}">
+		<f:alias map="{sectionItem:'{extension.{section}.{itemKey}}'}">
+			<div id="{section}Section">
+				<f:form method="post" action="save" name="{section}"
+					arguments="{extKey:extKey, section:section, itemKey:itemKey}">
+					<f:form.hidden name="general[section]" value="{section}" />
+					<f:form.hidden name="general[itemKey]" value="{itemKey}" />
+					<div id="content">
+						<div class="header">
+							<div class="logo">
+								<f:translate key="kickstarter.{section}SectionTitle" />
+							</div>
+							<div class="buttons">
+								<f:form.submit class="submit"
+									name="submitAction[createExtension]"
+									value="{f:translate(key:'kickstarter.save')}" />
+							</div>
+						</div>
+						<div class="body">
+							<f:comment>Extension key</f:comment>
+							<label for="extensionKey"><f:translate
+									key="kickstarter.{section}Item.extensionKey" /></label>
+							<f:form.textfield id="extensionKey" name="extKey" value="" />
+							
+                            <f:comment>Vendor name</f:comment>
+                            <label for="pluginTitle"><f:translate
+                                    key="kickstarter.generalItem.vendorName" /></label>
+                            <f:form.textfield id="vendorName" name="general[vendorName]"
+                                value="{extension.general.1.vendorName}" />
+                                
+							<f:comment>Title</f:comment>
+							<label for="title"><f:translate
+									key="kickstarter.{section}Item.title" /></label>
+							<f:form.textfield id="title" name="{section}[title]" value="" />
+
+							<f:comment>Plugin Title, saved in the general section</f:comment>
+							<label for="pluginTitle"><f:translate
+									key="kickstarter.generalItem.pluginTitle" /></label>
+							<f:form.textfield id="pluginTitle" name="general[pluginTitle]"
+								value="{extension.general.1.pluginTitle}" />
+
+							<f:comment>Description</f:comment>
+							<label for="description"><f:translate
+									key="kickstarter.{section}Item.description" /></label>
+							<f:form.textarea id="description" name="{section}[description]"
+								value="" rows="2" cols="80" />
+
+							<f:comment>State</f:comment>
+							<label for="state"><f:translate
+									key="kickstarter.{section}Item.state" /></label>
+							<f:form.select id="state" name="{section}[state]"
+								options="{
+          alpha:'{f:translate(key:\'kickstarter.{section}Item.state.alpha\')}',
+          beta:'{f:translate(key:\'kickstarter.{section}Item.state.beta\')}',
+          stable:'{f:translate(key:\'kickstarter.{section}Item.state.stable\')}',
+          experimental:'{f:translate(key:\'kickstarter.{section}Item.state.experimental\')}',
+          test:'{f:translate(key:\'kickstarter.{section}Item.state.test\')}'}"
+								value="" />
+
+							<f:comment>
+								<!-- Dependencies -->
+							</f:comment>
+							<label for="dependencies"><f:translate
+									key="kickstarter.{section}Item.dependencies" /></label>
+							<f:form.textfield id="dependencies"
+								name="{section}[dependencies]" value="" />
+
+							<f:comment>
+								<!-- Author -->
+							</f:comment>
+							<label for="author"><f:translate
+									key="kickstarter.{section}Item.author" /></label>
+							<f:form.textfield id="author" name="{section}[author]" value="" />
+
+							<f:comment>
+								<!-- Author Email -->
+							</f:comment>
+							<label for="author_email"><f:translate
+									key="kickstarter.{section}Item.author_email" /></label>
+							<f:form.textfield id="author_email"
+								name="{section}[author_email]" value="" />
+
+							<f:comment>
+								<!-- Library type, saved in the general section -->
+							</f:comment>
+							<label for="libraryType"><f:translate
+									key="kickstarter.generalItem.libraryType" /></label>
+							<f:form.hidden class="hidden" name="general[libraryType]"
+								value="1" />
+							<f:form.select id="libraryType" name="general[libraryType]"
+                                options="{
+                                    0:'{f:translate(key:\'kickstarter.generalItem.libraryType.0\')}',
+                                    1:'{f:translate(key:\'kickstarter.generalItem.libraryType.1\')}',
+                                    2:'{f:translate(key:\'kickstarter.generalItem.libraryType.2\')}',
+                                    3:'{f:translate(key:\'kickstarter.generalItem.libraryType.3\')}'          
+                                }"
+								value="{extension.general.1.libraryType}" />
+
+							<f:comment>
+								<!-- Compatibility  -->
+							</f:comment>
+							<label for="compatibility"><f:translate
+									key="kickstarter.generalItem.compatibility" /></label>
+							<f:form.hidden name="general[compatibility]" value="0" />
+							<f:form.select id="compatibility" name="general[compatibility]"
+								options="{
+          0:'{f:translate(key:\'kickstarter.generalItem.compatibility.0\')}',
+          1:'{f:translate(key:\'kickstarter.generalItem.compatibility.1\')}',
+          2:'{f:translate(key:\'kickstarter.generalItem.compatibility.2\')}'
+          }"
+								value="{extension.general.1.compatibility}" />
+
+							<f:comment>
+								<!-- keepExtLocalConf flag -->
+							</f:comment>
+							<label for="keepExtLocalConf"><f:translate
+									key="kickstarter.generalItem.keepExtLocalConf" /></label>
+							<f:form.hidden name="general[keepExtLocalConf]" value="0" />
+							<f:form.checkbox class="checkbox" id="keepExtLocalConf"
+								name="general[keepExtLocalConf]" value="1"
+								checked="{extension.general.1.keepExtLocalConf}" />
+
+							<f:comment>
+								<!-- Version -->
+							</f:comment>
+							<f:form.hidden name="general[version]" value="0.0.0" />
+
+						</div>
+					</div>
+				</f:form>
+		</f:alias>
+	</f:alias>
+	</div>
+
+</f:section>

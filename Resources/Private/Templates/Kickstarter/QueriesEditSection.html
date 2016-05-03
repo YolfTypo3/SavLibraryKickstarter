@@ -1,0 +1,23 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+<f:layout name="KickstarterSectionLayout.html" />
+
+<f:section name="menu">
+	<f:render partial="Menus/Menu"
+		arguments="{
+            extKey:extKey, 
+            extension:extension,
+            selectedItem:'queries_{itemKey}',
+            isAllowed:isAllowed
+        }" />
+</f:section>
+
+<f:section name="content">
+	<f:render partial="Sections/QueriesSection"
+		arguments="{
+            extKey:extKey,
+            extension:extension,
+            itemKey:itemKey,
+            isAllowed:isAllowed
+         }" />
+</f:section>
+

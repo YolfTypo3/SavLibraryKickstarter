@@ -1,0 +1,10 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<f:if condition="{sav:function(name:'isArrayOfInteger',arguments:{input:field.items,index:'value'})}">
+<f:then>
+int(11) DEFAULT '0' NOT NULL,
+</f:then>
+<f:else>
+varchar(255) DEFAULT '' NOT NULL,
+</f:else>
+</f:if>

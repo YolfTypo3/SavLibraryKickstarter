@@ -1,0 +1,16 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<f:comment>Adds the view tabs</f:comment>
+<div class="viewTabs">
+	<ul class="viewTabs">
+		<f:for each="{extension.views}" as="view" key="viewKey">
+			<li
+				class="{f:if(condition:'{viewKey} == {sectionItemViewKey}', then:'currentTab')}">
+				<f:link.action action="changeView"
+					arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:viewKey}">
+					<span class="{view.type}">{view.title}</span>
+				</f:link.action>
+			</li>
+		</f:for>
+	</ul>
+</div>

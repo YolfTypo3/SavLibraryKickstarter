@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="<f:format.date format='Y-m-d\TH:i:s\Z'>@{sav:function(name:'time')}</f:format.date>" product-name="{extension.general.1.extensionKey}">
+		<header/>
+		<body>
+			<trans-unit id="sample" xml:space="preserve">
+				<source>This is how you should store your labels.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

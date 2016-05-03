@@ -1,0 +1,24 @@
+# For compatibility
+[compatVersion = 6.0.0]
+LayoutRootPathCompatibility = TYPO6x/
+[END]
+[compatVersion = 7.0.0]
+LayoutRootPathCompatibility = TYPO7x/
+[END]
+
+
+
+module.tx_savlibrarykickstarter {
+    view {
+        # cat=plugin.tx_savlibrarykickstarter/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:sav_library_kickstarter/Resources/Private/Templates/
+        # cat=plugin.tx_savlibrarykickstarter/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:sav_library_kickstarter/Resources/Private/Partials/
+        # cat=plugin.tx_savlibrarykickstarter/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:sav_library_kickstarter/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_savlibrarykickstarter//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}

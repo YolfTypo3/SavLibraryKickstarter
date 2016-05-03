@@ -1,0 +1,49 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<f:comment>Selector for the table in relation</f:comment>
+<f:form.select id="conf_rel_table"
+	name="{section}[fields][{fieldKey}][conf_rel_table]"
+	options="{sav:BuildOptionsForRelationTableSelectorbox(arguments:extension)}"
+	value="{field.conf_rel_table}" />
+<label for="conf_rel_table"><f:translate
+		key="kickstarter.field.conf_rel_table" /></label>
+<f:form.textfield class="string" id="conf_custom_table_name"
+	name="{section}[fields][{fieldKey}][conf_custom_table_name]"
+	value="{field.conf_custom_table_name}" />
+<label for="conf_custom_table_name"><f:translate
+		key="kickstarter.field.conf_custom_table_name" /></label>
+
+<f:comment>Selector for the records storage page</f:comment>
+<f:form.select id="conf_rel_type"
+	name="{section}[fields][{fieldKey}][conf_rel_type]"
+	options="{
+  all:'{f:translate(key:\'kickstarter.field.conf_rel_type.all\')}',
+  select_cur:'{f:translate(key:\'kickstarter.field.conf_rel_type.select_cur\')}',
+  select_root:'{f:translate(key:\'kickstarter.field.conf_rel_type.select_root\')}',
+  select_storage:'{f:translate(key:\'kickstarter.field.conf_rel_type.select_storage\')}'}"
+	value="{field.conf_rel_type}" />
+<label for="conf_rel_type"><f:translate
+		key="kickstarter.field.conf_rel_type" /></label>
+
+<f:comment>Checkbox for chosing a true MM relation</f:comment>
+<f:form.hidden name="{section}[fields][{fieldKey}][conf_relations_mm]"
+	value="0" />
+<f:form.checkbox id="conf_relations_mm"
+	name="{section}[fields][{fieldKey}][conf_relations_mm]" value="1"
+	checked="{field.conf_relations_mm}" />
+<label for="conf_relations_mm"><f:translate
+		key="kickstarter.field.conf_relations_mm" /></label>
+
+<f:comment>Max number of relations</f:comment>
+<f:form.textfield id="conf_relations" class="integer"
+	name="{section}[fields][{fieldKey}][conf_relations]"
+	value="{field.conf_relations}" />
+<label for="conf_relations"><f:translate
+		key="kickstarter.field.conf_relations" /></label>
+
+<f:comment>Size of selector box</f:comment>
+<f:form.textfield id="conf_relations_selsize" class="integer"
+	name="{section}[fields][{fieldKey}][conf_relations_selsize]"
+	value="{field.conf_relations_selsize}" />
+<label for="conf_relations_selsize"><f:translate
+		key="kickstarter.field.conf_relations_selsize" /></label>

@@ -1,0 +1,124 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<f:comment>Fields overview</f:comment>
+<div id="fieldsOverview">
+	<div class="header">
+		<div class="logo">
+			<f:translate key="kickstarter.fieldsOverview" />
+		</div>
+		<div class="buttons">
+			<f:link.action action="addNewField"
+				arguments="{extKey:extKey, section:section, itemKey:itemKey}">
+				<f:image 
+				    src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+					alt="{f:translate(key:'kickstarter.addNewField')}"
+					title="{f:translate(key:'kickstarter.addNewField')}" />
+			</f:link.action>
+			<f:form.submit class="submit" name="submitAction[save]"
+				value="{f:translate(key:'kickstarter.save')}" />
+			<f:form.submit class="submit" name="submitAction[generateExtension]"
+				value="{f:translate(key:'kickstarter.generate')}" />
+			<div class="viewSelectorbox">
+				<f:translate key="kickstarter.useFields" />
+			</div>
+			<sav:form.select id="viewSelectorbox"
+				name="{section}[viewSelectorbox]" value=""
+				options="{sav:buildOptionsForViewSelectorbox(views:extension.views)}" />
+			<f:form.submit class="submit" name="submitAction[sortFields]"
+				value="{f:translate(key:'kickstarter.sort')}" />
+			<f:form.submit class="submit" name="submitAction[copyFields]"
+				value="{f:translate(key:'kickstarter.copy')}" />
+		</div>
+	</div>
+
+	<f:comment>Adds the view tabs</f:comment>
+	<f:render partial="Sections/Partials/TableViewTabs" arguments="{_all}" />
+
+	<f:comment>Adds the folder tabs</f:comment>
+	<f:render partial="Sections/Partials/TableFolderTabs"
+		arguments="{_all}" />
+
+	<f:comment>Adds the fields management (edit, select, move, delete)</f:comment>
+	<div class="fields inFolders">
+		<ul>
+			<li class="title">
+				<div class="fieldName">{f:translate(key:'kickstarter.field.fieldName')}</div>
+				<div class="fieldTitle">{f:translate(key:'kickstarter.field.fieldTitle')}</div>
+				<div class="fieldType">{f:translate(key:'kickstarter.field.fieldType')}</div>
+			</li>
+			<f:for each="{sectionItem.fields}" key="key" as="field">
+				<f:if
+					condition="{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)} == {field.folders->sav:getItem(key:sectionItemViewKey)}">
+					<li
+						class="field {f:if(condition:'{selectedFieldKey} == {key}', then:'selected')}">
+						<f:alias
+							map="{selected:'{field.selected->sav:getItem(key:sectionItemViewKey)}', order:'{field.order->sav:getItem(key:sectionItemViewKey)}', class:'{extension.views->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:\'type\')}'}">
+							<div class="fieldName">
+								<f:link.action
+									class="{f:if(condition:'{selected}', then:'{class} bold')}"
+									action="editFieldConfiguration"
+									arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItem.viewKey, folderKey:selectedFolderKey, fieldKey:key}"
+									section="{sav:function(name:'md5int',arguments:field.fieldname)}">
+                                    {field.fieldname}
+                                </f:link.action>
+							</div>
+							<div class="fieldTitle">{f:if(condition:field.title,
+								then:field.title, else:'&nbsp;')}</div>
+							<div class="fieldType">{f:translate(key:'kickstarter.field.fieldType.{field.type}')}</div>
+							<div class="fieldControls">
+								<f:form.hidden class="hidden"
+									name="{section}[fields][{key}][order][{sectionItemViewKey}]"
+									value="{order}" />
+								<f:form.hidden class="hidden"
+									name="{section}[fields][{key}][selected][{sectionItemViewKey}]"
+									value="0" />
+								<f:comment>Displayed if allowed</f:comment>
+								<f:if condition="{isAllowed}">
+									<f:form.checkbox class="checkbox"
+										name="{section}[fields][{key}][selected][{sectionItemViewKey}]"
+										value="1" checked="{selected}" />
+								</f:if>
+								<f:link.action action="editFieldConfiguration"
+									arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
+									<f:image class="editFieldConfiguration" 
+									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
+										alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
+										title="{f:translate(key:'kickstarter.edit')}" />
+								</f:link.action>
+								<f:link.action action="moveDownField"
+									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
+									<f:image class="moveDownField" 
+									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
+										alt="{f:translate(key:'kickstarter.moveDown')}"
+										title="{f:translate(key:'kickstarter.moveDown')}" />
+								</f:link.action>
+								<f:link.action action="moveUpField"
+									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
+									<f:image class="moveUpField" 
+									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
+										alt="{f:translate(key:'kickstarter.moveUp')}"
+										title="{f:translate(key:'kickstarter.moveUp')}" />
+								</f:link.action>
+								<f:link.action action="deleteField"
+									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
+									<f:image class="deleteField" 
+									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
+										alt="kickstarter.delete"
+										title="{f:translate(key:'kickstarter.delete')}" />
+								</f:link.action>
+							</div>
+						</f:alias>
+					</li>
+
+					<f:comment>Special processing if the field is a subform</f:comment>
+					<f:render partial="Sections/Partials/TableSubform"
+						arguments="{_all}" />
+				</f:if>
+			</f:for>
+		</ul>
+	</div>
+
+	<f:comment>Adds the fields without any folder (edit, select, move, delete)</f:comment>
+	<f:render partial="Sections/Partials/TableFieldsNotInFolder"
+		arguments="{_all}" />
+</div>

@@ -1,0 +1,83 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+
+<f:comment>Add the field Configuration</f:comment>
+<f:if condition="{selectedFieldKey}">
+	<f:alias
+		map="{field:'{sectionItem.fields->sav:getItem(key:selectedFieldKey)}'}">
+		<div id="fieldConfiguration">
+			<div class="header">
+				<div class="logo">
+					<f:translate key="kickstarter.fieldConfiguration" />
+				</div>
+			</div>
+
+			<f:comment>General Configuration</f:comment>
+			<div class="basic">
+				<div class="label">
+					<f:translate key="kickstarter.field.fieldName" />
+				</div>
+				<div class="value">
+					<f:form.textfield
+						name="{section}[fields][{selectedFieldKey}][fieldname]"
+						value="{field.fieldname}" />
+				</div>
+				<div class="label">
+					<f:translate key="kickstarter.field.fieldTitle" />
+				</div>
+				<div class="value">
+					<f:form.textfield
+						name="{section}[fields][{selectedFieldKey}][title]"
+						value="{field.title}" />
+				</div>
+				<div class="label">
+					<f:translate key="kickstarter.field.fieldType" />
+				</div>
+				<div class="value">
+					<f:form.select name="{section}[fields][{selectedFieldKey}][type]"
+						options="{sav:buildOptionsForFieldTypeSelectorbox()}"
+						value="{field.type}" />
+				</div>
+				<f:comment>Adds the folders if any</f:comment>
+				<f:alias
+					map="{view:'{extension.views->sav:getItem(key:sectionItemViewKey)}'}">
+					<f:if condition="{view.folders}">
+						<f:alias
+							map="{options:'{folderLabels->sav:getItem(key:sectionItemViewKey)}', value:'{field.folders->sav:getItem(key:sectionItemViewKey)}'}">
+							<div class="label">
+								<f:translate key="kickstarter.field.folder" />
+							</div>
+							<div class="value">
+								<f:form.select
+									name="{section}[fields][{selectedFieldKey}][folders][{sectionItemViewKey}]"
+									options="{options}" value="{value}" />
+							</div>
+						</f:alias>
+					</f:if>
+				</f:alias>
+			</div>
+
+			<f:comment>Special Configuration depending on the field type</f:comment>
+			<div class="configuration">
+				<f:render partial="Types/{field.type}Type.html"
+					arguments="{section:section, itemKey:itemKey, fieldKey:selectedFieldKey, field:field, extension:extension}" />
+				<f:alias
+					map="{value:'{field.configuration->sav:getItem(key:sectionItemViewKey)}'}">
+					<f:form.hidden class="hidden"
+						name="{section}[fields][{selectedFieldKey}][viewKey]"
+						value="{sectionItem.viewKey}" />
+					<f:comment>Displayed if allowed</f:comment>
+					<f:if condition="{isAllowed}">
+						<f:be.buttons.csh table="xEXT_sav_library_kickstarter_{field.type->sav:lowerCamel()}"  />
+						<f:form.textarea
+							name="{section}[fields][{selectedFieldKey}][configuration][{sectionItemViewKey}]"
+							value="{value}"
+							rows="{sav:function(name:'countLines', arguments:value)}"
+							cols="80" />
+					</f:if>
+				</f:alias>
+			</div>
+		</div>
+	</f:alias>
+</f:if>
+
+

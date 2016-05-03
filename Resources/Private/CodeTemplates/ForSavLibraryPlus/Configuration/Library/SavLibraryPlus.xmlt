@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<f:format.raw><sav:function name="removeEmptyLines">
+<f:alias map="{extensionName: '{sav:function(name:\'removeUnderscore\', arguments:\'{extension.extensionKey}\')}'}">
+<SavLibraryPlus>
+    <general type="array">
+        <version>{extension.general.version}</version>
+        <overridedTablesForLocalization>{extension.general.overridedTablesForLocalization}
+        <f:for each="{extension.general.overridedTablesForLocalization}" as="overridedTable" key="overridedTableKey">	
+            <{overridedTableKey}>{overridedTable}</{overridedTableKey}>
+        </f:for>		
+        </overridedTablesForLocalization>
+        <saveAndNew type="array">
+        <f:for each="{extension.general.saveAndNew}" as="saveAndNew" key="saveAndNewKey">	
+            <numIndex index="{saveAndNewKey}">{saveAndNew}</numIndex>
+        </f:for>
+		</saveAndNew>	
+    </general>
+    <forms type="array">
+    <f:for each="{extension.forms}" as="form" key="formKey">
+        <numIndex index="{formKey}" type="array">
+            <title>{form.title}</title>
+            <listView>{form.listView}</listView>
+            <singleView>{form.singleView}</singleView>
+            <editView>{form.editView}</editView>
+            <query>{form.query}</query>
+            <formView>{form.formView}</formView>
+            <specialView>{form.specialView}</specialView>
+            <userPlugin>{form.userPlugin}</userPlugin>
+            <viewsWithCondition>
+            <f:for each="{form.viewsWithCondition}" as="viewsWithCondition" key="viewsWithConditionKey">
+                <{viewsWithConditionKey} type="array">
+                <f:for each="{viewsWithCondition}" as="viewWithCondition" key="viewWithConditionKey">
+                    <numIndex index="{viewWithCondition.key}" type="array">
+                        <config type="array">
+                        <f:for each="{viewWithCondition.config}" as="config" key="configKey">
+                            <{configKey}>{config}</{configKey}>
+                        </f:for>
+                        </config>
+                    </numIndex>
+                </f:for>
+                </{viewsWithConditionKey}>
+            </f:for>
+            </viewsWithCondition>
+        </numIndex>
+    </f:for>
+    </forms>
+    <templates type="array">
+    <f:for each="{extension.templates}" as="template" key="templateKey">
+        <numIndex index="{templateKey}" type="array">
+            <itemTemplate>{template.itemTemplate->f:format.raw()}</itemTemplate>
+            <f:if condition="{template.viewTemplate}">
+            <viewTemplate>{template.viewTemplate->f:format.raw()title}</viewTemplate>
+            </f:if>
+            <f:if condition="{template.itemsBeforePageBreak}">
+            <itemsBeforePageBreak>{template.itemsBeforePageBreak}</itemsBeforePageBreak>
+            </f:if>
+            <f:if condition="{template.itemsBeforeFirstPageBreak}">
+            <itemsBeforeFirstPageBreak>{template.itemsBeforeFirstPageBreak}</itemsBeforeFirstPageBreak>
+            </f:if>
+        </numIndex>
+    </f:for>
+    </templates>
+    <views type="array">
+    <f:for each="{extension.views}" as="view" key="viewKey">
+        <numIndex index="{viewKey}" type="array">
+        <f:for each="{view}" as="folder" key="folderKey">
+            <{folderKey} type="array">
+                <config type="array">
+                <f:for each="{folder.configuration}" as="configuration" key="configurationKey">
+                    <{configurationKey}>{configuration}</{configurationKey}>
+                </f:for>
+				</config>
+                <title type="array">
+                    <config type="array">
+                        <field>{folder.title.configuration.field->f:format.raw()}</field>
+                    </config>
+                </title>
+                <f:if condition="{folder.addPrintIcon}">
+                <addPrintIcon>1</addPrintIcon>
+                </f:if>
+				<f:if condition="{folder.viewForPrintIcon}">
+                <relViewPrintIcon>{folder.viewForPrintIcon}</relViewPrintIcon>
+				</f:if>
+                <fields type="array">
+                <f:for each="{folder.fields}" as="field" key="fieldKey">
+                    <{fieldKey} type="array">
+                        <config type="array">
+                        <f:for each="{field.configuration}" as="configuration" key="configurationKey">
+                        <f:if condition="{configuration->sav:function(name:'isArray')}">
+                        <f:then> 
+                            <sav:indent count="28"><f:render partial="Configuration/Library/SavLibraryPlusSubform.xmlt" arguments="{configurationKey:configurationKey,configuration:configuration}" /></sav:indent>
+                        </f:then>
+                        <f:else>
+                            <{configurationKey}{f:if(condition:'{configuration->sav:function(name:"isInteger")}', then:' type="integer"')}>{configuration->f:format.raw()}</{configurationKey}>
+                        </f:else>
+                        </f:if>
+                        </f:for>
+                        </config>
+                    </{fieldKey}>
+                </f:for>
+                </fields>
+            </{folderKey}>
+            </f:for>
+        </numIndex>
+    </f:for>
+    </views>
+    <queries type="array">
+    <f:for each="{extension.queries}" as="query" key="queryKey">
+        <numIndex index="{queryKey}" type="array">
+            <title>{query.title}</title>
+            <mainTable>{query.mainTable}</mainTable>
+			<f:if condition="{query.foreignTables}">
+            <foreignTables>{query.foreignTables->f:format.raw()}</foreignTables>
+			</f:if>
+			<f:if condition="{query.aliases}">
+            <aliases>{query.aliases->f:format.raw()}</aliases>
+			</f:if>
+			<f:if condition="{query.whereClause}">
+            <whereClause>{query.whereClause->f:format.raw()}</whereClause>
+			</f:if>
+			<f:if condition="{query.groupByClause}">
+            <groupByClause>{query.groupByClause->f:format.raw()}</groupByClause>
+			</f:if>
+			<f:if condition="{query.orderByClause}">
+            <orderByClause>{query.orderByClause->f:format.raw()}</orderByClause>
+			</f:if>
+			<f:if condition="{query.whereTags}">
+            <whereTags type="array">
+            <f:for each="{query.whereTags}" as="whereTag">
+                <{whereTag.title} type="array">
+                <f:if condition="{whereTag.whereClause}">
+                    <whereClause>{whereTag.whereClause->f:format.raw()}</whereClause>
+				</f:if>
+                <f:if condition="{whereTag.orderByClause}">
+                    <orderByClause>{whereTag.orderByClause->f:format.raw()}</orderByClause>
+                </f:if>
+                </{whereTag.title}>
+            </f:for>
+            </whereTags>
+            </f:if>
+ 		</numIndex>
+		</f:for>
+	</queries>
+</f:alias>
+</sav:function></f:format.raw>
+</SavLibraryPlus>

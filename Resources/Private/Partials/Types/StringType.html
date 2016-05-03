@@ -1,0 +1,22 @@
+{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+<f:form.textfield id="conf_size" class="integer"
+	name="{section}[fields][{fieldKey}][conf_size]"
+	value="{field.conf_size}" />
+<label for="conf_size"><f:translate
+		key="kickstarter.field.conf_size" /></label>
+<f:form.textfield id="conf_max" class="integer"
+	name="{section}[fields][{fieldKey}][conf_max]" value="{field.conf_max}" />
+<label for="conf_max"><f:translate
+		key="kickstarter.field.conf_max" /></label>
+<f:form.hidden class="hidden"
+	name="{section}[fields][{fieldKey}][conf_required]" value="0" />
+<f:form.checkbox id="conf_required" class="checkbox"
+	name="{section}[fields][{fieldKey}][conf_required]" value="1"
+	checked="{field.conf_required}" />
+<label for="conf_required"><f:translate
+		key="kickstarter.field.conf_required" /></label>
+<f:form.checkbox id="conf_varchar" class="checkbox"
+	name="{section}[fields][{fieldKey}][conf_varchar]" value="1"
+	checked="{field.conf_varchar}" />
+<label for="conf_varchar"><f:translate
+		key="kickstarter.field.conf_varchar" /></label>

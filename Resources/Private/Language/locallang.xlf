@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2012-07-29T18:13:00Z" product-name="sav_library_kickstarter">
+		<header/>
+		<body>
+            <trans-unit id="error.staticTemplateNotIncluded" xml:space="preserve">
+                <source>Please include SAV Library Kickstarter static template</source>
+            </trans-unit>		
+			<trans-unit id="error.extensionHasDependencies" xml:space="preserve">
+				<source>The extension has not been removed due to dependencies</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionListTitle" xml:space="preserve">
+				<source>SAV Library Kickstarter</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.title" xml:space="preserve">
+				<source>SAV Library %s Kickstarter</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionList" xml:space="preserve">
+				<source>List of available extensions</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionNotLoaded" xml:space="preserve">
+				<source>(not loaded)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.debugQueryOn" xml:space="preserve">
+				<source>(debug queries is on)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.createExtension" xml:space="preserve">
+				<source>Create a new extension</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.editExtension" xml:space="preserve">
+				<source>Edit the extension</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.copyExtension" xml:space="preserve">
+				<source>Copy the extension</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.installExtension" xml:space="preserve">
+				<source>Install the extension</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.uninstallExtension" xml:space="preserve">
+				<source>Uninstall the extension</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.downloadExtension" xml:space="preserve">
+				<source>Download the extension</source>
+			</trans-unit>      
+			<trans-unit id="kickstarter.generateExtension" xml:space="preserve">
+				<source>Generate the extension</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.upgradeExtension" xml:space="preserve">
+				<source>Upgrade the extension</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.upgradeExtensions" xml:space="preserve">
+				<source>Upgrade all extensions</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.checked" xml:space="preserve">
+				<source>Checked</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.delete" xml:space="preserve">
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.moveUp" xml:space="preserve">
+				<source>Move up</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.moveDown" xml:space="preserve">
+				<source>Move down</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.gotoTop" xml:space="preserve">
+				<source>Goto Top</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.new" xml:space="preserve">
+				<source>New</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.sort" xml:space="preserve">
+				<source>Sort</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.copy" xml:space="preserve">
+				<source>Copy</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.addNewField" xml:space="preserve">
+				<source>Add a new field</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.addNewFolder" xml:space="preserve">
+				<source>Add a new folder</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.addNewWhereTag" xml:space="preserve">
+				<source>Add a new &quot;whereTag&quot;</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.addNewViewWithCondition" xml:space="preserve">
+				<source>Add a new view with a condition field</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.edit" xml:space="preserve">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.importFields" xml:space="preserve">
+				<source>Import fields</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.useFields" xml:space="preserve">
+				<source>Use fields as in view</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfSectionTitle" xml:space="preserve">
+				<source>Extension Configuration</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesSectionTitle" xml:space="preserve">
+				<source>New tables</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesSectionTitle" xml:space="preserve">
+				<source>Existing tables</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsSectionTitle" xml:space="preserve">
+				<source>Views</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesSectionTitle" xml:space="preserve">
+				<source>Queries</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.formsSectionTitle" xml:space="preserve">
+				<source>Forms</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.fieldsOverview" xml:space="preserve">
+				<source>Fields overview</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.fieldsNotInFolders" xml:space="preserve">
+				<source>Fields not in folders</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.allFields" xml:space="preserve">
+				<source>All fields</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.showAllFields" xml:space="preserve">
+				<source>Show all fields</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.showFieldsNotInFolders" xml:space="preserve">
+				<source>Show fields not in folders</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.FieldMustBeAdded" xml:space="preserve">
+				<source>At least one field must be added and selected in a subform</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.fieldConfiguration" xml:space="preserve">
+				<source>FieldConfiguration</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.save" xml:space="preserve">
+				<source>Save</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.load" xml:space="preserve">
+				<source>Load</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.overwrite" xml:space="preserve">
+				<source>Overwrite</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.overwriteRequired" xml:space="preserve">
+				<source>The library type was not changed. Use overwrite to change the library type.</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.noConfigurationFile" xml:space="preserve">
+				<source>The library type was not changed. No configuration file was found.</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.noViewBeforeAddingField" xml:space="preserve">
+				<source>At least one view is required before adding a new field.</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.generate" xml:space="preserve">
+				<source>Generate</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionList.extensionName" xml:space="preserve">
+				<source>Extension name</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionList.extensionVersion" xml:space="preserve">
+				<source>Extension version</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionList.libraryVersion" xml:space="preserve">
+				<source>Library version</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionList.libraryType" xml:space="preserve">
+				<source>Library type</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionList.compatibility" xml:space="preserve">
+				<source>Compatibility</source>
+			</trans-unit>			
+			<trans-unit id="kickstarter.extensionList.forms" xml:space="preserve">
+				<source>Forms</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionList.cache" xml:space="preserve">
+				<source>Cache</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.extensionList.debugQueries" xml:space="preserve">
+				<source>Debug queries</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.extensionKey" xml:space="preserve">
+				<source>Extension key:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.newExtensionKey" xml:space="preserve">
+				<source>New extension key:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.oldExtensionKey" xml:space="preserve">
+				<source>Old extension key:</source>
+			</trans-unit>	
+			<trans-unit id="kickstarter.emconfItem.title" xml:space="preserve">
+				<source>Title for the extension manager:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.description" xml:space="preserve">
+				<source>Description:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.state" xml:space="preserve">
+				<source>State:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.state.alpha" xml:space="preserve">
+				<source>Alpha (Very initial development)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.state.beta" xml:space="preserve">
+				<source>Beta (Under current development, should work partly)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.state.stable" xml:space="preserve">
+				<source>Stable (Stable and used in production)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.state.experimental" xml:space="preserve">
+				<source>Experimental (Nobody knows if this is going anywhere yet...)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.state.test" xml:space="preserve">
+				<source>Test (Test extension, demonstrates concepts etc.)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.dependencies" xml:space="preserve">
+				<source>Dependencies:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.author" xml:space="preserve">
+				<source>Author:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.emconfItem.author_email" xml:space="preserve">
+				<source>Author email:</source>
+			</trans-unit>	
+			<trans-unit id="kickstarter.general.savlibraryVersion" xml:space="preserve">
+				<source>SAV Library Version:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.general.extensionVersion" xml:space="preserve">
+				<source>Extension Version:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.generalItem.vendorName" xml:space="preserve">
+				<source>Vendor name:</source>
+			</trans-unit>						
+			<trans-unit id="kickstarter.generalItem.libraryType" xml:space="preserve">
+				<source>Library type:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.generalItem.libraryType.0" xml:space="preserve">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="kickstarter.generalItem.libraryType.1" xml:space="preserve">
+				<source>Plus</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.generalItem.libraryType.2" xml:space="preserve">
+				<source>Mvc</source>
+			</trans-unit>
+            <trans-unit id="kickstarter.generalItem.libraryType.3" xml:space="preserve">
+                <source>Basic</source>
+            </trans-unit>			
+			<trans-unit id="kickstarter.generalItem.pluginTitle" xml:space="preserve">
+				<source>Title for the plugin:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.generalItem.compatibility" xml:space="preserve">
+				<source>Compatibility:</source>
+			</trans-unit> 							
+			<trans-unit id="kickstarter.generalItem.compatibility.0" xml:space="preserve">
+				<source>TYPO3 6x-8x</source>
+			</trans-unit> 						
+			<trans-unit id="kickstarter.generalItem.compatibility.1" xml:space="preserve">
+				<source>TYPO3 6x</source>
+			</trans-unit> 						
+			<trans-unit id="kickstarter.generalItem.compatibility.2" xml:space="preserve">
+				<source>TYPO3 6x-7x</source>
+			</trans-unit> 	
+            <trans-unit id="emconf.dependency.typo3.0" xml:space="preserve">
+                <source>6.2.0-8.0.1</source>
+            </trans-unit>                       
+            <trans-unit id="emconf.dependency.typo3.1" xml:space="preserve">
+                <source>6.2.0-6.2.99</source>
+            </trans-unit>                       
+            <trans-unit id="emconf.dependency.typo3.2" xml:space="preserve">
+                <source>6.2.0.-7.9.99</source>
+            </trans-unit> 						
+            <trans-unit id="kickstarter.generalItem.addWizardPluginIcon" xml:space="preserve">
+                <source>Add a wizard plugin icon:</source>
+            </trans-unit>       
+            <trans-unit id="kickstarter.generalItem.keepExtLocalConf" xml:space="preserve">
+                <source>Keep the file ext_localconf.php if it exists:</source>
+            </trans-unit>       
+ 			<trans-unit id="kickstarter.generalItem.debug" xml:space="preserve">
+				<source>Debug Queries (Use only for developments):</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.generalItem.version" xml:space="preserve">
+				<source>New version:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.title" xml:space="preserve">
+				<source>Name:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.type" xml:space="preserve">
+				<source>Type:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.type.none" xml:space="preserve">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.type.list" xml:space="preserve">
+				<source>List</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.type.single" xml:space="preserve">
+				<source>Single</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.type.edit" xml:space="preserve">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.type.special" xml:space="preserve">
+				<source>Special</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.subtype" xml:space="preserve">
+				<source>Subtype:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.subtype.none" xml:space="preserve">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.subtype.form" xml:space="preserve">
+				<source>Form view</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.subtype.update" xml:space="preserve">
+				<source>Update view</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.subtype.print" xml:space="preserve">
+				<source>Print view</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.subtype.print.itemsBeforePageBreak" xml:space="preserve">
+				<source>Number of items before page break:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.subtype.print.itemsBeforeFirstPageBreak" xml:space="preserve">
+				<source>Number of items before page break for the first page:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.addPrintIcon" xml:space="preserve">
+				<source>Add a print icon:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.viewForPrintIcon" xml:space="preserve">
+				<source>Related view:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.viewTitleBar" xml:space="preserve">
+				<source>Title bar:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.folders" xml:space="preserve">
+				<source>Folders:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.folders.label" xml:space="preserve">
+				<source>Label:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.folders.configuration" xml:space="preserve">
+				<source>Configuration:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.itemTemplate" xml:space="preserve">
+				<source>Item template:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.viewsItem.viewTemplate" xml:space="preserve">
+				<source>View template:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.title" xml:space="preserve">
+				<source>Name:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.mainTable" xml:space="preserve">
+				<source>Main Table:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.foreignTables" xml:space="preserve">
+				<source>Foreign Tables:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.aliases" xml:space="preserve">
+				<source>Aliases:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.whereClause" xml:space="preserve">
+				<source>WHERE Clause:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.orderByClause" xml:space="preserve">
+				<source>ORDER BY Clause:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.groupByClause" xml:space="preserve">
+				<source>GROUP BY Clause:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.whereTags" xml:space="preserve">
+				<source>WHERE Tags:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.whereTags.title" xml:space="preserve">
+				<source>Name:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.whereTags.whereClause" xml:space="preserve">
+				<source>WHERE Clause:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.queriesItem.whereTags.orderByClause" xml:space="preserve">
+				<source>ORDER BY Clause:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.formsItem.title" xml:space="preserve">
+				<source>Name:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.formsItem.listView" xml:space="preserve">
+				<source>List view:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.formsItem.singleView" xml:space="preserve">
+				<source>Single view:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.formsItem.editView" xml:space="preserve">
+				<source>Edit view:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.formsItem.specialView" xml:space="preserve">
+				<source>Special view:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.formsItem.query" xml:space="preserve">
+				<source>Query:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.formsItem.userPlugin" xml:space="preserve">
+				<source>Allow caching:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.tablename" xml:space="preserve">
+				<source>Table Name:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.title" xml:space="preserve">
+				<source>Table Title:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.add_deleted" xml:space="preserve">
+				<source>Add &quot;Deleted&quot; field</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.add_hidden" xml:space="preserve">
+				<source>Add &quot;Hidden&quot; field</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.add_starttime" xml:space="preserve">
+				<source>Add &quot;Starttime&quot; field</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.add_endtime" xml:space="preserve">
+				<source>Add &quot;Endtime&quot; field</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.add_access" xml:space="preserve">
+				<source>Add Access &quot;group&quot; field</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.localization" xml:space="preserve">
+				<source>Enabled localization features</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.versioning" xml:space="preserve">
+				<source>Enable versioning</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.sorting" xml:space="preserve">
+				<source>Manual ordering of records</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.allow_on_pages" xml:space="preserve">
+				<source>Allowed on pages</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.sorting_desc" xml:space="preserve">
+				<source>Descending order</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.save_and_new" xml:space="preserve">
+				<source>Add &quot;Save and new&quot; button in forms</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.allow_ce_insert_records" xml:space="preserve">
+				<source>Allowed in &quot;Insert Records&quot; field in content elements</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon" xml:space="preserve">
+				<source>Default icon</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon.white" xml:space="preserve">
+				<source>Default (white)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon.black" xml:space="preserve">
+				<source>Black</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon.gray" xml:space="preserve">
+				<source>Gray</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon.blue" xml:space="preserve">
+				<source>Blue</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon.green" xml:space="preserve">
+				<source>Green</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon.red" xml:space="preserve">
+				<source>Red</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon.yellow" xml:space="preserve">
+				<source>Yellow</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.defIcon.purple" xml:space="preserve">
+				<source>Purple</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.sorting_field" xml:space="preserve">
+				<source>If &quot;Manual ordering&quot; is not set, order the table by this field:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.type_field" xml:space="preserve">
+				<source>Type-field, if any:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.newTablesItem.header_field" xml:space="preserve">
+				<source>Label-field:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesItem.tablename" xml:space="preserve">
+				<source>Table Name:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesItem.overrideLocalization" xml:space="preserve">
+				<source>Override the localization:</source>
+			</trans-unit>			
+			<trans-unit id="kickstarter.existingTablesItem.tablename.tt_content" xml:space="preserve">
+				<source>tt_content (Content)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesItem.tablename.fe_users" xml:space="preserve">
+				<source>fe_users (Frontend Users)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesItem.tablename.fe_groups" xml:space="preserve">
+				<source>fe_groups (Frontend Groups)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesItem.tablename.be_users" xml:space="preserve">
+				<source>be_users (Backend Users)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesItem.tablename.be_groups" xml:space="preserve">
+				<source>be_groups (Backend Groups)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesItem.tablename.pages" xml:space="preserve">
+				<source>pages (Pages)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.existingTablesItem.importFields" xml:space="preserve">
+				<source>Import the fields as &quot;Only shown in SAV form&quot;:</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldLabel" xml:space="preserve">
+				<source>Field-&gt;</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldName" xml:space="preserve">
+				<source>Field name</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldTitle" xml:space="preserve">
+				<source>Field title</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType" xml:space="preserve">
+				<source>Field type</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Unknown" xml:space="preserve">
+				<source>Unknown</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Checkbox" xml:space="preserve">
+				<source>Checkbox</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Checkboxes" xml:space="preserve">
+				<source>Checkboxes</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Currency" xml:space="preserve">
+				<source>Currency</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Date" xml:space="preserve">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.DateTime" xml:space="preserve">
+				<source>Date and time</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Files" xml:space="preserve">
+				<source>Files</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Graph" xml:space="preserve">
+				<source>Graph</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Integer" xml:space="preserve">
+				<source>Integer</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Link" xml:space="preserve">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.RadioButtons" xml:space="preserve">
+				<source>Radio buttons</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.RelationOneToManyAsSelectorbox" xml:space="preserve">
+				<source>Relation 1:n (selectorbox)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.RelationManyToManyAsDoubleSelectorbox" xml:space="preserve">
+				<source>Relation n:n (double selectorbox)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.RelationManyToManyAsSubform" xml:space="preserve">
+				<source>Relation n:n (subform)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.RichTextEditor" xml:space="preserve">
+				<source>Rich Text Editor</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Selectorbox" xml:space="preserve">
+				<source>Selectorbox</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.ShowOnly" xml:space="preserve">
+				<source>Only shown in SAV form</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.String" xml:space="preserve">
+				<source>String</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.fieldType.Text" xml:space="preserve">
+				<source>Textarea</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.folder" xml:space="preserve">
+				<source>Folder</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_files_type" xml:space="preserve">
+				<source>File type</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_files_type.images" xml:space="preserve">
+				<source>Imagefiles</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_files_type.webimages" xml:space="preserve">
+				<source>Web-imagefiles (gif,jpg,png)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_files_type.all" xml:space="preserve">
+				<source>All files, except php/php3 extensions</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_files" xml:space="preserve">
+				<source>Max number of files</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_max_filesize" xml:space="preserve">
+				<source>Max filesize allowed (kb)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_files_selsize" xml:space="preserve">
+				<source>Size of selector box</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_table" xml:space="preserve">
+				<source>Table in relation with</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_table.pages" xml:space="preserve">
+				<source>Pages table, (pages)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_table.fe_users" xml:space="preserve">
+				<source>Frontend Users, (fe_users)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_table.fe_groups" xml:space="preserve">
+				<source>Frontend Usergroups, (fe_groups)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_table.tt_content" xml:space="preserve">
+				<source>Content elements, (tt_content)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_table.custom" xml:space="preserve">
+				<source>Custom table (enter name below)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_custom_table_name" xml:space="preserve">
+				<source>Custom table if selected above</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_type" xml:space="preserve">
+				<source>Records source</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_type.all" xml:space="preserve">
+				<source>All pages</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_type.select_cur" xml:space="preserve">
+				<source>Current page</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_type.select_root" xml:space="preserve">
+				<source>Root page</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_type.select_storage" xml:space="preserve">
+				<source>Storage page</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rel_dummyitem" xml:space="preserve">
+				<source>Add a blank item to the selector</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_render_type" xml:space="preserve">
+				<source>Type for the rendering (default String)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_relations_mm" xml:space="preserve">
+				<source>True M-M relations (otherwise commalist of values)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_norelation" xml:space="preserve">
+				<source>Just create the subform (no relation)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_relations" xml:space="preserve">
+				<source>Max number of relations</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_relations_selsize" xml:space="preserve">
+				<source>Size of selector box</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_size" xml:space="preserve">
+				<source>Field width</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_max" xml:space="preserve">
+				<source>Max characters</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_required" xml:space="preserve">
+				<source>Required</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_varchar" xml:space="preserve">
+				<source>Create VARCHAR, not TINYTEXT field</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_cols" xml:space="preserve">
+				<source>Textarea width (30 default)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_rows" xml:space="preserve">
+				<source>Number of rows (height)</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.items.label" xml:space="preserve">
+				<source>Label</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.items.value" xml:space="preserve">
+				<source>Value</source>
+			</trans-unit>
+			<trans-unit id="kickstarter.field.validationRules" xml:space="preserve">
+				<source>Validation rules</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
