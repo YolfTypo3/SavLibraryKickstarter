@@ -2,41 +2,46 @@
 <sav:function name="removeEmptyLines">
 <f:alias map="{ShowOnly:'ShowOnly'}">
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="<f:format.date format='Y-m-d\TH:i:s\Z'>@{sav:function(name:'time')}</f:format.date>" product-name="{extension.general.1.extensionKey}">
-		<header/>
-		<body>
+    <file source-language="en" datatype="plaintext" original="messages" date="<f:format.date format='Y-m-d\TH:i:s\Z'>@{sav:function(name:'time')}</f:format.date>" product-name="{extension.general.1.extensionKey}">
+        <header/>
+        <body>
       <f:for each="{extension.newTables}" as="table">
-			<trans-unit id="{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}" xml:space="preserve">
-				<source>{table.title->sav:function(name:'stringToUtf8')}</source>
-			</trans-unit>
+            <trans-unit id="{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}" xml:space="preserve">
+                <source>{table.title->sav:function(name:'stringToUtf8')}</source>
+            </trans-unit>
       <f:for each="{table.fields}" as="field">
-			<trans-unit id="{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}.{field.fieldname}" xml:space="preserve">
-				<source>{field.title->sav:function(name:'stringToUtf8')}</source>
-			</trans-unit>
+            <trans-unit id="{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}.{field.fieldname}" xml:space="preserve">
+                <source>{field.title->sav:function(name:'stringToUtf8')}</source>
+            </trans-unit>
+            <f:if condition="{field.conf_rel_dummyitem}">
+            <trans-unit id="{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}.{field.fieldname}.I.0" xml:space="preserve">
+                <source></source>
+            </trans-unit>            
+            </f:if>
       <f:for each="{field.items}" as="item" key="itemKey">
-			<trans-unit id="{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}.{field.fieldname}.I.{itemKey}" xml:space="preserve">
-				<source>{item.label->sav:function(name:'stringToUtf8')}</source>
-			</trans-unit>
+            <trans-unit id="{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}.{field.fieldname}.I.{itemKey}" xml:space="preserve">
+                <source>{item.label->sav:function(name:'stringToUtf8')}</source>
+            </trans-unit>
       </f:for>
       </f:for>
       </f:for>
       <f:for each="{extension.existingTables}" as="table">
       <f:for each="{table.fields}" as="field">
- 			<trans-unit id="{table.tablename}.{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, shortNameOnly:'{field.type} == {ShowOnly}', mvc:mvc)}" xml:space="preserve">
-				<source>{field.title->sav:function(name:'stringToUtf8')}</source>
-			</trans-unit>
+             <trans-unit id="{table.tablename}.{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, shortNameOnly:'{field.type} == {ShowOnly}', mvc:mvc)}" xml:space="preserve">
+                <source>{field.title->sav:function(name:'stringToUtf8')}</source>
+            </trans-unit>
       <f:for each="{field.items}" as="item" key="itemKey">
-			<trans-unit id="{table.tablename}.{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, shortNameOnly:'{field.type} == {ShowOnly}', mvc:mvc)}.{field.fieldname}.I.{itemKey}" xml:space="preserve">
-				<source>{item.label->sav:function(name:'stringToUtf8')}</source>
-			</trans-unit>
+            <trans-unit id="{table.tablename}.{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, shortNameOnly:'{field.type} == {ShowOnly}', mvc:mvc)}.{field.fieldname}.I.{itemKey}" xml:space="preserve">
+                <source>{item.label->sav:function(name:'stringToUtf8')}</source>
+            </trans-unit>
       </f:for>
       </f:for>
       </f:for>
-			<trans-unit id="tt_content.list_type_pi1" xml:space="preserve">
-				<source>{extension.general.1.pluginTitle->sav:function(name:'stringToUtf8')}</source>
-			</trans-unit>
-		</body>
-	</file>
+            <trans-unit id="tt_content.list_type_pi1" xml:space="preserve">
+                <source>{extension.general.1.pluginTitle->sav:function(name:'stringToUtf8')}</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
 </f:alias>
 </sav:function>

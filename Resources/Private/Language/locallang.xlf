@@ -262,7 +262,7 @@
 				<source>TYPO3 6x-7x</source>
 			</trans-unit> 	
             <trans-unit id="emconf.dependency.typo3.0" xml:space="preserve">
-                <source>6.2.0-8.0.1</source>
+                <source>6.2.0-8.1.0</source>
             </trans-unit>                       
             <trans-unit id="emconf.dependency.typo3.1" xml:space="preserve">
                 <source>6.2.0-6.2.99</source>

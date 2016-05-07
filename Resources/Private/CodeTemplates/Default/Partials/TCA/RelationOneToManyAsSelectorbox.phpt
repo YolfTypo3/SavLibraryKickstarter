@@ -11,7 +11,7 @@
     'renderType' => 'selectSingle',      
     <f:if condition="{field.conf_rel_dummyitem}">
     'items' => array(
-        array('LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang.xlf:{model}.{field.fieldname}.I.0',0),
+        array('LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{field.fieldname}.I.0',0),
     ),
     </f:if>
     <f:if condition="{field.conf_rel_table} == {custom}">

@@ -1,4 +1,4 @@
 {namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
-
+'truc' => '{field.fieldname}',
 'edit' => 1,
-'subformKey' => {field->sav:Mvc.SubFormIndexManager(tableName:tableName)},
+'subformKey' => {sav:Mvc.subFormIndexManager(field:field, tableName:tableName)},

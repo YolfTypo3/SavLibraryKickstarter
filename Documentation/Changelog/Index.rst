@@ -24,7 +24,7 @@ Version  Changes
 1.0.0    - Code generation for basic use with fluid/extbase added
          - Code generation for sav_library_mvc added
          - Several bugs corrected (see the forge).
-         - Compatibility with TYPO3 8.0.x added.
+         - Compatibility with TYPO3 8.1.0 added.
          - File organization of generated extensions modified.
          - Code generation for TYPO3 4.x and for the deprecated sav_library removed.
 
