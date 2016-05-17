@@ -82,8 +82,8 @@ Latest developments
 ^^^^^^^^^^^^^^^^^^^
 
 The latest developments of the `SAV Library Kickstarter Project
-<https://github.com/YolfTypo3/SAV-Library-Kickstarter-Project>`_, 
- are available on GitHub.
+<https://github.com/YolfTypo3/SAV-Library-Kickstarter-Project>`_ 
+are available on GitHub.
 
 Test extensions
 ^^^^^^^^^^^^^^^
@@ -110,7 +110,7 @@ Other examples are also available in the TER.
    
 .. important::
 
-   - The old "sav\_library" extension which is now obsolete and the code generation for this extension was removed.
+   - The old "sav\_library" extension is now obsolete and the code generation for this extension was removed.
    
    - The compatibility with TYPO3 4.5 was removed.
    
