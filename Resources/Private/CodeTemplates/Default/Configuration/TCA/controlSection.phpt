@@ -56,7 +56,7 @@
     </f:if>
     ),
     
-    'iconfile' => 'EXT:{extension.general.1.extensionKey}/Resources/Private/Icons/icon_{model}.gif',
+    'iconfile' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/icon_{model}.gif',
     
     <f:comment>Generates an EXT if the librarytype is SAv_Library_mvc</f:comment>
     <f:if condition="{extension.general.1.libraryType} == 2">

@@ -11,7 +11,7 @@
   <sav:function name="copyFile" arguments="{
     source:'Resources/Private/CodeTemplates/Default/Resources/Icons/{table.defIcon}.gif',
     destinationExtension:extension.general.1.extensionKey,
-    destination:'Resources/Private/Icons/icon_{sav:BuildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}.gif'
+    destination:'Resources/Public/Icons/icon_{sav:BuildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}.gif'
   }" />
 </f:for>
 
@@ -20,7 +20,7 @@
 <sav:function name="copyFile" arguments="{
   source:'Resources/Private/CodeTemplates/Default/Resources/Icons/ext_icon.gif',
   destinationExtension:extension.general.1.extensionKey,
-  destination:'Resources/Private/Icons/icon_{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}.png',
+  destination:'Resources/Public/Icons/icon_{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}.png',
   keepFile:1
 }" />
 </f:if>

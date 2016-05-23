@@ -85,8 +85,8 @@ class CodeGeneratorForSavLibraryMvc extends AbstractCodeGenerator
      */
     protected function buildIcons()
     {
-        // Generates the Resources/Private/Icons directory
-        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Resources/Private/Icons');
+        // Generates the Resources/Public/Icons directory
+        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Resources/Public/Icons');
 
         // Generates the icons
         $this->generateFile('icons.t');
