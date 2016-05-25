@@ -483,7 +483,7 @@ class ConfigurationManager
 
         switch ($libraryType) {
             case self::TYPE_SAV_LIBRARY:
-                return self::getSavLibraryVersion();
+                return '';
             case self::TYPE_SAV_LIBRARY_PLUS:
                 return self::getSavLibraryPlusVersion();
             case self::TYPE_SAV_LIBRARY_MVC:
