@@ -30,7 +30,7 @@
     
     <f:if condition="{newTable.sorting}">
     <f:then>
-    'sortby' => '{model}.sorting',
+    'sortby' => 'sorting',
     </f:then>
     <f:else>
     'default_sortby' => 'ORDER BY {model}.{newTable.sorting_field} {f:if(condition:newTable.sorting_desc, then:"DESC")}',
