@@ -21,6 +21,7 @@ Changelog
 =======  ===========================================================================
 Version  Changes
 =======  ===========================================================================
+1.0.1    - Code generation for sav_library_mvc improved
 1.0.0    - Code generation for basic use with fluid/extbase added
          - Code generation for sav_library_mvc added
          - Several bugs corrected (see the forge).
