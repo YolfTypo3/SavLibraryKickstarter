@@ -44,6 +44,66 @@
             </f:for>
             </f:alias>
         ),
+        <f:for each="{extension.forms}" as="form" key="formKey">
+        <f:alias map="{
+            queryIndex:     '{form.query}',
+            vendorName:     '{extension.general.1.vendorName}',
+            extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}'           
+        }">
+        'controllers' => array(               
+        <f:if condition="{extension.queries->sav:getItem(key:queryIndex)->sav:getItem(key:'mainTable')} == {model}">
+            '{form.title}' => array(
+                'viewIdentifiers' => array (
+                    'listView' => {form.listView},
+                    'singleView' => {form.singleView},
+                    'editView' => {form.editView},
+                    'specialView' => {form.specialView},
+                    'viewsWithCondition' => array(
+                    <f:for each="{form.viewsWithCondition}" as="viewsWithCondition" key="viewsWithConditionKey">
+                        '{viewsWithConditionKey}' => array(
+                            <f:for each="{viewsWithCondition}" as="viewWithCondition">
+                            {viewWithCondition.key} => array(
+                                'config' => array(
+                                    <f:for each="{viewWithCondition.condition->sav:Mvc.buildConfiguration()}" as="attribute" key="attributeKey" >
+                                    '{attributeKey->sav:toLower()}' => '{attribute}',
+                                    </f:for>
+                                ),
+                            ),
+                            </f:for>
+                        ),
+                    </f:for>
+                    ),           
+                ),
+                'viewTileBars' => array (
+                    <f:for each="{extension.views}" as="view" key="viewKey">
+                        '{viewKey}' => '{view->sav:getItem(key:'viewTitleBar')}',
+                    </f:for>
+                ),
+                'viewItemTemplates' => array (
+                    'listView' => '{extension.views->sav:getItem(key:controller.listView)->sav:getItem(key:'itemTemplate')}',
+                    'specialView' => '{extension.views->sav:getItem(key:controller.specialView)->sav:getItem(key:'itemTemplate')}',
+                ),
+                'folders' => array (
+                    <f:for each="{extension.views}" as="view" key="viewKey">
+                    '{viewKey}' => array (
+                        <f:for each="{view->sav:getItem(key:'folders')}" as="folder" key="folderKey">
+                        {folderKey} => array (
+                            'label' => '{folder.label}',
+                            'configuration' => array (
+                                <f:for each="{folder.configuration->sav:Mvc.buildConfiguration()}" as="attribute" key="attributeKey" >
+                                '{attributeKey}' => '{attribute}',
+                                </f:for>
+                            ),
+                        ),
+                        </f:for>
+                    ),        
+                    </f:for>
+                ),             
+            ),
+        </f:if>
+        ),
+        </f:alias>
+        </f:for>               
     ),
 ),
 
