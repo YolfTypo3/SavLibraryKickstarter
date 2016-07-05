@@ -21,7 +21,8 @@ Rich Text Editor
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
 :ref:`RichTextEditor.height`                            Integer     Default RTE  Yes  Yes
-                                                                    value             
+                                                                    value        
+:ref:`RichTextEditor.rteStyleSheet`                     String                   Yes  No                                                                         
 :ref:`RichTextEditor.width`                             Integer     Default RTE  Yes  Yes
                                                                     value             
 ======================================================= =========== ============ ==== ====
@@ -47,6 +48,23 @@ height
       
     Default
         Default RTE value
+
+
+.. _RichTextEditor.rteStyleSheet:
+
+rteStyleSheet
+^^^^^^^^^^^^^
+
+.. container:: table-row
+
+    Property
+        rteStyleSheet
+       
+    Data type
+        String
+           
+    Description
+        Adds a style sheet to the rich text editor
 
 
 .. _RichTextEditor.width:
