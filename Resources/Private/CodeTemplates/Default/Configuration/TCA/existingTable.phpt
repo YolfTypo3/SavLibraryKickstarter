@@ -6,10 +6,8 @@ $temporaryColumns = array (
     <sav:removeIfContainsDoNotCreate>
     '{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}' => array (
         'exclude' => 1,
-       'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}',
-        'config' => array (
-            <sav:indent count="12"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{field:field, model:'{model}_{sav:buildTableName(shortName:0, extensionKey:extension.general.1.extensionKey)}', extension:extension}" /></sav:indent>
-        )
+        'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}',
+        <sav:indent count="8"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{field:field, model:'{model}_{sav:buildTableName(shortName:0, extensionKey:extension.general.1.extensionKey)}', extension:extension}" /></sav:indent>
     ),
     </sav:removeIfContainsDoNotCreate>
     </f:for>
