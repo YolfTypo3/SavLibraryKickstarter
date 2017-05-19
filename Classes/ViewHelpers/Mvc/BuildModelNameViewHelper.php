@@ -15,6 +15,7 @@ namespace SAV\SavLibraryKickstarter\ViewHelpers\Mvc;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * A view helper for building the options for the field type selector.
@@ -38,19 +39,29 @@ class BuildModelNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
 
     /**
      *
-     * @param string $tableName            
-     * @param array $extension            
+     * @param string $tableName
+     * @param array $extension
+     * @param boolean $removeFirstBackslash
      * @return string the model name
      */
-    public function render($tableName = NULL, $extension = NULL)
+    public function render($tableName = NULL, $extension = NULL, $removeFirstBackslash= FALSE)
     {
         if ($tableName === NULL) {
             $tableName = $this->renderChildren();
         }
-        
-        $shortModelName = preg_replace('/^tx_\w+_domain_model_(\w+)$/', '$1', $tableName);
-        $shortModelName = GeneralUtility::underscoredToUpperCamelCase($shortModelName);
-        $modelName = '\\' . $extension['general'][1]['vendorName'] . '\\' . GeneralUtility::underscoredToUpperCamelCase($extension['general'][1]['extensionKey']) . '\\Domain\Model\\' . $shortModelName;
+
+        // Extracts the extension and the short model names
+        preg_match('/^tx_(?P<extensionName>\w+)_domain_model_(?P<shortModelName>\w+)$/', $tableName, $match);
+
+        // Finds the extension key
+        $extensionKey = ExtensionManagementUtility::getExtensionKeyByPrefix($tableName);
+
+        // Returns the model name
+        $shortModelName = GeneralUtility::underscoredToUpperCamelCase($match['shortModelName']);
+        $modelName = $extension['general'][1]['vendorName'] . '\\' . GeneralUtility::underscoredToUpperCamelCase($extensionKey) . '\\Domain\Model\\' . $shortModelName;
+        if (!$removeFirstBackslash) {
+            $modelName = '\\' . $modelName;
+        }
         return $modelName;
     }
 }
