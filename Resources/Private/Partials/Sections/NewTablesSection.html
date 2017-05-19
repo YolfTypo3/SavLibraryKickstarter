@@ -2,7 +2,16 @@
 
 <f:alias map="{section:'newTables'}">
 	<f:alias
-		map="{sectionItem:'{extension->sav:getItem(key:section)->sav:getItem(key:itemKey)}'}">
+		map="{
+		    sectionItem:'{extension->sav:getItem(key:section)->sav:getItem(key:itemKey)}',
+            mvc:'{sav:getItem(
+                value:{
+                    0:0,
+                    1:0,
+                    2:1,
+                    3:1},
+                key:extension.general.1.libraryType)}'    
+		  }">
 		<f:alias map="{sectionItemViewKey:'{sectionItem.viewKey}'}">
 			<f:alias
 				map="{tempFolderKey:'{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}'}">
@@ -29,7 +38,7 @@
 											<f:comment>Table Name</f:comment>
 											<label for="tablename"><f:translate
 													key="kickstarter.{section}Item.tablename" /> <span
-												class="extensionKey">tx_{extKey->sav:function(name:'removeUnderscore')}_domain_model</span></label>
+												class="extensionKey">{sav:buildTableName(shortName:' ', extensionKey:extKey, mvc:mvc)}</span></label>
 											<f:form.textfield id="tablename" name="newTables[tablename]"
 												value="{sectionItem.tablename}" />
 
