@@ -1,7 +1,7 @@
 {namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw><sav:function name="removeEmptyLines">
 
-'ctrl' => array(
+'ctrl' => [
     'title' => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}',
     'label' => '{f:if(condition:newTable.header_field, then:newTable.header_field, else:"uid")}',
     
@@ -41,7 +41,7 @@
     'delete' => 'deleted',
     </f:if>
     
-    'enablecolumns' => array(
+    'enablecolumns' => [
     <f:if condition="{newTable.add_hidden}">
         'disabled' => 'hidden',
     </f:if>
@@ -54,7 +54,7 @@
     <f:if condition="{newTable.add_access}">
         'fe_group' => 'fe_group',
     </f:if>
-    ),
+    ],
     
     'iconfile' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/icon_{model}.gif',
     
@@ -63,6 +63,6 @@
     <sav:indent count="4"><f:render partial="Configuration/TCA/extSection.phpt" arguments="{_all}" /></sav:indent>
     </f:if>
     
-),
+],
 
 </sav:function></f:format.raw>
