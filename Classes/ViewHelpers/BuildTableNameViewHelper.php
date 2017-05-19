@@ -43,7 +43,7 @@ class BuildTableNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstract
      * @param boolean $mvc
      * @return string the table name
      */
-    public function render($shortName, $extensionKey, $prefix = '', $shortNameOnly = FALSE, $mvc = FALSE)
+    public function render($shortName = '', $extensionKey, $prefix = '', $shortNameOnly = FALSE, $mvc = FALSE)
     {
         if ($prefix != '') {
             $prefix = $prefix . '_';
