@@ -314,7 +314,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                     }
                 }
 
-                // Checks if it's an form view
+                // Checks if it's a form view
                 // If a submit icon is added, create a field _submitted_data_ to save the submitted data
                 if ($view['type'] == 'special' && $view['subtype'] == 'form') {
                     foreach ($extension['forms'] as $keyForm => $form) {
