@@ -50,7 +50,7 @@ class {controllerName}WizardIcon {
 		$LL = $this->includeLocalLang();
 
 		$wizardItems['plugins_tx_{extensionName->sav:tolower()}_{controllerName->sav:tolower()}'] = array(
-			'icon'        => ExtensionManagementUtility::extRelPath('{extension.general.1.extensionKey}') . 'Resources/Public/Icons/icon_{extension.general.1.extensionKey->sav:function(name:"removeUnderscore")}.png',
+			'icon'        => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/icon_{extension.general.1.extensionKey->sav:function(name:"removeUnderscore")}.png',
 			'title'       => $GLOBALS['LANG']->getLLL('plugin_title', $LL),
 			'description' => $GLOBALS['LANG']->getLLL('plugin_wizard_description', $LL),
 			'params'      => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]={extensionName->sav:tolower()}_{controllerName->sav:tolower()}'
