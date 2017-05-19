@@ -51,6 +51,9 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
         // Generates the Icons
         $this->buildIcons();
 
+        // Generates the Styles
+        $this->buildStyles();
+
         // Generates ext_emconf.php
         $this->buildExtEmConf();
 
@@ -95,6 +98,21 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
         // Generates the icons
         $this->generateFile('icons.t');
     }
+
+    /**
+     * Builds the CSS file.
+     *
+     * @return void
+     */
+    protected function buildStyles()
+    {
+        // Generates the Resources/Public/Styles directory
+        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Resources/Public/Css');
+
+        // Generates the default styles
+        $this->generateFile('Resources/Public/Css/StyleSheet.csst');
+    }
+
 
     /**
      * Builds ext_emconf.php.
@@ -296,8 +314,10 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
         $fileDirectory = $this->extensionDirectory . 'Classes/Domain/Repository/';
         foreach ($this->sectionManager->getItem('newTables')->getItems() as $itemKey => $item) {
             // Every table has a domain repository
-            $fileContents = $this->generateFile('Classes/Domain/Repository/Repository.phpt', $itemKey);
-            GeneralUtility::writeFile($fileDirectory . GeneralUtility::underscoredToUpperCamelCase($item['tablename']) . 'Repository.php', $fileContents);
+            if (! file_exists($fileDirectory . GeneralUtility::underscoredToUpperCamelCase($item['tablename']) . 'Repository.php')) {
+                $fileContents = $this->generateFile('Classes/Domain/Repository/Repository.phpt', $itemKey);
+                GeneralUtility::writeFile($fileDirectory . GeneralUtility::underscoredToUpperCamelCase($item['tablename']) . 'Repository.php', $fileContents);
+            }
         }
     }
 }
