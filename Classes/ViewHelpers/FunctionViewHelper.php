@@ -167,7 +167,14 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      */
     private function in_array($arguments)
     {
-        return in_array($arguments['needle'], explode(',', $arguments['haystack']));
+        if (is_string($arguments['haystack'])) {
+            $haystack = explode(',', $arguments['haystack']);
+        } elseif (is_array($arguments['haystack'])) {
+            $haystack = $arguments['haystack'];
+        } else {
+            return FALSE;
+        }
+        return in_array($arguments['needle'], $haystack);
     }
 
     /**
@@ -389,7 +396,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
         }
         if (empty($arguments['keepFile']) || ($arguments['keepFile'] && ! file_exists($destinationExtensionDirectory . $arguments['destination']))) {
             if (! @copy($sourceExtensionDirectory . $arguments['source'], $destinationExtensionDirectory . $arguments['destination'])) {
-                throw new RuntimeException('Copy failed.');
+                throw new \RuntimeException('Copy failed.');
             }
         }
     }
@@ -417,6 +424,19 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
     private function substr($string, $arguments)
     {
         return substr($string, $arguments);
+    }
+
+    /**
+     * Compares
+     *
+     * @param mixed $argument
+     *            The argument
+     *
+     * @return boolean
+     */
+    private function TYPO3VersionCompare($arguments)
+    {
+        return version_compare(TYPO3_version, $arguments['version'], $arguments['operator']);
     }
 }
 ?>
