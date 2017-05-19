@@ -17,31 +17,6 @@ if (!defined ('TYPO3_MODE')) die ('Access denied.');
 </f:alias>
 </f:for>
 
-<f:for each="{extension.existingTables}" as="table">
-<f:alias map="{
-    model: '{table.tablename}'
-}">
-
-$tempColumns = array (
-	<f:for each="{table.fields}" as="field">
-	<sav:removeIfContainsDoNotCreate>
-	'{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}' => array (
-		'exclude' => 1,
-		'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xml:{model}.{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}',
-		'config' => array (
-            <sav:indent count="12"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{field:field,model:'{model}_{sav:buildTableName(shortName:0, extensionKey:extension.general.1.extensionKey)}',extensionKey:extension.general.1.extensionKey}" /></sav:indent>
-		)
-	),
-	</sav:removeIfContainsDoNotCreate>
-	</f:for>
-);
-!
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('{model}',$tempColumns,1);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('{model}',';;;;1-1-1<f:alias map="{RichTextEditor:'RichTextEditor',ShowOnly:'ShowOnly'}"><f:for each="{table.fields}" as="field"><f:if condition="{field.type} != {ShowOnly}">, {sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}<f:if condition="{field.type} == {RichTextEditor}">;;;richtext[]:rte_transform[mode=ts]</f:if></f:if></f:for></f:alias>');
-
-</f:alias>
-</f:for>
-
 $extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY);
 $pluginSignature = strtolower($extensionName) . '_pi1';
 !
@@ -51,7 +26,7 @@ $TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 !
 // Adds the flexform DataStructure
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/ExtensionFlexForm.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/Flexforms/ExtensionFlexform.xml');
 !
 // Registers the Plugin to be listed in the Backend.
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(

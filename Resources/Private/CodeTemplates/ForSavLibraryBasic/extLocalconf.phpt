@@ -14,12 +14,11 @@ if (!defined ('TYPO3_MODE')) {
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     '{extension.general.1.vendorName}.' . $_EXTKEY,
     '{extension.forms->sav:getItem()->sav:getItem(key:'title')}',
-    array (
+    [
         '{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}' => '{extension.views->sav:getItem()->sav:getItem(key:'title')->sav:lowerCamel()}',
-    ),
+    ],
     // Non-cachable controller actions
-    array (
-    )
+    []
 );
 </sav:function>
 ?>

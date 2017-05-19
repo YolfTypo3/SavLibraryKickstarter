@@ -17,31 +17,6 @@ if (!defined ('TYPO3_MODE')) die ('Access denied.');
 </f:alias>
 </f:for>
 
-<f:for each="{extension.existingTables}" as="table">
-<f:alias map="{
-    model: '{table.tablename}'
-}">
-!
-$tempColumns = array (
-    <f:for each="{table.fields}" as="field">
-    <sav:removeIfContainsDoNotCreate>
-    '{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}' => array (
-        'exclude' => 1,
-        'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}',
-        'config' => array (
-            <sav:indent count="12"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{field:field,model:'{model}_{sav:buildTableName(shortName:0, extensionKey:extension.general.1.extensionKey)}',extensionKey:extension.general.1.extensionKey}" /></sav:indent>
-        )
-    ),
-    </sav:removeIfContainsDoNotCreate>
-    </f:for>
-);
-!
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('{model}',$tempColumns,1);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('{model}',';;;;1-1-1<f:alias map="{RichTextEditor:'RichTextEditor',ShowOnly:'ShowOnly'}"><f:for each="{table.fields}" as="field"><f:if condition="{field.type} != {ShowOnly}">, {sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}<f:if condition="{field.type} == {RichTextEditor}">;;;richtext[]:rte_transform[mode=ts]</f:if></f:if></f:for></f:alias>');
-
-</f:alias>
-</f:for>
-
 $extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY);
 $pluginSignature = strtolower($extensionName) . '_{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:toLower()}';
 !
@@ -59,7 +34,9 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_
     '{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}',
     'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1'
 );
-
+// Default TypoScript
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '{extension.general.1.pluginTitle->sav:function(name:'stringToUtf8')}');
+!
 <f:if condition="{extension.general.1.addWizardPluginIcon}">
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',

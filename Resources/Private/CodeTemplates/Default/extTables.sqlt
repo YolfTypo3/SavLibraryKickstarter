@@ -11,7 +11,7 @@ CREATE TABLE {model} (
     pid int(11) DEFAULT '0' NOT NULL,
     tstamp int(11) DEFAULT '0' NOT NULL,
     crdate int(11) DEFAULT '0' NOT NULL,
-    cruser_id int(11) DEFAULT '0' NOT NULL,
+    cruser_id int(11) DEFAULT '0' NOT NULL, 
     <f:if condition="{table.versioning}">
     t3ver_oid int(11) DEFAULT '0' NOT NULL,
     t3ver_id int(11) DEFAULT '0' NOT NULL,
@@ -46,19 +46,18 @@ CREATE TABLE {model} (
     <f:if condition="{table.add_access}">
     fe_group int(11) DEFAULT '0' NOT NULL,
     </f:if>
+    <f:if condition="{libraryName}=='SavLibraryMvc'">
+    cruser_id_frontend int(11) DEFAULT '0' NOT NULL, 
+    </f:if>
     <f:for each="{table.fields}" as="field">
     <sav:removeIfContainsDoNotCreate>
     {field.fieldname} <sav:function name="removeLineFeed"><f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" /></sav:function>
     </sav:removeIfContainsDoNotCreate>
 	</f:for>
-    <f:for each="{extension.forms}" as="form" key="formKey">
-    <f:if condition="{form.specialView}">
-    <f:if condition="{extension.queries->sav:getItem(key:form.query)->sav:getItem(key:'mainTable')} == {model}">
+    <f:if condition="{sav:CheckIfFieldsForSpecialViewAreRequired(extension:extension, model:model)}">
     _submitted_data_ blob NOT NULL,
     _validated_ tinyint(4) DEFAULT '0' NOT NULL,
     </f:if>
-    </f:if>
-    </f:for>
 !
     PRIMARY KEY (uid),
     <f:if condition="{table.versioning}">
@@ -99,16 +98,18 @@ CREATE TABLE {model}_{field.fieldname}_mm (
 <f:alias map="{
   model:'{table.tablename}'
 }">
+<f:if condition="{sav:checkIfNewFieldsAreCreatedInExistingTable(existingTable:table)}">
 #
 # Table structure for table '{model}'
 #
 CREATE TABLE {table.tablename} (
-    <f:for each="{table.fields}" as="field">
+    <f:for each="{table.fields}" as="field">   
     <sav:removeIfContainsDoNotCreate>
     {sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)} <sav:function name="removeLineFeed"><f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" /></sav:function>
     </sav:removeIfContainsDoNotCreate>  
     </f:for>
 );
+</f:if>
 !
 <f:for each="{table.fields}" as="field">
 <f:if condition="{field.conf_relations_mm}">
