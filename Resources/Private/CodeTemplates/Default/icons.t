@@ -20,7 +20,8 @@
 <sav:function name="copyFile" arguments="{
   source:'Resources/Private/CodeTemplates/Default/Resources/Icons/{iconName}',
   destinationExtension:extension.general.1.extensionKey,
-  destination:'Resources/Public/Icons/Extension.svg'
+  destination:'Resources/Public/Icons/Extension.svg',
+  keepFile:1  
 }" />
 </f:alias>
 

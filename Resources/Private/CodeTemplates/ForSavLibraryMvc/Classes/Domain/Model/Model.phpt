@@ -1,10 +1,10 @@
 <?php
 <sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><f:alias map="{
-    vendorName:       '{extension.general.1.vendorName}',
-    extensionName:    '{extension.general.1.extensionKey->sav:upperCamel()}',
-    tableName:        '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')}',
-    modelName:        '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')->sav:upperCamel()}',
-    fields:           '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'fields\')}'
+    vendorName:     '{extension.general.1.vendorName}',
+    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
+    tableName:      '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')}',
+    modelName:      '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')->sav:upperCamel()}',
+    fields:         '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'fields\')}'
 }">
 namespace {vendorName}\{extensionName}\Domain\Model;
 
