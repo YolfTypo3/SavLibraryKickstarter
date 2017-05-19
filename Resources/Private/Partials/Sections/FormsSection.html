@@ -26,6 +26,10 @@
 										key="kickstarter.{section}Item.listView" /></label>
 								<f:form.select id="listView" name="{section}[listView]"
 									options="{options.list}" value="{sectionItem.listView}" />
+                                <f:form.checkbox class="checkbox" id="listViewNotCached"
+                                    name="{section}[listViewNotCached]" value="1"
+                                    checked="{sectionItem.listViewNotCached}" />									
+									
 
 								<f:comment>Single View</f:comment>
 								<div class="viewsDefinition">
@@ -41,6 +45,9 @@
 									<f:comment>The default Single View</f:comment>
 									<f:form.select id="singleView" name="{section}[singleView]"
 										options="{options.single}" value="{sectionItem.singleView}" />
+                                    <f:form.checkbox class="checkbox" id="singleViewNotCached"
+                                        name="{section}[singleViewNotCached]" value="1"
+                                        checked="{sectionItem.singleViewNotCached}" />  										
 									<f:comment>Single Views with Condition</f:comment>
 									<f:for each="{sectionItem.viewsWithCondition.singleView}"
 										as="viewWithCondition" key="viewWithConditionKey">
