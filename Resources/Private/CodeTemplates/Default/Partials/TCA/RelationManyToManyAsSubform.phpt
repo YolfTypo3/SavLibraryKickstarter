@@ -1,4 +1,4 @@
-'config' => array(
+'config' => [
     'type' => 'inline',
     'foreign_table' =>  '{field.conf_rel_table}',
     'foreign_sortby' => 'sorting',
@@ -15,9 +15,9 @@
            </f:if>
        </f:else>
     </f:if>
-    'appearance' => array(
+    'appearance' => [
         'newRecordLinkPosition' => 'bottom',
         'collapseAll' => 1,
         'expandSingle' => 1,
-    ),
-),
+    ],
+],

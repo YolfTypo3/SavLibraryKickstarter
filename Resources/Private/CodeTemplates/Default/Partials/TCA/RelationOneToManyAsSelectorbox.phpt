@@ -1,6 +1,6 @@
 {namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
 
-'config' => array(
+'config' => [
     <f:alias map="{where:{
     all: 'AND 1',
     select_cur: 'AND {field.conf_rel_table}.pid=###CURRENT_PID###',
@@ -10,9 +10,9 @@
     'type' => 'select',  
     'renderType' => 'selectSingle',      
     <f:if condition="{field.conf_rel_dummyitem}">
-    'items' => array(
-        array('LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{field.fieldname}.I.0',0),
-    ),
+    'items' => [
+        ['LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{field.fieldname}.I.0', 0],
+    ],
     </f:if>
     <f:if condition="{field.conf_rel_table} == {custom}">
     <f:then>
@@ -28,4 +28,4 @@
     'minitems' => 0,
     'maxitems' => 1,
     </f:alias>
-),
+],

@@ -1,6 +1,6 @@
 {namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
 
-'config' => array(
+'config' => [
     <f:alias map="{where:{
         all: 'AND 1',
         select_cur: 'AND {field.conf_rel_table}.pid=###CURRENT_PID###',
@@ -26,5 +26,5 @@
     'MM' => '{model}_{field.fieldname}_mm',
     </f:if>
     </f:alias>
-), 
+], 
    
