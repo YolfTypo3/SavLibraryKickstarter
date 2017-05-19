@@ -1,4 +1,4 @@
-'config' => array(
+'config' => [
     'type' => 'check',
     'default' => 0
-),
+],
