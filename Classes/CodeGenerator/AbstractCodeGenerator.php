@@ -175,6 +175,7 @@ abstract class AbstractCodeGenerator
         // Assigns the arguments
         $standaloneView->assign('codeTemplatesPath', $codeTemplatesPath);
         $standaloneView->assign('mvc', $this->isMvc());
+        $standaloneView->assign('libraryName', $this->getLibraryName());
         foreach ($arguments as $argumentKey => $argument) {
             $standaloneView->assign($argumentKey, $argument);
         }
@@ -186,8 +187,6 @@ abstract class AbstractCodeGenerator
     /**
      * Gets the current library version depending on the library type.
      *
-     * @param
-     *            none
      * @return integer The library version
      */
     protected function isMvc()
@@ -209,5 +208,28 @@ abstract class AbstractCodeGenerator
         }
     }
 
+    /**
+     * Gets the current library version name.
+     *
+     * @return string The library name
+     */
+    protected function getLibraryName()
+    {
+        $libraryType = $this->sectionManager
+        ->getItem('general')
+        ->getItem(1)
+        ->getItem('libraryType');
+
+        switch ($libraryType) {
+            case ConfigurationManager::TYPE_SAV_LIBRARY_PLUS:
+                return 'SavLibraryPlus';
+            case ConfigurationManager::TYPE_SAV_LIBRARY_MVC:
+                return 'SavLibraryMvc';
+            case ConfigurationManager::TYPE_SAV_LIBRARY_BASIC:
+                return 'SavLibraryBasic';
+            default:
+                throw new RuntimeException('The library type "' . $libraryType . '" is not known !');
+        }
+    }
 }
 ?>
