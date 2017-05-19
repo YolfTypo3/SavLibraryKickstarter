@@ -7,7 +7,7 @@
  *
  ***************************************************************/
  <sav:function name="removeEmptyLines">
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => '{extension.emconf.1.title->sav:function(name:"addSlashes")}',
     'description' => '{extension.emconf.1.description->sav:function(name:"addSlashes")}',
     'category' => 'plugin',
@@ -20,15 +20,13 @@ $EM_CONF[$_EXTKEY] = array(
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
     'version' => '{extension.emconf.1.version}',
-    'constraints' => array(
-        'depends' => array(
+    'constraints' => [
+        'depends' => [
             <sav:indent count="12">{sav:buildConstraintsForExtensionManager(extension:extension)}</sav:indent>
-        ),
-        'conflicts' => array(
-        ),
-        'suggests' => array(
-        ),
-    ),
-);
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
+];
 </sav:function>
 ?>
