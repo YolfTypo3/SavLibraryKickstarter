@@ -1,12 +1,10 @@
 # For compatibility
 [compatVersion = 6.0.0]
-LayoutRootPathCompatibility = TYPO6x/
+module.tx_savlibrarykickstarter.LayoutRootPathCompatibility = TYPO6x/
 [END]
 [compatVersion = 7.0.0]
-LayoutRootPathCompatibility = TYPO7x/
+module.tx_savlibrarykickstarter.LayoutRootPathCompatibility = TYPO7x/
 [END]
-
-
 
 module.tx_savlibrarykickstarter {
     view {
