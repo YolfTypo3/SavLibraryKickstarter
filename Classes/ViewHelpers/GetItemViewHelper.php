@@ -40,7 +40,9 @@ class GetItemViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
             $value = $this->renderChildren();
         }
 
-        if ($key === NULL) {
+        if ($value === NULL) {
+            return NULL;
+        } elseif ($key === NULL) {
             return current($value);
         } else {
             return $value[$key];
