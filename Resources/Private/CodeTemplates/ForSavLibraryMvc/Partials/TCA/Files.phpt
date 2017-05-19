@@ -1,8 +1,8 @@
 'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
     '{field.fieldname}',
-    array(
+    [
         'maxitems' => {f:if(condition:'{field.conf_files}', then:'{field.conf_files}', else:'1')}
-    ),        
+    ],        
 <f:alias map="{images:'images', webimages:'webimages', all:'all'}"> 
 <f:if condition="{field.conf_files_type} == {all}">
     '',

@@ -1,5 +1,5 @@
 {namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
-'config' => array(
+'config' => [
     'type' => 'group',
     'internal_type' => 'file',
     <f:alias map="{images:'images', webimages:'webimages', all:'all'}">
@@ -33,4 +33,4 @@
     'size' => {f:if(condition:'{field.conf_files_selsize}',then:'{field.conf_files_selsize}',else:'1')},
     'minitems' => 0,
     'maxitems' => {f:if(condition:'{field.conf_files}',then:'{field.conf_files}',else:'1')},
-),
+],
