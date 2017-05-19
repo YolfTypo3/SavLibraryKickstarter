@@ -82,7 +82,7 @@ Latest developments
 ^^^^^^^^^^^^^^^^^^^
 
 The latest developments of the `SAV Library Kickstarter Project
-<https://github.com/YolfTypo3/SAV-Library-Kickstarter-Project>`_ 
+<https://github.com/YolfTypo3/SavLibraryKickstarterProject>`_ 
 are available on GitHub.
 
 Test extensions

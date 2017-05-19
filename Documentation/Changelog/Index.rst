@@ -21,7 +21,11 @@ Changelog
 =======  ===========================================================================
 Version  Changes
 =======  ===========================================================================
+1.1.0    - Code generation improved.
+         - Compatibility changed to TYPO3 8.9.
+
 1.0.1    - Code generation for sav_library_mvc improved
+
 1.0.0    - Code generation for basic use with fluid/extbase added
          - Code generation for sav_library_mvc added
          - Several bugs corrected (see the forge).
@@ -39,7 +43,7 @@ Version  Changes
 
 0.4.1    - Code slighly modified in accordance to the TYPO3 coding guidelines.
          - Compatibility with TYPO3 6.2 improved.
-         - New type «Currency» added (Feature #52986).
+         - New type "Currency" added (Feature #52986).
          - Bug #53253 corrected.
 
 0.4.0    - Compatibility with TYPO3 6.1 and 6.2 added.
@@ -75,9 +79,9 @@ Version  Changes
            replaces the SAV Library one.
          - New feature added to deal with edit or single views that may change
            depending on a cutif condition.
-         - Compatibility with the “Fluid” version for TYPO3 4.6 added.   
+         - Compatibility with the fluid version for TYPO3 4.6 added.   
 
-0.1.2    - Compatibility with the “Fluid” versions for TYPO3 4.4 and TYPO3 4.5
+0.1.2    - Compatibility with the fluid versions for TYPO3 4.4 and TYPO3 4.5
            added (compatibility with TYPO3 4.3 is no more supported).
 
 0.1.1    - Small bugs corrected and several features improved in the code
