@@ -1,21 +1,21 @@
 {namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw><sav:function name="removeEmptyLines">
-'EXT' => array(
-    'sav_library_mvc' => array(
-        'ctrl' => array(
+'EXT' => [
+    'sav_library_mvc' => [
+        'ctrl' => [
             <f:if condition="{newTable.save_and_new}">
             'saveAndNew' => 1,
             </f:if>
-        ),
-        'columns' => array(
+        ],
+        'columns' => [
             <f:alias map="{tableName:'{newTable.tablename}'}">      
             <f:for each="{newTable.fields}" as="field">
             <sav:Mvc.SubformIndexManager action="increment"/>
-            '{field.fieldname}' => array(
+            '{field.fieldname}' => [
                 'fieldType' => '{field.type}',
-                'config' => array(
+                'config' => [
                     <f:for each="{extension.views}" as="view" key="viewKey">
-                    {viewKey} => array (
+                    {viewKey} => [
                         <sav:indent count="24"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/TCA/EXTDefault/{field.type}{view.type->sav:upperCamel()}View.phpt', default:'Partials/TCA/EXTDefault/Default{view.type->sav:upperCamel()}View.phpt')}" arguments="{_all}" /></sav:indent>
                         <f:for each="{field.configuration->sav:getItem(key:viewKey)->sav:Mvc.buildConfiguration()}" as="attribute" key="attributeKey" >
                         '{attributeKey}' => '{attribute}',
@@ -23,88 +23,91 @@
                         <f:alias map="{selected:'{field.selected->sav:getItem(key:viewKey)}'}">
                         'selected' => {f:if(condition:selected, then:1, else:0)},
                         </f:alias>             
-                     ),
+                     ],
                      </f:for>
-                ),
-                'folders' => array(
+                ],
+                'folders' => [
                     <f:for each="{field.folders}" as="folder" key="folderKey">
                     <f:if condition="{folderKey}">
                     {folderKey} => '{folder}',
                     </f:if>
                     </f:for>
-                ),
-               'order' => array(
+                ],
+               'order' => [
                     <f:for each="{field.order}" as="order" key="orderKey">
                     <f:if condition="{orderKey->sav:function(name:'isPositiveInteger')}">
                     {orderKey} => '{order}',
                     </f:if>
                     </f:for>
-                ),
-            ),
+                ],
+            ],
             </f:for>
             </f:alias>
-        ),
+        ],
+        'controllers' => [   
         <f:for each="{extension.forms}" as="form" key="formKey">
         <f:alias map="{
             queryIndex:     '{form.query}',
             vendorName:     '{extension.general.1.vendorName}',
             extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}'           
-        }">
-        'controllers' => array(               
+        }">          
         <f:if condition="{extension.queries->sav:getItem(key:queryIndex)->sav:getItem(key:'mainTable')} == {model}">
-            '{form.title}' => array(
-                'viewIdentifiers' => array (
+            '{form.title}' => [
+                'viewIdentifiers' => [
                     'listView' => {form.listView},
                     'singleView' => {form.singleView},
                     'editView' => {form.editView},
                     'specialView' => {form.specialView},
-                    'viewsWithCondition' => array(
+                    'viewsWithCondition' => [
                     <f:for each="{form.viewsWithCondition}" as="viewsWithCondition" key="viewsWithConditionKey">
-                        '{viewsWithConditionKey}' => array(
+                        '{viewsWithConditionKey}' => [
                             <f:for each="{viewsWithCondition}" as="viewWithCondition">
-                            {viewWithCondition.key} => array(
-                                'config' => array(
+                            {viewWithCondition.key} => [
+                                'config' => [
                                     <f:for each="{viewWithCondition.condition->sav:Mvc.buildConfiguration()}" as="attribute" key="attributeKey" >
-                                    '{attributeKey->sav:toLower()}' => '{attribute}',
+                                    '{attributeKey}' => '{attribute}',
                                     </f:for>
-                                ),
-                            ),
+                                ],
+                            ],
                             </f:for>
-                        ),
+                        ],
                     </f:for>
-                    ),           
-                ),
-                'viewTileBars' => array (
+                    ],           
+                ],
+                'viewTileBars' => [
                     <f:for each="{extension.views}" as="view" key="viewKey">
+                        <f:if condition="{sav:function(name:'in_array', arguments:'{needle:viewKey, haystack:\'{0:form.listView, 1:form.singleView, 2:form.editView, 3:form.specialView}\'}')}">
                         '{viewKey}' => '{view->sav:getItem(key:'viewTitleBar')}',
+                        </f:if>
                     </f:for>
-                ),
-                'viewItemTemplates' => array (
-                    'listView' => '{extension.views->sav:getItem(key:controller.listView)->sav:getItem(key:'itemTemplate')}',
-                    'specialView' => '{extension.views->sav:getItem(key:controller.specialView)->sav:getItem(key:'itemTemplate')}',
-                ),
-                'folders' => array (
+                ],
+                'viewItemTemplates' => [
+                    'listView' => '{extension.views->sav:getItem(key:form.listView)->sav:getItem(key:'itemTemplate')}',
+                    'specialView' => '{extension.views->sav:getItem(key:form.specialView)->sav:getItem(key:'itemTemplate')}',
+                ],
+                'folders' => [
                     <f:for each="{extension.views}" as="view" key="viewKey">
-                    '{viewKey}' => array (
+                    '{viewKey}' => [
                         <f:for each="{view->sav:getItem(key:'folders')}" as="folder" key="folderKey">
-                        {folderKey} => array (
+                        {folderKey} => [
                             'label' => '{folder.label}',
-                            'configuration' => array (
+                            'configuration' => [
                                 <f:for each="{folder.configuration->sav:Mvc.buildConfiguration()}" as="attribute" key="attributeKey" >
                                 '{attributeKey}' => '{attribute}',
                                 </f:for>
-                            ),
-                        ),
+                            ],
+                        ],
                         </f:for>
-                    ),        
+                    ],        
                     </f:for>
-                ),             
-            ),
+                ],
+                'queryIdentifier' => {queryIndex},            
+            ],
         </f:if>
-        ),
         </f:alias>
-        </f:for>               
-    ),
-),
+        </f:for> 
+        ],              
+    ],
+],
 
 </sav:function></f:format.raw>
