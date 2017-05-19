@@ -2,7 +2,7 @@
 <sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
     extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    modelName:      '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')->sav:upperCamel()}'
+    modelName:      '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')->sav:upperCamel()}',
     fields:         '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'fields\')}'    
 }">
 <f:alias map="{model:'Tx_{extensionName}_Domain_Model_{modelName}'}">
@@ -38,29 +38,36 @@ class {modelName}Repository extends \SAV\SavLibraryMvc\Domain\Repository\Default
 {
 !
 <f:for each="{extension.queries}" as="query" key="queryKey">
+
     <f:if condition="{query.mainTable} == {model->sav:toLower()}">
 
+    <f:if condition="{query.whereClause}">
     /**
      * Defines the where clause
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @return void
      */
-    protected function whereClause($query)
+    protected function whereClause{queryKey}($query)
     {
-        <sav:indent count="8"><sav:Mvc.buildWhereClause clause="{query.whereClause}" /></sav:indent>
+        <sav:indent count="8">$whereClauseConstraints = <sav:Mvc.buildWhereClause clause="{query.whereClause}" />;
+return $whereClauseConstraints;
+        </sav:indent>
     }
+    </f:if>
 !
+    <f:if condition="{query.orderByClause}">
     /**
      * Defines the order by clause
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @return void
      */
-    protected function orderByClause($query)
+    protected function orderByClause{queryKey}($query)
     {
         <sav:indent count="8"><sav:Mvc.buildOrderByClause clause="{query.orderByClause}" /></sav:indent>
     }
+    </f:if>
 !
     <f:for each="{query.whereTags}" as="whereTag" key="whereTagKey">
     /**
@@ -75,7 +82,8 @@ class {modelName}Repository extends \SAV\SavLibraryMvc\Domain\Repository\Default
     }
 !
     </f:for>
-  
+
+    <f:if condition="{query.whereTags->f:count()} > 0">
     /**
      * Returns the whereTag from its title
      *
@@ -90,6 +98,7 @@ class {modelName}Repository extends \SAV\SavLibraryMvc\Domain\Repository\Default
         );
         return $whereTags[$title];
     }
+    </f:if>
   
     </f:if>
 </f:for>
