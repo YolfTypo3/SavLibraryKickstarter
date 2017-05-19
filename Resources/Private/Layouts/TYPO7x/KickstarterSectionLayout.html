@@ -34,8 +34,8 @@
 									</div>
 								</div>
 							</div>
-							<sav:flashHtmlMessages class="errorMessage" />
-							<sav:link.empty key="kickstarterTop" />
+							<f:flashMessages queueIdentifier="core.template.flashMessages" />
+							<f:format.raw><sav:link.empty key="kickstarterTop" /></f:format.raw>
 						
 							<f:comment>Render the menu section</f:comment>
 							<f:render section="menu" arguments="{isAllowed:isAllowed}"/>
