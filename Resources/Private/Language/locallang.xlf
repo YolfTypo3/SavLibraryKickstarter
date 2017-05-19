@@ -262,7 +262,7 @@
 				<source>TYPO3 6x-7x</source>
 			</trans-unit> 	
             <trans-unit id="emconf.dependency.typo3.0" xml:space="preserve">
-                <source>6.2.0-8.1.99</source>
+                <source>6.2.0-8.9.99</source>
             </trans-unit>                       
             <trans-unit id="emconf.dependency.typo3.1" xml:space="preserve">
                 <source>6.2.0-6.2.99</source>
@@ -507,6 +507,9 @@
 			<trans-unit id="kickstarter.existingTablesItem.importFields" xml:space="preserve">
 				<source>Import the fields as &quot;Only shown in SAV form&quot;:</source>
 			</trans-unit>
+            <trans-unit id="kickstarter.field.fieldDisplayCondition" xml:space="preserve">
+                <source>Display cond.</source>
+            </trans-unit>			
 			<trans-unit id="kickstarter.field.fieldLabel" xml:space="preserve">
 				<source>Field-&gt;</source>
 			</trans-unit>
