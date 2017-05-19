@@ -66,7 +66,7 @@ class BuildConstraintsForExtensionManagerViewHelper extends \TYPO3\CMS\Fluid\Cor
         $dependencies = $extension['emconf'][1]['dependencies'];
         if (! empty($dependencies)) {
             $dependenciesArray = explode(',', $dependencies);
-            if (! in_array($libraryDependency, $dependenciesArray)) {
+            if ($libraryDependency != '' && ! in_array($libraryDependency, $dependenciesArray)) {
                 $dependenciesResult[$libraryDependency] = '';
             }
         }
