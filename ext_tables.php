@@ -4,58 +4,58 @@ if (! defined('TYPO3_MODE')) {
 }
 
 // Controller actions
-$controllerActions = array(
+$controllerActions = [
     'Kickstarter' => '
 		extensionList,
 		selectExtensionVersion,
-    changeExtensionVersion,
-    createExtension,
-    copyExtension,
-    editExtension,
-    installExtension,
-    uninstallExtension,
-    downloadExtension,
-    generateExtension,
-    upgradeExtension,
-    upgradeExtensions,
-    addItem,
-    deleteItem,
-    editItem,
-    emconfEditSection,
-    newTablesEditSection,
-    existingTablesEditSection,
-    existingTablesImportFields,
-    generalEditSection,
-    viewsEditSection,
-    queriesEditSection,
-    formsEditSection,
-    save,
-    changeView,
-    changeFolder,
-    showAllFields,
-    showFieldsNotInFolders,
-    changeConfigurationView,
-    editFieldConfiguration,
-    addNewField,
-    moveUpField,
-    moveDownField,
-    deleteField,
-    addNewViewWithCondition,
-    deleteViewWithCondition,
-    addNewFolder,
-    moveUpFolder,
-    moveDownFolder,
-    deleteFolder,
-    addNewWhereTag,
-    deleteWhereTag,
-    addNewBoxItem,
-    deleteBoxItem,
-    generateCode,
+        changeExtensionVersion,
+        createExtension,
+        copyExtension,
+        editExtension,
+        installExtension,
+        uninstallExtension,
+        downloadExtension,
+        generateExtension,
+        upgradeExtension,
+        upgradeExtensions,
+        addItem,
+        deleteItem,
+        editItem,
+        emconfEditSection,
+        newTablesEditSection,
+        existingTablesEditSection,
+        existingTablesImportFields,
+        generalEditSection,
+        viewsEditSection,
+        queriesEditSection,
+        formsEditSection,
+        save,
+        changeView,
+        changeFolder,
+        showAllFields,
+        showFieldsNotInFolders,
+        changeConfigurationView,
+        editFieldConfiguration,
+        addNewField,
+        moveUpField,
+        moveDownField,
+        deleteField,
+        addNewViewWithCondition,
+        deleteViewWithCondition,
+        addNewFolder,
+        moveUpFolder,
+        moveDownFolder,
+        deleteFolder,
+        addNewWhereTag,
+        deleteWhereTag,
+        addNewBoxItem,
+        deleteBoxItem,
+        generateCode,
   '
-);
+];
 
 // Context sensitive tags
-$contextSensitiveHelpFiles = array(
+$contextSensitiveHelpFiles = [
     // Tags for the SAV Library Kickstarter sections
     'emconf' => 'locallang_csh_emconf',
     'views' => 'locallang_csh_views',
@@ -82,14 +82,21 @@ $contextSensitiveHelpFiles = array(
     'showOnly' => 'Types/locallang_csh_showOnly',
     'string' => 'Types/locallang_csh_string',
     'text' => 'Types/locallang_csh_text'
-);
+];
 
 // Registers Backend Module
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule('SAV.' . $_EXTKEY, 'tools', 'mod', '', $controllerActions, array(
-    'access' => 'admin',
-    'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
-    'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf'
-));
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+    'SAV.' . $_EXTKEY,
+    'tools',
+    'mod',
+    '',
+    $controllerActions,
+    [
+        'access' => 'admin',
+        'icon' => 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/Extension.svg',
+        'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf'
+    ]
+);
 
 // Sets the Context Sensitive Help
 foreach ($contextSensitiveHelpFiles as $contextSensitiveHelpFileKey => $contextSensitiveHelpFile) {
