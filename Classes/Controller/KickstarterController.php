@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Controller;
+namespace YolfTypo3\SavLibraryKickstarter\Controller;
 
 /**
  * Copyright notice
@@ -31,8 +31,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
-use SAV\SavLibraryKickstarter\Compatibility\CompatibilityUtility;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Compatibility\CompatibilityUtility;
 
 /**
  * Backend Module of the SAV Library Kickstarter extension
@@ -113,6 +113,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $version = $arguments['extensionVersion'];
 
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration($version);
         // Saves the working configuration
         $configurationManager->saveConfigurationVersion();
@@ -174,6 +175,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function editExtensionAction($extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $section = $configurationManager->getSectionManager()
             ->getItem('general')
@@ -204,6 +206,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function installExtensionAction($extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getExtensionManager()->installExtension();
         $this->redirect('extensionList');
@@ -218,6 +221,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function uninstallExtensionAction($extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getExtensionManager()->uninstallExtension();
         $this->redirect('extensionList');
@@ -232,6 +236,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function downloadExtensionAction($extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getExtensionManager()->downloadExtension();
         $this->redirect('extensionList');
@@ -246,6 +251,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function generateExtensionAction($extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getCodeGenerator()->buildExtension();
         $configurationManager->getExtensionManager()->checkDbUpdate();
@@ -262,6 +268,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function upgradeExtensionAction($extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         // Sets the compatibilty if not already done
         $compatibility = $configurationManager->getSectionManager()
@@ -300,6 +307,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         foreach (GeneralUtility::get_dirs(PATH_typo3conf . 'ext/') as $extensionKey) {
             $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
+            $configurationManager->injectController($this);
 
             if ($configurationManager->isSavLibraryKickstarterExtension()) {
                 // Checks if the extension must be upgraded
@@ -337,6 +345,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function addItemAction($extKey, $section)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $itemKey = $configurationManager->getSectionManager()
             ->addItem($section)
@@ -367,6 +376,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function deleteItemAction($extKey, $section, $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -400,6 +410,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
 
         $configurationManager->loadConfiguration();
         // Assigns view variables
@@ -434,6 +445,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -581,6 +593,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -720,6 +733,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -799,6 +813,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function viewsEditSectionAction($extKey, $section, $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         // Sorts the folders if any
         if ($configurationManager->getSectionManager()
@@ -848,6 +863,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function queriesEditSectionAction($extKey, $section, $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configuration = $configurationManager->getConfiguration();
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
@@ -871,6 +887,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function formsEditSectionAction($extKey, $section, $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configuration = $configurationManager->getConfiguration();
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
@@ -917,6 +934,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function changeViewAction($extKey, $section, $itemKey, $viewKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -957,6 +975,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function changeFolderAction($extKey, $section, $itemKey, $viewKey, $folderKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -992,6 +1011,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function changeConfigurationViewAction($extKey, $section, $itemKey, $fieldKey, $viewKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1059,12 +1079,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration and the section managers
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
         // Special processing for the title of existing tables
         if (is_array($arguments['existingTables'])) {
-            $options = \SAV\SavLibraryKickstarter\ViewHelpers\BuildOptionsForExistingTablesSelectorboxViewHelper::render();
+            $options = \YolfTypo3\SavLibraryKickstarter\ViewHelpers\BuildOptionsForExistingTablesSelectorboxViewHelper::render();
             $arguments['existingTables']['title'] = $options[$arguments['existingTables']['tablename']];
         }
         // Special processing for new version
@@ -1178,6 +1199,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
 
         $libraryName = ConfigurationManager::getLibraryName($arguments['general']['libraryType']);
 
@@ -1216,6 +1238,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration and the section managers
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1282,6 +1305,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration and the section managers
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1344,6 +1368,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration and the section managers
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1353,7 +1378,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Replaces the table name by its new name in all fields
         foreach ($sectionManager->getItems() as $walkSectionKey => $walkSection) {
-            $walkSection->walkItem('\\SAV\\SavLibraryKickstarter\\Controller\\KickstarterController::changeTableNames', array(
+            $walkSection->walkItem('\\YolfTypo3\\SavLibraryKickstarter\\Controller\\KickstarterController::changeTableNames', array(
                 'newExtensionKey' => $newExtKey,
                 'oldExtensionKey' => $extKey
             ));
@@ -1386,6 +1411,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1416,6 +1442,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1468,6 +1495,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration and the section managers
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1524,6 +1552,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration and the section managers
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1580,6 +1609,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the configuration and the section managers
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1615,6 +1645,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function editFieldConfigurationAction($extKey, $section, $itemKey, $viewKey, $folderKey = 0, $fieldKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1653,6 +1684,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function moveUpFieldAction($extKey, $section, $itemKey, $fieldKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1750,6 +1782,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function moveDownFieldAction($extKey, $section, $itemKey, $fieldKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Gets the item
@@ -1848,6 +1881,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1951,6 +1985,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -2039,6 +2074,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
@@ -2081,6 +2117,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Deletes the field
@@ -2116,6 +2153,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
@@ -2154,6 +2192,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function moveUpFolderAction($extKey, $section, $itemKey, $folderKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         $fromItem = $sectionManager->getItem($section)
@@ -2211,6 +2250,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function moveDownFolderAction($extKey, $section, $itemKey, $folderKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         $fromItem = $sectionManager->getItem($section)
@@ -2273,6 +2313,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -2348,6 +2389,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
@@ -2387,6 +2429,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Deletes the whereTag
@@ -2422,6 +2465,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the boxItem at the end if no key is provided
@@ -2466,6 +2510,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Deletes the field
@@ -2514,6 +2559,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     protected function assignForEditItemAction($extKey, $section, $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         $viewKey = $sectionManager->getItem($section)
@@ -2547,6 +2593,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         foreach (GeneralUtility::get_dirs(PATH_typo3conf . 'ext/') as $extensionKey) {
 
             $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
+            $configurationManager->injectController($this);
 
             if (! $configurationManager->isSavLibraryKickstarterExtension()) {
                 $configurationManager->checkForUpgrade();

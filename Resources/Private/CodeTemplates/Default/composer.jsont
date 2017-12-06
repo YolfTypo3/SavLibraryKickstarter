@@ -1,0 +1,25 @@
+<f:format.raw value="{" />
+    "name": "{extension.general.1.vendorName->sav:toLower()}/{extension.general.1.extensionKey->sav:function(name:'strReplace',arguments:{search:'_', replace:'-'})}",
+    "description": "{extension.emconf.1.description}",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0+",
+    "authors": [
+        <f:format.raw value="{" />
+        "name": "{extension.emconf.1.author}",
+        "email": "{extension.emconf.1.author_email}",
+        "role": "Developer"
+        <f:format.raw value="}" />
+    ],
+    "replace": <f:format.raw value="{" />
+        "{extension.general.1.extensionKey}": "self.version",
+        "typo3-ter/{extension.general.1.extensionKey->sav:function(name:'strReplace',arguments:{search:'_', replace:'-'})}": "self.version"
+    <f:format.raw value="}" />,
+    "require": {
+        <sav:indent count="8">{sav:buildConstraintsForExtensionManager(extension:extension, type:'composer')}</sav:indent>
+    },
+    "autoload": {
+        "psr-4": <f:format.raw value="{" />
+            "{extension.general.1.vendorName}\\{extension.general.1.extensionKey->sav:upperCamel()}\\": "Classes/"
+        <f:format.raw value="}" />
+    }
+<f:format.raw value="}" />

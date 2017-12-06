@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\ViewHelpers;
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This script is part of the TYPO3 project - inspiring people to share! *
@@ -15,7 +15,7 @@ namespace SAV\SavLibraryKickstarter\ViewHelpers;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
 
 /**
  * A view helper for building the options for the extension version.

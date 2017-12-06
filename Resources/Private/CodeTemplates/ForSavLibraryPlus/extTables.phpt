@@ -31,7 +31,13 @@ $TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_pi1'] = 'pi
     $_EXTKEY . '_pi1',
     'FILE:EXT:' . $_EXTKEY . '/Configuration/Flexforms/ExtensionFlexform.xml'
 );
+<f:if condition="{extension.general.1.addTypoScriptConfiguration}">
 !
+// Default TypoScript
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '{extension.general.1.pluginTitle->sav:function(name:'stringToUtf8')}');
+</f:if>
+!
+// Adds the plugin
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
     [
         'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',

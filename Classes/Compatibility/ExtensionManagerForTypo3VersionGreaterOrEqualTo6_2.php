@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Compatibility;
+namespace YolfTypo3\SavLibraryKickstarter\Compatibility;
 
 /**
  * Copyright notice

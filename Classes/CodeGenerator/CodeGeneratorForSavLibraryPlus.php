@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\CodeGenerator;
+namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 /**
  * Copyright notice
@@ -25,7 +25,7 @@ namespace SAV\SavLibraryKickstarter\CodeGenerator;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
 
 /**
  * This class generates the code for a front end plugin.
@@ -68,6 +68,10 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
      */
     public function buildExtension()
     {
+        // Checks if the extension can be built
+        if (!$this->CanBuildExtension()) {
+            return FALSE;
+        }
 
         // Generates the xml array
         $this->setXmlArray();
@@ -77,6 +81,9 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
 
         // Generates ext_emconf.php
         $this->buildExtEmConf();
+
+        // Generates composer.json
+        $this->buildComposer();
 
         // Generates ext_localconf.php
         $this->buildExtLocalConf();
@@ -119,6 +126,17 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
     {
         $fileContents = $this->generateFile('extEmconf.phpt');
         GeneralUtility::writeFile($this->extensionDirectory . 'ext_emconf.php', $fileContents);
+    }
+
+    /**
+     * Builds composer.json.
+     *
+     * @return void
+     */
+    protected function buildComposer()
+    {
+        $fileContents = $this->generateFile('composer.jsont');
+        GeneralUtility::writeFile($this->extensionDirectory . 'composer.json', $fileContents);
     }
 
     /**
@@ -226,7 +244,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
     protected function buildController()
     {
         GeneralUtility::mkdir_deep($this->extensionDirectory, 'Classes/Controller');
-        $fileContents = $this->generateFile('Classes/Controller/ExtensionController.phpt');
+        $fileContents = $this->generateFile('Classes/Controller/Controller.phpt');
         GeneralUtility::writeFile($this->extensionDirectory . 'Classes/Controller/' . GeneralUtility::underscoredToUpperCamelCase($this->extensionKey) . 'Controller.php', $fileContents);
     }
 
@@ -245,7 +263,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
         $this->compatibility = $extension['general'][1]['compatibility'];
 
         // Converts special characters
-        array_walk_recursive($extension, 'SAV\\SavLibraryKickstarter\\CodeGenerator\\CodeGeneratorForSavLibraryPlus::htmlspecialchars');
+        array_walk_recursive($extension, 'YolfTypo3\\SavLibraryKickstarter\\CodeGenerator\\CodeGeneratorForSavLibraryPlus::htmlspecialchars');
 
         // Generates the version
         $this->xmlArray['general'] = array();

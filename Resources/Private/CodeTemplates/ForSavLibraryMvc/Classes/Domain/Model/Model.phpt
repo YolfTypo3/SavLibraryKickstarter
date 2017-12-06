@@ -36,7 +36,7 @@ namespace {vendorName}\{extensionName}\Domain\Model;
  *
  */
 
-class {modelName} extends \SAV\SavLibraryMvc\Domain\Model\DefaultModel
+class {modelName} extends \YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel
 {
 
     <f:for each="{fields}" as="field">

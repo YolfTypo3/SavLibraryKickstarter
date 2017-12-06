@@ -7,9 +7,9 @@
  *
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'SAV Library Kickstarter',
-    'description' => 'Kickstarter, based on fluid and extbase, which automatically generates extensions for the SAV Library Plus and SAV Library. Multiple views of the data including forms with Front End editing facilities can be generated.',
+    'description' => 'Kickstarter which automatically generates SAV Library Plus, SAV Library Mvc and basic fluid/extbase based extensions.  Multiple views of the data including forms with Front End editing facilities can be generated.',
     'category' => 'misc',
     'author' => 'Laurent Foulloy',
     'author_email' => 'yolf.typo3@orange.fr',
@@ -19,16 +19,14 @@ $EM_CONF[$_EXTKEY] = array(
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.0.1',
-    'constraints' => array(
-        'depends' => array(
-            'typo3' => '6.2.0-8.1.99',
-        ),
-        'conflicts' => array(
-        ),
-        'suggests' => array(
-        )
-    ),
-);
+    'version' => '1.1.0',
+    'constraints' => [
+        'depends' => [
+            'typo3' => '6.2.0-8.9.99',
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
+];
 
 ?>

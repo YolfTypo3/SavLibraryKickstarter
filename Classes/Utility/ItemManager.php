@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Utility;
+namespace YolfTypo3\SavLibraryKickstarter\Utility;
 
 /**
  * *************************************************************
@@ -29,7 +29,7 @@ namespace SAV\SavLibraryKickstarter\Utility;
  * *************************************************************
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use SAV\SavLibraryKickstarter\Utility\ItemManager;
+use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
 
 /**
  * Item manager
@@ -53,7 +53,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $item
      *            The item to add.
-     *            return \SAV\SavLibraryKickstarter\Utility\ItemManager
+     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function addItem($item)
     {
@@ -105,7 +105,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemKey
      *            The key of the item.
-     *            return \SAV\SavLibraryKickstarter\Utility\ItemManager
+     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function getItem($itemKey)
     {
@@ -117,7 +117,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemKey
      *            The key of the item.
-     *            return \SAV\SavLibraryKickstarter\Utility\ItemManager
+     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function getItemAndSetToZeroIfNull($itemKey)
     {
@@ -134,7 +134,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemKey
      *            The key of the item.
-     *            return \SAV\SavLibraryKickstarter\Utility\ItemManager
+     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function itemExists($itemKey)
     {
@@ -144,7 +144,7 @@ class ItemManager extends \ArrayObject
     /**
      * Gets all items.
      *
-     * return \SAV\SavLibraryKickstarter\Utility\ItemManager
+     * return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function getItems()
     {
@@ -166,7 +166,7 @@ class ItemManager extends \ArrayObject
     /**
      * Gets all items in an Array.
      *
-     * return \SAV\SavLibraryKickstarter\Utility\ItemManager
+     * return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function getItemsAsArray()
     {
@@ -224,13 +224,31 @@ class ItemManager extends \ArrayObject
     }
 
     /**
+     * Delete and Replaces an item.
+     *
+     * @param mixed $itemValues
+     *            The item values to replace
+     *            return none
+     */
+    public function deleteAndReplace($itemValues, $item = NULL)
+    {
+        if ($item === NULL) {
+            $item = $this;
+        }
+        foreach ($this as $key => $field) {
+            $item->deleteItem($key);
+        }
+        $item->replace($itemValues, $item);
+    }
+
+    /**
      * Finds an item from a search key.
      *
      * @param mixed $searchKey
      *            The search key
      * @param mixed $value
      *            Value to find
-     *            return \SAV\SavLibraryKickstarter\Utility\ItemManager
+     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function find($searchKey, $value)
     {
@@ -248,7 +266,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $searchKey
      *            The search key
-     *            return \SAV\SavLibraryKickstarter\Utility\ItemManager
+     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function sortBy($searchKey)
     {
@@ -287,7 +305,7 @@ class ItemManager extends \ArrayObject
     /**
      * Returns the item associated with a search key
      *
-     * @param \SAV\SavLibraryKickstarter\Utility\ItemManager $field
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $field
      *            The field to be searched
      * @param mixed $searchKey
      *            The search key
@@ -375,7 +393,7 @@ class ItemManager extends \ArrayObject
 
         // Checks if the function is callable
         if (! is_callable($functionName)) {
-            throw new \RuntimeException('The function "' . $functionName . '" is not callable !');
+            throw new \RuntimeException('The function "' . $functionName . '" is not callable!');
         }
 
         // Sets the $items variable

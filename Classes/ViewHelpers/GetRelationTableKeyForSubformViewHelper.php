@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\ViewHelpers;
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This script is part of the TYPO3 project - inspiring people to share! *
@@ -14,7 +14,7 @@ namespace SAV\SavLibraryKickstarter\ViewHelpers;
  * Public License for more details. *
  */
 
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
 
 /**
  * A view helper for getting the relation table.

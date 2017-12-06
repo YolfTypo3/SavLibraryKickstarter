@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Upgrade;
+namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
 /**
  * Copyright notice
@@ -28,7 +28,7 @@ namespace SAV\SavLibraryKickstarter\Upgrade;
  */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
 
 /**
  * Upgrades the extension from the kickstarter
@@ -55,7 +55,7 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
         $configuration = unserialize($wizardFormFileContent);
 
         // Converts each field in utf8 (required by json_encode)
-        array_walk_recursive($configuration, '\SAV\SavLibraryKickstarter\Configuration\ConfigurationManager::utf8_encode');
+        array_walk_recursive($configuration, '\YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager::utf8_encode');
 
         // Changes the name to 'general' and remove the array
         $newConfiguration['general'] = $configuration['savext'];
@@ -93,7 +93,7 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
         // Creates the configuration directory if needed
         $configurationDirectory = $extensionDirectory . ConfigurationManager::CONFIGURATION_DIRECTORY . $libraryType . '/';
         if (! is_dir($configurationDirectory)) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(ConfigurationManager::getExtensionsRootDir(), $extensionKey . '/' . \SAV\SavLibraryKickstarter\Configuration\ConfigurationManager::CONFIGURATION_DIRECTORY . $libraryType . '/');
+            \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(ConfigurationManager::getExtensionsRootDir(), $extensionKey . '/' . \YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager::CONFIGURATION_DIRECTORY . $libraryType . '/');
         }
 
         // Saves the library type

@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\ViewHelpers;
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This script is part of the TYPO3 project - inspiring people to share! *
@@ -15,7 +15,7 @@ namespace SAV\SavLibraryKickstarter\ViewHelpers;
  */
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
 
 /**
  * A view helper for building the options for the compatibility selector.
@@ -36,6 +36,12 @@ class BuildOptionsForCompatibilitySelectorboxViewHelper extends \TYPO3\CMS\Fluid
 {
 
     /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @inject
+     */
+    protected $configurationManager;
+
+    /**
      *
      * @param string $libraryType
      *            The library type
@@ -45,23 +51,47 @@ class BuildOptionsForCompatibilitySelectorboxViewHelper extends \TYPO3\CMS\Fluid
      */
     public function render($libraryType)
     {
+        // Gets the settings
+        $extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
+        $pluginName = $this->controllerContext->getRequest()->getPluginName();
+        $settings = $this->getSettings($extensionName, $pluginName);
+
         switch($libraryType) {
             case ConfigurationManager::TYPE_SAV_LIBRARY_BASIC:
             case ConfigurationManager::TYPE_SAV_LIBRARY_MVC:
                 $options = array(
-                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE => LocalizationUtility::translate('kickstarter.generalItem.compatibility.0', 'sav_library_kickstarter'),
+                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE],
                 );
                 break;
             case ConfigurationManager::TYPE_SAV_LIBRARY_PLUS:
                 $options = array(
-                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE => LocalizationUtility::translate('kickstarter.generalItem.compatibility.0', 'sav_library_kickstarter'),
-                    ConfigurationManager::COMPATIBILITY_TYPO3_6x => LocalizationUtility::translate('kickstarter.generalItem.compatibility.1', 'sav_library_kickstarter'),
-                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_7x => LocalizationUtility::translate('kickstarter.generalItem.compatibility.2', 'sav_library_kickstarter'),
+                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE],
+                    ConfigurationManager::COMPATIBILITY_TYPO3_6x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_6x],
+                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_6x_7x],
                 );
                 break;
         }
-
         return $options;
+    }
+
+
+    /**
+     * Returns TypoScript settings array
+     *
+     * @param string $extensionName Name of the extension
+     * @param string $pluginName Name of the plugin
+     * @return array
+     */
+    public function getSettings($extensionName, $pluginName)
+    {
+
+        $typoScript = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            $extensionName,
+            $pluginName);
+
+        return $typoScript;
+
     }
 }
 ?>

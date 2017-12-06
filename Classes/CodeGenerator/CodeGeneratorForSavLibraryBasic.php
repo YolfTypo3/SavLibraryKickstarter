@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\CodeGenerator;
+namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 /**
  * Copyright notice
@@ -56,6 +56,9 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
 
         // Generates ext_emconf.php
         $this->buildExtEmConf();
+
+        // Generates composer.json
+        $this->buildComposer();
 
         // Generates ext_localconf.php
         $this->buildExtLocalConf();
@@ -126,6 +129,17 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
     }
 
     /**
+     * Builds composer.json.
+     *
+     * @return void
+     */
+    protected function buildComposer()
+    {
+        $fileContents = $this->generateFile('composer.jsont');
+        GeneralUtility::writeFile($this->extensionDirectory . 'composer.json', $fileContents);
+    }
+
+    /**
      * Builds ext_localconf.php.
      *
      * @return void
@@ -168,7 +182,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
         // Generates the Configuration/Flexforms directory
         GeneralUtility::mkdir_deep($this->extensionDirectory, 'Configuration/Flexforms');
 
-        // Generate ExtensionFlexform.xml file if it does not exist
+        // Generates ExtensionFlexform.xml file if it does not exist
         if (! file_exists($this->extensionDirectory . 'Configuration/Flexforms/ExtensionFlexform.xml')) {
             $fileContents = $this->generateFile('Configuration/Flexforms/ExtensionFlexform.xmlt');
             GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/Flexforms/ExtensionFlexform.xml', $fileContents);
@@ -219,7 +233,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
         // Generates the Resources/Private/Language directory
         GeneralUtility::mkdir_deep($this->extensionDirectory, 'Resources/Private/Language');
 
-        // Generate locallang.xlf file if it does not exist
+        // Generates locallang.xlf file if it does not exist
         if (! file_exists($this->extensionDirectory . 'Resources/Private/Language/locallang.xlf')) {
             $fileContents = $this->generateFile('Resources/Private/Language/locallang.xlft');
             GeneralUtility::writeFile($this->extensionDirectory . 'Resources/Private/Language/locallang.xlf', $fileContents);

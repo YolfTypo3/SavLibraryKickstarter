@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Utility;
+namespace YolfTypo3\SavLibraryKickstarter\Utility;
 
 /**
  * *************************************************************

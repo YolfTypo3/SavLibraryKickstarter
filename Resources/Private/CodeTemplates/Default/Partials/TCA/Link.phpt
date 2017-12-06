@@ -1,4 +1,4 @@
-{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
 <f:if condition="{sav:function(name:'TYPO3VersionCompare', arguments:{version:'7',operator:'<'})}" >  
 <f:then> 
@@ -28,10 +28,12 @@
 <f:else>
 'config' => [
     'type'  => 'input',
+    'renderType' => 'inputLink',
     'size'  => '15',
     'max' => '255',
     'checkbox'  => '',
     'eval'  => 'trim',
+<f:if condition="{sav:function(name:'TYPO3VersionCompare', arguments:{version:'8',operator:'<'})}" >     
     'wizards' => [
         '_PADDING'  => 2,
         'link'  => [
@@ -47,6 +49,7 @@
             'JSopenParams'  => 'height=300,width=500,status=0,menubar=0,scrollbars=1',
         ]
     ],
+</f:if>
 ],
 </f:else>
 </f:if>

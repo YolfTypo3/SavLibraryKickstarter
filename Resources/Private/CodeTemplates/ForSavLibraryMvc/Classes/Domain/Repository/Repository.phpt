@@ -34,7 +34,7 @@ namespace {vendorName}\{extensionName}\Domain\Repository;
  * Repository for the {modelName} model in the extension {extensionName}
  *
  */
-class {modelName}Repository extends \SAV\SavLibraryMvc\Domain\Repository\DefaultRepository
+class {modelName}Repository extends \YolfTypo3\SavLibraryMvc\Domain\Repository\DefaultRepository
 {
 !
 <f:for each="{extension.queries}" as="query" key="queryKey">

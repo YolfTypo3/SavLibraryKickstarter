@@ -86,7 +86,7 @@ $contextSensitiveHelpFiles = [
 
 // Registers Backend Module
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-    'SAV.' . $_EXTKEY,
+    'YolfTypo3.' . $_EXTKEY,
     'tools',
     'mod',
     '',

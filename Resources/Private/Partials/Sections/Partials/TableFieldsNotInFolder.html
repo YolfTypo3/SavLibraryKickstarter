@@ -1,24 +1,15 @@
-{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
 
 <f:comment>Adds the fields without any folder (edit, select, move, delete)</f:comment>
 <div class="header">
-	<div class="logo">
-		<f:if condition="{sectionItem.showAllFields}">
-			<f:then>
-				<f:translate key="kickstarter.allFields" />
-			</f:then>
-			<f:else>
-				<f:translate key="kickstarter.fieldsNotInFolders" />
-			</f:else>
-		</f:if>
-	</div>
+
 	<div class="buttons">
 		<f:if condition="{sectionItem.showAllFields}">
 			<f:then>
 				<f:form.submit class="submit"
 					name="submitAction[showFieldsNotInFolders]"
-					value="{f:translate(key:'kickstarter.showFieldsNotInFolders')}" />
+					value="{f:translate(key:'kickstarter.hideFields')}" />
 			</f:then>
 			<f:else>
 				<f:form.submit class="submit" name="submitAction[showAllFields]"
@@ -27,6 +18,7 @@
 		</f:if>
 	</div>
 </div>
+        <f:if condition="{sectionItem.showAllFields}">
 <div class="fields notInFolders">
 	<ul>
 		<li class="title">
@@ -116,3 +108,4 @@
 		</f:for>
 	</ul>
 </div>
+</f:if>

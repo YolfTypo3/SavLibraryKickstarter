@@ -1,4 +1,4 @@
-{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw><sav:function name="removeEmptyLines">
 'columns' => [
     <f:if condition="{newTable.localization}">
@@ -94,7 +94,7 @@
             'type'  => 'select',
             'renderType' => 'selectSingleBox',            
             'items' => [
-                ['', 0),
+                ['', 0],
                 ['LLL:EXT:lang/locallang_general.xlf:LGL.hide_at_login', -1],
                 ['LLL:EXT:lang/locallang_general.xlf:LGL.any_login', -2],
                 ['LLL:EXT:lang/locallang_general.xlf:LGL.usergroups', '--div--']

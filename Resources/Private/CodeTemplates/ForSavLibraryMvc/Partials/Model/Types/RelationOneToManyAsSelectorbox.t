@@ -1,4 +1,4 @@
-{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
 <f:alias map="{custom:'_CUSTOM'}">
 <f:if condition="{field.conf_rel_table} == {custom}">

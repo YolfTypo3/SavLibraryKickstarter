@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\ViewHelpers\Link;
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Link;
 
 /*
  * This script is part of the TYPO3 project - inspiring people to share! *

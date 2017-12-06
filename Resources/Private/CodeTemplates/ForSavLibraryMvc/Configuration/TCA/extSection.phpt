@@ -1,4 +1,4 @@
-{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw><sav:function name="removeEmptyLines">
 'EXT' => [
     'sav_library_mvc' => [

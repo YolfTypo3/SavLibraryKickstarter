@@ -1,5 +1,11 @@
 <?php
-<sav:function name="removeEmptyLines">
+<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+<f:alias map="{
+    vendorName:     '{extension.general.1.vendorName}',
+    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
+    extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}',
+    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+}">
 if (!defined ('TYPO3_MODE')) {
  	die ('Access denied.');
 }
@@ -15,14 +21,19 @@ if (!defined ('TYPO3_MODE')) {
 </f:if>
 </f:alias>
 </f:for>
-
+!
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43(
     $_EXTKEY,
-    'Classes/Controller/{sav:function(name:"upperCamel", arguments:"{extension.general.1.extensionKey}")}Controller.php',
+    'Classes/Controller/{extensionName}Controller.php',
     '_pi1',
     'list_type',
     1
 );
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
+plugin.tx_{extensionNameWithoutUnderscore}_pi1.userFunc = {vendorName}\{extensionName}\Controller\{extensionName}Controller->main
+'
+);
 
+</f:alias>
 </sav:function>
 ?>

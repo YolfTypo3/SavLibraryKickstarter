@@ -1,4 +1,4 @@
-{namespace sav=SAV\SavLibraryKickstarter\ViewHelpers}<?php
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<?php
 <f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
 
 $temporaryColumns = [

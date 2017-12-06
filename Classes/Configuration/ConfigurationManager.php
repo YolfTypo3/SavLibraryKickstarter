@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Configuration;
+namespace YolfTypo3\SavLibraryKickstarter\Configuration;
 
 /**
  * *************************************************************
@@ -32,8 +32,8 @@ namespace SAV\SavLibraryKickstarter\Configuration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use SAV\SavLibraryKickstarter\Utility\ItemManager;
-use SAV\SavLibraryKickstarter\Compatibility\ExtensionManager;
+use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
+use YolfTypo3\SavLibraryKickstarter\Compatibility\ExtensionManager;
 
 /**
  * Configuration manager
@@ -55,7 +55,7 @@ class ConfigurationManager
 
     const UGRADE_DIRECTORY = 'Classes/Upgrade/';
 
-    const UPGRADE_ROOT_CLASS_NAME = 'SAV\\SavLibraryKickstarter\\Upgrade\\Upgrade';
+    const UPGRADE_ROOT_CLASS_NAME = 'YolfTypo3\\SavLibraryKickstarter\\Upgrade\\Upgrade';
 
     // Library types
     const TYPE_SAV_LIBRARY = 0;
@@ -70,7 +70,7 @@ class ConfigurationManager
 
     /**
      *
-     * @var \SAV\SavLibraryKickstarter\Controller\KickstarterController
+     * @var \YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController
      */
     protected $controller;
 
@@ -82,19 +82,19 @@ class ConfigurationManager
 
     /**
      *
-     * @var \SAV\SavLibraryKickstarter\Configuration\SectionManager
+     * @var \YolfTypo3\SavLibraryKickstarter\Configuration\SectionManager
      */
     protected $sectionManager;
 
     /**
      *
-     * @var \SAV\SavLibraryKickstarter\CodeGenerator\AbstractCodeGenerator
+     * @var \YolfTypo3\SavLibraryKickstarter\CodeGenerator\AbstractCodeGenerator
      */
     protected $codeGenerator = NULL;
 
     /**
      *
-     * @var \SAV\SavLibraryKickstarter\Compatibility\ExtensionManager
+     * @var \YolfTypo3\SavLibraryKickstarter\Compatibility\ExtensionManager
      */
     protected $extensionManager = NULL;
 
@@ -118,9 +118,9 @@ class ConfigurationManager
     /**
      * Injects the controller
      *
-     * @param \SAV\SavLibraryKickstarter\Controller\KickstarterController $controller
+     * @param \YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController $controller
      */
-    public function injectController(\SAV\SavLibraryKickstarter\Controller\KickstarterController $controller)
+    public function injectController(\YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController $controller)
     {
         $this->controller = $controller;
     }
@@ -141,9 +141,7 @@ class ConfigurationManager
     /**
      * Gets the section manager.
      *
-     * @param
-     *            none
-     * @return \SAV\SavLibraryKickstarter\Configuration\SectionManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Configuration\SectionManager
      */
     public function getSectionManager()
     {
@@ -153,15 +151,14 @@ class ConfigurationManager
     /**
      * Gets the code generator.
      *
-     * @param
-     *            none
-     * @return \SAV\SavLibraryKickstarter\CodeGenerator
+     * @return \YolfTypo3\SavLibraryKickstarter\CodeGenerator
      */
     public function getCodeGenerator()
     {
         if ($this->codeGenerator === NULL) {
             $type = 'CodeGeneratorFor' . $this->getCurrentLibraryName();
-            $this->codeGenerator = GeneralUtility::makeInstance('SAV\\SavLibraryKickstarter\\CodeGenerator\\' . $type, $this->getSectionManager());
+            $this->codeGenerator = GeneralUtility::makeInstance('YolfTypo3\\SavLibraryKickstarter\\CodeGenerator\\' . $type, $this->getSectionManager());
+            $this->codeGenerator->injectController($this->controller);
         }
         return $this->codeGenerator;
     }
@@ -169,9 +166,7 @@ class ConfigurationManager
     /**
      * Gets the code generator.
      *
-     * @param
-     *            none
-     * @return \SAV\SavLibraryKickstarter\Compatibility\ExtensionManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Compatibility\ExtensionManager
      */
     public function getExtensionManager()
     {
@@ -184,8 +179,6 @@ class ConfigurationManager
     /**
      * Gets the configuration.
      *
-     * @param
-     *            none
      * @return array The configuration
      */
     public function getConfiguration()
@@ -196,8 +189,6 @@ class ConfigurationManager
     /**
      * Gets the SAV Library Kickstarter Version.
      *
-     * @param
-     *            none
      * @return string The SAV Library Kickstarter Version
      */
     public static function getSavLibraryKickstarterVersion()
@@ -271,8 +262,6 @@ class ConfigurationManager
     /**
      * Gets the root directory for extensions.
      *
-     * @param
-     *            none
      * @return string The directory
      */
     public static function getExtensionsRootDir()
@@ -298,8 +287,6 @@ class ConfigurationManager
     /**
      * Checks if the extension was created with the SAV Library Kickstarter.
      *
-     * @param
-     *            none
      * @return boolean
      */
     public function isSavLibraryKickstarterExtension()
@@ -369,8 +356,6 @@ class ConfigurationManager
     /**
      * Loads the configuration.
      *
-     * @param
-     *            none
      * @return void
      */
     public function loadConfiguration($version = '')
@@ -403,8 +388,6 @@ class ConfigurationManager
     /**
      * Saves the configuration.
      *
-     * @param
-     *            none
      * @return void
      */
     public function saveConfiguration()
@@ -452,8 +435,8 @@ class ConfigurationManager
     /**
      * Saves the configuration.
      *
-     * @param
-     *            string The version
+     * @param string $version The version
+     *
      * @return void
      */
     public function saveConfigurationVersion($version = '')
@@ -464,14 +447,13 @@ class ConfigurationManager
         }
         $jsonContent = json_encode($configuration);
         $fileName = $this->getConfigurationFileName($this->extensionKey, $version);
+
         GeneralUtility::writeFile($fileName, $jsonContent);
     }
 
     /**
      * Gets the current library version depending on the library type.
      *
-     * @param
-     *            none
      * @return integer The library version
      */
     public function getCurrentLibraryVersion()
@@ -498,8 +480,6 @@ class ConfigurationManager
     /**
      * Gets the current library name depending on the library type.
      *
-     * @param
-     *            none
      * @return integer The library name
      */
     public function getCurrentLibraryName()
@@ -599,8 +579,6 @@ class ConfigurationManager
     /**
      * Checks if an extension should be upgraded.
      *
-     * @param
-     *            none
      * @return void
      */
     public function checkForUpgrade()
@@ -680,15 +658,42 @@ class ConfigurationManager
     {
         $upgradeManager = GeneralUtility::makeInstance(self::UPGRADE_ROOT_CLASS_NAME . $newLibraryVersionName, $this->extensionKey);
         $upgradeManager->preProcessing();
+        $sectionsToDelete = [];
 
         if ($this->isSavLibraryKickstarterExtension()) {
             $this->loadConfiguration();
             foreach ($this->getSectionManager()->getItems() as $sectionName => $section) {
                 $method = 'upgrade' . ucfirst($sectionName) . 'Section';
-                if (method_exists($upgradeManager, $method) && $section->getItems()->count() > 0) {
-                    $section->replace($upgradeManager->$method($section));
+                if (method_exists($upgradeManager, $method)) {
+                    $upgradedSection = $upgradeManager->$method($section);
+
+                    // Processes the section
+                    if($upgradedSection['deleteSection'] === TRUE) {
+                       $sectionsToDelete[]  = $sectionName;
+                    } else {
+
+                        // Defines the replacement method
+                        if ($upgradedSection['replacementMethod']) {
+                            $replacementMethod = $upgradedSection['replacementMethod'];
+                            unset($upgradedSection['replacementMethod']);
+                        } else {
+                            $replacementMethod = 'replace';
+                        }
+
+                        if (method_exists($section, $replacementMethod)) {
+                            $section->$replacementMethod($upgradedSection);
+                        } else {
+                            throw new \RuntimeException('The method "' . $replacementMethod . '" for the replacement does not exists!');
+                        }
+                    }
                 }
+
             }
+            // Deletes sections if requested
+            foreach($sectionsToDelete as $sectionName){
+                $this->getSectionManager()->getItems()->deleteItem($sectionName);
+            }
+
             $upgradeManager->postProcessing($this->getSectionManager());
             $extensionVersion = $this->getExtensionVersion($this->extensionKey);
             $this->saveConfigurationVersion($extensionVersion);

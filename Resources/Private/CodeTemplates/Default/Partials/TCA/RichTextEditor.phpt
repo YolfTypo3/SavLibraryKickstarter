@@ -1,7 +1,11 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
+
 'config' => [
     'type' => 'text',
     'cols' => '30',
     'rows' => '5',
+<f:if condition="{sav:function(name:'TYPO3VersionCompare', arguments:{version:'8',operator:'<'})}" >  
+<f:then>    
     'wizards' => [
         '_PADDING' => 2,
         'RTE' => [
@@ -15,4 +19,10 @@
             ],
         ],
     ],
+</f:then>
+<f:else>
+    'enableRichtext' => true,  
+</f:else>
+</f:if>      
 ],
+

@@ -22,7 +22,7 @@ $EM_CONF[$_EXTKEY] = [
     'version' => '{extension.emconf.1.version}',
     'constraints' => [
         'depends' => [
-            <sav:indent count="12">{sav:buildConstraintsForExtensionManager(extension:extension)}</sav:indent>
+            <sav:indent count="12">{sav:buildConstraintsForExtensionManager(extension:extension, type:'emconf')}</sav:indent>
         ],
         'conflicts' => [],
         'suggests' => [],

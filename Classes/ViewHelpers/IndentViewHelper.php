@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\ViewHelpers;
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /**
  * Copyright notice

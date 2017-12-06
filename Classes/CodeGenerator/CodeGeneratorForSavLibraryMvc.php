@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\CodeGenerator;
+namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 /**
  * Copyright notice
@@ -54,6 +54,9 @@ class CodeGeneratorForSavLibraryMvc extends AbstractCodeGenerator
         // Generates ext_emconf.php
         $this->buildExtEmConf();
 
+        // Generates composer.json
+        $this->buildComposer();
+
         // Generates ext_localconf.php
         $this->buildExtLocalConf();
 
@@ -101,6 +104,17 @@ class CodeGeneratorForSavLibraryMvc extends AbstractCodeGenerator
     {
         $fileContents = $this->generateFile('extEmconf.phpt');
         GeneralUtility::writeFile($this->extensionDirectory . 'ext_emconf.php', $fileContents);
+    }
+
+    /**
+     * Builds composer.json.
+     *
+     * @return void
+     */
+    protected function buildComposer()
+    {
+        $fileContents = $this->generateFile('composer.jsont');
+        GeneralUtility::writeFile($this->extensionDirectory . 'composer.json', $fileContents);
     }
 
     /**

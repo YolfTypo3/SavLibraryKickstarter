@@ -23,6 +23,8 @@ Version  Changes
 =======  ===========================================================================
 1.1.0    - Code generation improved.
          - Compatibility changed to TYPO3 8.9.
+         - composer.json added
+         - Vendor name changed
 
 1.0.1    - Code generation for sav_library_mvc improved
 

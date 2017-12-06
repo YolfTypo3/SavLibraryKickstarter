@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Upgrade;
+namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
 /**
  * Copyright notice
@@ -27,7 +27,7 @@ namespace SAV\SavLibraryKickstarter\Upgrade;
  * This copyright notice MUST APPEAR in all copies of the script!
  */
 
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
 
 /**
  * Upgrades the extension from the kickstarter

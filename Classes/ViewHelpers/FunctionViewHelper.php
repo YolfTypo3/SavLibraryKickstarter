@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\ViewHelpers;
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This script is part of the TYPO3 project - inspiring people to share! *
@@ -15,9 +15,9 @@ namespace SAV\SavLibraryKickstarter\ViewHelpers;
  */
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use SAV\SavLibraryKickstarter\Utility\Conversion;
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
-use SAV\SavLibraryKickstarter\ViewHelpers\FunctionViewHelper;
+use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\ViewHelpers\FunctionViewHelper;
 /**
  * A view helper for executing private functions.
  *
@@ -425,6 +425,22 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
     {
         return substr($string, $arguments);
     }
+
+    /**
+     * Replaces all occurrences of the search string with the replacement string
+     *
+     * @param string $string
+     *            The string
+     * @param integer $arguments
+     *            The start argument
+     *
+     * @return string
+     */
+    private function strReplace($string, $arguments)
+    {
+        return str_replace($arguments['search'], $arguments['replace'], $string);
+    }
+
 
     /**
      * Compares

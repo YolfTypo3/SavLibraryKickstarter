@@ -19,4 +19,23 @@ module.tx_savlibrarykickstarter {
         # cat=plugin.tx_savlibrarykickstarter//a; type=string; label=Default storage PID
         storagePid =
     }
+    settings {
+        compatibility.0 = TYPO3 6x-8x
+        compatibility.1 = TYPO3 6x
+        compatibility.2 = TYPO3 6x-7x     
+        
+        dependency.emconf.0 = 6.2.0-8.9.99
+        dependency.emconf.1 = 6.2.0-6.2.99
+        dependency.emconf.2 = 6.2.0.-7.9.99
+                      
+        dependency.composer.0 = >=6.2,<9.0
+        dependency.composer.1 = >=6.2,<7.0       
+        dependency.composer.1 = >=6.2,<8.0
+        
+        dependency.emconf.sav_library_plus.default = 1.0.0-0.0.0  
+        dependency.emconf.sav_library_mvc.default = 1.0.0-0.0.0    
+        
+        dependency.composer.sav_library_plus.default = >=1  
+        dependency.composer.sav_library_mvc.default = >=1                                      
+    }
 }

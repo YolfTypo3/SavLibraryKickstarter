@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Compatibility;
+namespace YolfTypo3\SavLibraryKickstarter\Compatibility;
 
 /*
  * This script is backported from the TYPO3 Flow package "TYPO3.Fluid". *
@@ -61,9 +61,9 @@ class CompatibilityUtility
     public static function setClassAliases()
     {
         if (version_compare(TYPO3_version, '6.2', '>=')) {
-            class_alias('SAV\\SavLibraryKickstarter\\Compatibility\\ExtensionManagerForTypo3VersionGreaterOrEqualTo6_2', 'SAV\\SavLibraryKickstarter\\Compatibility\\ExtensionManager');
+            class_alias('YolfTypo3\\SavLibraryKickstarter\\Compatibility\\ExtensionManagerForTypo3VersionGreaterOrEqualTo6_2', 'YolfTypo3\\SavLibraryKickstarter\\Compatibility\\ExtensionManager');
         } elseif (version_compare(TYPO3_version, '6.0', '>=')) {
-            class_alias('SAV\\SavLibraryKickstarter\\Compatibility\\ExtensionManagerForTypo3VersionGreaterOrEqualTo6_0', 'SAV\\SavLibraryKickstarter\\Compatibility\\ExtensionManager');
+            class_alias('YolfTypo3\\SavLibraryKickstarter\\Compatibility\\ExtensionManagerForTypo3VersionGreaterOrEqualTo6_0', 'YolfTypo3\\SavLibraryKickstarter\\Compatibility\\ExtensionManager');
         }
     }
 }

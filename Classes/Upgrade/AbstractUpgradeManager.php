@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\Upgrade;
+namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
 /**
  * Copyright notice
@@ -67,7 +67,7 @@ abstract class AbstractUpgradeManager
     /**
      * Post processing.
      *
-     * @param \SAV\SavLibraryKickstarter\Utility\ItemManager $sectionManager
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $sectionManager
      *            The section manager
      *
      * @return void

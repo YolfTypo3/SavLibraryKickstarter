@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\ViewHelpers;
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This script is part of the TYPO3 project - inspiring people to share! *
@@ -14,7 +14,7 @@ namespace SAV\SavLibraryKickstarter\ViewHelpers;
  * Public License for more details. *
  */
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
 
 /**
  * A view helper for building the constraints for the ext_emconf.php.
@@ -37,18 +37,31 @@ class BuildConstraintsForExtensionManagerViewHelper extends \TYPO3\CMS\Fluid\Cor
 {
 
     /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @inject
+     */
+    protected $configurationManager;
+
+    /**
      *
      * @param array $extension
+     * @param string $type
      * @return string the dependencies array
      * @author Laurent Foulloy <yolf.typo3@orange.fr>
      */
-    public function render($extension)
+    public function render($extension, $type)
     {
-        $dependenciesResult = array();
+        $dependenciesResult = [];
 
-        // Processes the dependency for typo3
-        $typo3DependencyKey = 'emconf.dependency.typo3.' . $extension['general'][1]['compatibility'];
-        $dependenciesResult['typo3'] = LocalizationUtility::translate($typo3DependencyKey, 'SavLibraryKickstarter');
+        // Gets the settings
+        $extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
+        $pluginName = $this->controllerContext->getRequest()->getPluginName();
+        $settings = $this->getSettings($extensionName, $pluginName);
+
+        // Processes the dependency for the core
+        $compatibility = $extension['general'][1]['compatibility'];
+        $dependenciesResult['emconf']['typo3'] = $settings['dependency']['emconf'][$compatibility];
+        $dependenciesResult['composer']['typo3/cms-core'] = $settings['dependency']['composer'][$compatibility];
 
         // Processes the library dependancy
         switch ($extension['general'][1]['libraryType']) {
@@ -66,22 +79,63 @@ class BuildConstraintsForExtensionManagerViewHelper extends \TYPO3\CMS\Fluid\Cor
         $dependencies = $extension['emconf'][1]['dependencies'];
         if (! empty($dependencies)) {
             $dependenciesArray = explode(',', $dependencies);
-            if ($libraryDependency != '' && ! in_array($libraryDependency, $dependenciesArray)) {
-                $dependenciesResult[$libraryDependency] = '';
+
+            foreach ($dependenciesArray as $dependency) {
+                if(preg_match('/^([^[ \(]+)\s*(?:\(([^)]+)\))?/', $dependency, $match)) {
+                    $dependencyName = $match[1];
+                    $dependencyConstraint = $match[2];
+                    // Adds a blank constraint for ext_emconf.php
+                    $dependenciesResult['emconf'][$dependencyName] = '';
+                    // Adds the dependency in composer.json only if the constaints exists
+                    if (!empty($dependencyConstraint)) {
+                        $dependenciesResult['composer']['typo3-ter/' . str_replace('_', '-', $dependencyName)] = $dependencyConstraint;
+                    } elseif($libraryDependency != '' && $dependencyName == $libraryDependency) {
+                        // If the default library is used without constraint, the default constraint will be used
+                        unset($dependenciesResult['emconf'][$dependencyName]);
+                    }
+                }
             }
         }
-        foreach ($dependenciesArray as $dependency) {
-            $dependenciesResult[trim($dependency)] = '';
+
+        if ($libraryDependency != '' && ! array_key_exists($libraryDependency, $dependenciesResult['emconf'])) {
+            $dependenciesResult['emconf'][$libraryDependency] = $settings['dependency']['emconf'][$libraryDependency]['default'];
+            $dependenciesResult['composer']['typo3-ter/' . str_replace('_', '-', $libraryDependency)] = $settings['dependency']['composer'][$libraryDependency]['default'];
         }
 
         // Processes the constraints
         $constraints = '';
-        foreach ($dependenciesResult as $dependencyKey => $dependency) {
-            $constraints .= '\'' . $dependencyKey . '\' => \'' . $dependency . '\',' . chr(10);
+
+        foreach ($dependenciesResult[$type] as $dependencyKey => $dependency) {
+            switch($type) {
+                case 'emconf':
+                    $constraints .= '\'' . $dependencyKey . '\' => \'' . $dependency . '\',' . chr(10);
+                    break;
+                case 'composer':
+                    $constraints .= '"' . $dependencyKey . '": "' . $dependency . '",' . chr(10);
+            }
         }
-        $constraints = substr($constraints, 0, - 1);
+        $constraints = substr($constraints, 0, -2);
 
         return $constraints;
+    }
+
+    /**
+     * Returns TypoScript settings array
+     *
+     * @param string $extensionName Name of the extension
+     * @param string $pluginName Name of the plugin
+     * @return array
+     */
+    public function getSettings($extensionName, $pluginName)
+    {
+
+        $typoScript = $this->configurationManager->getConfiguration(
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            $extensionName,
+            $pluginName);
+
+        return $typoScript;
+
     }
 }
 ?>

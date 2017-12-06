@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\ViewHelpers\Mvc;
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 /*
  * This script is part of the TYPO3 project - inspiring people to share! *

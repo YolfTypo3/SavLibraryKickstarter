@@ -40,7 +40,7 @@ namespace {vendorName}\{extensionName}\Controller;
  *
  */
 !
-class {controllerName}Controller extends \SAV\SavLibraryMvc\Controller\DefaultController
+class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\DefaultController
 {
 !
     /**

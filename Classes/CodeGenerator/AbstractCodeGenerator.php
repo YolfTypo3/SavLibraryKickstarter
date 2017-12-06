@@ -1,5 +1,5 @@
 <?php
-namespace SAV\SavLibraryKickstarter\CodeGenerator;
+namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 /**
  * Copyright notice
@@ -33,8 +33,9 @@ namespace SAV\SavLibraryKickstarter\CodeGenerator;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use SAV\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
 
 abstract class AbstractCodeGenerator
 {
@@ -54,9 +55,15 @@ abstract class AbstractCodeGenerator
 
     /**
      *
-     * @var \SAV\SavLibraryKickstarter\Configuration\SectionManager
+     * @var \YolfTypo3\SavLibraryKickstarter\Configuration\SectionManager
      */
     protected $sectionManager;
+
+    /**
+     *
+     * @var \YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController
+     */
+    protected $controller;
 
     /**
      *
@@ -87,6 +94,16 @@ abstract class AbstractCodeGenerator
     }
 
     /**
+     * Injects the controller
+     *
+     * @param \YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController $controller
+     */
+    public function injectController(\YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController $controller)
+    {
+        $this->controller = $controller;
+    }
+
+    /**
      * Gets the code template directory
      *
      * @return string
@@ -102,7 +119,9 @@ abstract class AbstractCodeGenerator
      * @return void
      */
     public function buildExtension()
-    {}
+    {
+        return $this->CanBuildExtension();
+    }
 
     /**
      * Gets the content of a file.
@@ -113,9 +132,10 @@ abstract class AbstractCodeGenerator
      */
     public function getFileContent($templateFilePath)
     {
-        $filePath = ExtensionManagementUtility::extPath('sav_library_kickstarter') . static::$codeTemplatesDirectory . $templateFilePath;
+        $controllerExtensionKey = $this->controller->getControllerContext()->getRequest()->getControllerExtensionKey();
+        $filePath = ExtensionManagementUtility::extPath($controllerExtensionKey) . static::$codeTemplatesDirectory . $templateFilePath;
         if (! file_exists($filePath)) {
-            $filePath = ExtensionManagementUtility::extPath('sav_library_kickstarter') . self::$codeTemplatesDirectory . $templateFilePath;
+            $filePath = ExtensionManagementUtility::extPath($controllerExtensionKey) . self::$codeTemplatesDirectory . $templateFilePath;
         }
         $fileContent = file_get_contents($filePath);
 
@@ -159,14 +179,15 @@ abstract class AbstractCodeGenerator
      *            The name space.
      * @return string The parsed content
      */
-    public function parse($content, $arguments = array(), $nameSpace = '{namespace sav=SAV\\SavLibraryKickstarter\\ViewHelpers}')
+    public function parse($content, $arguments = array(), $nameSpace = '{namespace sav=YolfTypo3\\SavLibraryKickstarter\\ViewHelpers}')
     {
         // Gets a standalone view
         $standaloneView = $this->objectManager->get(StandaloneView::class);
 
         // Sets the partial root paths
-        $codeTemplatesPath = ExtensionManagementUtility::extPath('sav_library_kickstarter') . static::$codeTemplatesDirectory;
-        $codeDefaultTemplatesPath = ExtensionManagementUtility::extPath('sav_library_kickstarter') . AbstractCodeGenerator::$codeTemplatesDirectory;
+        $controllerExtensionKey = $this->controller->getControllerContext()->getRequest()->getControllerExtensionKey();
+        $codeTemplatesPath = ExtensionManagementUtility::extPath($controllerExtensionKey) . static::$codeTemplatesDirectory;
+        $codeDefaultTemplatesPath = ExtensionManagementUtility::extPath($controllerExtensionKey) . AbstractCodeGenerator::$codeTemplatesDirectory;
         $standaloneView->setPartialRootPaths(array($codeDefaultTemplatesPath, $codeTemplatesPath));
 
         // Sets the template source
@@ -231,5 +252,29 @@ abstract class AbstractCodeGenerator
                 throw new RuntimeException('The library type "' . $libraryType . '" is not known !');
         }
     }
+
+    /**
+     * Checks if the extension can be built.
+     *
+     * @return string The library name
+     */
+    protected function CanBuildExtension()
+    {
+        // Checks if the vendor name is set
+        $vendorName = $this->sectionManager
+        ->getItem('general')
+        ->getItem(1)
+        ->getItem('vendorName');
+
+        if (empty($vendorName)) {
+            $controllerExtensionKey = $this->controller->getControllerContext()->getRequest()->getControllerExtensionKey();
+            $message = LocalizationUtility::translate('kickstarter.error.vendorNameMissing', $controllerExtensionKey);
+            $this->controller->addFlashMessage($message, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+
 }
 ?>
