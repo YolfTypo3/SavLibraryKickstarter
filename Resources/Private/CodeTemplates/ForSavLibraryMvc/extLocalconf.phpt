@@ -17,13 +17,13 @@ if (!defined ('TYPO3_MODE')) {
     [
     // The first controller and its first action will be the default
 	 <f:for each="{extension.forms}" as="form">
-    '{form.title->sav:upperCamel()}' => 'list,single,edit,save,delete,deleteInSubform,upInSubform,downInSubform',
+    '{form.title->sav:upperCamel()}' => 'list,single,edit,save,delete,deleteInSubform,upInSubform,downInSubform,deleteFile',
     </f:for>
     ],
     // Non-cachable controller actions
     [
     <f:for each="{extension.forms}" as="form">
-    '{form.title->sav:upperCamel()}' => '{f:if(condition:form.listViewNotCached,then:'list,')}{f:if(condition:form.singleViewNotCached,then:'single,')}edit,save,delete,deleteInSubform,upInSubform,downInSubform',
+    '{form.title->sav:upperCamel()}' => '{f:if(condition:form.listViewNotCached,then:'list,')}{f:if(condition:form.singleViewNotCached,then:'single,')}edit,save,delete,deleteInSubform,upInSubform,downInSubform,,deleteFile',
     </f:for>
     ]
 );
