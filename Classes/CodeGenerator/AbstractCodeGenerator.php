@@ -230,12 +230,12 @@ abstract class AbstractCodeGenerator
             $fileContents = $this->generateFile('Documentation/Settings.cfgt');
             GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Settings.cfg', $fileContents);
         }
-        // docker_compose.yml
+        // docker-compose.yml
         if ($this->sectionManager->getItem('documentation')
             ->getItem(1)
             ->getItem('AddDockerCompose')) {
-            $fileContents = $this->generateFile('docker_compose.ymlt');
-            GeneralUtility::writeFile($this->extensionDirectory . 'docker_compose.yml', $fileContents);
+            $fileContents = $this->generateFile('docker-compose.ymlt');
+            GeneralUtility::writeFile($this->extensionDirectory . 'docker-compose.yml', $fileContents);
         }
         // Documentation/Includes.txt
         if (! file_exists($this->extensionDirectory . 'Documentation/Includes.txt')) {
