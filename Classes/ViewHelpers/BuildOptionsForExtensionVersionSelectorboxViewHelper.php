@@ -2,20 +2,22 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
  * A view helper for building the options for the extension version.
@@ -30,31 +32,58 @@ use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
  * the options
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
  */
-class BuildOptionsForExtensionVersionSelectorboxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildOptionsForExtensionVersionSelectorboxViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
      *
-     * @param string $extensionKey            
-     * @return string the options array
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @return void
      */
-    public static function render($extensionKey)
+    public function initializeArguments()
+    {
+        $this->registerArgument('extensionKey', 'string', 'Extension key', true);
+    }
+
+    /**
+     * Renders the viewhelper
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array The options
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        // Gets the arguments
+        $extensionKey = $arguments['extensionKey'];
+
+        return self::renderOptions($extensionKey);
+    }
+
+    /**
+     * Renders the options
+     *
+     * @param string $extensionKey
+     * @return array the options array
+     */
+    public static function renderOptions($extensionKey): array
     {
         $extensionDirectory = ConfigurationManager::getExtensionDir($extensionKey);
         $libraryName = trim(GeneralUtility::getURL(ConfigurationManager::getLibraryTypeFileName($extensionKey)));
-        
+
         $configurationDirectory = $extensionDirectory . ConfigurationManager::CONFIGURATION_DIRECTORY . $libraryName;
-        
+
         $configurationFilename = pathinfo(ConfigurationManager::CONFIGURATION_FILE_NAME);
-        
-        $options = array();
+
+        $options = [];
         if ($handle = opendir($configurationDirectory)) {
-            
+
             while (false !== ($file = readdir($handle))) {
-                
+                $match = [];
                 if ($file != '.' && $file != '..' && preg_match('/^' . $configurationFilename['filename'] . '(\w*)\.' . $configurationFilename['extension'] . '$/', $file, $match)) {
                     if ($match[1]) {
                         $value = substr(str_replace('_', '.', $match[1]), 1);
@@ -63,9 +92,9 @@ class BuildOptionsForExtensionVersionSelectorboxViewHelper extends \TYPO3\CMS\Fl
                 }
             }
         }
-        
+
         uasort($options, 'self::versionCompareDescendingOrder');
-        
+
         return $options;
     }
 

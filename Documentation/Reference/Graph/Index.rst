@@ -20,8 +20,8 @@ Graph
 ======================================================= =========== ============== ==== ====
 Property                                                Data type   Default        Plus Mvc
 ======================================================= =========== ============== ==== ====
-:ref:`Graph.graphTemplate`                              String                     Yes  No
-:ref:`Graph.markers`                                    String                     Yes  No
+:ref:`Graph.graphTemplate`                              String                     Yes  Yes
+:ref:`Graph.tags`                                       String                     Yes  Yes
 ======================================================= =========== ============== ==== ====
 
 
@@ -42,15 +42,15 @@ graphTemplate
         File name of the XML template from the site root.
 
 
-.. _Graph.markers:
+.. _Graph.tags:
 
-markers
-^^^^^^^
+tags
+^^^^
 
 .. container:: table-row
 
     Property
-        markers
+        tags
    
     Data type
          String  
@@ -60,6 +60,10 @@ markers
         ###beginPeriod###” means that the “marker” whose id is “begin” in the
         template will be replaced by the marker “###beginPeriod###”, that is
         by the alias “beginPeriod”.
+        
+        .. note::
+        
+            Since SAV Library Kickstarter 1.2.0, the property "tags" replaces the former property "markers".
 
    
 

@@ -16,96 +16,99 @@
 					value="{f:translate(key:'kickstarter.showAllFields')}" />
 			</f:else>
 		</f:if>
+
+		<f:form.textfield class="fieldName" id="upDownValue"
+			name="{section}[upDownValue]" value="{sectionItem.upDownValue}" />
 	</div>
 </div>
-        <f:if condition="{sectionItem.showAllFields}">
-<div class="fields notInFolders">
-	<ul>
-		<li class="title">
-			<div class="fieldName">{f:translate(key:'kickstarter.field.fieldName')}</div>
-			<div class="fieldTitle">{f:translate(key:'kickstarter.field.fieldTitle')}</div>
-			<div class="fieldType">{f:translate(key:'kickstarter.field.fieldType')}</div>
-			<f:comment>Displayed if allowed</f:comment> <f:if
-				condition="{isAllowed}">
-				<div class="folder">{f:translate(key:'kickstarter.field.folder')}</div>
-			</f:if>
-		</li>
+<f:if condition="{sectionItem.showAllFields}">
+	<div class="fields notInFolders">
+		<ul>
+			<li class="title">
+				<div class="fieldName">{f:translate(key:'kickstarter.field.fieldName')}</div>
+				<div class="fieldTitle">{f:translate(key:'kickstarter.field.fieldTitle')}</div>
+				<div class="fieldType">{f:translate(key:'kickstarter.field.fieldType')}</div>
+				<f:comment>Displayed if allowed</f:comment> <f:if
+					condition="{isAllowed}">
+					<div class="folder">{f:translate(key:'kickstarter.field.folder')}</div>
+				</f:if>
+			</li>
 
-		<f:for each="{sectionItem.fields}" key="key" as="field">
-			<f:alias
-				map="{folderKey:'{field.folders->sav:getItem(key:sectionItemViewKey)}', folderExists:'{extension.views->sav:getItem(key:sectionItemVviewKey)->sav:getItem(\'folders\')}'}">
+			<f:for each="{sectionItem.fields}" key="key" as="field">
 				<f:alias
-					map="{notInFolder:'{sav:function(name:\'logicalNot\', arguments:folderKey)}'}">
-					<f:if
-						condition="{sav:function(name:'logicalOr', arguments:{0:sectionItem.showAllFields, 1:'{sav:function(name:\'logicalAnd\', arguments:{0:notInFolder, 1:folderExists})}'})}">
-						<li
-							class="field {f:if(condition:'{fieldKey} == {key}',then:'selected')}">
-							<f:alias
-								map="{selected:'{field.selected->sav:getItem(key:sectionItemViewKey)}', order:'{field.order->sav:getItem(key:sectionItemViewKey)}', class:'{extension.views->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:\'type\')}'}">
-								<div class="fieldName">
-									<f:form.textfield class="fieldName"
-										name="{section}[fields][{key}][fieldname]"
-										value="{field.fieldname}" />
-								</div>
-								<div class="fieldTitle">
-									<f:form.textfield class="fieldTitle"
-										name="{section}[fields][{key}][title]" value="{field.title}" />
-								</div>
-								<div class="fieldType">
-									<f:form.select class="fieldType"
-										name="{section}[fields][{key}][type]"
-										options="{sav:buildOptionsForFieldTypeSelectorbox()}"
-										value="{field.type}" />
-								</div>
+					map="{folderKey:'{field.folders->sav:getItem(key:sectionItemViewKey)}', folderExists:'{extension.views->sav:getItem(key:sectionItemVviewKey)->sav:getItem(\'folders\')}'}">
+					<f:alias
+						map="{notInFolder:'{sav:function(name:\'logicalNot\', arguments:folderKey)}'}">
+						<f:if
+							condition="{sav:function(name:'logicalOr', arguments:{0:sectionItem.showAllFields, 1:'{sav:function(name:\'logicalAnd\', arguments:{0:notInFolder, 1:folderExists})}'})}">
+							<li
+								class="field {f:if(condition:'{fieldKey} == {key}',then:'selected')}">
+								<f:alias
+									map="{selected:'{field.selected->sav:getItem(key:sectionItemViewKey)}', order:'{field.order->sav:getItem(key:sectionItemViewKey)}', class:'{extension.views->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:\'type\')}'}">
+									<div class="fieldName">
+										<f:form.textfield class="fieldName"
+											name="{section}[fields][{key}][fieldname]"
+											value="{field.fieldname}" />
+									</div>
+									<div class="fieldTitle">
+										<f:form.textfield class="fieldTitle"
+											name="{section}[fields][{key}][title]" value="{field.title}" />
+									</div>
+									<div class="fieldType">
+										<f:form.select class="fieldType"
+											name="{section}[fields][{key}][type]"
+											options="{sav:buildOptionsForFieldTypeSelectorbox()}"
+											value="{field.type}" />
+									</div>
 
-								<div class="fieldControls">
-									<f:form.hidden class="hidden"
-										name="{section}[fields][{key}][order][{sectionItemViewKey}]"
-										value="{order}" />
-									<f:form.hidden class="hidden"
-										name="{section}[fields][{key}][selected][{sectionItemViewKey}]"
-										value="0" />
-									<f:comment>Displayed if allowed</f:comment>
-									<f:if condition="{isAllowed}">
-										<f:form.checkbox class="checkbox"
+									<div class="fieldControls">
+										<f:form.hidden class="hidden"
+											name="{section}[fields][{key}][order][{sectionItemViewKey}]"
+											value="{order}" />
+										<f:form.hidden class="hidden"
 											name="{section}[fields][{key}][selected][{sectionItemViewKey}]"
-											value="1" checked="{selected}" />
-									</f:if>
-									<f:link.action action="editFieldConfiguration"
-										arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
-										<f:image class="editFieldConfiguration" 
-										    src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
-											alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
-											title="{f:translate(key:'kickstarter.edit')}" />
-									</f:link.action>
-									<f:link.action action="deleteField"
-										arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
-										<f:image class="deleteField" 
-										    src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
-											alt="kickstarter.delete"
-											title="{f:translate(key:'kickstarter.delete')}" />
-									</f:link.action>
-
-									<f:comment>Adds the folders if any</f:comment>
-									<f:alias
-										map="{view:'{extension.views->sav:getItem(key:sectionItemViewKey)}'}">
-
-										<f:if condition="{view.folders}">
-											<f:alias
-												map="{options:'{folderLabels->sav:getItem(key:sectionItem.viewKey)}', value:'{field.folders->sav:getItem(key:sectionItemViewKey)}'}">
-												<f:form.select class="folder"
-													name="{section}[fields][{key}][folders][{sectionItemViewKey}]"
-													options="{options}" value="{value}" />
-											</f:alias>
+											value="0" />
+										<f:comment>Displayed if allowed</f:comment>
+										<f:if condition="{isAllowed}">
+											<f:form.checkbox class="checkbox"
+												name="{section}[fields][{key}][selected][{sectionItemViewKey}]"
+												value="1" checked="{selected}" />
 										</f:if>
-									</f:alias>
-								</div>
-							</f:alias>
-						</li>
-					</f:if>
+										<f:link.action action="editFieldConfiguration"
+											arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
+											<f:image class="editFieldConfiguration"
+												src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
+												alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
+												title="{f:translate(key:'kickstarter.edit')}" />
+										</f:link.action>
+										<f:link.action action="deleteField"
+											arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
+											<f:image class="deleteField"
+												src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
+												alt="kickstarter.delete"
+												title="{f:translate(key:'kickstarter.delete')}" />
+										</f:link.action>
+
+										<f:comment>Adds the folders if any</f:comment>
+										<f:alias
+											map="{view:'{extension.views->sav:getItem(key:sectionItemViewKey)}'}">
+
+											<f:if condition="{view.folders}">
+												<f:alias
+													map="{options:'{folderLabels->sav:getItem(key:sectionItem.viewKey)}', value:'{field.folders->sav:getItem(key:sectionItemViewKey)}'}">
+													<f:form.select class="folder"
+														name="{section}[fields][{key}][folders][{sectionItemViewKey}]"
+														options="{options}" value="{value}" />
+												</f:alias>
+											</f:if>
+										</f:alias>
+									</div>
+								</f:alias>
+							</li>
+						</f:if>
+					</f:alias>
 				</f:alias>
-			</f:alias>
-		</f:for>
-	</ul>
-</div>
+			</f:for>
+		</ul>
+	</div>
 </f:if>

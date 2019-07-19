@@ -19,7 +19,7 @@
     
     <f:if condition="{newTable.versioning}">
     'origUid' => 't3_origuid',
-    'versioningWS' => TRUE,
+    'versioningWS' => true,
     </f:if>
     
     <f:if condition="{newTable.localization}">

@@ -1,41 +1,23 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\Utility;
 
-/**
- * *************************************************************
- * Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- * (c) 2010 Laurent Foulloy <yolf.typo3@orange.fr>
- * All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- * This class is a backport of the corresponding class of FLOW3.
- * All credits go to the v5 team.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
  *
- * This script is part of the TYPO3 project. The TYPO3 project is
- * free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * The GNU General Public License can be found at
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * This script is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * This copyright notice MUST APPEAR in all copies of the script!
- * *************************************************************
+ * The TYPO3 project - inspiring people to share!
  */
 
 /**
  * Utilities for converting variables
  *
  * @package SavLibraryKickstarter
- * @subpackage Utility
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
 class Conversion
 {
@@ -47,7 +29,7 @@ class Conversion
      *            The string to convert
      * @return string The string in upper Camel case
      */
-    static public function upperCamel($string)
+    static public function upperCamel(string $string): string
     {
         $string = str_replace(' ', '_', $string);
         $parts = explode('_', $string);
@@ -64,7 +46,7 @@ class Conversion
      *            The string to convert
      * @return string The string in lower Camel case
      */
-    static public function lowerCamel($string)
+    static public function lowerCamel(string $string): string
     {
         $output = self::upperCamel($string);
         if (function_exists('lcfirst')) {
@@ -82,14 +64,13 @@ class Conversion
      *            The string to convert
      * @return string The string in utf8
      */
-    static public function stringToUtf8($string)
+    static public function stringToUtf8(string $string): string
     {
-        if ($GLOBALS['LANG']->charSet == '' || $GLOBALS['LANG']->charSet == 'iso-8859-1') {
+        if (! mb_detect_encoding($string, 'UTF-8', true)) {
             return utf8_encode($string);
         } else {
             return $string;
         }
     }
 }
-
 ?>

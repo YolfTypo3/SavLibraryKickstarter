@@ -1,8 +1,4 @@
-<?php
 <sav:function name="removeEmptyLines">
-if (!defined ('TYPO3_MODE')) {
- 	die ('Access denied.');
-}
 
 <f:for each="{extension.newTables}" as="newTable">
 	<f:alias map="{
@@ -22,5 +18,17 @@ if (!defined ('TYPO3_MODE')) {
     </f:alias>
 </f:for>
 
+<f:comment>Creates TCA/Overrides/tt_content.php</f:comment>
+<sav:saveContentToFile content='<f:render partial="Configuration/TCA/Overrides/tt_content.phpt" arguments="{extension:extension}" />'
+            extensionKey="{extension.general.1.extensionKey}" fileName="Configuration/TCA/Overrides/tt_content.php" directory="Configuration/TCA/Overrides"/>
+     
+<f:comment>Creates TCA/Overrides/sys_template.php if needed</f:comment>
+<f:if condition="{mvc}">     
+<sav:saveContentToFile content='<f:render partial="Configuration/TCA/Overrides/sys_template.phpt" arguments="{extension:extension}" />'
+            extensionKey="{extension.general.1.extensionKey}" fileName="Configuration/TCA/Overrides/sys_template.php" directory="Configuration/TCA/Overrides"/>
+</f:if> 
+<f:if condition="{extension.general.1.addTypoScriptConfiguration}">     
+<sav:saveContentToFile content='<f:render partial="Configuration/TCA/Overrides/sys_template.phpt" arguments="{extension:extension}" />'
+            extensionKey="{extension.general.1.extensionKey}" fileName="Configuration/TCA/Overrides/sys_template.php" directory="Configuration/TCA/Overrides"/>
+</f:if>          
 </sav:function>
-?>

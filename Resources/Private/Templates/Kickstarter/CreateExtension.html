@@ -43,13 +43,13 @@
 							<label for="extensionKey"><f:translate
 									key="kickstarter.{section}Item.extensionKey" /></label>
 							<f:form.textfield id="extensionKey" name="extKey" value="" />
-							
-                            <f:comment>Vendor name</f:comment>
-                            <label for="pluginTitle"><f:translate
-                                    key="kickstarter.generalItem.vendorName" /></label>
-                            <f:form.textfield id="vendorName" name="general[vendorName]"
-                                value="{extension.general.1.vendorName}" />
-                                
+
+							<f:comment>Vendor name</f:comment>
+							<label for="pluginTitle"><f:translate
+									key="kickstarter.generalItem.vendorName" /></label>
+							<f:form.textfield id="vendorName" name="general[vendorName]"
+								value="{extension.general.1.vendorName}" />
+
 							<f:comment>Title</f:comment>
 							<label for="title"><f:translate
 									key="kickstarter.{section}Item.title" /></label>
@@ -110,7 +110,7 @@
 							<f:form.hidden class="hidden" name="general[libraryType]"
 								value="1" />
 							<f:form.select id="libraryType" name="general[libraryType]"
-                                options="{
+								options="{
                                     0:'{f:translate(key:\'kickstarter.generalItem.libraryType.0\')}',
                                     1:'{f:translate(key:\'kickstarter.generalItem.libraryType.1\')}',
                                     2:'{f:translate(key:\'kickstarter.generalItem.libraryType.2\')}',

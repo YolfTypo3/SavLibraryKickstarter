@@ -1,11 +1,3 @@
-# For compatibility
-[compatVersion = 6.0.0]
-module.tx_savlibrarykickstarter.LayoutRootPathCompatibility = TYPO6x/
-[END]
-[compatVersion = 7.0.0]
-module.tx_savlibrarykickstarter.LayoutRootPathCompatibility = TYPO7x/
-[END]
-
 module.tx_savlibrarykickstarter {
     view {
         # cat=plugin.tx_savlibrarykickstarter/file; type=string; label=Path to template root (FE)
@@ -20,22 +12,25 @@ module.tx_savlibrarykickstarter {
         storagePid =
     }
     settings {
-        compatibility.0 = TYPO3 6x-8x
-        compatibility.1 = TYPO3 6x
-        compatibility.2 = TYPO3 6x-7x     
-        
-        dependency.emconf.0 = 6.2.0-8.9.99
+        compatibility.0 = TYPO3 8x-9x 
+        compatibility.1 = Obsolete  
+        compatibility.2 = Obsolete
+        compatibility.3 = TYPO3 7x  
+                
+        dependency.emconf.0 = 8.7.0-9.5.99
         dependency.emconf.1 = 6.2.0-6.2.99
-        dependency.emconf.2 = 6.2.0.-7.9.99
-                      
-        dependency.composer.0 = >=6.2,<9.0
+        dependency.emconf.2 = 6.2.0-7.9.99       
+        dependency.emconf.3 = 7.6.0-7.9.99 
+                             
+        dependency.composer.0 = >=8.7,<10.0
         dependency.composer.1 = >=6.2,<7.0       
-        dependency.composer.1 = >=6.2,<8.0
+        dependency.composer.2 = >=6.2,<8.0        
+        dependency.composer.3 = >=7.6,<8.0
+                
+        dependency.emconf.sav_library_plus.default = 1.2.0-0.0.0  
+        dependency.emconf.sav_library_mvc.default = 1.2.0-0.0.0    
         
-        dependency.emconf.sav_library_plus.default = 1.0.0-0.0.0  
-        dependency.emconf.sav_library_mvc.default = 1.0.0-0.0.0    
-        
-        dependency.composer.sav_library_plus.default = >=1  
-        dependency.composer.sav_library_mvc.default = >=1                                      
+        dependency.composer.sav_library_plus.default = >=1.2  
+        dependency.composer.sav_library_mvc.default = >=1.2                                      
     }
 }

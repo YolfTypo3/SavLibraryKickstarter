@@ -4,9 +4,9 @@
 }">
 plugin.tx_{extensionName} {
     view {
-        templateRootPaths.10 = <![CDATA[{]]>$plugin.tx_{extensionName}.view.templateRootPath}
-        partialRootPaths.10 = <![CDATA[{]]>$plugin.tx_{extensionName}.view.partialRootPath}
-        layoutRootPaths.10 = <![CDATA[{]]>$plugin.tx_{extensionName}.view.layoutRootPath}
+        templateRootPaths.10 = {$plugin.tx_{extensionName}.view.templateRootPath}
+        partialRootPaths.10 = {$plugin.tx_{extensionName}.view.partialRootPath}
+        layoutRootPaths.10 = {$plugin.tx_{extensionName}.view.layoutRootPath}
     }
     persistence {
         storagePid = {$plugin.tx_{extensionName}.persistence.storagePid}
@@ -15,19 +15,15 @@ plugin.tx_{extensionName} {
 
 config.tx_extbase.persistence.classes {
 <f:for each="{extension.newTables}" as="table" key="tableKey">
-<f:alias map="{
-  model:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}'
-}">
-    {sav:mvc.buildModelName(tableName:model, extension:extension, removeFirstBackslash:1)} <![CDATA[{]]>
+    {sav:mvc.buildModelName(tableName:model, extension:extension, removeFirstBackslash:1)} {
         mapping {
-            tableName = {model}
-            columns <![CDATA[{]]>
+            tableName = <f:format.raw>{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}</f:format.raw>
+            columns {
                 crdate.mapOnProperty = crdate
                 cruser_id.mapOnProperty = cruserId 
             }   
         }        
     }
-</f:alias>
 </f:for>
 }
 </f:alias>

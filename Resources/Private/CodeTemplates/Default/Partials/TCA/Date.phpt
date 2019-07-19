@@ -1,22 +1,19 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
-<f:if condition="{sav:function(name:'TYPO3VersionCompare', arguments:{version:'8',operator:'<'})}" >
-<f:then>
 'config' => [
-    'type' => 'input', 
-    'size' => '8',
-    'max' => '20',
+    'type' => 'input',
+     
+    <f:if condition="{extension.general.1.compatibility} == 0">
+    'renderType' => 'inputDateTime',
+    </f:if>    
+                               
     'eval' => 'date',
-    'checkbox' => '0',
-    'default' => '0'
-],
-</f:then>
-<f:else>
-'config' => [
-    'type' => 'input', 
-    'renderType' => 'inputDateTime',    
-    'eval' => 'date',  
+    
+    <f:if condition="{extension.general.1.compatibility} > 0">
+    'size' => 8,
+    'max' => 20, 
+    'checkbox' => '0', 
+    </f:if>     
+     
     'default' => '0'     
 ],
-</f:else>
-</f:if>

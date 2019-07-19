@@ -2,17 +2,20 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for building the options for the view selector.
@@ -27,32 +30,46 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  * the options
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
  */
-class BuildOptionsForViewSelectorboxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildOptionsForViewSelectorboxViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
      *
-     * @param array $views
-     *            The views
-     *            
-     * @return string the options array
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @return void
      */
-    public function render($views)
+    public function initializeArguments()
     {
-        $options = array(
+        $this->registerArgument('views', 'array', 'Views', true);
+    }
+
+    /**
+     * Renders the options
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        // Gets the arguments
+        $views = $arguments['views'];
+
+        $options = [
             0 => ''
-        );
+        ];
         if (is_array($views)) {
             foreach ($views as $viewKey => $view) {
-                $options = array_merge($options, array(
+                $options = array_merge($options, [
                     $viewKey => $view['title'] . '###class=' . $view['type'] . '###'
-                ));
+                ]);
             }
         }
-        
+
         return $options;
     }
 }

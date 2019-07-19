@@ -2,19 +2,19 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * A view helper for transforming a string to UpperCamel case.
@@ -29,27 +29,34 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * SavLibraryKickstarter
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class UpperCamelViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class UpperCamelViewHelper extends AbstractViewHelper
 {
 
     /**
+     * Initializes arguments.
      *
-     * @param string $string
-     *            String to convert
-     * @return string Converted string
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
-     *         @api
+     * @return void
      */
-    public function render($string = NULL)
+    public function initializeArguments()
     {
-        if ($string === NULL) {
+        $this->registerArgument('string', 'string', 'String to convert', false, null);
+    }
+
+    /**
+     * Renders the string in UpperCamel
+     *
+     * @return string String in UpperCamel
+     */
+    public function render(): string
+    {
+        // Gets the arguments
+        $string = $this->arguments['string'];
+
+        if ($string === null) {
             $string = $this->renderChildren();
         }
-        return GeneralUtility::underscoredToUpperCamelCase($string);
+        return ($string === null ? '' : GeneralUtility::underscoredToUpperCamelCase($string));
     }
 }
 ?>

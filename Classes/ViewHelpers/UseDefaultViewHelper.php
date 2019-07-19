@@ -1,28 +1,21 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
-/**
- * Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- * (c) 2015 Laurent Foulloy (yolf.typo3@orange.fr)
- * All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- * This script is part of the TYPO3 project. The TYPO3 project is
- * free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
  *
- * The GNU General Public License can be found at
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * This script is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * This copyright notice MUST APPEAR in all copies of the script!
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper which returns a file if its exists in the SAV Library Kickstarter
@@ -34,25 +27,41 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  * <sav:useDefault fileName="file to check" default="default file" />
  * </code>
  *
- *
  * @package SavLibraryKickstarter
  */
-class UseDefaultViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class UseDefaultViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
      *
-     * @param string $path
-     *            path
-     * @param string $fileName
-     *            fileName to check
-     * @param string $default
-     *            default file
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('path', 'string', 'Path', true);
+        $this->registerArgument('fileName', 'string', 'File name to check', true);
+        $this->registerArgument('default', 'string', 'Default file', true);
+    }
+
+    /**
+     * Renders the viewhelper
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
      * @return string Either the fileName if the file exits in the SAV Library Kickstarter or the defaut
      */
-    public function render($path, $fileName, $default)
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        if (file_exists($path. $fileName)) {
+        // Gets the arguments
+        $path = $arguments['path'];
+        $fileName = $arguments['fileName'];
+        $default = $arguments['default'];
+
+        if (file_exists($path . $fileName)) {
             return $fileName;
         } else {
             return $default;

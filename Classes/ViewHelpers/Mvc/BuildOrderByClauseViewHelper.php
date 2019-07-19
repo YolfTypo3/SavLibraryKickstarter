@@ -2,17 +2,18 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * A view helper for building the order by clause for the where tags.
@@ -27,10 +28,8 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
  * the oprtions
  *
  * @package SavLibraryKickstarter
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class BuildOrderByClauseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildOrderByClauseViewHelper extends AbstractViewHelper
 {
 
     const ORDER_BY_PATTERN = '/
@@ -46,28 +45,42 @@ class BuildOrderByClauseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
   /x';
 
     /**
+     * Initializes arguments.
      *
-     * @param string $clause            
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('clause', 'string', 'Clause', true);
+    }
+
+    /**
+     * Renders the order by clause
      *
      * @return string the processed order by clause
      */
-    public function render($clause)
+    public function render(): string
     {
+        // Gets the arguments
+        $clause = $this->arguments['clause'];
+
         $out = $this->processOrderByClause($clause);
-        return ($out ? '$query->setOrderings(array(' . $out . '));' : '');
+        return ($out ? '$query->setOrderings([' . $out . ']);' : '');
     }
 
     /**
      * Processes the order by clause
      *
-     * @param string $clause            
+     * @param string $clause
+     *
      * @return string the processed order by clause
      */
-    public function processOrderByClause($clause)
+    protected function processOrderByClause(string $clause): string
     {
+        $matches = [];
         preg_match_all(self::ORDER_BY_PATTERN, $clause, $matches);
-        
-        $clause = array();
+
+        $clause = [];
         foreach ($matches['property'] as $matchKey => $match) {
             $modifier = strtolower($matches['modifier'][$matchKey]);
             switch ($modifier) {
@@ -80,7 +93,7 @@ class BuildOrderByClauseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abst
                     break;
             }
         }
-        
+
         return implode(',' . chr(10), $clause);
     }
 }

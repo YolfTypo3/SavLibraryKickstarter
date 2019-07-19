@@ -7,28 +7,19 @@
 }">
 <f:alias map="{model:'Tx_{extensionName}_Domain_Model_{modelName}'}">
 namespace {vendorName}\{extensionName}\Domain\Repository;
-/**
-*  Copyright notice
-*
-*  (c) <f:format.date format="Y">now</f:format.date> {extension.emconf.1.author} <{extension.emconf.1.author_email}>
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-*/
+!
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
 !
 /**
  * Repository for the {modelName} model in the extension {extensionName}
@@ -36,66 +27,70 @@ namespace {vendorName}\{extensionName}\Domain\Repository;
  */
 class {modelName}Repository extends \YolfTypo3\SavLibraryMvc\Domain\Repository\DefaultRepository
 {
-!
+
 <f:for each="{extension.queries}" as="query" key="queryKey">
 
     <f:if condition="{query.mainTable} == {model->sav:toLower()}">
 
     <f:if condition="{query.whereClause}">
+!    
     /**
      * Defines the where clause
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @return void
      */
-    protected function whereClause{queryKey}($query)
+    protected function whereClause{queryKey}(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query)
     {
         <sav:indent count="8">$whereClauseConstraints = <sav:Mvc.buildWhereClause clause="{query.whereClause}" />;
 return $whereClauseConstraints;
         </sav:indent>
     }
     </f:if>
-!
+
     <f:if condition="{query.orderByClause}">
+!    
     /**
      * Defines the order by clause
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @return void
      */
-    protected function orderByClause{queryKey}($query)
+    protected function orderByClause{queryKey}(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query)
     {
         <sav:indent count="8"><sav:Mvc.buildOrderByClause clause="{query.orderByClause}" /></sav:indent>
     }
     </f:if>
-!
+
     <f:for each="{query.whereTags}" as="whereTag" key="whereTagKey">
+!    
     /**
      * Defines the order by clause associated with the whereTag "{whereTag.title}"
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @return void
      */
-    protected function orderByClauseForWhereTag{whereTagKey}($query)
+    protected function orderByClauseForWhereTag{whereTagKey}(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query)
     {
         <sav:indent count="8"><sav:Mvc.buildOrderByClause clause="{whereTag.orderByClause}" /></sav:indent>
     }
-!
     </f:for>
 
     <f:if condition="{query.whereTags->f:count()} > 0">
+!    
     /**
-     * Returns the whereTag from its title
+     * Returns the whereTag key from its title
      *
      * @param string $title
-     * @return void
+     * @return int
      */
-    public function getWhereTagByTitle($title) {
-        $whereTags = array (
+    public function getWhereTagByTitle(string $title) : int
+    {
+        $whereTags = [
         <f:for each="{query.whereTags}" as="whereTag" key="whereTagKey">
             '{whereTag.title->sav:function(name:'addslashes')}' => {whereTagKey},
         </f:for>
-        );
+        ];
         return $whereTags[$title];
     }
     </f:if>

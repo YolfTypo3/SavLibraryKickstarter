@@ -1,40 +1,25 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
-/**
- * Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- * (c) 2010 Laurent Foulloy <yolf.typo3@orange.fr>
- * All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- * This class is a backport of the corresponding class of FLOW3.
- * All credits go to the v5 team.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
  *
- * This script is part of the TYPO3 project. The TYPO3 project is
- * free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * The GNU General Public License can be found at
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * This script is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * This copyright notice MUST APPEAR in all copies of the script!
+ * The TYPO3 project - inspiring people to share!
  */
-
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
 
 /**
  * Upgrades the extension from the kickstarter
  *
  * @package Kickstarter
- * @subpackage Upgrade
- * @version SVN: $Id$
  */
 class UpgradeToSavLibraryPlus_1_0_0 extends AbstractUpgradeManager
 {
@@ -42,23 +27,22 @@ class UpgradeToSavLibraryPlus_1_0_0 extends AbstractUpgradeManager
     /**
      * Upgrades the general section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeGeneralSection($configuration)
+    public function upgradeGeneralSection(ItemManager $configuration): array
     {
         $newConfiguration = $configuration->getItemsAsArray();
 
         // Sets the compatibility
-        $newConfiguration[1]['compatibility'] = ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE;
+        $newConfiguration[1]['compatibility'] = ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT;
 
         // Sets the library version
         $newConfiguration[1]['libraryVersion'] = '1.0.0';
 
         return $newConfiguration;
     }
-
 }
 ?>

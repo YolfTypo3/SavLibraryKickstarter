@@ -1,6 +1,6 @@
 <f:if condition="{field.conf_varchar} == 1">
 <f:then>
-varchar(255) DEFAULT '' NOT NULL,
+varchar(255) DEFAULT '<f:if condition="{field.conf_default} != ''">{field.conf_default}</f:if>' NOT NULL,
 </f:then>
 <f:else>
 tinytext,

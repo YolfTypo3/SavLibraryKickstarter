@@ -96,8 +96,26 @@
             <trans-unit id="kickstarter.useFields" xml:space="preserve">
                 <source>Use fields as in view</source>
             </trans-unit>
+            <trans-unit id="kickstarter.generating" xml:space="preserve">
+                <source>Generating...</source>
+            </trans-unit>
+            <trans-unit id="kickstarter.upgrading" xml:space="preserve">
+                <source>Upgrading...</source>
+            </trans-unit>  
+            <trans-unit id="kickstarter.installing" xml:space="preserve">
+                <source>Installing...</source>
+            </trans-unit>   
+            <trans-unit id="kickstarter.uninstalling" xml:space="preserve">
+                <source>Uninstalling...</source>
+            </trans-unit>             
+            <trans-unit id="kickstarter.saving" xml:space="preserve">
+                <source>Saving...</source>
+            </trans-unit>                               
             <trans-unit id="kickstarter.emconfSectionTitle" xml:space="preserve">
                 <source>Extension Configuration</source>
+            </trans-unit>
+            <trans-unit id="kickstarter.documentationSectionTitle" xml:space="preserve">
+                <source>Documentation Configuration</source>
             </trans-unit>
             <trans-unit id="kickstarter.newTablesSectionTitle" xml:space="preserve">
                 <source>New tables</source>
@@ -179,7 +197,7 @@
             </trans-unit>
             <trans-unit id="kickstarter.extensionList.debugQueries" xml:space="preserve">
                 <source>Debug queries</source>
-            </trans-unit>
+            </trans-unit>                                             
             <trans-unit id="kickstarter.emconfItem.extensionKey" xml:space="preserve">
                 <source>Extension key:</source>
             </trans-unit>
@@ -221,7 +239,43 @@
             </trans-unit>
             <trans-unit id="kickstarter.emconfItem.author_email" xml:space="preserve">
                 <source>Author email:</source>
-            </trans-unit>    
+            </trans-unit>   
+            <trans-unit id="kickstarter.documentationItem.title" xml:space="preserve">
+                <source>Documentation title:</source>
+            </trans-unit> 
+            <trans-unit id="kickstarter.documentationItem.gitHubRepository" xml:space="preserve">
+                <source>GitHub Repository:</source>
+            </trans-unit>   
+            <trans-unit id="kickstarter.documentationItem.gitHubBranch" xml:space="preserve">
+                <source>GitHub Branch:</source>
+            </trans-unit>  
+            <trans-unit id="kickstarter.documentationItem.projectContact" xml:space="preserve">
+                <source>Project Contact:</source>
+            </trans-unit>      
+            <trans-unit id="kickstarter.documentationItem.projectDiscussion" xml:space="preserve">
+                <source>Project Discussion:</source>
+            </trans-unit>  
+            <trans-unit id="kickstarter.documentationItem.projectHome" xml:space="preserve">
+                <source>Project Home:</source>
+            </trans-unit> 
+            <trans-unit id="kickstarter.documentationItem.projectIssues" xml:space="preserve">
+                <source>Project Issues:</source>
+            </trans-unit> 
+            <trans-unit id="kickstarter.documentationItem.projectRepository" xml:space="preserve">
+                <source>Project Repository:</source>
+            </trans-unit>  
+            <trans-unit id="kickstarter.documentationItem.interSphinxMapping" xml:space="preserve">
+                <source>Inter Sphinx Mapping:</source>
+            </trans-unit>        
+            <trans-unit id="kickstarter.documentationItem.extensions" xml:space="preserve">
+                <source>Extensions:</source>
+            </trans-unit>      
+            <trans-unit id="kickstarter.documentationItem.keepSettingsCfg" xml:space="preserve">
+                <source>Keep Settings.cfg file:</source>
+            </trans-unit> 
+            <trans-unit id="kickstarter.documentationItem.AddDockerCompose" xml:space="preserve">
+                <source>Add docker-compose.yml file:</source>
+            </trans-unit>                                                                                                               
             <trans-unit id="kickstarter.general.savlibraryVersion" xml:space="preserve">
                 <source>SAV Library Version:</source>
             </trans-unit>
@@ -527,7 +581,7 @@
             </trans-unit>
             <trans-unit id="kickstarter.field.fieldType.Files" xml:space="preserve">
                 <source>Files</source>
-            </trans-unit>
+            </trans-unit>          
             <trans-unit id="kickstarter.field.fieldType.Graph" xml:space="preserve">
                 <source>Graph</source>
             </trans-unit>
@@ -537,6 +591,9 @@
             <trans-unit id="kickstarter.field.fieldType.Link" xml:space="preserve">
                 <source>Link</source>
             </trans-unit>
+            <trans-unit id="kickstarter.field.fieldType.Numeric" xml:space="preserve">
+                <source>Numeric</source>
+            </trans-unit>              
             <trans-unit id="kickstarter.field.fieldType.RadioButtons" xml:space="preserve">
                 <source>Radio buttons</source>
             </trans-unit>
@@ -567,6 +624,9 @@
             <trans-unit id="kickstarter.field.folder" xml:space="preserve">
                 <source>Folder</source>
             </trans-unit>
+            <trans-unit id="kickstarter.field.conf_default" xml:space="preserve">
+                <source>Default value for SQL</source>
+            </trans-unit>
             <trans-unit id="kickstarter.field.conf_files_type" xml:space="preserve">
                 <source>File type</source>
             </trans-unit>
@@ -588,6 +648,24 @@
             <trans-unit id="kickstarter.field.conf_files_selsize" xml:space="preserve">
                 <source>Size of selector box</source>
             </trans-unit>
+            <trans-unit id="kickstarter.field.conf_numeric_type" xml:space="preserve">
+                <source>Numeric type</source>
+            </trans-unit> 
+            <trans-unit id="kickstarter.field.conf_numeric_type_M" xml:space="preserve">
+                <source>Number of digits in total (M)</source>
+            </trans-unit>     
+            <trans-unit id="kickstarter.field.conf_numeric_type_D" xml:space="preserve">
+                <source>Number of digits after the decimal point (D)</source>
+            </trans-unit>                     
+            <trans-unit id="kickstarter.field.conf_numeric_type.int" xml:space="preserve">
+                <source>Integer</source>
+            </trans-unit> 
+            <trans-unit id="kickstarter.field.conf_numeric_type.decimal" xml:space="preserve">
+                <source>Decimal</source>
+            </trans-unit>    
+            <trans-unit id="kickstarter.field.conf_numeric_type.float" xml:space="preserve">
+                <source>Float</source>
+            </trans-unit>                                              
             <trans-unit id="kickstarter.field.conf_rel_table" xml:space="preserve">
                 <source>Table in relation with</source>
             </trans-unit>

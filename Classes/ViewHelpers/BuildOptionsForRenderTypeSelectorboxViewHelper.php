@@ -2,19 +2,21 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for building the options for the field type selector.
@@ -29,19 +31,23 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * the options
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
  */
-class BuildOptionsForRenderTypeSelectorboxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildOptionsForRenderTypeSelectorboxViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Renders the viewhelper
      *
-     * @return string the options array
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render()
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $options = array(
+        $options = [
             'String' => LocalizationUtility::translate('kickstarter.field.fieldType.String', 'sav_library_kickstarter'),
             'Checkbox' => LocalizationUtility::translate('kickstarter.field.fieldType.Checkbox', 'sav_library_kickstarter'),
             'Checkboxes' => LocalizationUtility::translate('kickstarter.field.fieldType.Checkboxes', 'sav_library_kickstarter'),
@@ -58,7 +64,7 @@ class BuildOptionsForRenderTypeSelectorboxViewHelper extends \TYPO3\CMS\Fluid\Co
             'RichTextEditor' => LocalizationUtility::translate('kickstarter.field.fieldType.RichTextEditor', 'sav_library_kickstarter'),
             'Selectorbox' => LocalizationUtility::translate('kickstarter.field.fieldType.Selectorbox', 'sav_library_kickstarter'),
             'Text' => LocalizationUtility::translate('kickstarter.field.fieldType.Text', 'sav_library_kickstarter')
-        );
+        ];
         return $options;
     }
 }

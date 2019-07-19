@@ -2,22 +2,23 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
-use YolfTypo3\SavLibraryKickstarter\ViewHelpers\FunctionViewHelper;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
+
 /**
  * A view helper for executing private functions.
  *
@@ -31,25 +32,33 @@ use YolfTypo3\SavLibraryKickstarter\ViewHelpers\FunctionViewHelper;
  * TxSavlibraryexampleTest
  *
  * @package SavLibraryMvc
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
+ *         
  */
-class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FunctionViewHelper extends AbstractViewHelper
 {
 
     /**
+     * Initializes arguments.
      *
-     * @param string $name
-     *            The function name
-     * @param mixed $arguments
-     *            The arguments
-     * @return string the type for the variable
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
-     * @version SVN: $Id$
+     * @return void
      */
-    public function render($name = NULL, $arguments = NULL)
+    public function initializeArguments()
     {
+        $this->registerArgument('name', 'string', 'Name of the function', true);
+        $this->registerArgument('arguments', 'mixed', 'arguments of the function', false);
+    }
+
+    /**
+     * Renders the function
+     *
+     * @return mixed
+     */
+    public function render()
+    {
+        // Gets the arguments
+        $name = $this->arguments['name'];
+        $arguments = $this->arguments['arguments'];
+
         $children = $this->renderChildren();
         if (! empty($children)) {
             if (method_exists($this, $name)) {
@@ -81,9 +90,9 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *            The string to convert
      * @return string The string in utf8
      */
-    private function stringToUtf8($string)
+    private function stringToUtf8(string $string = null): string
     {
-        return Conversion::stringToUtf8($string);
+        return ($string === null ? '' : Conversion::stringToUtf8($string));
     }
 
     /**
@@ -93,9 +102,9 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *            The string to convert
      * @return string The string in upper Camel case
      */
-    private function upperCamel($string)
+    private function upperCamel(string $string = null): string
     {
-        return Conversion::upperCamel($string);
+        return ($string === null ? '' : Conversion::upperCamel($string));
     }
 
     /**
@@ -105,13 +114,13 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *            The string to convert
      * @return string The string in lower Camel case
      */
-    private function lowerCamel($string)
+    private function lowerCamel(string $string = null): string
     {
-        return Conversion::lowerCamel($string);
+        return ($string === null ? '' : Conversion::lowerCamel($string));
     }
 
     /**
-     * Returns TRUE if the arguments is null
+     * Returns true if the arguments is null
      *
      * @param mixed $argument
      *            The argument
@@ -120,7 +129,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
     private function setTrueIfNull($argument)
     {
         if (is_null($argument)) {
-            return TRUE;
+            return true;
         } else {
             return $argument;
         }
@@ -143,36 +152,38 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
     }
 
     /**
-     * Returns TRUE if the arguments[index] in the argument[input] is an array of integer
+     * Returns true if the arguments[index] in the argument[input] is an array of integer
      *
      * @param array $arguments
      *            The argument array
-     * @return boolean
+     * @return bool
      */
-    private function isArrayOfInteger($arguments)
+    private function isArrayOfInteger(array $arguments): bool
     {
         $notInteger = 0;
-        foreach ($arguments['input'] as $key => $value) {
-            $notInteger += MathUtility::canBeInterpretedAsInteger($value[$arguments['index']]) ? 0 : 1;
+        if (is_array($arguments['input'])) {
+            foreach ($arguments['input'] as $value) {
+                $notInteger += MathUtility::canBeInterpretedAsInteger($value[$arguments['index']]) ? 0 : 1;
+            }
         }
-        return $notInteger ? FALSE : TRUE;
+        return $notInteger ? false : true;
     }
 
     /**
-     * Returns TRUE if the arguments[needle] is in the argument[haystack]
+     * Returns true if the arguments[needle] is in the argument[haystack]
      *
      * @param array $arguments
      *            The argument array
-     * @return boolean
+     * @return bool
      */
-    private function in_array($arguments)
+    private function in_array(array $arguments): bool
     {
         if (is_string($arguments['haystack'])) {
             $haystack = explode(',', $arguments['haystack']);
         } elseif (is_array($arguments['haystack'])) {
             $haystack = $arguments['haystack'];
         } else {
-            return FALSE;
+            return false;
         }
         return in_array($arguments['needle'], $haystack);
     }
@@ -189,42 +200,42 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
         if (is_array($argument)) {
             return current($argument);
         } else {
-            return FALSE;
+            return false;
         }
     }
 
     /**
-     * Returns TRUE if the argument is an array
+     * Returns true if the argument is an array
      *
      * @param mixed $argument
      *            The argument
-     * @return boolean
+     * @return bool
      */
-    private function isArray($argument)
+    private function isArray($argument): bool
     {
         return is_array($argument);
     }
 
     /**
-     * Returns TRUE if the argument is an integer
+     * Returns true if the argument is an integer
      *
      * @param mixed $argument
      *            The argument
-     * @return boolean
+     * @return bool
      */
-    private function isInteger($argument)
+    private function isInteger($argument): bool
     {
         return is_integer($argument);
     }
 
     /**
-     * Returns TRUE if the argument is a postive integer
+     * Returns true if the argument is a postive integer
      *
      * @param mixed $argument
      *            The argument
-     * @return boolean
+     * @return bool
      */
-    private function isPositiveInteger($argument)
+    private function isPositiveInteger($argument): bool
     {
         return is_integer($argument) && ($argument > 0);
     }
@@ -236,7 +247,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *            The argument
      * @return integer
      */
-    private function md5int($string)
+    private function md5int(string $string): string
     {
         return GeneralUtility::md5int($string);
     }
@@ -248,7 +259,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *            The argument
      * @return string
      */
-    private function removeUnderscore($string)
+    private function removeUnderscore(string $string = null): string
     {
         return str_replace('_', '', $string);
     }
@@ -258,11 +269,15 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @param string $string
      *            The argument
-     * @return integer
+     * @return int
      */
-    private function countLines($string)
+    private function countLines(string $string = null): int
     {
-        return substr_count($string, chr(10)) + 1;
+        if ($string === null) {
+            return 0;
+        } else {
+            return substr_count($string, chr(10)) + 1;
+        }
     }
 
     /**
@@ -270,11 +285,12 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @param string $string
      *            The argument
+     * @param array $arguments
      * @return string
      */
-    private function removeEmptyLines($string, $arguments = NULL)
+    private function removeEmptyLines(string $string, array $arguments = null): string
     {
-        if ($arguments === NULL) {
+        if ($arguments === null) {
             $string = preg_replace('/([ \t]*[\r\n]){2,}/', chr(10), $string);
         } else {
             $string = preg_replace('/([ \t]*[\r\n]){2,}/', chr(10), $string);
@@ -287,14 +303,17 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
     /**
      * Removes CR-LF in a string
      *
-     * @param string $string
+     * @param string|null $string
      *            The argument
      * @return string
      */
-    private function removeLineFeed($string)
+    private function removeLineFeed($string): string
     {
-        $string = preg_replace('/[\n\r]+/', '', $string);
-        return $string;
+        if ($string === null) {
+            return '';
+        } else {
+            return preg_replace('/[\n\r]+/', '', $string);
+        }
     }
 
     /**
@@ -304,7 +323,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *            The argument
      * @return string
      */
-    private function addSlashes($string)
+    private function addSlashes(string $string = null): string
     {
         $string = addslashes($string);
         return $string;
@@ -315,7 +334,7 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @return string
      */
-    private function nothing()
+    private function nothing(): string
     {
         return '';
     }
@@ -325,11 +344,11 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @param mixed $argument
      *            The argument
-     * @return string
+     * @return bool
      */
-    private function logicalNot($argument)
+    private function logicalNot($argument): bool
     {
-        return $argument ? FALSE : TRUE;
+        return $argument ? false : true;
     }
 
     /**
@@ -337,11 +356,11 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @param mixed $argument
      *            The argument
-     * @return string
+     * @return bool
      */
-    private function logicalAnd($arguments)
+    private function logicalAnd($arguments): bool
     {
-        $result = TRUE;
+        $result = true;
         foreach ($arguments as $argument) {
             $result = $result && $argument;
         }
@@ -353,11 +372,11 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @param mixed $arguments
      *            The argument
-     * @return string
+     * @return bool
      */
-    private function logicalOr($arguments)
+    private function logicalOr($arguments): bool
     {
-        $result = FALSE;
+        $result = false;
         foreach ($arguments as $argument) {
             $result = $result || $argument;
         }
@@ -369,11 +388,11 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @param mixed $argument
      *            The argument
-     * @return string
+     * @return bool
      */
-    private function not($arguments)
+    private function not($arguments): bool
     {
-        return $arguments ? FALSE : TRUE;
+        return $arguments ? false : true;
     }
 
     /**
@@ -404,9 +423,9 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
     /**
      * Returns the time
      *
-     * @return integer
+     * @return int
      */
-    private function time()
+    private function time(): int
     {
         return time();
     }
@@ -416,12 +435,12 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @param string $string
      *            The string
-     * @param integer $arguments
+     * @param int $arguments
      *            The start argument
-     *
+     *            
      * @return string
      */
-    private function substr($string, $arguments)
+    private function substr(string $string, int $arguments): string
     {
         return substr($string, $arguments);
     }
@@ -431,26 +450,25 @@ class FunctionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
      *
      * @param string $string
      *            The string
-     * @param integer $arguments
+     * @param array $arguments
      *            The start argument
-     *
+     *            
      * @return string
      */
-    private function strReplace($string, $arguments)
+    private function strReplace(string $string, array $arguments): string
     {
         return str_replace($arguments['search'], $arguments['replace'], $string);
     }
 
-
     /**
      * Compares
      *
-     * @param mixed $argument
+     * @param array $argument
      *            The argument
-     *
-     * @return boolean
+     *            
+     * @return bool
      */
-    private function TYPO3VersionCompare($arguments)
+    private function TYPO3VersionCompare(array $arguments): bool
     {
         return version_compare(TYPO3_version, $arguments['version'], $arguments['operator']);
     }

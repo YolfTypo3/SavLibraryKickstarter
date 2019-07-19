@@ -20,18 +20,9 @@
 								<f:form.hidden name="general[showFieldConfiguration]"
 									value="{showFieldConfiguration}" />
 								<div id="content">
-									<div class="header">
-										<div class="logo">
-											<f:translate key="kickstarter.{section}SectionTitle" />
-										</div>
-										<div class="buttons">
-											<f:form.submit class="submit" name="submitAction[save]"
-												value="{f:translate(key:'kickstarter.save')}" />
-											<f:form.submit class="submit"
-												name="submitAction[generateExtension]"
-												value="{f:translate(key:'kickstarter.generate')}" />
-										</div>
-									</div>
+
+									<f:comment>Header</f:comment>
+									<f:render partial="Sections/Partials/Header" arguments="{_all}" />
 
 									<div class="body">
 										<div class="tableName">
@@ -59,8 +50,8 @@
 													key="kickstarter.{section}Item.importFields" /></label>
 											<f:link.action action="{section}ImportFields"
 												arguments="{extKey:extKey, section:section, itemKey:itemKey}">
-												<f:image class="importFields" 
-												    src="EXT:sav_library_kickstarter/Resources/Public/Icons/import.gif"
+												<f:image class="importFields"
+													src="EXT:sav_library_kickstarter/Resources/Public/Icons/import.gif"
 													alt="{f:translate(key:'kickstarter.importFields')}"
 													title="{f:translate(key:'kickstarter.importFields')}" />
 											</f:link.action>
@@ -69,10 +60,12 @@
 								</div>
 
 								<f:comment>Fields overview</f:comment>
-								<f:render partial="Sections/Partials/TableFieldsOverview" arguments="{_all}" />
+								<f:render partial="Sections/Partials/TableFieldsOverview"
+									arguments="{_all}" />
 
 								<f:comment>Add the field Configuration</f:comment>
-								<f:render partial="Sections/Partials/TableFieldConfiguration" arguments="{_all}" />
+								<f:render partial="Sections/Partials/TableFieldConfiguration"
+									arguments="{_all}" />
 
 							</f:form>
 						</div>

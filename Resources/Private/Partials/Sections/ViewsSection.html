@@ -30,7 +30,7 @@
 									kickstarter.viewsItem.type.none\")}',
                                     list: '{f:translate(key:\"kickstarter.viewsItem.type.list\")}',
                                     single:'{f:translate(key:\"kickstarter.viewsItem.type.single\")}',
-                                    edit:'{f:translate(key:\"kickstarter.viewsItem.type.edit\")}'
+                                    edit:'{f:translate(key:\"kickstarter.viewsItem.type.edit\")}',
                                     special:'{f:translate(key:\"kickstarter.viewsItem.type.special\")}'
                                 }"
                                 value="{sectionItem.type}" />
@@ -82,8 +82,8 @@
 												key="kickstarter.{section}Item.folders" /></label>
 										<f:link.action action="addNewFolder"
 											arguments="{extKey:extKey, section:section, itemKey:itemKey}">
-											<f:image class="addNewFolder" 
-											    src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+											<f:image class="addNewFolder"
+												src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
 												alt="{f:translate(key:'kickstarter.addNewFolder')}"
 												title="{f:translate(key:'kickstarter.addNewFolder')}" />
 										</f:link.action>
@@ -96,22 +96,22 @@
 												value="{folder.label}" />
 											<f:link.action action="moveDownFolder"
 												arguments="{extKey:extKey, section:section, itemKey:itemKey, folderKey:folderKey}">
-												<f:image class="moveDownFolder" 
-												    src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
+												<f:image class="moveDownFolder"
+													src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
 													alt="{f:translate(key:'kickstarter.moveDown')}"
 													title="{f:translate(key:'kickstarter.moveDown')}" />
 											</f:link.action>
 											<f:link.action action="moveUpFolder"
 												arguments="{extKey:extKey, section:section, itemKey:itemKey, folderKey:folderKey}">
-												<f:image class="moveUpFolder" 
-												    src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
+												<f:image class="moveUpFolder"
+													src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
 													alt="{f:translate(key:'kickstarter.moveUp')}"
 													title="{f:translate(key:'kickstarter.moveUp')}" />
 											</f:link.action>
 											<f:link.action action="deleteFolder"
 												arguments="{extKey:extKey, section:section, itemKey:itemKey, folderKey:folderKey}">
-												<f:image class="deleteFolder" 
-												    src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
+												<f:image class="deleteFolder"
+													src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
 													alt="kickstarter.delete"
 													title="{f:translate(key:'kickstarter.delete')}" />
 											</f:link.action>

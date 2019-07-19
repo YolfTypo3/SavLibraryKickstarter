@@ -92,7 +92,7 @@ horizontalLayout
 .. container:: table-row
    
     Property
-        displayAsImage
+        horizontalLayout
         
     Data type
         Boolean

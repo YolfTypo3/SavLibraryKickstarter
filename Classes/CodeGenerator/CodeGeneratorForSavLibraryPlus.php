@@ -1,31 +1,20 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
-/**
- * Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- * (c) 2010 Laurent Foulloy (yolf.typo3@orange.fr)
- * All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- * This script is part of the TYPO3 project. The TYPO3 project is
- * free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- * The GNU General Public License can be found at
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * This script is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * This copyright notice MUST APPEAR in all copies of the script!
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
  * This class generates the code for a front end plugin.
@@ -34,7 +23,6 @@ use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
  * Code templates are used to build the file contents. They are processed by a fluid parser.
  *
  * @package SavLibraryKickstarter
- * @version $ID:$
  */
 class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
 {
@@ -51,26 +39,25 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
      *
      * @var array
      */
-    protected $xmlArray = array();
+    protected $xmlArray = [];
 
     /**
      * The compatibility flag
      *
      * @var integer
      */
-    protected $compatibility = ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE;
-
+    protected $compatibility = ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT;
 
     /**
-     * Builds all the file for the extension.
+     * Builds the extension.
      *
      * @return void
      */
     public function buildExtension()
     {
         // Checks if the extension can be built
-        if (!$this->CanBuildExtension()) {
-            return FALSE;
+        if (! $this->CanBuildExtension()) {
+            return;
         }
 
         // Generates the xml array
@@ -91,11 +78,17 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
         // Generates ext_tables Files
         $this->buildExtTablesFiles();
 
+        // Generates ext_conf_template.txt
+        $this->buildExtConfTemplate();
+
         // Generates the Configuration files
         $this->buildConfigurationFlexform();
         $this->buildConfigurationLibrary();
         $this->buildConfigurationTca();
 
+        // Generates Documentation files
+        $this->buildDocumentation();
+        
         // Generates the language files
         $this->buildLanguageFiles();
 
@@ -104,136 +97,34 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
     }
 
     /**
-     * Builds icons files.
+     * Specific methods for this generator
+     */
+
+    /**
+     * Builds ext_conf_template.txt.
      *
      * @return void
      */
-    protected function buildIcons()
+    protected function buildExtConfTemplate()
     {
-        // Generates the Resources/Public/Icons directory
-        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Resources/Public/Icons');
-
-        // Generates the icons
-        $this->generateFile('icons.t');
+        // Generates ext_conf_template.txt
+        $fileContents = $this->generateFile('extConfTemplate.txtt');
+        GeneralUtility::writeFile($this->extensionDirectory . 'ext_conf_template.txt', $fileContents);
     }
 
     /**
-     * Builds ext_emconf.php.
-     *
-     * @return void
-     */
-    protected function buildExtEmConf()
-    {
-        $fileContents = $this->generateFile('extEmconf.phpt');
-        GeneralUtility::writeFile($this->extensionDirectory . 'ext_emconf.php', $fileContents);
-    }
-
-    /**
-     * Builds composer.json.
-     *
-     * @return void
-     */
-    protected function buildComposer()
-    {
-        $fileContents = $this->generateFile('composer.jsont');
-        GeneralUtility::writeFile($this->extensionDirectory . 'composer.json', $fileContents);
-    }
-
-    /**
-     * Builds ext_localconf.php.
-     *
-     * @return void
-     */
-    protected function buildExtLocalConf()
-    {
-        if (! $this->sectionManager->getItem('general')
-            ->getItem(1)
-            ->getItem('keepExtLocalConf') || ($this->sectionManager->getItem('general')
-            ->getItem(1)
-            ->getItem('keepExtLocalConf') && ! file_exists($this->extensionDirectory . 'ext_localconf.php'))) {
-            $fileContents = $this->generateFile('extLocalconf.phpt');
-            GeneralUtility::writeFile($this->extensionDirectory . 'ext_localconf.php', $fileContents);
-        }
-    }
-
-    /**
-     * Builds ext_tables files.
-     *
-     * @return void
-     */
-    protected function buildExtTablesFiles()
-    {
-        // Generates ext_tables.sql
-        $fileContents = $this->generateFile('extTables.sqlt');
-        GeneralUtility::writeFile($this->extensionDirectory . 'ext_tables.sql', $fileContents);
-
-        // Generates ext_tables.php
-        $fileContents = $this->generateFile('extTables.phpt');
-        GeneralUtility::writeFile($this->extensionDirectory . 'ext_tables.php', $fileContents);
-    }
-
-    /**
-     * Builds the Configuration/TCA file(s).
-     *
-     * @return void
-     */
-    protected function buildConfigurationTCA()
-    {
-        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Configuration/TCA');
-
-        // For tca, files are written during the generation
-        $this->generateFile('Configuration/TCA/tca.phpt');
-    }
-
-    /**
-     * Builds the Configuration/Flexforms file.
-     *
-     * @return void
-     */
-    protected function buildConfigurationFlexform()
-    {
-        // Generates the Configuration/Flexforms directory
-        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Configuration/Flexforms');
-
-        // Generates flexforms
-        $fileContents = $this->generateFile('Configuration/Flexforms/ExtensionFlexform.xmlt');
-        GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/Flexforms/ExtensionFlexform.xml', $fileContents);
-    }
-
-    /**
-     * Builds the Configuration/Flexforms file.
+     * Builds the Library Configuration file.
      *
      * @return void
      */
     protected function buildConfigurationLibrary()
     {
         // Generates the Configuration/Library directory
-        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Configuration/Library');
+        GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/Library/');
 
         // Generates flexforms
-        $fileContents = $this->generateFile('Configuration/Library/SavLibraryPlus.xmlt', NULL, $this->xmlArray);
+        $fileContents = $this->generateFile('Configuration/Library/SavLibraryPlus.xmlt', null, $this->xmlArray);
         GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/Library/SavLibraryPlus.xml', $fileContents);
-    }
-
-    /**
-     * Builds Language files.
-     *
-     * @return void
-     */
-    protected function buildLanguageFiles()
-    {
-        // Generates the Resources/Private/Language directory
-        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Resources/Private/Language');
-
-        // Generate locallang.xlf file if it does not exist
-        if (! file_exists($this->extensionDirectory . 'Resources/Private/Language/locallang.xlf')) {
-            $fileContents = $this->generateFile('Resources/Private/Language/locallang.xlft');
-            GeneralUtility::writeFile($this->extensionDirectory . 'Resources/Private/Language/locallang.xlf', $fileContents);
-        }
-
-        // Generates locallang_db.xlf file
-        $fileContents = $this->generateFile('Resources/Private/Language/locallang_db.xlft');
-        GeneralUtility::writeFile($this->extensionDirectory . 'Resources/Private/Language/locallang_db.xlf', $fileContents);
     }
 
     /**
@@ -243,7 +134,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
      */
     protected function buildController()
     {
-        GeneralUtility::mkdir_deep($this->extensionDirectory, 'Classes/Controller');
+        GeneralUtility::mkdir_deep($this->extensionDirectory . 'Classes/Controller/');
         $fileContents = $this->generateFile('Classes/Controller/Controller.phpt');
         GeneralUtility::writeFile($this->extensionDirectory . 'Classes/Controller/' . GeneralUtility::underscoredToUpperCamelCase($this->extensionKey) . 'Controller.php', $fileContents);
     }
@@ -253,7 +144,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
      * This method was taken from the "old" generator implemented in sav_library.
      * It will probably change in the next version.
      *
-     * @return array The array
+     * @return void
      */
     protected function setXmlArray()
     {
@@ -266,8 +157,8 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
         array_walk_recursive($extension, 'YolfTypo3\\SavLibraryKickstarter\\CodeGenerator\\CodeGeneratorForSavLibraryPlus::htmlspecialchars');
 
         // Generates the version
-        $this->xmlArray['general'] = array();
-        $this->xmlArray['general']['version'] = $GLOBALS[TYPO3_CONF_VARS]['EXTCONF']['sav_library_plus']['version'];
+        $this->xmlArray['general'] = [];
+        $this->xmlArray['general']['version'] = ConfigurationManager::getExtensionVersion('sav_library_plus');
 
         // Generates the extension key
         $this->xmlArray['general']['extensionKey'] = $this->extensionKey;
@@ -284,9 +175,9 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                     foreach ($form['viewsWithCondition'] as $viewsWithConditionKey => $viewsWithCondition) {
                         // Processes each view
                         foreach ($viewsWithCondition as $viewWithConditionKey => $viewWithCondition) {
-                            $this->xmlArray['forms'][$formKey]['viewsWithCondition'][$viewsWithConditionKey][$viewWithConditionKey] += array(
+                            $this->xmlArray['forms'][$formKey]['viewsWithCondition'][$viewsWithConditionKey][$viewWithConditionKey] += [
                                 'config' => $this->getConfig($viewWithCondition['condition'])
-                            );
+                            ];
                         }
                     }
                 }
@@ -308,8 +199,10 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
 
         // Generates views
         $views = $extension['views'];
+        $title = [];
+        $subformConfiguration = [];
         if (is_array($views)) {
-            $relationTable = array();
+            $relationTable = [];
             foreach ($views as $viewKey => $view) {
 
                 // Generates the templates
@@ -345,13 +238,14 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                 }
 
                 // Processes folders
-                $sortedFolders = array();
+                $sortedFolders = [];
                 if ($view['folders']) {
-                    $opt_showFolders = array(
-                        0 => array(
+                    $opt_showFolders = [
+                        0 => [
                             'label' => '0'
-                        )
-                    );
+                        ]
+                    ];
+                    $folderConfiguration = [];
                     foreach ($view['folders'] as $folderKey => $folder) {
                         $folderConfiguration['label'] = $folder['label'];
                         $folderConfiguration['configuration'] = $folder['configuration'];
@@ -362,8 +256,8 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                 }
 
                 // Gets the list of the fields organized by folders
-                unset($showFolders);
-                unset($showFields);
+                $showFolders = [];
+                $showFields = [];
                 $newTables = $extension['newTables'];
                 if (is_array($newTables)) {
                     $title[$viewKey]['configuration']['field'] = $view['viewTitleBar'];
@@ -376,7 +270,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                             $this->xmlArray['general']['saveAndNew'][$tableName] = 1;
                         }
                         // Puts the fields in the right order for the view
-                        unset($orderedFields);
+                        $orderedFields = [];
                         $fields = $table['fields'];
                         if (is_array($fields)) {
                             foreach ($fields as $fieldKey => $field) {
@@ -386,7 +280,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                             }
                         }
 
-                        if (is_array($orderedFields)) {
+                        if (! empty($orderedFields)) {
                             ksort($orderedFields);
                             unset($table['fields']);
                             foreach ($orderedFields as $fieldKey => $field) {
@@ -395,28 +289,28 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                             foreach ($table['fields'] as $fieldKey => $field) {
                                 if ($field['folders'][$viewKey]) {
                                     if ($view['folders']) {
-                                        $showFolders[$field['folders'][$viewKey]][] = array(
+                                        $showFolders[$field['folders'][$viewKey]][] = [
                                             'table' => $tableKey,
                                             'field' => $fieldKey,
                                             'wizArray' => 'newTables',
                                             'tableName' => $tableName
-                                        );
+                                        ];
                                     } else {
-                                        $showFields[] = array(
+                                        $showFields[] = [
                                             'table' => $tableKey,
                                             'field' => $fieldKey,
                                             'wizArray' => 'newTables',
                                             'tableName' => $tableName
-                                        );
+                                        ];
                                         $extension['newTables'][$tableKey]['fields'][$fieldKey]['folders'][$viewKey] = 0;
                                     }
                                 } else {
-                                    $showFields[] = array(
+                                    $showFields[] = [
                                         'table' => $tableKey,
                                         'field' => $fieldKey,
                                         'wizArray' => 'newTables',
                                         'tableName' => $tableName
-                                    );
+                                    ];
                                 }
                             }
                         }
@@ -433,7 +327,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
 
                         // Checks if the localization must be overrided
                         if ($table['overrideLocalization']) {
-                            $this->xmlArray['general']['overridedTablesForLocalization'][$tableName] = TRUE;
+                            $this->xmlArray['general']['overridedTablesForLocalization'][$tableName] = true;
                         }
 
                         // Puts the fields in the right order for the view
@@ -464,28 +358,28 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                             foreach ($table['fields'] as $fieldKey => $field) {
                                 if ($field['folders'][$viewKey]) {
                                     if ($view['folders']) {
-                                        $showFolders[$field['folders'][$viewKey]][] = array(
+                                        $showFolders[$field['folders'][$viewKey]][] = [
                                             'table' => $tableKey,
                                             'field' => $fieldKey,
                                             'wizArray' => 'existingTables',
                                             'tableName' => $tableName
-                                        );
+                                        ];
                                     } else {
-                                        $showFields[] = array(
+                                        $showFields[] = [
                                             'table' => $tableKey,
                                             'field' => $fieldKey,
                                             'wizArray' => 'existingTables',
                                             'tableName' => $tableName
-                                        );
+                                        ];
                                         $extension['existingTables'][$tableKey]['fields'][$fieldKey]['folders'][$viewKey] = 0;
                                     }
                                 } else {
-                                    $showFields[] = array(
+                                    $showFields[] = [
                                         'table' => $tableKey,
                                         'field' => $fieldKey,
                                         'wizArray' => 'existingTables',
                                         'tableName' => $tableName
-                                    );
+                                    ];
                                 }
                             }
                         }
@@ -493,32 +387,31 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                 }
 
                 // Generates the views
-                if (is_array($showFolders)) {
+                if (! empty($showFolders)) {
                     ksort($showFolders);
                 } else {
                     if (isset($showFields)) {
                         $showFolders[0] = $showFields;
-                        $opt_showFolders[0] = array(
+                        $opt_showFolders[0] = [
                             'label' => '0'
-                        );
+                        ];
                         $sortedFolders[0] = 0;
                     }
                 }
 
-                if (is_array($showFolders)) {
-                    foreach ($sortedFolders as $sortedFolderKey => $folderKey) {
-                        $fieldConfiguration = array();
+                if (! empty($showFolders)) {
+                    foreach ($sortedFolders as $folderKey) {
+                        $fieldConfiguration = [];
 
                         // Gets the folder fields
                         $folderFields = $showFolders[$folderKey];
-
                         $folderName = $opt_showFolders[$folderKey]['label'];
                         $cryptedFolderName = $this->cryptTag($folderName);
 
                         // Gets the folder config parameter
-                        $this->xmlArray['views'][$viewKey][$cryptedFolderName]['configuration'] = $this->getConfig($opt_showFolders[$folderKey]['configuration']) + array(
+                        $this->xmlArray['views'][$viewKey][$cryptedFolderName]['configuration'] = $this->getConfig($opt_showFolders[$folderKey]['configuration']) + [
                             'label' => $folderName
-                        );
+                        ];
 
                         // Generates the title
                         if ($view['viewTitleBar'] && ! is_array($title[$viewKey])) {
@@ -536,50 +429,54 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                         }
 
                         // Processes the folders
-                        foreach ($folderFields as $folderFieldKey => $folderField) {
-                            $config = array();
+                        if (is_array($folderFields)) {
+                            foreach ($folderFields as $folderField) {
+                                $config = [];
 
-                            // Gets the field
-                            $wizArrayKey = $folderField['wizArray'];
-                            $tableKey = $folderField['table'];
-                            $fieldKey = $folderField['field'];
-                            $field = $extension[$wizArrayKey][$tableKey]['fields'][$fieldKey];
+                                // Gets the field
+                                $wizArrayKey = $folderField['wizArray'];
+                                $tableKey = $folderField['table'];
+                                $fieldKey = $folderField['field'];
+                                $field = $extension[$wizArrayKey][$tableKey]['fields'][$fieldKey];
 
-                            $fieldName = (($wizArrayKey == 'existingTables' && $field['type'] != 'ShowOnly') ? 'tx_' . str_replace('_', '', $this->extensionKey) . '_' . $field['fieldname'] : $field['fieldname']);
-                            $tableName = $folderField['tableName'];
-                            $fullFieldName = $tableName . '.' . $fieldName;
-                            $cryptedFullFieldName = $this->cryptTag($fullFieldName);
+                                $fieldName = (($wizArrayKey == 'existingTables' && $field['type'] != 'ShowOnly') ? 'tx_' . str_replace('_', '', $this->extensionKey) . '_' . $field['fieldname'] : $field['fieldname']);
+                                $tableName = $folderField['tableName'];
+                                $fullFieldName = $tableName . '.' . $fieldName;
+                                $cryptedFullFieldName = $this->cryptTag($fullFieldName);
 
-                            // Generates the field
-                            if ($field['selected'][$viewKey]) {
+                                // Generates the field
+                                if ($field['selected'][$viewKey]) {
 
-                                // Sets the user configuration parameters
-                                $config['tableName'] = $tableName;
-                                $config['fieldName'] = $fieldName;
-                                $config['fieldType'] = $field['type'];
+                                    // Sets the user configuration parameters
+                                    $config['tableName'] = $tableName;
+                                    $config['fieldName'] = $fieldName;
+                                    $config['fieldType'] = $field['type'];
 
-                                // Checks if the type is showOnly
-                                if ($field['type'] == 'ShowOnly') {
-                                    $config['renderType'] = ($field['conf_render_type'] ? $field['conf_render_type'] : 'String');
-                                }
+                                    // Checks if the type is showOnly
+                                    if ($field['type'] == 'ShowOnly') {
+                                        $config['renderType'] = ($field['conf_render_type'] ? $field['conf_render_type'] : 'String');
+                                    }
 
-                                // Checks if it is a subform
-                                if ($field['type'] == 'RelationManyToManyAsSubform') {
-                                    $relationTable[$viewKey][$field['conf_rel_table']] = $cryptedFullFieldName;
-                                }
+                                    // Checks if it is a subform
+                                    if ($field['type'] == 'RelationManyToManyAsSubform') {
+                                        $relationTable[$viewKey][$field['conf_rel_table']] = $cryptedFullFieldName;
+                                    }
 
-                                // Checks if its a subform field
-                                if (is_array($relationTable[$viewKey]) && array_key_exists($tableName, $relationTable[$viewKey])) {
-                                    $relationTableKey = $relationTable[$viewKey][$tableName];
-                                    $subformConfiguration[$viewKey][$relationTableKey] = array_merge((array) $subformConfiguration[$viewKey][$relationTableKey], array(
-                                        $cryptedFullFieldName => array(
+                                    // Checks if its a subform field
+                                    if (is_array($relationTable[$viewKey]) && array_key_exists($tableName, $relationTable[$viewKey])) {
+                                        $relationTableKey = $relationTable[$viewKey][$tableName];
+                                        $subformConfiguration[$viewKey][$relationTableKey] = array_merge((array) $subformConfiguration[$viewKey][$relationTableKey], [
+                                            $cryptedFullFieldName => [
+                                                'configuration' => $this->getConfig($field['configuration'][$viewKey]) + $config + [
+                                                    'subformItem' => 1
+                                                ]
+                                            ]
+                                        ]);
+                                    } else {
+                                        $fieldConfiguration[$cryptedFullFieldName] = [
                                             'configuration' => $this->getConfig($field['configuration'][$viewKey]) + $config
-                                        )
-                                    ));
-                                } else {
-                                    $fieldConfiguration[$cryptedFullFieldName] = array(
-                                        'configuration' => $this->getConfig($field['configuration'][$viewKey]) + $config
-                                    );
+                                        ];
+                                    }
                                 }
                             }
                         }
@@ -594,6 +491,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
             if (is_array($views)) {
                 foreach ($views as $viewKey => $view) {
                     if (is_array($subformConfiguration[$viewKey])) {
+                        $arrayToAdd = [];
                         foreach ($subformConfiguration[$viewKey] as $subformKey => $subform) {
                             $arrayToAdd['configuration'][$this->cryptTag('0')]['fields'] = $subform;
                             $this->addConfiguration($this->xmlArray['views'][$viewKey], $subformKey, $arrayToAdd);
@@ -607,13 +505,13 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
     /**
      * Gets the configuration of a field.
      *
-     * @param array $fieldConf
+     * @param string $fieldConf
      *            The field.
      * @return array The configuration
      */
-    protected function getConfig($fieldConf)
+    protected function getConfig(string $fieldConf = null): array
     {
-        $config = array();
+        $config = [];
 
         // Replaces \; by a temporary tag
         $fieldConf = str_replace('\;', '###!!!!!!###', htmlspecialchars_decode($fieldConf));
@@ -630,7 +528,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
                 $param = str_replace('###!!!!!!###', ';', $param);
 
                 $pos = strpos($param, '=');
-                if ($pos === FALSE) {
+                if ($pos === false) {
                     throw new \RuntimeException('Missing equal sign in ' . $param);
                 } else {
                     $exp = strtolower(trim(substr($param, 0, $pos)));
@@ -652,7 +550,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
      *            The tag to crypt.
      * @return string The crypted tag
      */
-    protected function cryptTag($tag)
+    protected function cryptTag(string $tag): string
     {
         return 'a' . GeneralUtility::md5int($tag);
     }
@@ -675,25 +573,25 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
     }
 
     /**
-     * Searches recursively a configuration if an aray, given � key
+     * Searches recursively a configuration in an aray, given a key
      *
      * @param array $arrayToSearchIn
      * @param string $key
-     * @return array or FALSE
+     * @return array|false
      */
-    public function searchConfiguration($arrayToSearchIn, $key)
+    public function searchConfiguration(array $arrayToSearchIn, string $key): array
     {
         foreach ($arrayToSearchIn as $itemKey => $item) {
             if ($itemKey == $key) {
                 return $item;
             } elseif (is_array($item)) {
                 $configuration = $this->searchConfiguration($item, $key);
-                if ($configuration != FALSE) {
+                if ($configuration != false) {
                     return $configuration;
                 }
             }
         }
-        return FALSE;
+        return false;
     }
 
     /**
@@ -702,23 +600,22 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
      * @param array $arrayToSearchIn
      * @param string $key
      * @param array $arrayToAdd
-     * @return array or FALSE
+     * @return bool
      */
-    public function addConfiguration(&$arrayToSearchIn, $key, $arrayToAdd)
+    public function addConfiguration(array &$arrayToSearchIn, string $key, array $arrayToAdd): bool
     {
         foreach ($arrayToSearchIn as $itemKey => $item) {
             if ($itemKey == $key) {
-                $x = $arrayToSearchIn[$itemKey];
                 $arrayToSearchIn[$itemKey]['configuration'] = array_replace($arrayToSearchIn[$itemKey]['configuration'], $arrayToSearchIn[$itemKey]['configuration'] + $arrayToAdd['configuration']);
-                return TRUE;
+                return true;
             } elseif (is_array($item)) {
                 $configuration = $this->addConfiguration($arrayToSearchIn[$itemKey], $key, $arrayToAdd);
-                if ($configuration != FALSE) {
-                    return TRUE;
+                if ($configuration != false) {
+                    return true;
                 }
             }
         }
-        return FALSE;
+        return false;
     }
 }
 ?>

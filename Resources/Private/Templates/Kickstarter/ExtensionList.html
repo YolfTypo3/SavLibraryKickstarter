@@ -17,13 +17,13 @@
 					<li class="cache">{f:translate(key:'kickstarter.extensionList.cache')}</li>
 					<li class="debugQueries">{f:translate(key:'kickstarter.extensionList.debugQueries')}</li>
 					<li class="buttons"><f:link.action action="createExtension">
-							<f:image class="createExtension" 
-							    src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+							<f:image class="createExtension"
+								src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
 								title="{f:translate(key:'kickstarter.createExtension')}" />
 						</f:link.action> <f:if condition="{extensionsNeedTobeUpgraded}">
 							<f:link.action action="upgradeExtensions">
-								<f:image class="upgradeExtensions" 
-								    src="EXT:sav_library_kickstarter/Resources/Public/Icons/refresh.gif"
+								<f:image class="upgradeExtensions"
+									src="EXT:sav_library_kickstarter/Resources/Public/Icons/refresh.gif"
 									alt="{f:translate(key:'kickstarter.upgradeExtensions')}"
 									title="{f:translate(key:'kickstarter.upgradeExtensions')}" />
 							</f:link.action>
@@ -59,9 +59,11 @@
 						</f:if>
 						<li
 							class="libraryVersion {f:if(condition:'{extension.general.1.currentLibraryVersion} != {extension.general.1.libraryVersion}',then:'wrongVersion')}">{extension.general.1.libraryVersion}</li>
-						<li class="libraryType">{f:translate(key:'kickstarter.generalItem.libraryType.{extension.general.1.libraryType}')}</li>
+						<li class="libraryType"><f:image class="icon"
+								src="EXT:sav_library_kickstarter/Resources/Public/Icons/Extension{f:translate(key:'kickstarter.generalItem.libraryType.{extension.general.1.libraryType}')}.svg"
+								height="16" width="16" />{f:translate(key:'kickstarter.generalItem.libraryType.{extension.general.1.libraryType}')}</li>
 						<li
-							class="compatibility {f:if(condition:extension.general.1.wrongCompatibility,then:'wrongCompatibility')}">{f:translate(key:'kickstarter.generalItem.compatibility.{extension.general.1.compatibility}')}</li>
+							class="compatibility {f:if(condition:extension.general.1.wrongCompatibility,then:'wrongCompatibility')}">{settings.compatibility->sav:getItem(key:extension.general.1.compatibility)}</li>
 						<li class="forms">
 							<ul>
 								<f:for each="{extension.forms}" as="form">
@@ -69,8 +71,8 @@
 										<div class="formName">{form.title}</div>
 										<div class="cache">
 											<f:if condition="{form.userPlugin} == 1">
-												<f:image class="cacheChecked" 
-												    src="EXT:sav_library_kickstarter/Resources/Public/Icons/ok.gif"
+												<f:image class="cacheChecked"
+													src="EXT:sav_library_kickstarter/Resources/Public/Icons/ok.gif"
 													alt="{f:translate(key:'kickstarter.checked')}"
 													title="{f:translate(key:'kickstarter.checked')}" />
 											</f:if>
@@ -81,43 +83,38 @@
 						</li>
 						<li class="debugQueries"><f:if
 								condition="{extension.general.1.debug}">
-								<f:image class="debugQueriesChecked" 
-								    src="EXT:sav_library_kickstarter/Resources/Public/Icons/warning.gif"
+								<f:image class="debugQueriesChecked"
+									src="EXT:sav_library_kickstarter/Resources/Public/Icons/warning.gif"
 									alt="{f:translate(key:'kickstarter.checked')}"
 									title="{f:translate(key:'kickstarter.checked')}" />
 							</f:if></li>
-						<li class="buttons">
-						
-                            <f:comment>Edit extension</f:comment> 
-							<f:link.action action="editExtension"
+						<li class="buttons"><f:comment>Edit extension</f:comment> <f:link.action
+								action="editExtension"
 								arguments="{extKey:extension.general.1.extensionKey}">
-								<f:image class="editExtension" 
-								    src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
+								<f:image class="editExtension"
+									src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
 									alt="{f:translate(key:'kickstarter.editExtension')}"
 									title="{f:translate(key:'kickstarter.editExtension')}" />
-							</f:link.action> 
-							
-							<f:comment>Generate extension</f:comment>
-							<f:link.action action="generateExtension"
+							</f:link.action> <f:comment>Generate extension</f:comment> <f:link.action
+								action="generateExtension"
+								data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
 								arguments="{extKey:extension.general.1.extensionKey}">
-								<f:image class="installExtension" 
-								    src="EXT:sav_library_kickstarter/Resources/Public/Icons/generate.gif"
+								<f:image class="installExtension"
+									src="EXT:sav_library_kickstarter/Resources/Public/Icons/generate.gif"
 									alt="{f:translate(key:'kickstarter.generateExtension')}"
 									title="{f:translate(key:'kickstarter.generateExtension')}" />
-							</f:link.action> 
-							
-							<f:comment>Copy extension</f:comment>
-                            <f:link.action action="copyExtension"
+							</f:link.action> <f:comment>Copy extension</f:comment> <f:link.action
+								action="copyExtension"
 								arguments="{extKey:extension.general.1.extensionKey}">
-								<f:image class="copyExtension" src="EXT:sav_library_kickstarter/Resources/Public/Icons/copy.gif"
+								<f:image class="copyExtension"
+									src="EXT:sav_library_kickstarter/Resources/Public/Icons/copy.gif"
 									alt="{f:translate(key:'kickstarter.copyExtension')}"
 									title="{f:translate(key:'kickstarter.copyExtension')}" />
-							</f:link.action> 
-							
-							<f:comment>Install/uninstall extension</f:comment>
-                            <f:if condition="{extension.general.1.isLoadedExtension} == 1">
+							</f:link.action> <f:comment>Install/uninstall extension</f:comment> <f:if
+								condition="{extension.general.1.isLoadedExtension} == 1">
 								<f:then>
 									<f:link.action action="uninstallExtension"
+										data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.uninstalling\')}'}"
 										arguments="{extKey:extension.general.1.extensionKey}">
 										<f:image class="uninstallExtension"
 											src="EXT:sav_library_kickstarter/Resources/Public/Icons/extensionUninstall.png"
@@ -127,6 +124,7 @@
 								</f:then>
 								<f:else>
 									<f:link.action action="installExtension"
+										data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.installing\')}'}"
 										arguments="{extKey:extension.general.1.extensionKey}">
 										<f:image class="installExtension"
 											src="EXT:sav_library_kickstarter/Resources/Public/Icons/extensionInstall.png"
@@ -134,22 +132,20 @@
 											title="{f:translate(key:'kickstarter.installExtension')}" />
 									</f:link.action>
 								</f:else>
-							</f:if> 
-							<f:comment>Download extension</f:comment> 
-							<f:link.action action="downloadExtension"
+							</f:if> <f:comment>Download extension</f:comment> <f:link.action
+								action="downloadExtension"
 								arguments="{extKey:extension.general.1.extensionKey}">
 								<f:image class="downloadExtension"
-                                    src="EXT:sav_library_kickstarter/Resources/Public/Icons/extensionDownload.png"
+									src="EXT:sav_library_kickstarter/Resources/Public/Icons/extensionDownload.png"
 									alt="{f:translate(key:'kickstarter.downloadExtension')}"
 									title="{f:translate(key:'kickstarter.downloadExtension')}" />
-							</f:link.action>
-							
-							<f:comment>Upgrade the extension</f:comment>
-							<f:if condition="{extension.general.1.extensionMustbeUpgraded}">
+							</f:link.action> <f:comment>Upgrade the extension</f:comment> <f:if
+								condition="{extension.general.1.extensionMustbeUpgraded}">
 								<f:link.action action="upgradeExtension"
+									data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.upgrading\')}'}"
 									arguments="{extKey:extension.general.1.extensionKey}">
-									<f:image class="upgradeExtension" 
-									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/refresh.gif"
+									<f:image class="upgradeExtension"
+										src="EXT:sav_library_kickstarter/Resources/Public/Icons/refresh.gif"
 										alt="{f:translate(key:'kickstarter.upgradeExtension')}"
 										title="{f:translate(key:'kickstarter.upgradeExtension')}" />
 								</f:link.action>

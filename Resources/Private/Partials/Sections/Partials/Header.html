@@ -6,10 +6,12 @@
 		<f:translate key="kickstarter.{section}SectionTitle" />
 	</div>
 	<div class="buttons">
-		<f:be.buttons.csh table="xEXT_sav_library_kickstarter_{section}"/>
+		<f:be.buttons.csh table="xEXT_sav_library_kickstarter_{section}" />
 		<f:form.submit class="submit" name="submitAction[save]"
+			data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
 			value="{f:translate(key:'kickstarter.save')}" />
 		<f:form.submit class="submit" name="submitAction[generateExtension]"
+			data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
 			value="{f:translate(key:'kickstarter.generate')}" />
 	</div>
 </div>

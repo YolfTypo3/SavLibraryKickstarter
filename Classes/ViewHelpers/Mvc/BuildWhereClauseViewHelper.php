@@ -2,37 +2,35 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * A view helper for building the options for the field type selector.
+ * A view helper for building the where clause for the where tags..
  *
  * = Examples =
  *
- * <code title="BuildTableName">
- * <sav:BuildTableName />
+ * <code title="BuildWhereClause">
+ * <sav:BuildWhereClause />
  * </code>
  *
  * Output:
- * the oprtions
+ * the where clause
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class BuildWhereClauseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildWhereClauseViewHelper extends AbstractViewHelper
 {
 
     const WHERE_PATTERN = '/
@@ -62,21 +60,33 @@ class BuildWhereClauseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstra
     /**
      *
      * @var array
-     *
      */
     protected $patterns;
 
     /**
+     * Initializes arguments.
      *
-     * @param string $clause
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('clause', 'string', 'Clause', true);
+    }
+
+    /**
+     * Renders the order by clause
      *
      * @return string the processed where clause
      */
-    public function render($clause)
+    public function render(): string
     {
+        // Gets the arguments
+        $clause = $this->arguments['clause'];
+
         // Replaces the contents between parentheses by markers
-        $this->patterns = array();
+        $this->patterns = [];
         $index = 0;
+        $match = [];
         while (preg_match('/\(([^(]*?)\)/', $clause, $match)) {
             $marker = '#' . $index ++ . '#';
             $this->patterns[$marker] = $match[1];
@@ -88,14 +98,18 @@ class BuildWhereClauseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstra
     }
 
     /**
-     * Process the where clause
+     * Processes the where clause
      *
      * @param string $clause
+     *
      * @return string the processed where clause
      */
-    public function processWhereClause($clause)
+    protected function processWhereClause(string $clause): string
     {
+        $result = '';
+
         // Splits the clause from the logical operators
+        $matchesWhere = [];
         preg_match_all(self::WHERE_PATTERN, $clause, $matchesWhere);
         foreach ($matchesWhere[0] as $matchKey => $match) {
             if ($matchKey > 0) {
@@ -105,22 +119,23 @@ class BuildWhereClauseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstra
             $rightHandSideLogicalOperand = trim($matchesWhere['logicalOperand'][$matchKey]);
 
             // Splits the operand from the allowed operators
+            $matchesExpression = [];
             preg_match_all(self::EXPRESSION_PATTERN, $rightHandSideLogicalOperand, $matchesExpression);
 
             // Gets the left hand side - it must be a field name
-            $leftHandSideOperand = (empty($matchesExpression['marker'][0]) ? trim($matchesExpression['operand'][0]) : trim($matchesExpression['term'][0]) . '(' . $this->processWhereClause($this->patterns[trim($matchesExpression['marker'][0])]). ')');
+            $leftHandSideOperand = (empty($matchesExpression['marker'][0]) ? trim($matchesExpression['operand'][0]) : trim($matchesExpression['term'][0]) . '(' . $this->processWhereClause($this->patterns[trim($matchesExpression['marker'][0])]) . ')');
 
             // Gets the right hand side
             $rightHandSideOperand = '';
-            foreach($matchesExpression[0]  as $matchExpressionKey => $matchExpression) {
+            foreach ($matchesExpression[0] as $matchExpressionKey => $matchExpression) {
                 if ($matchExpressionKey > 0) {
-                    $rightHandSideOperand .= (empty($matchesExpression['marker'][$matchExpressionKey]) ? trim($matchesExpression['operand'][$matchExpressionKey]) :  trim($matchesExpression['term'][$matchExpressionKey]) . '(' . $this->processWhereClause($this->patterns[trim($matchesExpression['marker'][$matchExpressionKey])]) . ')');
+                    $rightHandSideOperand .= (empty($matchesExpression['marker'][$matchExpressionKey]) ? trim($matchesExpression['operand'][$matchExpressionKey]) : trim($matchesExpression['term'][$matchExpressionKey]) . '(' . $this->processWhereClause($this->patterns[trim($matchesExpression['marker'][$matchExpressionKey])]) . ')');
                 }
-             }
+            }
 
             // Processes the operator
             if (isset($matchesExpression['operator'][1])) {
-                $rightHandSideOperand = '$this->createQuery()->statement(\'SELECT ' . $rightHandSideOperand . ' AS ' . $leftHandSideOperand . '\')->execute()[0]->get' .GeneralUtility::underscoredToUpperCamelCase($leftHandSideOperand) . '()';
+                $rightHandSideOperand = '$this->createQuery()->statement(\'SELECT ' . $rightHandSideOperand . ' AS ' . $leftHandSideOperand . '\')->execute()[0]->get' . GeneralUtility::underscoredToUpperCamelCase($leftHandSideOperand) . '()';
                 switch (trim($matchesExpression['operator'][1])) {
                     case '=':
                         $rightHandSideLogicalOperand = '$query->equals(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')';
@@ -144,14 +159,14 @@ class BuildWhereClauseViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstra
                         $rightHandSideLogicalOperand = '$query->like(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')';
                         break;
                     case 'in':
-                        $rightHandSideLogicalOperand = '$query->in(\'' . $leftHandSideOperand . '\', array(' . $rightHandSideOperand . '))';
+                        $rightHandSideLogicalOperand = '$query->in(\'' . $leftHandSideOperand . '\', [' . $rightHandSideOperand . '])';
                         break;
                     case '':
                         $rightHandSideLogicalOperand = '\'' . $leftHandSideOperand . '\'';
                         break;
                 }
             } else {
-                $rightHandSideLogicalOperand =  $leftHandSideOperand;
+                $rightHandSideLogicalOperand = $leftHandSideOperand;
             }
 
             // Adds the logical not if needed

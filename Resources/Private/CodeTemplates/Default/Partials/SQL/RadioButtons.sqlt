@@ -2,7 +2,7 @@
 
 <f:if condition="{sav:function(name:'isArrayOfInteger',arguments:{input:field.items,index:'value'})}">
 <f:then>
-int(11) DEFAULT '0' NOT NULL,
+int(11) DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
 </f:then>
 <f:else>
 varchar(255) DEFAULT '' NOT NULL,

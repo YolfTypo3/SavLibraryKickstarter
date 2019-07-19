@@ -1,5 +1,5 @@
 <?php
-if (!defined ('TYPO3_MODE')) die ('Access denied.');
+defined('TYPO3_MODE') or die();
 <sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
 <f:for each="{extension.newTables}" as="table" key="tableKey">
 <f:alias map="{
@@ -17,40 +17,29 @@ if (!defined ('TYPO3_MODE')) die ('Access denied.');
 </f:alias>
 </f:for>
 
-$extensionName = \TYPO3\CMS\Core\Utility\GeneralUtility::underscoredToUpperCamelCase($_EXTKEY);
-$pluginSignature = strtolower($extensionName) . '_pi1';
-!
-$TCA['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'layout,select_key';
-!
-// Adds the flexform field to plugin option
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-!
-// Adds the flexform DataStructure
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/Flexforms/ExtensionFlexform.xml');
-!
-// Registers the Plugin to be listed in the Backend.
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    $_EXTKEY,
-	'Pi1',
-	'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1'
-);
-
 <f:if condition="{extension.general.1.addWizardPluginIcon}">
+!
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
     extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
     controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
 }">
+// Registers the icon
+$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+   \TYPO3\CMS\Core\Imaging\IconRegistry::class
+);
+$iconRegistry->registerIcon(
+   'tx-{extensionName->sav:toLower()}-wizard',
+   \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+   ['source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg']
+);
 !
 // Adds a wizard plugin icon
 if (TYPO3_MODE === 'BE') {
-    $GLOBALS['TBE_MODULES_EXT']['xMOD_db_new_content_el']['addElClasses']['{vendorName}\\{extensionName}\\Controller\\WizardIcon'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/Controller/WizardIcon.php';
+    $GLOBALS['TBE_MODULES_EXT']['xMOD_db_new_content_el']['addElClasses']['{vendorName}\\{extensionName}\\Controller\\{controllerName}WizardIcon'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('{extension.general.1.extensionKey}') . 'Classes/Controller/{controllerName}WizardIcon.php';
 }
 </f:alias>
 </f:if>
-!
-// Default TypoScript
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '{extension.general.1.pluginTitle->sav:function(name:'stringToUtf8')}');
 
 </sav:function>
 ?>

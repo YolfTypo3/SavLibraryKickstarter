@@ -1,4 +1,4 @@
-<f:comment>Create Resources/Public/Styles/ExtensionName.css</f:comment>
+<f:comment>Create Resources/Public/Css/ExtensionName.css</f:comment>
 <sav:function name="copyFile" arguments="{
   source:'Resources/Private/CodeTemplates/ForSavLibraryBasic/Resources/Public/Css/Default.css',
   destinationExtension:extension.general.1.extensionKey,

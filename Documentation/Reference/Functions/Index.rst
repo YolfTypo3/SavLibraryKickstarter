@@ -17,19 +17,19 @@
 Functions
 ---------
 
-Functions are applied to the value of the field. It can be also
+Functions are applied to the value of the field. They can be also
 applied to left and right contents. In this case, "Left" or "Right"
-should be added to the function name and the optional attributes.
+should be added to the function name and the optional attributes (**Not yet implemented in SAV Library Mvc**).
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Functions.makeDateFormat`                         None                     Yes  No
-:ref:`Functions.makeEmailLink`                          None                     Yes  No
+:ref:`Functions.makeDateFormat`                         None                     Yes  Yes
+:ref:`Functions.makeEmailLink`                          None                     Yes  Yes
 :ref:`Functions.makeExtLink`                            None                     Yes  No
 :ref:`Functions.makeImage`                              None                     Yes  No
-:ref:`Functions.makeItemLink`                           None                     Yes  No
-:ref:`Functions.makeLink`                               None                     Yes  Yes
+:ref:`Functions.makeItemLink`                           None                     Yes  Yes
+:ref:`Functions.makeLink`                               None                     Yes  No
 :ref:`Functions.makeNewWindowLink`                      None                     Yes  No
 :ref:`Functions.makeUrlLink`                            None                     Yes  No
 :ref:`Functions.makeXmlLabel`                           None                     Yes  No
@@ -50,12 +50,13 @@ func = makeDateFormat;
         None   
          
     Description
-        This function generates a format for a unix time stamp date.
+        This function generates a format for a unix timestamp date.
          
         Optional attributes can be added:
          
         - format = string; The string should be a format that makes sense for
-          the php-function strftime().
+          the php-function strftime(). By defaut, "%d/%m/%Y" and "%d/%m/%Y %H:%M" are 
+          respectively used for date and datetime.
 
 
 
@@ -177,7 +178,7 @@ func = makeItemLink;
               
     Description
         This function generates a hyperlink associated with the value of the
-        field. It will open the "showSingle" view associated with the selected
+        field. It will open the "Single" view associated with the selected
         item.
          
         Optional attributes can be added:
@@ -186,16 +187,16 @@ func = makeItemLink;
           uses serveral folders).
          
         - updateForm = 1; makes it possible to open an "update" view instead of
-          the "Show single" view.
+          the "Show single" view (**Not yet implemented in SAV Library Mvc**).
          
-        - inputForm = 1; makes it possible to open an "Input form" view instead
-          of the "Show single" view.
+        - inputForm = 1; makes it possible to open an "Edit" view instead
+          of the "Single" view.
          
         - setUid = integer; the integer defines the page uid associated with the
           link.
          
         - valueIsUid = 1; The field value is used as the uid of the page
-          associated with the link.
+          associated with the link (**Not yet implemented in SAV Library Mvc**).
 
 
 

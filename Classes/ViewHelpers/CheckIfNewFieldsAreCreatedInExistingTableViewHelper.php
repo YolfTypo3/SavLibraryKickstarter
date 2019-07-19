@@ -2,17 +2,20 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper to check if there are new fields created in an existing table.
@@ -27,28 +30,41 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  * true or false
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class CheckIfNewFieldsAreCreatedInExistingTableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class CheckIfNewFieldsAreCreatedInExistingTableViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
      *
-     * @param array $existingTable
-     *            Existing table containing the field
-     * @return boolean
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @return void
      */
-    public function render($existingTable)
+    public function initializeArguments()
     {
+        $this->registerArgument('existingTable', 'array', 'Existing table array', true);
+    }
+
+    /**
+     * Returns true if new fields are created
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return bool
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        // Gets the arguments
+        $existingTable = $arguments['existingTable'];
+
         foreach ($existingTable['fields'] as $field) {
             if ($field['type'] != 'ShowOnly') {
-                return TRUE;
+                return true;
             }
         }
-        return FALSE;
+        return false;
     }
 }
 ?>

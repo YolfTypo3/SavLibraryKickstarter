@@ -3,7 +3,7 @@ module.tx_savlibrarykickstarter {
     view {
         templateRootPaths.10 = {$module.tx_savlibrarykickstarter.view.templateRootPath}
         partialRootPaths.10 = {$module.tx_savlibrarykickstarter.view.partialRootPath}
-        layoutRootPaths.10 = {$module.tx_savlibrarykickstarter.view.layoutRootPath}{$module.tx_savlibrarykickstarter.LayoutRootPathCompatibility}
+        layoutRootPaths.10 = {$module.tx_savlibrarykickstarter.view.layoutRootPath}
     }
     persistence {
         storagePid = {$module.tx_savlibrarykickstarter.persistence.storagePid}
@@ -12,14 +12,17 @@ module.tx_savlibrarykickstarter {
         compatibility.0 = {$module.tx_savlibrarykickstarter.settings.compatibility.0}
         compatibility.1 = {$module.tx_savlibrarykickstarter.settings.compatibility.1}
         compatibility.2 = {$module.tx_savlibrarykickstarter.settings.compatibility.2}
-        
+        compatibility.3 = {$module.tx_savlibrarykickstarter.settings.compatibility.3}  
+              
         dependency.emconf.0 = {$module.tx_savlibrarykickstarter.settings.dependency.emconf.0}
         dependency.emconf.1 = {$module.tx_savlibrarykickstarter.settings.dependency.emconf.1}
         dependency.emconf.2 = {$module.tx_savlibrarykickstarter.settings.dependency.emconf.2}
-                      
+        dependency.emconf.3 = {$module.tx_savlibrarykickstarter.settings.dependency.emconf.3}  
+                            
         dependency.composer.0 = {$module.tx_savlibrarykickstarter.settings.dependency.composer.0}
         dependency.composer.1 = {$module.tx_savlibrarykickstarter.settings.dependency.composer.1}       
-        dependency.composer.1 = {$module.tx_savlibrarykickstarter.settings.dependency.composer.2}         
+        dependency.composer.2 = {$module.tx_savlibrarykickstarter.settings.dependency.composer.2} 
+        dependency.composer.3 = {$module.tx_savlibrarykickstarter.settings.dependency.composer.3}                 
         
         dependency.emconf.sav_library_plus.default = {$module.tx_savlibrarykickstarter.settings.dependency.emconf.sav_library_plus.default}  
         dependency.emconf.sav_library_mvc.default = {$module.tx_savlibrarykickstarter.settings.dependency.emconf.sav_library_mvc.default}         

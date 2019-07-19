@@ -2,19 +2,20 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
-use YolfTypo3\SavLibraryKickstarter\ViewHelpers\BuildOptionsForExtensionVersionSelectorboxViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for building the class for the extension version.
@@ -29,22 +30,39 @@ use YolfTypo3\SavLibraryKickstarter\ViewHelpers\BuildOptionsForExtensionVersionS
  * the options
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
  */
-class BuildClassForExtensionVersionViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildClassForExtensionVersionViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
      *
-     * @param string $extensionKey            
-     * @param string $extensionVersion            
-     * @return string the class
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @return void
      */
-    public function render($extensionKey, $extensionVersion)
+    public function initializeArguments()
     {
-        $options = BuildOptionsForExtensionVersionSelectorboxViewHelper::render($extensionKey);
-        
+        $this->registerArgument('extensionKey', 'string', 'Extension key', true);
+        $this->registerArgument('extensionVersion', 'string', 'Extension version', true);
+    }
+
+    /**
+     * Renders the class
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return string the class
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        // Gets the arguments
+        $extensionKey = $arguments['extensionKey'];
+        $extensionVersion = $arguments['extensionVersion'];
+
+        $options = BuildOptionsForExtensionVersionSelectorboxViewHelper::renderOptions($extensionKey);
+
         if (is_array($options) && current($options) == $extensionVersion) {
             return 'extensionVersion';
         } else {

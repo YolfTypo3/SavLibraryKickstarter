@@ -2,19 +2,21 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for building the options for the field type selector.
@@ -29,19 +31,23 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * the options
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
  */
-class BuildOptionsForExistingTablesSelectorboxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildOptionsForExistingTablesSelectorboxViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Renders the viewhelper
      *
-     * @return string the options array
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public static function render()
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $options = array(
+        $options = [
             '' => '',
             'tt_content' => LocalizationUtility::translate('kickstarter.existingTablesItem.tablename.tt_content', 'sav_library_kickstarter'),
             'fe_users' => LocalizationUtility::translate('kickstarter.existingTablesItem.tablename.fe_users', 'sav_library_kickstarter'),
@@ -49,15 +55,15 @@ class BuildOptionsForExistingTablesSelectorboxViewHelper extends \TYPO3\CMS\Flui
             'be_users' => LocalizationUtility::translate('kickstarter.existingTablesItem.tablename.be_users', 'sav_library_kickstarter'),
             'be_groups' => LocalizationUtility::translate('kickstarter.existingTablesItem.tablename.be_groups', 'sav_library_kickstarter'),
             'pages' => LocalizationUtility::translate('kickstarter.existingTablesItem.tablename.pages', 'sav_library_kickstarter')
-        );
-        
+        ];
+
         foreach ($GLOBALS['TCA'] as $tableKey => $table) {
             if (! $options[$tableKey]) {
                 $options[$tableKey] = $tableKey . ' (' . $GLOBALS['LANG']->sL($table['ctrl']['title']) . ')';
             }
         }
         asort($options);
-        
+
         return $options;
     }
 }

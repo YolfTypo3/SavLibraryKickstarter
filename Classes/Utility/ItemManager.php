@@ -1,43 +1,24 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\Utility;
 
-/**
- * *************************************************************
- * Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- * (c) 2010 Laurent Foulloy <yolf.typo3@orange.fr>
- * All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- * This class is a backport of the corresponding class of FLOW3.
- * All credits go to the v5 team.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
  *
- * This script is part of the TYPO3 project. The TYPO3 project is
- * free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * The GNU General Public License can be found at
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * This script is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * This copyright notice MUST APPEAR in all copies of the script!
- * *************************************************************
+ * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
 
 /**
  * Item manager
  *
  * @package SavLibraryKickstarter
- * @subpackage Utility
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
 class ItemManager extends \ArrayObject
 {
@@ -57,8 +38,9 @@ class ItemManager extends \ArrayObject
      */
     public function addItem($item)
     {
-        if ($item === NULL) {
+        if ($item === null) {
             $itemManager = GeneralUtility::makeInstance(ItemManager::class);
+            $this->ksort();
             $count = $this->count();
             if ($count > 0) {
                 $iterator = $this->getIterator();
@@ -71,7 +53,7 @@ class ItemManager extends \ArrayObject
             $this[$index] = $itemManager;
             return $this[$index];
         } elseif (is_numeric($item) || is_string($item)) {
-            if (! $this->itemExists($item) || $this[$item] === NULL) {
+            if (! $this->itemExists($item) || $this[$item] === null) {
                 $itemManager = GeneralUtility::makeInstance(ItemManager::class);
                 $itemManager->parentIndex = $item;
                 $this[$item] = $itemManager;
@@ -79,7 +61,7 @@ class ItemManager extends \ArrayObject
             return $this[$item];
         } else {
             foreach ($item as $key => $value) {
-                if ($value instanceof stdClass || is_array($value)) {
+                if ($value instanceof \stdClass || is_array($value)) {
                     $itemManager = GeneralUtility::makeInstance(ItemManager::class);
                     $this[$key] = $itemManager->addItem($value);
                 } else {
@@ -122,7 +104,7 @@ class ItemManager extends \ArrayObject
     public function getItemAndSetToZeroIfNull($itemKey)
     {
         $itemValue = $this->getItem($itemKey);
-        if ($itemValue === NULL) {
+        if ($itemValue === null) {
             return 0;
         } else {
             return $itemValue;
@@ -170,6 +152,7 @@ class ItemManager extends \ArrayObject
      */
     public function getItemsAsArray()
     {
+        $result = [];
         foreach ($this->getItems() as $key => $item) {
             if ($item instanceof \ArrayObject) {
                 $result[$key] = $item->getItemsAsArray();
@@ -187,9 +170,9 @@ class ItemManager extends \ArrayObject
      *            The item values to replace
      *            return none
      */
-    public function replace($itemValues, $item = NULL)
+    public function replace($itemValues, $item = null)
     {
-        if ($item === NULL) {
+        if ($item === null) {
             $item = $this;
         }
         foreach ($itemValues as $key => $itemValue) {
@@ -197,7 +180,7 @@ class ItemManager extends \ArrayObject
                 if (! $item->itemExists($key)) {
                     $item->addItem($key)->addItem($itemValue);
                 } else {
-                    if ($item[$key] === NULL) {
+                    if ($item[$key] === null) {
                         $item->addItem($key)->addItem($itemValue);
                     } else {
                         $item->replace($itemValue, $item[$key]);
@@ -230,9 +213,9 @@ class ItemManager extends \ArrayObject
      *            The item values to replace
      *            return none
      */
-    public function deleteAndReplace($itemValues, $item = NULL)
+    public function deleteAndReplace($itemValues, $item = null)
     {
-        if ($item === NULL) {
+        if ($item === null) {
             $item = $this;
         }
         foreach ($this as $key => $field) {
@@ -258,7 +241,7 @@ class ItemManager extends \ArrayObject
                 return $this[$keyField];
             }
         }
-        return NULL;
+        return null;
     }
 
     /**
@@ -270,14 +253,14 @@ class ItemManager extends \ArrayObject
      */
     public function sortBy($searchKey)
     {
-        $sortedKeys = array();
-        $existingKeys = array();
+        $sortedKeys = [];
+        $existingKeys = [];
         // Gets the keys
         foreach ($this as $keyField => $field) {
             $fieldValue = $this->searchFieldValue($field, $searchKey);
 
-            if ($fieldValue === FALSE) {
-                $sortedKeys = array();
+            if ($fieldValue === false) {
+                $sortedKeys = [];
             } elseif (array_key_exists($fieldValue, $sortedKeys)) {
                 // It should not happen
                 $existingKeys[] = $keyField;
@@ -291,6 +274,7 @@ class ItemManager extends \ArrayObject
         $sortedKeys = array_merge($sortedKeys, $existingKeys);
 
         // Builds the sorted item array
+        $item = [];
         foreach ($sortedKeys as $fieldKey) {
             $item[$fieldKey] = $this[$fieldKey];
         }
@@ -309,21 +293,21 @@ class ItemManager extends \ArrayObject
      *            The field to be searched
      * @param mixed $searchKey
      *            The search key
-     *
+     *            
      *            return mixed The searched item
      */
     protected function searchFieldValue($field, $searchKey)
     {
         if (is_array($searchKey)) {
             $fieldValue = $field;
-            $lastKey = FALSE;
+            $lastKey = false;
 
             foreach ($searchKey as $key => $value) {
                 $fieldValue = $fieldValue[$key];
                 $lastKey = $value;
             }
             if (empty($lastKey)) {
-                return FALSE;
+                return false;
             } else {
                 return $fieldValue[$lastKey];
             }
@@ -337,7 +321,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $searchKey
      *            The search key
-     *
+     *            
      *            return none
      */
     public function reIndex($searchKey)
@@ -347,17 +331,18 @@ class ItemManager extends \ArrayObject
         $counter = 1;
         if (is_array($searchKey)) {
             // Gets the keys
-            foreach ($this as $fieldKey => $field) {
+            foreach ($this as $field) {
                 $field[key($searchKey)][current($searchKey)] = $counter ++;
             }
         } else {
-            foreach ($this as $fieldKey => $field) {
+            foreach ($this as $field) {
                 $field[$searchKey] = $counter ++;
             }
         }
         // Builds a new reindexed array
         $counter = 1;
-        foreach ($this as $fieldKey => $field) {
+        $fields = [];
+        foreach ($this as $field) {
             $fields[$counter ++] = $field;
         }
         $this->exchangeArray($fields);
@@ -373,7 +358,8 @@ class ItemManager extends \ArrayObject
         // Sorts the items
         $this->ksort();
         // Builds a new reindexed array
-        foreach ($this as $fieldKey => $field) {
+        $fields = [];
+        foreach ($this as $field) {
             $fields[] = $field;
         }
         $this->exchangeArray($fields);
@@ -384,11 +370,11 @@ class ItemManager extends \ArrayObject
      *
      * @param string $functionName
      *            The function to apply
-     * @param ArrayObject $item
+     * @param \ArrayObject $item
      *            The item or sub-item.
      *            return none
      */
-    public function walkItem($functionName, $arguments = NULL, $itemToWalk = NULL)
+    public function walkItem($functionName, $arguments = null, $itemToWalk = null)
     {
 
         // Checks if the function is callable
@@ -397,7 +383,7 @@ class ItemManager extends \ArrayObject
         }
 
         // Sets the $items variable
-        if ($itemToWalk === NULL) {
+        if ($itemToWalk === null) {
             $items = $this;
         } else {
             $items = $itemToWalk;
@@ -415,7 +401,7 @@ class ItemManager extends \ArrayObject
                 $items[$key] = call_user_func($functionName, $item, $key, $arguments);
             }
         }
-        if ($itemToWalk === NULL) {
+        if ($itemToWalk === null) {
             return $this;
         } else {
             return $items;

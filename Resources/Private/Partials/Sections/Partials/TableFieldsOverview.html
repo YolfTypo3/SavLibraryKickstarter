@@ -9,15 +9,18 @@
 		<div class="buttons">
 			<f:link.action action="addNewField"
 				arguments="{extKey:extKey, section:section, itemKey:itemKey}">
-				<f:image 
-				    src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+				<f:image
+					src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
 					alt="{f:translate(key:'kickstarter.addNewField')}"
 					title="{f:translate(key:'kickstarter.addNewField')}" />
 			</f:link.action>
 			<f:form.submit class="submit" name="submitAction[save]"
+				data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
 				value="{f:translate(key:'kickstarter.save')}" />
 			<f:form.submit class="submit" name="submitAction[generateExtension]"
+				data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
 				value="{f:translate(key:'kickstarter.generate')}" />
+
 			<div class="viewSelectorbox">
 				<f:translate key="kickstarter.useFields" />
 			</div>
@@ -80,29 +83,29 @@
 								</f:if>
 								<f:link.action action="editFieldConfiguration"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
-									<f:image class="editFieldConfiguration" 
-									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
+									<f:image class="editFieldConfiguration"
+										src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
 										alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
 										title="{f:translate(key:'kickstarter.edit')}" />
 								</f:link.action>
 								<f:link.action action="moveDownField"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
-									<f:image class="moveDownField" 
-									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
+									<f:image class="moveDownField"
+										src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
 										alt="{f:translate(key:'kickstarter.moveDown')}"
 										title="{f:translate(key:'kickstarter.moveDown')}" />
 								</f:link.action>
 								<f:link.action action="moveUpField"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
-									<f:image class="moveUpField" 
-									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
+									<f:image class="moveUpField"
+										src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
 										alt="{f:translate(key:'kickstarter.moveUp')}"
 										title="{f:translate(key:'kickstarter.moveUp')}" />
 								</f:link.action>
 								<f:link.action action="deleteField"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
-									<f:image class="deleteField" 
-									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
+									<f:image class="deleteField"
+										src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
 										alt="kickstarter.delete"
 										title="{f:translate(key:'kickstarter.delete')}" />
 								</f:link.action>

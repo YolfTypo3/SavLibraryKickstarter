@@ -26,7 +26,7 @@ In the following, this tutorial details the first steps used to create from scra
    Since the Library Type is set to "Plus" this test extension requires the SAV Library Plus extension to be downloaded from the TER and installed. 
 
 .. caution::
-   If you want to test the extension with the SAV Library Mvc, set the Lybrary type to "Mvc", download the SAV Livbrary Mvc 
+   If you want to test the extension with the SAV Library Mvc, set the Library type to "Mvc", download the SAV Livbrary Mvc 
    from the TER and install it. 
 
 .. tip::

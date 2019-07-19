@@ -1,38 +1,24 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
-/**
- * Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- * (c) 2010 Laurent Foulloy <yolf.typo3@orange.fr>
- * All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- * This class is a backport of the corresponding class of FLOW3.
- * All credits go to the v5 team.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
  *
- * This script is part of the TYPO3 project. The TYPO3 project is
- * free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * The GNU General Public License can be found at
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * This script is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * This copyright notice MUST APPEAR in all copies of the script!
+ * The TYPO3 project - inspiring people to share!
  */
+use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
 
 /**
  * Abstract upgrade manager
  *
  * @package SavLibraryKickstarter
- * @subpackage Upgrade
- * @version SVN: $Id$
  */
 abstract class AbstractUpgradeManager
 {
@@ -51,7 +37,7 @@ abstract class AbstractUpgradeManager
      *            The extension key
      * @return void
      */
-    public function __construct($extensionKey)
+    public function __construct(string $extensionKey)
     {
         $this->extensionKey = $extensionKey;
     }
@@ -59,9 +45,11 @@ abstract class AbstractUpgradeManager
     /**
      * Pre processing
      *
-     * @return array none
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $sectionManager
+     *            The section manager
+     * @return void
      */
-    public function preProcessing()
+    public function preProcessing(ItemManager $sectionManager)
     {}
 
     /**
@@ -69,10 +57,10 @@ abstract class AbstractUpgradeManager
      *
      * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $sectionManager
      *            The section manager
-     *
+     *            
      * @return void
      */
-    public function postProcessing($sectionManager)
+    public function postProcessing(ItemManager $sectionManager)
     {}
 
     /**
@@ -80,7 +68,7 @@ abstract class AbstractUpgradeManager
      *
      * @return string The extension key
      */
-    public function getExtensionKey()
+    public function getExtensionKey(): string
     {
         return $this->extensionKey;
     }

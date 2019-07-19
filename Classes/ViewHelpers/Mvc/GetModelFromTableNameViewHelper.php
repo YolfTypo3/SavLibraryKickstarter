@@ -2,19 +2,19 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * A view helper for obtaining the model from a table name.
@@ -30,27 +30,32 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Test
  *
  * @package SavLibraryMvc
- * @subpackage ViewHelpers
- * @version $Id:
- * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
- *          @scope prototype
+ *         
  */
-class GetModelFromTableNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class GetModelFromTableNameViewHelper extends AbstractViewHelper
 {
 
     /**
-     *
-     * @param string $extension
-     *            The extension name
-     * @param string $table
-     *            The table Name
-     * @return string the model in UpperCamelCase
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
-     *         @api
+     * Initializes arguments.
      */
-    public function render($extension, $table = NULL)
+    public function initializeArguments()
     {
-        if ($table === NULL) {
+        $this->registerArgument('extension', 'string', 'Extension name', true);
+        $this->registerArgument('table', 'string', 'Table Name', false, null);
+    }
+
+    /**
+     * Renders the model
+     *
+     * @return string the model in UpperCamelCase
+     */
+    public function render()
+    {
+        // Gets the arguments
+        $extension = $this->arguments['extension'];
+        $table = $this->arguments['table'];
+
+        if ($table === null) {
             $table = $this->renderChildren();
         }
         $tableName = GeneralUtility::underscoredToUpperCamelCase($table);

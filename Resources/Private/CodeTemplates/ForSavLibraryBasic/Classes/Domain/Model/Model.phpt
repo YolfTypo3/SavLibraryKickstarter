@@ -7,30 +7,20 @@
     fields:           '{extension.newTables->sav:getItem(key:itemKey)->sav:getItem(key:\'fields\')}'
 }">
 namespace {vendorName}\{extensionName}\Domain\Model;
-
-/**
-*  Copyright notice
-*
-*  (c) <f:format.date format="Y">now</f:format.date> {extension.emconf.1.author} <{extension.emconf.1.author_email}>
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-*/
-
+!
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+!
 /**
  * {modelName} model for the extension {extensionName}
  *
@@ -44,14 +34,6 @@ class {modelName} extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * The {field.fieldname->sav:lowerCamel()} variable.
      *
      * <sav:function name="removeLineFeed"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Variables/PhpDoc/{field.type}.t', default:'Partials/Model/Variables/PhpDoc/Default.t')}" arguments="{_all}" /></sav:function>
-        <f:if condition="{field.validationRules}">
-        <f:then>
-     * @validate {field.validationRules}
-        </f:then>
-        <f:else>
-     * <sav:function name="removeLineFeed"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/ValidationRules/PhpDoc/{field.type}.t', default:'Partials/Model/ValidationRules/PhpDoc/Default.t')}" arguments="{_all}" /></sav:function>
-        </f:else>
-        </f:if>
      */
     protected ${field.fieldname->sav:lowerCamel()};
 !    

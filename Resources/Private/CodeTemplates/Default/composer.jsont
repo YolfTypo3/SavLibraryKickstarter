@@ -10,10 +10,11 @@
         "role": "Developer"
         <f:format.raw value="}" />
     ],
-    "replace": <f:format.raw value="{" />
-        "{extension.general.1.extensionKey}": "self.version",
-        "typo3-ter/{extension.general.1.extensionKey->sav:function(name:'strReplace',arguments:{search:'_', replace:'-'})}": "self.version"
-    <f:format.raw value="}" />,
+    "extra": {
+        "typo3/cms": <f:format.raw value="{" />
+            "extension-key": "{extension.general.1.extensionKey}"
+        <f:format.raw value="}" />
+    },    
     "require": {
         <sav:indent count="8">{sav:buildConstraintsForExtensionManager(extension:extension, type:'composer')}</sav:indent>
     },

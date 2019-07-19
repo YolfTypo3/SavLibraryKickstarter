@@ -2,19 +2,21 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
  * A view helper for getting the relation table.
@@ -29,25 +31,41 @@ use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
  * the oprtions
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
+ *         
  */
-class GetRelationTableKeyForSubformViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class GetRelationTableKeyForSubformViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
+     *
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('arguments', 'array', 'Arguments', true);
+        $this->registerArgument('tableName', 'string', 'Table name', true);
+    }
+
+    /**
+     * Renders the table key
      *
      * @param array $arguments
-     * @param string $tableName
-     * @return string the options array
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return int The table key
      */
-    public function render($arguments, $tableName)
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $extensionKey = $arguments['general'][1]['extensionKey'];
-        $libraryType = $arguments['general'][1]['libraryType'];
-        foreach ($arguments['newTables'] as $tableKey => $table) {
+        // Gets the arguments
+        $argumentsOption = $arguments['arguments'];
+        $tableName = $arguments['tableName'];
+
+        $extensionKey = $argumentsOption['general'][1]['extensionKey'];
+        $libraryType = $argumentsOption['general'][1]['libraryType'];
+        foreach ($argumentsOption['newTables'] as $tableKey => $table) {
             switch ($libraryType) {
                 case ConfigurationManager::TYPE_SAV_LIBRARY_PLUS:
                     $realTableName = 'tx_' . str_replace('_', '', $extensionKey) . '_' . $table['tablename'];

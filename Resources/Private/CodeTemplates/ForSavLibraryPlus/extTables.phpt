@@ -1,8 +1,6 @@
 <?php
 <sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
-if (!defined ('TYPO3_MODE')) {
- 	die ('Access denied.');
-}
+defined('TYPO3_MODE') or die();
 
 <f:for each="{extension.newTables}" as="table">
 <f:alias map="{
@@ -21,30 +19,29 @@ if (!defined ('TYPO3_MODE')) {
 </f:alias>
 </f:for>
 
-$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY . '_pi1'] = 'layout,select_key';
+<f:if condition="{extension.general.1.addWizardPluginIcon}">
 !
-// Adds flexform field to plugin option
-$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY . '_pi1'] = 'pi_flexform';
-!
-// Adds flexform DataStructure
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    $_EXTKEY . '_pi1',
-    'FILE:EXT:' . $_EXTKEY . '/Configuration/Flexforms/ExtensionFlexform.xml'
+<f:alias map="{
+    vendorName:     '{extension.general.1.vendorName}',
+    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
+    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+}">
+// Registers the icon
+$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+   \TYPO3\CMS\Core\Imaging\IconRegistry::class
 );
-<f:if condition="{extension.general.1.addTypoScriptConfiguration}">
+$iconRegistry->registerIcon(
+   'tx-{extensionName->sav:toLower()}-wizard',
+   \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+   ['source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg']
+);
 !
-// Default TypoScript
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', '{extension.general.1.pluginTitle->sav:function(name:'stringToUtf8')}');
+// Adds a wizard plugin icon
+if (TYPO3_MODE === 'BE') {
+    $GLOBALS['TBE_MODULES_EXT']['xMOD_db_new_content_el']['addElClasses']['{vendorName}\\{extensionName}\\Controller\\{controllerName}WizardIcon'] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('{extension.general.1.extensionKey}') . 'Classes/Controller/{controllerName}WizardIcon.php';
+}
+</f:alias>
 </f:if>
-!
-// Adds the plugin
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
-    [
-        'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
-        $_EXTKEY . '_pi1',
-    ],
-    'list_type'
-);
 
 </sav:function>
 ?>

@@ -1,20 +1,22 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
 <f:alias map="{section:'queries'}">
-	<f:alias map="{
+	<f:alias
+		map="{
 	   sectionItems:'{extension->sav:getItem(key:section)}', 
 	   mvc:'{f:if(condition:\'{extension.general.1.libraryType} == 2\', then:1, else:0)}'
-	}">   
-		<f:alias map="{sectionItem:'{sectionItems->sav:getItem(key:itemKey)}'}">
+	}">
+		<f:alias
+			map="{sectionItem:'{sectionItems->sav:getItem(key:itemKey)}'}">
 			<div id="{section}Section">
 				<f:form method="post" action="save" name="{section}"
 					arguments="{extKey:extKey, section:'queries', itemKey:itemKey}">
 					<f:form.hidden name="general[section]" value="{section}" />
 					<f:form.hidden name="general[itemKey]" value="{itemKey}" />
 					<div id="content">
-                    
-                        <f:comment>Header</f:comment>
-                        <f:render partial="Sections/Partials/Header" arguments="{_all}" />
+
+						<f:comment>Header</f:comment>
+						<f:render partial="Sections/Partials/Header" arguments="{_all}" />
 
 						<div class="body">
 							<f:comment>Item title</f:comment>
@@ -28,8 +30,7 @@
 								map="{firtNewTable:'{extension.newTables->sav:function(name:\"current\")}'}">
 								<f:alias
 									map="{defaultTableName:'{sav:BuildTableName(shortName:firtNewTable.tablename, extensionKey:extKey, mvc:mvc)}'}">
-									<f:form.textfield id="mainTable"
-										name="{section}[mainTable]"
+									<f:form.textfield id="mainTable" name="{section}[mainTable]"
 										value="{f:if(condition:sectionItem.mainTable, then:sectionItem.mainTable, else:defaultTableName)}" />
 								</f:alias>
 							</f:alias>
@@ -54,8 +55,7 @@
 							<f:comment>Where Clause</f:comment>
 							<label for="whereClause"><f:translate
 									key="kickstarter.{section}Item.whereClause" /></label>
-							<f:form.textarea id="whereClause"
-								name="{section}[whereClause]"
+							<f:form.textarea id="whereClause" name="{section}[whereClause]"
 								value="{sectionItem.whereClause}"
 								rows="{sav:function(name:'countLines', arguments:sectionItem.whereClause)}"
 								cols="80" />
@@ -84,8 +84,8 @@
 										key="kickstarter.{section}Item.whereTags" /></label>
 								<f:link.action action="addNewWhereTag"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey}">
-									<f:image class="addNewWhereTag" 
-									    src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+									<f:image class="addNewWhereTag"
+										src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
 										alt="{f:translate(key:'kickstarter.addNewWhereTag')}"
 										title="{f:translate(key:'kickstarter.addNewWhereTag')}" />
 								</f:link.action>
@@ -98,8 +98,8 @@
 										value="{whereTag.title}" />
 									<f:link.action action="deleteWhereTag"
 										arguments="{extKey:extKey, section:section, itemKey:itemKey, whereTagKey:whereTagKey}">
-										<f:image class="whereTagDelete" 
-										    src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
+										<f:image class="whereTagDelete"
+											src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
 											alt="kickstarter.delete"
 											title="{f:translate(key:'kickstarter.delete')}" />
 									</f:link.action>

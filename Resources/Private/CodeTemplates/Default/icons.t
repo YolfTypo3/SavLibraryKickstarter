@@ -6,7 +6,7 @@
   keepFile:1
 }" />
 
-<f:comment>Create Extension.svf.gif</f:comment>
+<f:comment>Create Extension.svg</f:comment>
 <f:alias
     map="{
         iconName:'{sav:getItem(
@@ -18,7 +18,7 @@
             key:extension.general.1.libraryType)}'           
         }">
 <sav:function name="copyFile" arguments="{
-  source:'Resources/Private/CodeTemplates/Default/Resources/Icons/{iconName}',
+  source:'Resources/Public/Icons/{iconName}',
   destinationExtension:extension.general.1.extensionKey,
   destination:'Resources/Public/Icons/Extension.svg',
   keepFile:1  

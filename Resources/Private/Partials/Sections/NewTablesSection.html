@@ -38,25 +38,30 @@
 											<f:comment>Table Name</f:comment>
 											<label for="tablename"><f:translate
 													key="kickstarter.{section}Item.tablename" /> <span
-												class="extensionKey">{sav:buildTableName(shortName:' ', extensionKey:extKey, mvc:mvc)}</span></label>
+												class="extensionKey">{sav:buildTableName(shortName:'
+													', extensionKey:extKey, mvc:mvc)}</span></label>
 											<f:form.textfield id="tablename" name="newTables[tablename]"
 												value="{sectionItem.tablename}" />
 
 											<f:comment>Item title</f:comment>
-											<f:render partial="Sections/Partials/ItemTitle"	arguments="{_all}" />
+											<f:render partial="Sections/Partials/ItemTitle"
+												arguments="{_all}" />
 										</div>
 
 										<f:comment>Flags</f:comment>
-										<f:render partial="Sections/Partials/NewTableFlags" arguments="{_all}" />
+										<f:render partial="Sections/Partials/NewTableFlags"
+											arguments="{_all}" />
 
 									</div>
 								</div>
 
 								<f:comment>Fields overview</f:comment>
-								<f:render partial="Sections/Partials/TableFieldsOverview" arguments="{_all}" />
+								<f:render partial="Sections/Partials/TableFieldsOverview"
+									arguments="{_all}" />
 
 								<f:comment>Add the field Configuration</f:comment>
-								<f:render partial="Sections/Partials/TableFieldConfiguration" arguments="{_all}" />
+								<f:render partial="Sections/Partials/TableFieldConfiguration"
+									arguments="{_all}" />
 							</f:form>
 						</div>
 					</f:alias>

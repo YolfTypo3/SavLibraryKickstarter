@@ -2,17 +2,20 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for building the options for the field selector.
@@ -27,31 +30,45 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  * the options
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
  */
-class BuildOptionsForFieldSelectorboxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildOptionsForFieldSelectorboxViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
      *
-     * @param array $fields
-     *            The fields
-     * @param array $options
-     *            The initial option values
-     *            
-     * @return string the options array
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @return void
      */
-    public function render($fields, $options = array())
+    public function initializeArguments()
     {
+        $this->registerArgument('fields', 'array', 'Fields', true);
+        $this->registerArgument('options', 'array', 'Intitial option values', false, []);
+    }
+
+    /**
+     * Renders the options
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        // Gets the arguments
+        $fields = $arguments['fields'];
+        $options = $arguments['options'];
+
         if (is_array($fields)) {
             foreach ($fields as $field) {
-                $options = array_merge($options, array(
+                $options = array_merge($options, [
                     $field['fieldname'] => $field['fieldname']
-                ));
+                ]);
             }
         }
-        
+
         return $options;
     }
 }

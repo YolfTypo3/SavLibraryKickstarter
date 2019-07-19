@@ -2,47 +2,54 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * A view helper for sorting the fields in a view.
  *
- * This view helper has exactly the same syntax as the fluid alias viewhelper.
- * The main difference is that obect accessor may contain other object accesor
- * Therefore {a.b.{c.d}.e} is allowed
- *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class SortFieldsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class SortFieldsViewHelper extends AbstractViewHelper
 {
 
     /**
+     * Initializes arguments.
      *
-     * @param integer $viewKey            
-     * @param array $fields            
-     * @return string Rendered string
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @return void
      */
-    public function render($viewKey, $fields = NULL)
+    public function initializeArguments()
     {
-        if ($fields === NULL) {
+        $this->registerArgument('viewKey', 'integer', 'View key', true);
+        $this->registerArgument('fields', 'array', 'Fields', false, null);
+    }
+
+    /**
+     * Renders the viewhelper
+     *
+     * @return array Sorted fields
+     */
+    public function render(): array
+    {
+        // Gets the arguments
+        $viewKey = $this->arguments['viewKey'];
+        $fields = $this->arguments['fields'];
+
+        if ($fields === null) {
             $fields = $this->renderChildren();
         }
-        
-        $sortedKeys = array();
+
+        $sortedKeys = [];
         // Gets the keys
         foreach ($fields as $keyField => $field) {
             if ($field['selected'][$viewKey]) {
@@ -53,10 +60,11 @@ class SortFieldsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractView
         // Sorts the array
         ksort($sortedKeys);
         // Builds the sorted item array
+        $sortedFields = [];
         foreach ($sortedKeys as $fieldKey) {
             $sortedFields[$fieldKey] = $fields[$fieldKey];
         }
-        
+
         return $sortedFields;
     }
 }

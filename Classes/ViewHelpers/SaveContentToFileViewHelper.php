@@ -2,20 +2,22 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
  * A view helper for saving a content into a file.
@@ -30,35 +32,47 @@ use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
  * None
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class SaveContentToFileViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class SaveContentToFileViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
      *
-     * @param string $content
-     *            Content to save
-     * @param string $extensionKey
-     *            The extension name
-     * @param string $directory
-     *            Directory to create if not empty
-     * @param string $fileName
-     *            The file name
      * @return void
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
-     *         @api
      */
-    public function render($content, $extensionKey, $fileName, $directory = '')
+    public function initializeArguments()
     {
+        $this->registerArgument('content', 'string', 'Content to save', true);
+        $this->registerArgument('extensionKey', 'string', 'Extension key', true);
+        $this->registerArgument('fileName', 'string', 'File name', true);
+        $this->registerArgument('directory', 'string', 'Directory to create if not empty', false, '');
+    }
+
+    /**
+     * Saves the content into the file
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return void
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        // Gets the arguments
+        $content = $arguments['content'];
+        $extensionKey = $arguments['extensionKey'];
+        $fileName = $arguments['fileName'];
+        $directory = rtrim($arguments['directory'], '/') . '/';
+
         // Creates a new directory if needed
-        if (!empty($directory)) {
-            $extensionDirectory = PATH_typo3conf . 'ext/' . $extensionKey . '/';
-            GeneralUtility::mkdir_deep($extensionDirectory, $directory);
-        }
         $extensionDirectory = ConfigurationManager::getExtensionDir($extensionKey);
+        if (! empty($directory)) {
+            GeneralUtility::mkdir_deep($extensionDirectory . $directory);
+        }
+
         GeneralUtility::writeFile($extensionDirectory . '/' . $fileName, $content);
     }
 }

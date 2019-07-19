@@ -4,13 +4,15 @@
 <f:if condition="{0:field.type} == {0:'RelationManyToManyAsSubform'}">
 	<f:alias
 		map="{relationTableKey:'{sav:GetRelationTableKeyForSubform(arguments:extension, tableName:field.conf_rel_table)}'}">
-		<f:if condition="{extension->sav:getItem(key:section)->sav:getItem(key:relationTableKey)->sav:getItem(key:'fields')}">
+		<f:if
+			condition="{extension->sav:getItem(key:section)->sav:getItem(key:relationTableKey)->sav:getItem(key:'fields')}">
 			<f:then>
 				<f:if condition="{selectedFieldKey} == {key}">
 					<li>
 						<div class="subform">
 							<ul>
-								<f:for each="{extension->sav:getItem(key:section)->sav:getItem(key:relationTableKey)->sav:getItem(key:'fields')}"
+								<f:for
+									each="{extension->sav:getItem(key:section)->sav:getItem(key:relationTableKey)->sav:getItem(key:'fields')}"
 									key="subformFieldKey" as="subformField">
 									<li
 										class="field {f:if(condition:'{selectedFieldKey} == {subformFieldKey}', then:'selected')}">
@@ -43,29 +45,29 @@
 													value="1" checked="{selected}" />
 												<f:link.action action="editFieldConfiguration"
 													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}">
-													<f:image class="editFieldConfiguration" 
-													    src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
+													<f:image class="editFieldConfiguration"
+														src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
 														alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
 														title="{f:translate(key:'kickstarter.edit')}" />
 												</f:link.action>
 												<f:link.action action="moveDownField"
 													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, fieldKey:subformFieldKey}">
-													<f:image class="moveDownField" 
-													    src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
+													<f:image class="moveDownField"
+														src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
 														alt="{f:translate(key:'kickstarter.moveDown')}"
 														title="{f:translate(key:'kickstarter.moveDown')}" />
 												</f:link.action>
 												<f:link.action action="moveUpField"
 													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, fieldKey:subformFieldKey}">
-													<f:image class="moveUpField" 
-													    src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
+													<f:image class="moveUpField"
+														src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
 														alt="{f:translate(key:'kickstarter.moveUp')}"
 														title="{f:translate(key:'kickstarter.moveUp')}" />
 												</f:link.action>
 												<f:link.action action="deleteField"
 													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, fieldKey:subformFieldKey}">
-													<f:image class="deleteField" 
-													    src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
+													<f:image class="deleteField"
+														src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
 														alt="kickstarter.delete"
 														title="{f:translate(key:'kickstarter.delete')}" />
 												</f:link.action>
@@ -80,7 +82,8 @@
 			</f:then>
 			<f:else>
 				<f:comment>Adds a message If the field is selected and there are no fields in the subform</f:comment>
-				<f:if condition="{field.selected->sav:getItem(key:sectionItemViewKey)}">
+				<f:if
+					condition="{field.selected->sav:getItem(key:sectionItemViewKey)}">
 					<li>
 						<div class="subform">
 							<ul class="errorMessage">

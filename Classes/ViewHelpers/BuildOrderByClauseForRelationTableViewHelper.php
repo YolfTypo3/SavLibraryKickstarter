@@ -2,17 +2,20 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for building the ORDER BY clause of a relation table.
@@ -24,40 +27,56 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  * </code>
  *
  * Output:
- * the oprtions
+ * the order clause
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class BuildOrderByClauseForRelationTableViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildOrderByClauseForRelationTableViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
+     *
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('arguments', 'array', 'Arguments', true);
+        $this->registerArgument('tableName', 'string', 'Table name', true);
+        $this->registerArgument('mvc', 'boolean', 'Mvc flag', false, false);
+    }
+
+    /**
+     * Renders the viewhelper
      *
      * @param array $arguments
-     * @param string $tableName
-     * @param boolean $mvc
-     * @return string the options array
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return string The order clause
      */
-    public function render($arguments, $tableName, $mvc = FALSE)
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
+        // Gets the arguments
+        $argumentsOption = $arguments['arguments'];
+        $tableName = $arguments['tableName'];
+        $mvc = $arguments['mvc'];
+
         // Searches the table name in new tables
-        $newTables = $arguments['newTables'];
+        $newTables = $argumentsOption['newTables'];
 
         $domain = ($mvc ? '_domain_model_' : '_');
         if (is_array($newTables)) {
             foreach ($newTables as $tableKey => $table) {
-                $realTableName = 'tx_' . str_replace('_', '', $arguments['general'][1]['extensionKey']) . $domain . $table['tablename'];
+                $realTableName = 'tx_' . str_replace('_', '', $argumentsOption['general'][1]['extensionKey']) . $domain . $table['tablename'];
 
                 if ($realTableName == $tableName) {
                     // Checks if manual ordering is not set
                     if (empty($table['sorting'])) {
                         // Field-based ordering
                         $orderByClause = 'ORDER BY ' . $realTableName . '.' . $table['sorting_field'];
-                        if (empty($table['sorting_desc']) === FALSE) {
+                        if (empty($table['sorting_desc']) === false) {
                             $orderByClause .= ' DESC';
                         }
                     } else {
@@ -73,9 +92,9 @@ class BuildOrderByClauseForRelationTableViewHelper extends \TYPO3\CMS\Fluid\Core
         foreach ($GLOBALS['TCA'] as $tableKey => $table) {
             if ($tableKey == $tableName) {
                 // Checks if there is a default ordering
-                if (empty($table['default_sortby']) === FALSE) {
+                if (empty($table['default_sortby']) === false) {
                     return 'ORDER BY ' . $table['default_sortby'];
-                } elseif (empty($table['sortby']) === FALSE) {
+                } elseif (empty($table['sortby']) === false) {
                     return 'ORDER BY ' . $table['sortby'];
                 }
             }

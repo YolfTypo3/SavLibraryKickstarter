@@ -2,18 +2,18 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
 
 /**
@@ -29,26 +29,34 @@ use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
  * savLibraryKickstarter
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class LowerCamelViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class LowerCamelViewHelper extends AbstractViewHelper
 {
 
     /**
+     * Initializes arguments.
      *
-     * @param string $string
-     *            String to convert
-     * @return string Converted string
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @return void
      */
-    public function render($string = NULL)
+    public function initializeArguments()
     {
-        if ($string === NULL) {
+        $this->registerArgument('string', 'string', 'String to convert', false, null);
+    }
+
+    /**
+     * Renders the string in lowerCamel
+     *
+     * @return string String in lowerCamel
+     */
+    public function render(): string
+    {
+        // Gets the arguments
+        $string = $this->arguments['string'];
+
+        if ($string === null) {
             $string = $this->renderChildren();
         }
-        return Conversion::lowerCamel($string);
+        return ($string === null ? '' : Conversion::lowerCamel($string));
     }
 }
 ?>

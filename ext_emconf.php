@@ -6,7 +6,6 @@
  * Auto generated 27-02-2015 17:59
  *
  ***************************************************************/
-
 $EM_CONF[$_EXTKEY] = [
     'title' => 'SAV Library Kickstarter',
     'description' => 'Kickstarter which automatically generates SAV Library Plus, SAV Library Mvc and basic fluid/extbase based extensions.  Multiple views of the data including forms with Front End editing facilities can be generated.',
@@ -19,14 +18,14 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.1.0',
+    'version' => '9.5.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '6.2.0-8.9.99',
+            'typo3' => '8.7.0-9.5.99'
         ],
         'conflicts' => [],
-        'suggests' => [],
-    ],
+        'suggests' => []
+    ]
 ];
 
 ?>

@@ -6,10 +6,8 @@
     extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}',
     controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
 }">
-if (!defined ('TYPO3_MODE')) {
- 	die ('Access denied.');
-}
-
+defined('TYPO3_MODE') or die();
+!
 <f:for each="{extension.newTables}" as="newTable">
 <f:alias map="{
     model: '{sav:buildTableName(shortName:newTable.tablename, extensionKey:extension.general.1.extensionKey)}'
@@ -23,12 +21,13 @@ if (!defined ('TYPO3_MODE')) {
 </f:for>
 !
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43(
-    $_EXTKEY,
+    '{extension.general.1.extensionKey}',
     'Classes/Controller/{extensionName}Controller.php',
     '_pi1',
     'list_type',
     1
 );
+!
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
 plugin.tx_{extensionNameWithoutUnderscore}_pi1.userFunc = {vendorName}\{extensionName}\Controller\{extensionName}Controller->main
 '

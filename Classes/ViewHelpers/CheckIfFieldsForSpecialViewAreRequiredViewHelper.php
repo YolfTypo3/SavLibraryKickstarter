@@ -1,20 +1,21 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
-use SJBR\StaticInfoTables\Utility\ModelUtility;
-
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper to check if there are new fields created in an existing table.
@@ -29,33 +30,48 @@ use SJBR\StaticInfoTables\Utility\ModelUtility;
  * true or false
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
- * @version $Id:
  */
-class CheckIfFieldsForSpecialViewAreRequiredViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class CheckIfFieldsForSpecialViewAreRequiredViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
+     * Initializes arguments.
      *
-     * @param array $extension
-     *            Extension
-     * @param string $model
-     *             Model
-     * @return boolean
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
+     * @return void
      */
-    public function render($extension, $model)
+    public function initializeArguments()
     {
-        foreach ($extension['forms'] as $formKey => $form) {
-            if (!empty($form['specialView'])) {
-                $queryKey = $form['query'];
-                if($extension['queries'][$queryKey]['mainTable'] == $model) {
-                    return TRUE;
+        $this->registerArgument('extension', 'array', 'Extension', true);
+        $this->registerArgument('model', 'string', 'Model', true);
+    }
+
+    /**
+     * Returns true if fields are required
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return bool
+     */
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    {
+        // Gets the arguments
+        $extension = $arguments['extension'];
+        $model = $arguments['model'];
+
+        if (is_array($extension['forms'])) {
+            foreach ($extension['forms'] as $form) {
+                if (! empty($form['specialView'])) {
+                    $queryKey = $form['query'];
+                    if ($extension['queries'][$queryKey]['mainTable'] == $model) {
+                        return true;
+                    }
                 }
             }
         }
-        return FALSE;
+        return false;
     }
 }
 ?>

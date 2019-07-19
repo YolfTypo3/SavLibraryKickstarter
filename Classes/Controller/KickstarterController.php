@@ -1,44 +1,30 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\Controller;
 
-/**
- * Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- * (c) 2010 Laurent Foulloy <yolf.typo3@orange.fr>
- * All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- * This class is a backport of the corresponding class of FLOW3.
- * All credits go to the v5 team.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
  *
- * This script is part of the TYPO3 project. The TYPO3 project is
- * free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * The GNU General Public License can be found at
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * This script is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * This copyright notice MUST APPEAR in all copies of the script!
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
-use YolfTypo3\SavLibraryKickstarter\Compatibility\CompatibilityUtility;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use YolfTypo3\SavLibraryKickstarter\Compatibility\EnvironmentCompatibility;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
  * Backend Module of the SAV Library Kickstarter extension
  *
  * @package SavLibraryKickstarter
- * @author Laurent Foulloy <yolf.typo3@orange.fr>
  */
 class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
@@ -47,40 +33,26 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *
      * @var boolean
      */
-    protected $extensionsNeedTobeUpgraded = FALSE;
-
-    /**
-     * Initializes the controller before invoking an action method.
-     *
-     * Override this method to solve tasks which all actions have in
-     * common.
-     *
-     * @return void @api
-     */
-    protected function initializeAction()
-    {
-        // Defines class aliases
-        CompatibilityUtility::setClassAliases();
-    }
+    protected $extensionsNeedTobeUpgraded = false;
 
     /**
      * extensionList action for this controller.
      *
      * @param string $showExtensionVersionSelector
-     * @return string The rendered view
+     * @return void
      */
-    public function extensionListAction($showExtensionVersionSelector = NULL)
+    public function extensionListAction(string $showExtensionVersionSelector = null)
     {
-    	// Checks if the static template is included
-    	$backendConfigurationManager = GeneralUtility::makeInstance(BackendConfigurationManager::class);
-    	$configuration = $backendConfigurationManager->getConfiguration();
-    	if(!isset($configuration['view'])) {
-    		$message = LocalizationUtility::translate('error.staticTemplateNotIncluded', $this->request->getControllerExtensionKey());
-    		$this->addFlashMessage($message);
-    		return;
-    	}
+        // Checks if the static template is included
+        $backendConfigurationManager = GeneralUtility::makeInstance(BackendConfigurationManager::class);
+        $configuration = $backendConfigurationManager->getConfiguration();
+        if (! isset($configuration['view'])) {
+            $message = LocalizationUtility::translate('error.staticTemplateNotIncluded', $this->request->getControllerExtensionKey());
+            $this->addFlashMessage($message, '', AbstractMessage::ERROR);
+            return;
+        }
 
-    	// Displays the extension list
+        // Displays the extension list
         $this->view->assign('extensionList', $this->getConfigurationList());
         $this->view->assign('showExtensionVersionSelector', $showExtensionVersionSelector);
         $this->view->assign('extensionsNeedTobeUpgraded', $this->extensionsNeedTobeUpgraded);
@@ -91,22 +63,22 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * selectExtensionVersion action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
-    public function selectExtensionVersionAction($extKey)
+    public function selectExtensionVersionAction(string $extKey)
     {
-        $this->redirect('extensionList', NULL, NULL, array(
+        $this->redirect('extensionList', null, null, [
             'showExtensionVersionSelector' => $extKey
-        ));
+        ]);
     }
 
     /**
      * changeExtensionVersion action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
-    public function changeExtensionVersionAction($extKey = NULL)
+    public function changeExtensionVersionAction(string $extKey = null)
     {
         $arguments = $this->request->getArguments();
         $extKey = $arguments['extensionKey'];
@@ -131,19 +103,17 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $itemKey = 1;
         }
 
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
      * createExtension action for this controller.
      *
-     * @param
-     *            none
-     * @return string The rendered view
+     * @return void
      */
     public function createExtensionAction()
     {
@@ -156,9 +126,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * copyExtension action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
-    public function copyExtensionAction($extKey)
+    public function copyExtensionAction(string $extKey)
     {
         $this->view->assign('extensionList', $this->getConfigurationList());
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
@@ -170,9 +140,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * editExtension action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
-    public function editExtensionAction($extKey)
+    public function editExtensionAction(string $extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -190,20 +160,20 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $section = 'emconf';
             $itemKey = 1;
         }
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
      * installExtension action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
-    public function installExtensionAction($extKey)
+    public function installExtensionAction(string $extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -216,9 +186,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * installExtension action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
-    public function uninstallExtensionAction($extKey)
+    public function uninstallExtensionAction(string $extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -231,9 +201,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * downloadExtension action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
-    public function downloadExtensionAction($extKey)
+    public function downloadExtensionAction(string $extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -246,9 +216,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * generateExtension action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
-    public function generateExtensionAction($extKey)
+    public function generateExtensionAction(string $extKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -263,7 +233,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * upgradeExtension action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
     public function upgradeExtensionAction($extKey)
     {
@@ -276,24 +246,16 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->getItem(1)
             ->getItem('compatibility');
         if (is_null($compatibility)) {
-            $compatibility = ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE;
+            $compatibility = ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT;
             $configurationManager->getSectionManager()
                 ->getItem('general')
                 ->getItem(1)
-                ->replace(array(
+                ->replace([
                 'compatibility' => $compatibility
-            ));
+            ]);
         }
-        $configurationManager->checkForUpgrade();
-        $configurationManager->getCodeGenerator()->buildExtension();
-        $configurationManager->getExtensionManager()->checkDbUpdate();
-        $configurationManager->getSectionManager()
-            ->getItem('general')
-            ->getItem(1)
-            ->replace(array(
-            'extensionMustbeUpgraded' => FALSE
-        ));
-        $configurationManager->saveConfiguration();
+        $configurationManager->upgradeExtension();
+
         $this->redirect('extensionList');
     }
 
@@ -301,11 +263,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * upgradeExtensions action for this controller.
      *
      * @param string $extKey
-     * @return string The rendered view
+     * @return void
      */
     public function upgradeExtensionsAction()
     {
-        foreach (GeneralUtility::get_dirs(PATH_typo3conf . 'ext/') as $extensionKey) {
+        foreach (GeneralUtility::get_dirs(EnvironmentCompatibility::getTypo3ConfPath() . 'ext/') as $extensionKey) {
             $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
             $configurationManager->injectController($this);
 
@@ -322,9 +284,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     $configurationManager->getSectionManager()
                         ->getItem('general')
                         ->getItem(1)
-                        ->replace(array(
-                        'extensionMustbeUpgraded' => FALSE
-                    ));
+                        ->replace([
+                        'extensionMustbeUpgraded' => false
+                    ]);
                     $configurationManager->saveConfiguration();
                     $this->redirect('upgradeExtensions');
                 }
@@ -340,26 +302,26 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @return string The rendered view
+     * @return void
      */
-    public function addItemAction($extKey, $section)
+    public function addItemAction(string $extKey, string $section)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $itemKey = $configurationManager->getSectionManager()
             ->addItem($section)
-            ->addItem(NULL)
-            ->addItem(array(
+            ->addItem(null)
+            ->addItem([
             'title' => LocalizationUtility::translate('kickstarter.new', $this->request->getControllerExtensionKey())
-        ))
+        ])
             ->getItemIndex();
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -369,11 +331,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to delete
-     * @return string The rendered view
+     * @return void
      */
-    public function deleteItemAction($extKey, $section, $itemKey)
+    public function deleteItemAction(string $extKey, string $section, int $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -390,9 +352,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->getItem(1)
             ->deleteItem('itemKey');
         $configurationManager->saveConfiguration();
-        $this->redirect('editExtension', NULL, NULL, array(
+        $this->redirect('editExtension', null, null, [
             'extKey' => $extKey
-        ));
+        ]);
     }
 
     /**
@@ -402,11 +364,37 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function emconfEditSectionAction($extKey = NULL, $section = NULL, $itemKey = NULL)
+    public function emconfEditSectionAction(string $extKey = null, string $section = null, int $itemKey = null)
+    {
+        // Loads the configuration
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
+
+        $configurationManager->loadConfiguration();
+        // Assigns view variables
+        $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
+        $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
+        $this->view->assign('extKey', $extKey);
+        $this->view->assign('itemKey', $itemKey);
+        $this->view->assign('extension', $configurationManager->getConfiguration());
+    }
+
+    /**
+     * documentationEditSection action for this controller.
+     *
+     * @param string $extKey
+     *            The extension key
+     * @param string $section
+     *            The section name
+     * @param int $itemKey
+     *            The key of the item to edit
+     * @return void
+     */
+    public function documentationEditSectionAction(string $extKey = null, string $section = null, int $itemKey = null)
     {
         // Loads the configuration
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -428,21 +416,20 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @param integer $viewKey
+     * @param int $viewKey
      *            The key of the view
-     * @param integer $folderKey
+     * @param int $folderKey
      *            The key of the folder
-     * @param boolean $showFieldConfiguration
-     *            Displays the field definition if TRUE
-     * @return string The rendered view
+     * @param bool $showFieldConfiguration
+     *            Displays the field definition if true
+     * @return void
      */
-    public function newTablesEditSectionAction($extKey, $section, $itemKey, $fieldKey = NULL, $viewKey = NULL, $folderKey = NULL, $showFieldConfiguration = FALSE)
+    public function newTablesEditSectionAction(string $extKey, string $section, int $itemKey, int $fieldKey = null, int $viewKey = null, int $folderKey = null, bool $showFieldConfiguration = false)
     {
-
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -461,9 +448,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     if ($sectionManager->getItem('views')->count() > 0) {
                         foreach ($sectionManager->getItem('views') as $viewKeyLocal => $view) {
                             if (! $item->itemExists(viewKeyLocal)) {
-                                $item->addItem(array(
+                                $item->addItem([
                                     viewKeyLocal => $key
-                                ));
+                                ]);
                             } elseif ($sectionManager->getItem($section)
                                 ->getItem($tableKey)
                                 ->getItem('fields')
@@ -473,51 +460,51 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                                     ->getItem($tableKey)
                                     ->getItem('fields')
                                     ->getItem($key)
-                                    ->addItem(array(
+                                    ->addItem([
                                     'viewKey' => 1
-                                ));
+                                ]);
                             }
                         }
                     } else {
                         if (! $item->itemExists(0)) {
-                            $item->addItem(array(
+                            $item->addItem([
                                 0 => $key
-                            ));
+                            ]);
                         }
                         $sectionManager->getItem($section)
                             ->getItem($tableKey)
                             ->getItem('fields')
                             ->getItem($key)
-                            ->addItem(array(
+                            ->addItem([
                             'viewKey' => 0
-                        ));
+                        ]);
                     }
                 }
                 if ($sectionManager->getItem('views')->count() == 0) {
                     $sectionManager->getItem($section)
                         ->getItem($tableKey)
-                        ->addItem(array(
+                        ->addItem([
                         'viewKey' => 0
-                    ));
+                    ]);
                 } elseif ($sectionManager->getItem($section)
                     ->getItem($tableKey)
                     ->getItem('viewKey') == 0) {
                     $sectionManager->getItem($section)
                         ->getItem($tableKey)
-                        ->addItem(array(
+                        ->addItem([
                         'viewKey' => 1
-                    ));
+                    ]);
                 }
             }
         }
 
         // Changes the view if any provided
-        if ($viewKey !== NULL) {
+        if ($viewKey !== null) {
             $sectionManager->getItem($section)
                 ->getItem($itemKey)
-                ->addItem(array(
+                ->addItem([
                 'viewKey' => $viewKey
-            ));
+            ]);
         }
 
         // Changes the folder if any provided
@@ -525,9 +512,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->addItem('folderKeys')
-                ->addItem(array(
+                ->addItem([
                 $viewKey => $folderKey
-            ));
+            ]);
         }
 
         // Orders the section item according to the view
@@ -541,17 +528,18 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->getItem('fields')
-                ->reIndex(array(
+                ->reIndex([
                 'order' => $viewKey
-            ));
+            ]);
         }
 
         // Saves the configuration
         $configurationManager->saveConfiguration();
 
         // Sets the folder labels
+        $folderLabels = [];
         foreach ($sectionManager->getItem('views') as $viewKey => $view) {
-            if ($view->itemExists('folders') && $view->getItem('folders') !== NULL) {
+            if ($view->itemExists('folders') && $view->getItem('folders') !== null) {
                 $folderLabels[$viewKey][0] = '';
                 foreach ($view->getItem('folders')->sortby('order') as $folderKey => $folder) {
                     $folderLabels[$viewKey][$folderKey] = $folder['label'];
@@ -577,19 +565,19 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @param integer $viewKey
+     * @param int $viewKey
      *            The key of the view
-     * @param integer $folderKey
+     * @param int $folderKey
      *            The key of the folder
-     * @param boolean $showFieldConfiguration
-     *            Displays the field definition if TRUE
-     * @return string The rendered view
+     * @param bool $showFieldConfiguration
+     *            Displays the field definition if true
+     * @return void
      */
-    public function existingTablesEditSectionAction($extKey, $section, $itemKey, $fieldKey = NULL, $viewKey = NULL, $folderKey = NULL, $showFieldConfiguration = FALSE)
+    public function existingTablesEditSectionAction(string $extKey, string $section, int $itemKey, int $fieldKey = null, int $viewKey = null, int $folderKey = null, bool $showFieldConfiguration = false)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -610,9 +598,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     if ($sectionManager->getItem('views')->count() > 0) {
                         foreach ($sectionManager->getItem('views') as $viewKeyLocal => $view) {
                             if (! $item->itemExists($viewKeyLocal)) {
-                                $item->addItem(array(
+                                $item->addItem([
                                     $viewKeyLocal => $key
-                                ));
+                                ]);
                             } elseif ($sectionManager->getItem($section)
                                 ->getItem($tableKey)
                                 ->getItem('fields')
@@ -622,40 +610,40 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                                     ->getItem($tableKey)
                                     ->getItem('fields')
                                     ->getItem($key)
-                                    ->addItem(array(
+                                    ->addItem([
                                     'viewKey' => 1
-                                ));
+                                ]);
                             }
                         }
                     } else {
                         if (! $item->itemExists(0)) {
-                            $item->addItem(array(
+                            $item->addItem([
                                 0 => $key
-                            ));
+                            ]);
                         }
                         $sectionManager->getItem($section)
                             ->getItem($tableKey)
                             ->getItem('fields')
                             ->getItem($key)
-                            ->addItem(array(
+                            ->addItem([
                             'viewKey' => 0
-                        ));
+                        ]);
                     }
                 }
                 if ($sectionManager->getItem('views')->count() == 0) {
                     $sectionManager->getItem($section)
                         ->getItem($tableKey)
-                        ->addItem(array(
+                        ->addItem([
                         'viewKey' => 0
-                    ));
+                    ]);
                 } elseif ($sectionManager->getItem($section)
                     ->getItem($tableKey)
                     ->getItem('viewKey') == 0) {
                     $sectionManager->getItem($section)
                         ->getItem($tableKey)
-                        ->addItem(array(
+                        ->addItem([
                         'viewKey' => 1
-                    ));
+                    ]);
                 }
             }
         }
@@ -673,18 +661,18 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->getItem('fields')
-                ->reIndex(array(
+                ->reIndex([
                 'order' => $viewKey
-            ));
+            ]);
         }
 
         // Changes the view if any provided
-        if ($viewKey !== NULL) {
+        if ($viewKey !== null) {
             $sectionManager->getItem($section)
                 ->getItem($itemKey)
-                ->addItem(array(
+                ->addItem([
                 'viewKey' => $viewKey
-            ));
+            ]);
         }
 
         // Changes the folder if any provided
@@ -692,14 +680,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->addItem('folderKeys')
-                ->addItem(array(
+                ->addItem([
                 $viewKey => $folderKey
-            ));
+            ]);
         }
 
         // Sets the folder labels
+        $folderLabels = [];
         foreach ($sectionManager->getItem('views') as $viewKey => $view) {
-            if ($view->itemExists('folders') && $view->getItem('folders') !== NULL) {
+            if ($view->itemExists('folders') && $view->getItem('folders') !== null) {
                 $folderLabels[$viewKey][0] = '';
                 foreach ($view->getItem('folders')->sortby('order') as $folderKey => $folder) {
                     $folderLabels[$viewKey][$folderKey] = $folder['label'];
@@ -725,11 +714,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function existingTablesImportFieldsAction($extKey, $section, $itemKey)
+    public function existingTablesImportFieldsAction(string $extKey, string $section, int $itemKey)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -748,35 +737,35 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $item = $sectionManager->getItem($section)
                     ->getItem($itemKey)
                     ->addItem('fields')
-                    ->addItem(NULL);
+                    ->addItem(null);
                 $item->addItem('order');
-                $item->addItem(array(
+                $item->addItem([
                     'fieldname' => $columnKey,
                     'title' => $GLOBALS['LANG']->sL($column['label']),
                     'type' => 'ShowOnly'
-                ));
+                ]);
             }
 
             if ($sectionManager->getItem('views')->count() == 0) {
                 $sectionManager->getItem($section)
                     ->getItem($itemKey)
-                    ->addItem(array(
+                    ->addItem([
                     'viewKey' => 0
-                ));
+                ]);
             } elseif ($sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->getItem('viewKey') == 0) {
                 $sectionManager->getItem($section)
                     ->getItem($itemKey)
-                    ->addItem(array(
+                    ->addItem([
                     'viewKey' => 1
-                ));
+                ]);
             }
         }
         $configurationManager->saveConfiguration();
         // Sets the folder labels
         foreach ($sectionManager->getItem('views') as $viewKey => $view) {
-            if ($view->itemExists('folders') && $view->getItem('folders') !== NULL) {
+            if ($view->itemExists('folders') && $view->getItem('folders') !== null) {
                 $folderLabels[$viewKey][0] = '';
                 foreach ($view->getItem('folders')->sortby('order') as $folderKey => $folder) {
                     $folderLabels[$viewKey][$folderKey] = $folder['label'];
@@ -792,11 +781,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('fieldKey', $fieldKey);
         $this->view->assign('extension', $configuration);
         $this->view->assign('folderLabels', $folderLabels);
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -806,11 +795,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function viewsEditSectionAction($extKey, $section, $itemKey)
+    public function viewsEditSectionAction(string $extKey, string $section, int $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -856,11 +845,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function queriesEditSectionAction($extKey, $section, $itemKey)
+    public function queriesEditSectionAction(string $extKey, string $section, int $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -880,11 +869,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function formsEditSectionAction($extKey, $section, $itemKey)
+    public function formsEditSectionAction(string $extKey, string $section, int $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -897,7 +886,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('extension', $configuration);
 
         // Build the options
-        $option = array();
+        $options = [];
         $options['list'][0] = ' ';
         $options['single'][0] = ' ';
         $options['edit'][0] = ' ';
@@ -925,13 +914,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $viewKey
+     * @param int $viewKey
      *            The key of the view to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function changeViewAction($extKey, $section, $itemKey, $viewKey)
+    public function changeViewAction(string $extKey, string $section, int $itemKey, int $viewKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -939,22 +928,22 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->getSectionManager()
             ->getItem($section)
             ->getItem($itemKey)
-            ->replace(array(
+            ->replace([
             'viewKey' => $viewKey
-        ));
+        ]);
         $configurationManager->getSectionManager()
             ->getItem($section)
             ->getItem($itemKey)
             ->getItem('fields')
-            ->replaceAll((array(
+            ->replaceAll([
             'viewKey' => $viewKey
-        )));
+        ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -964,15 +953,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $viewKey
+     * @param int $viewKey
      *            The key of the view to edit
-     * @param integer $folderKey
+     * @param int $folderKey
      *            The key of the folder to change
-     * @return string The rendered view
+     * @return void
      */
-    public function changeFolderAction($extKey, $section, $itemKey, $viewKey, $folderKey)
+    public function changeFolderAction(string $extKey, string $section, int $itemKey, int $viewKey, int $folderKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -980,17 +969,17 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->getSectionManager()
             ->getItem($section)
             ->getItem($itemKey)
-            ->replace(array(
-            'folderKeys' => array(
+            ->replace([
+            'folderKeys' => [
                 $viewKey => $folderKey
-            )
-        ));
+            ]
+        ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -1000,15 +989,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @param integer $viewKey
+     * @param int $viewKey
      *            The key of the view to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function changeConfigurationViewAction($extKey, $section, $itemKey, $fieldKey, $viewKey)
+    public function changeConfigurationViewAction(string $extKey, string $section, int $itemKey, int $fieldKey, int $viewKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -1018,22 +1007,22 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->getItem($itemKey)
             ->getItem('fields')
             ->getItem($fieldKey)
-            ->replace(array(
+            ->replace([
             'viewKey' => $viewKey
-        ));
+        ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey
-        ));
+        ]);
     }
 
     /**
      * save action for this controller.
      *
-     * @return string The rendered view
+     * @return void
      */
     public function saveAction()
     {
@@ -1046,7 +1035,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         if (method_exists($this, $submitActionMethodName)) {
             $this->$submitActionMethodName();
         } else {
-            throw new RuntimeException('The submit action method "' . $submitActionMethodName . '" is not known !');
+            throw new \RuntimeException('The submit action method "' . $submitActionMethodName . '" is not known !');
         }
     }
 
@@ -1057,16 +1046,16 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     protected function overwriteSubmitAction()
     {
-        $this->saveSubmitAction(FALSE);
+        $this->saveSubmitAction(false);
     }
 
     /**
      * Save submitted action.
      *
-     * @param boolean $checkLibraryType
+     * @param bool $checkLibraryType
      * @return void
      */
-    protected function saveSubmitAction($chekLibraryType = TRUE)
+    protected function saveSubmitAction(bool $chekLibraryType = true)
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
@@ -1107,9 +1096,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             }
             $sectionManager->getItem('emconf')
                 ->getItem(1)
-                ->replace(array(
+                ->replace([
                 'version' => implode('.', $version)
-            ));
+            ]);
             unset($arguments['general']['version']);
         }
 
@@ -1120,7 +1109,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Checks if the library type has been changed
         if ($section == 'emconf') {
-            if ($checkLibraryType === TRUE) {
+            if ($checkLibraryType === true) {
                 if ($currentLibraryType != $libraryType) {
                     // Builds the new directory if needed
                     $configurationManager->buildConfigurationDirectory($extKey, $libraryType);
@@ -1173,13 +1162,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->saveConfiguration();
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
-            'fieldKey' => ($fieldKey ? $fieldKey : NULL),
+            'fieldKey' => ($fieldKey ? $fieldKey : null),
             'showFieldConfiguration' => $showFieldConfiguration
-        ));
+        ]);
     }
 
     /**
@@ -1214,13 +1203,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         }
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
-            'fieldKey' => ($fieldKey ? $fieldKey : NULL),
+            'fieldKey' => ($fieldKey ? $fieldKey : null),
             'showFieldConfiguration' => $showFieldConfiguration
-        ));
+        ]);
     }
 
     /**
@@ -1245,24 +1234,24 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         // Creates all sections
         $sectionManager->addItem('general')
             ->addItem(1)
-            ->addItem(array(
+            ->addItem([
             'extensionKey' => $extKey
-        ));
+        ]);
         $sectionManager->addItem('general')
             ->addItem(1)
-            ->addItem(array(
+            ->addItem([
             'libraryVersion' => $configurationManager->getCurrentLibraryVersion()
-        ));
+        ]);
         $sectionManager->addItem('general')
             ->addItem(1)
-            ->addItem(array(
+            ->addItem([
             'debug' => '0'
-        ));
+        ]);
         $sectionManager->addItem('emconf')
             ->addItem(1)
-            ->addItem(array(
+            ->addItem([
             'version' => '0.0.0'
-        ));
+        ]);
         $sectionManager->addItem('newTables');
         $sectionManager->addItem('views');
         $sectionManager->addItem('queries');
@@ -1281,11 +1270,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->saveConfiguration();
 
         // Redirects to the section
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -1300,7 +1289,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $extKey = $arguments['extKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
-        $fieldKey = ($arguments['general']['fieldKey'] ? $arguments['general']['fieldKey'] : NULL);
+        $fieldKey = ($arguments['general']['fieldKey'] ? $arguments['general']['fieldKey'] : null);
         $showFieldConfiguration = $arguments['general']['showFieldConfiguration'];
 
         // Gets the configuration and the section managers
@@ -1319,13 +1308,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         if ($configurationManager->getSectionManager()
             ->getItem('general')
             ->getItem(1)
-            ->getItem('libraryVersion') === NULL) {
+            ->getItem('libraryVersion') === null) {
             $configurationManager->getSectionManager()
                 ->getItem('general')
                 ->getItem(1)
-                ->replace(array(
+                ->replace([
                 'libraryVersion' => $configurationManager->getCurrentLibraryVersion()
-            ));
+            ]);
         }
 
         $configurationManager->saveConfiguration();
@@ -1334,23 +1323,23 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->getCodeGenerator()->buildExtension();
         $sectionManager->getItem('general')
             ->getItem(1)
-            ->addItem(array(
+            ->addItem([
             'isGeneratedExtension' => 1
-        ));
-        $configurationManager->getExtensionManager()->injectGeneralArguments($arguments['general']);
+        ]);
         $configurationManager->getExtensionManager()->checkDbUpdate();
 
         // Clears the cache
-        ExtensionManagementUtility::removeCacheFiles();
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $cacheManager->flushCachesInGroup('system');
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
-            'fieldKey' => ($fieldKey ? $fieldKey : NULL),
+            'fieldKey' => ($fieldKey ? $fieldKey : null),
             'showFieldConfiguration' => $showFieldConfiguration
-        ));
+        ]);
     }
 
     /**
@@ -1377,23 +1366,24 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->setExtensionKey($newExtKey);
 
         // Replaces the table name by its new name in all fields
-        foreach ($sectionManager->getItems() as $walkSectionKey => $walkSection) {
-            $walkSection->walkItem('\\YolfTypo3\\SavLibraryKickstarter\\Controller\\KickstarterController::changeTableNames', array(
+        foreach ($sectionManager->getItems() as $walkSection) {
+            $walkSection->walkItem('\\YolfTypo3\\SavLibraryKickstarter\\Controller\\KickstarterController::changeTableNames', [
                 'newExtensionKey' => $newExtKey,
                 'oldExtensionKey' => $extKey
-            ));
+            ]);
         }
+
         // Creates the configuration directory and generates the extension
         $configurationManager->createConfigurationDir($newExtKey);
         $configurationManager->saveConfiguration();
         $configurationManager->getCodeGenerator()->buildExtension();
 
         // Redirects to the new section action
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $newExtKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -1416,15 +1406,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->getSectionManager()
             ->getItem($section)
             ->getItem($itemKey)
-            ->replace(array(
+            ->replace([
             'showAllFields' => 1
-        ));
+        ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -1447,15 +1437,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->getSectionManager()
             ->getItem($section)
             ->getItem($itemKey)
-            ->replace(array(
+            ->replace([
             'showAllFields' => 0
-        ));
+        ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -1463,20 +1453,22 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *
      * @param mixed $item
      *            The item
-     * @param integer $key
+     * @param mixed $key
      *            The item key
      * @param
-     *            mixed The arguments
-     * @return string The rendered view
+     *            array arguments
+     *            The arguments
+     * @return mixed
      */
-    public static function changeTableNames($item, $key, $arguments)
+    public static function changeTableNames($item, $key, array $arguments)
     {
-        // Replaces the old extension name by the new one if it is not preceeded by '_'
-        $item = preg_replace('/(?<!_)' . $arguments['oldExtensionKey'] . '/m', $arguments['newExtensionKey'], $item);
+        if (is_string($item)) {
+            // Replaces the old extension name by the new one if it is not preceeded by '_'
+            $item = preg_replace('/(?<!_)' . $arguments['oldExtensionKey'] . '/m', $arguments['newExtensionKey'], $item);
 
-        // Adds the domain to existing tables with "short table names".
-        $item = preg_replace('/_' . str_replace('_', '', $arguments['oldExtensionKey']) . '_/m', '_' . str_replace('_', '', $arguments['newExtensionKey']) . '_', $item);
-
+            // Adds the domain to existing tables with "short table names".
+            $item = preg_replace('/_' . str_replace('_', '', $arguments['oldExtensionKey']) . '_/m', '_' . str_replace('_', '', $arguments['newExtensionKey']) . '_', $item);
+        }
         return $item;
     }
 
@@ -1521,20 +1513,20 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem('fields')
                 ->getItem($fieldKey)
                 ->getItem('order')
-                ->replace(array(
+                ->replace([
                 $currentViewKey => $order
-            ));
+            ]);
         }
 
         // Saves the configuration
         $configurationManager->saveConfiguration();
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -1578,20 +1570,20 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem('fields')
                 ->getItem($fieldKey)
                 ->getItem('configuration')
-                ->replace(array(
+                ->replace([
                 $currentViewKey => $fieldConfiguration
-            ));
+            ]);
         }
 
         // Saves the configuration
         $configurationManager->saveConfiguration();
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -1614,15 +1606,14 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $sectionManager = $configurationManager->getSectionManager();
 
         // Updates the database
-        $configurationManager->getExtensionManager()->injectGeneralArguments($arguments['general']);
         $configurationManager->getExtensionManager()->checkDbUpdate();
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -1632,17 +1623,17 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $viewKey
+     * @param int $viewKey
      *            The key of the view
-     * @param integer $folderKey
+     * @param int $folderKey
      *            The key of the folder
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function editFieldConfigurationAction($extKey, $section, $itemKey, $viewKey, $folderKey = 0, $fieldKey)
+    public function editFieldConfigurationAction(string $extKey, string $section, int $itemKey, int $viewKey, int $folderKey = 0, int $fieldKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -1651,21 +1642,21 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->getItem($section)
             ->getItem($itemKey)
             ->addItem('activeFields')
-            ->replace(array(
-            $viewKey => array(
+            ->replace([
+            $viewKey => [
                 $folderKey => $fieldKey
-            )
-        ));
+            ]
+        ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey,
             'viewKey' => $viewKey,
             'folderKey' => $folderKey,
-            'showFieldConfiguration' => TRUE
-        ));
+            'showFieldConfiguration' => true
+        ]);
     }
 
     /**
@@ -1675,13 +1666,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @return string The rendered view
+     * @param int $upDownValue
+     *            The value to move up or downn
+     * @return void
      */
-    public function moveUpFieldAction($extKey, $section, $itemKey, $fieldKey)
+    public function moveUpFieldAction(string $extKey, string $section, int $itemKey, int $fieldKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -1694,16 +1687,16 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the folder key if it exits
         $folderKeys = $item->getItem('folderKeys');
-        if (is_null($folderKeys) === FALSE) {
+        if (is_null($folderKeys) === false) {
             $folderKey = $folderKeys->getItem($viewKey);
         } else {
-            $folderKey = NULL;
+            $folderKey = null;
         }
 
         // Gets the fields in the view
         $fields = $item->getItem('fields');
-        $fieldsInView = array();
-        $keyList = array();
+        $fieldsInView = [];
+        $keyList = [];
         foreach ($fields as $key => $field) {
             if (is_null($folderKey) || $field->getItem('folders')->getItem($viewKey) == $folderKey) {
                 $fieldsInView[$key] = $field;
@@ -1715,55 +1708,58 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $fromPositionInView = array_search($fieldKey, $fieldKeysInView);
 
         // Processes the items depending on the from position in the view
-        if ($fromPositionInView > 0) {
-            // Gets the from item and order
-            $fromItem = $fieldsInView[$fieldKey];
-            $fromOrder = $fromItem->getItem('order')->getItem($viewKey);
-            // Gets the to poisition, item and order
-            $toPositionInView = $fromPositionInView - 1;
-            $toItem = $fieldsInView[$fieldKeysInView[$toPositionInView]];
-            $toOrder = $toItem->getItem('order')->getItem($viewKey);
-            // Replaces the orders
-            $fromItem->replace(array(
-                'order' => array(
-                    $viewKey => $toOrder
-                )
-            ));
-            $toItem->replace(array(
-                'order' => array(
-                    $viewKey => $fromOrder
-                )
-            ));
+        if (! $item['upDownValue']) {
+            $upDownValue = 1;
         } else {
-            // Gets the rotated toOrder array
-            $count = count($fieldKeysInView);
-            $rotatedToOrders = array();
-            foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
-                $rotatedKey = $fieldKeysInView[($positionInView + $count - 1) % $count];
-                $rotatedToOrders[$positionInView] = $item->getItem('fields')
-                    ->getItem($rotatedKey)
-                    ->addItem('order')
+            $upDownValue = $item['upDownValue'];
+        }
+
+        // Gets the new order for the items to be moved
+        $count = count($fieldKeysInView);
+        $itemsToOrder = [];
+        foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
+            $newKey = null;
+
+            if ($fromPositionInView >= $upDownValue) {
+                if (($positionInView >= $fromPositionInView - $upDownValue) && ($positionInView < $fromPositionInView)) {
+                    $newKey = $fieldKeysInView[$positionInView + 1];
+                } elseif ($positionInView == $fromPositionInView) {
+                    $newKey = $fieldKeysInView[$fromPositionInView - $upDownValue];
+                }
+            } else {
+                if (($positionInView > $fromPositionInView) && ($positionInView <= $count - $upDownValue + $fromPositionInView)) {
+                    $newKey = $fieldKeysInView[$positionInView - 1];
+                } elseif ($positionInView == $fromPositionInView) {
+                    $newKey = $fieldKeysInView[$count - $upDownValue + $fromPositionInView];
+                }
+            }
+
+            if ($newKey !== null) {
+                $itemsToOrder[$positionInView] = $item->getItem('fields')
+                    ->getItem($newKey)
+                    ->getItem('order')
                     ->getItem($viewKey);
             }
-            // Sets the new order key
-            foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
-                $fromItem = $fieldsInView[$fieldKeyInView];
-                $fromItem->replace(array(
-                    'order' => array(
-                        $viewKey => $rotatedToOrders[$positionInView]
-                    )
-                ));
-            }
+        }
+
+        // Sets the new order key
+        foreach ($itemsToOrder as $positionInView => $fieldKeyInView) {
+            $fromItem = $fieldsInView[$fieldKeysInView[$positionInView]];
+            $fromItem->replace([
+                'order' => [
+                    $viewKey => $fieldKeyInView
+                ]
+            ]);
         }
 
         // Saves and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey
-        ));
+        ]);
     }
 
     /**
@@ -1773,13 +1769,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function moveDownFieldAction($extKey, $section, $itemKey, $fieldKey)
+    public function moveDownFieldAction(string $extKey, string $section, int $itemKey, int $fieldKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -1791,16 +1787,16 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the folder key if it exits
         $folderKeys = $item->getItem('folderKeys');
-        if (is_null($folderKeys) === FALSE) {
+        if (is_null($folderKeys) === false) {
             $folderKey = $folderKeys->getItem($viewKey);
         } else {
-            $folderKey = NULL;
+            $folderKey = null;
         }
 
         // Gets the fields in the view
         $fields = $item->getItem('fields');
-        $fieldsInView = array();
-        $keyList = array();
+        $fieldsInView = [];
+        $keyList = [];
         foreach ($fields as $key => $field) {
             if (is_null($folderKey) || $field->getItem('folders')->getItem($viewKey) == $folderKey) {
                 $fieldsInView[$key] = $field;
@@ -1813,55 +1809,105 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Processes the items depending on the from position in the view
         $count = count($fieldKeysInView);
-        if ($fromPositionInView < $count - 1) {
-            // Gets the from item and order
-            $fromItem = $fieldsInView[$fieldKey];
-            $fromOrder = $fromItem->getItem('order')->getItem($viewKey);
-            // Gets the to poisition, item and order
-            $toPositionInView = $fromPositionInView + 1;
-            $toItem = $fieldsInView[$fieldKeysInView[$toPositionInView]];
-            $toOrder = $toItem->getItem('order')->getItem($viewKey);
-            // Replaces the orders
-            $fromItem->replace(array(
-                'order' => array(
-                    $viewKey => $toOrder
-                )
-            ));
-            $toItem->replace(array(
-                'order' => array(
-                    $viewKey => $fromOrder
-                )
-            ));
+        if (! $item['upDownValue']) {
+            $upDownValue = 1;
         } else {
-            // Gets the rotated toOrder array
-            $count = count($fieldKeysInView);
-            $rotatedToOrders = array();
-            foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
-                $rotatedKey = $fieldKeysInView[($positionInView + 1) % $count];
-                $rotatedToOrders[$positionInView] = $item->getItem('fields')
-                    ->getItem($rotatedKey)
-                    ->addItem('order')
-                    ->getItem($viewKey);
+            $upDownValue = $item['upDownValue'];
+        }
+
+        // Gets the new order for the items to be moved
+        $count = count($fieldKeysInView);
+        $itemsToOrder = [];
+        foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
+            $newKey = null;
+
+            if ($fromPositionInView < $count - $upDownValue) {
+
+                if (($positionInView <= $fromPositionInView + $upDownValue) && ($positionInView > $fromPositionInView)) {
+                    $newKey = $fieldKeysInView[$positionInView - 1];
+                } elseif ($positionInView == $fromPositionInView) {
+                    $newKey = $fieldKeysInView[$fromPositionInView + $upDownValue];
+                }
+            } else {
+                if (($positionInView < $fromPositionInView) && ($positionInView >= ($fromPositionInView + $upDownValue) % $count)) {
+                    $newKey = $fieldKeysInView[$positionInView + 1];
+                } elseif ($positionInView == $fromPositionInView) {
+                    $newKey = $fieldKeysInView[($fromPositionInView + $upDownValue) % $count];
+                }
             }
-            // Sets the new order key
-            foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
-                $fromItem = $fieldsInView[$fieldKeyInView];
-                $fromItem->replace(array(
-                    'order' => array(
-                        $viewKey => $rotatedToOrders[$positionInView]
-                    )
-                ));
+
+            if ($newKey !== null) {
+                $itemsToOrder[$positionInView] = $item->getItem('fields')
+                    ->getItem($newKey)
+                    ->getItem('order')
+                    ->getItem($viewKey);
             }
         }
 
+        // Sets the new order key
+        foreach ($itemsToOrder as $positionInView => $fieldKeyInView) {
+            $fromItem = $fieldsInView[$fieldKeysInView[$positionInView]];
+            $fromItem->replace([
+                'order' => [
+                    $viewKey => $fieldKeyInView
+                ]
+            ]);
+        }
+
+        /*
+         *
+         * if ($fromPositionInView < $count - 1) {
+         * // Gets the from item and order
+         * $fromItem = $fieldsInView[$fieldKey];
+         * $fromOrder = $fromItem->getItem('order')->getItem($viewKey);
+         * // Gets the to poisition, item and order
+         * $toPositionInView = $fromPositionInView + 1;
+         * $toItem = $fieldsInView[$fieldKeysInView[$toPositionInView]];
+         * $toOrder = $toItem->getItem('order')->getItem($viewKey);
+         * // Replaces the orders
+         * $fromItem->replace([
+         * 'order' => [
+         * $viewKey => $toOrder
+         * ]
+         * ]
+         * );
+         * $toItem->replace([
+         * 'order' => [
+         * $viewKey => $fromOrder
+         * ]
+         * ]
+         * );
+         * } else {
+         * // Gets the rotated toOrder array
+         * $count = count($fieldKeysInView);
+         * $rotatedToOrders = [];
+         * foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
+         * $rotatedKey = $fieldKeysInView[($positionInView + 1) % $count];
+         * $rotatedToOrders[$positionInView] = $item->getItem('fields')
+         * ->getItem($rotatedKey)
+         * ->addItem('order')
+         * ->getItem($viewKey);
+         * }
+         * // Sets the new order key
+         * foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
+         * $fromItem = $fieldsInView[$fieldKeyInView];
+         * $fromItem->replace([
+         * 'order' => [
+         * $viewKey => $rotatedToOrders[$positionInView]
+         * ]
+         * ]
+         * );
+         * }
+         * }
+         */
         // Saves and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey
-        ));
+        ]);
     }
 
     /**
@@ -1871,13 +1917,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function addNewFieldAction($extKey, $section, $itemKey, $fieldKey = NULL)
+    public function addNewFieldAction(string $extKey, string $section, int $itemKey, int $fieldKey = null)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -1888,18 +1934,18 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         // A new field can be added if at least one view is defined
         $views = $sectionManager->getItem('views');
         if ($views->count() == 0) {
-        	$message = LocalizationUtility::translate('kickstarter.noViewBeforeAddingField', $this->request->getControllerExtensionKey());
+            $message = LocalizationUtility::translate('kickstarter.noViewBeforeAddingField', $this->request->getControllerExtensionKey());
             $this->addFlashMessage($message);
-            $this->redirect($section . 'EditSection', NULL, NULL, array(
+            $this->redirect($section . 'EditSection', null, null, [
                 'extKey' => $extKey,
                 'section' => $section,
                 'itemKey' => $itemKey,
                 'fieldKey' => $fieldKey
-            ));
+            ]);
         }
 
         // Adds the item at the end if no field key is provided
-        if ($fieldKey === NULL) {
+        if ($fieldKey === null) {
             // Adds the field and gets its key
             $fieldKey = $sectionManager->getItem($section)
                 ->getItem($itemKey)
@@ -1911,11 +1957,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem($itemKey)
                 ->getItem('fields')
                 ->getItem($fieldKey)
-                ->addItem(array(
+                ->addItem([
                 'fieldname' => LocalizationUtility::translate('kickstarter.new', $this->request->getControllerExtensionKey()),
                 'title' => LocalizationUtility::translate('kickstarter.new', $this->request->getControllerExtensionKey()),
                 'type' => 'Unknown'
-            ));
+            ]);
 
             // Sets the first view as the default view by default if not already set
             $tableViewKey = $sectionManager->getItem($section)
@@ -1924,9 +1970,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             if (empty($tableViewKey)) {
                 $sectionManager->getItem($section)
                     ->getItem($itemKey)
-                    ->addItem(array(
+                    ->addItem([
                     'viewKey' => 1
-                ));
+                ]);
             }
 
             // Sets the view key
@@ -1937,9 +1983,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem($itemKey)
                 ->getItem('fields')
                 ->getItem($fieldKey)
-                ->addItem(array(
+                ->addItem([
                 'viewKey' => $viewKey
-            ));
+            ]);
             // Adds the order in each view if any
             $views = $sectionManager->getItem('views');
             $count = $sectionManager->getItem($section)
@@ -1952,20 +1998,20 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     ->getItem('fields')
                     ->getItem($fieldKey)
                     ->addItem('order')
-                    ->addItem(array(
+                    ->addItem([
                     $viewKey => $count
-                ));
+                ]);
             }
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey,
-            'showFieldConfiguration' => TRUE
-        ));
+            'showFieldConfiguration' => true
+        ]);
     }
 
     /**
@@ -1975,13 +2021,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to delete
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to delete
-     * @return string The rendered view
+     * @return void
      */
-    public function deleteFieldAction($extKey, $section, $itemKey, $fieldKey = NULL)
+    public function deleteFieldAction(string $extKey, string $section, int $itemKey, int $fieldKey = null)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2006,17 +2052,17 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     $sectionManager->getItem($section)
                         ->getItem($itemKey)
                         ->getItem('fields')
-                        ->reIndex(array(
+                        ->reIndex([
                         'order' => $viewKey
-                    ));
+                    ]);
                 }
             } else {
                 $sectionManager->getItem($section)
                     ->getItem($itemKey)
                     ->getItem('fields')
-                    ->reIndex(array(
+                    ->reIndex([
                     'order' => 0
-                ));
+                ]);
             }
 
             // Gets the view key
@@ -2027,7 +2073,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $folderKeys = $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->getItem('folderKeys');
-            if ($folderKeys !== NULL) {
+            if ($folderKeys !== null) {
                 $folderKey = $folderKeys->getItem($viewKey);
             } else {
                 $folderKey = 0;
@@ -2036,7 +2082,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $activeFields = $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->getItem('activeFields');
-            if ($activeFields !== NULL && $activeFields->getItem($viewKey) !== NULL && $activeFields->getItem($viewKey)->getItem($folderKey) == $fieldKey) {
+            if ($activeFields !== null && $activeFields->getItem($viewKey) !== null && $activeFields->getItem($viewKey)->getItem($folderKey) == $fieldKey) {
                 $sectionManager->getItem($section)
                     ->getItem($itemKey)
                     ->getItem('activeFields')
@@ -2047,12 +2093,12 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey
-        ));
+        ]);
     }
 
     /**
@@ -2062,15 +2108,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
      * @param string $viewType
      *            The type of the view
-     * @param integer $viewWithConditionKey
+     * @param int $viewWithConditionKey
      *            The key of the view to add
-     * @return string The rendered view
+     * @return void
      */
-    public function addNewViewWithConditionAction($extKey, $section, $itemKey, $viewType, $viewWithConditionKey = NULL)
+    public function addNewViewWithConditionAction(string $extKey, string $section, int $itemKey, string $viewType, int $viewWithConditionKey = null)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2078,24 +2124,24 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
-        if ($viewWithConditionKey === NULL) {
+        if ($viewWithConditionKey === null) {
             $viewWithCondition = $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->addItem('viewsWithCondition');
             $viewWithCondition->addItem($viewType)
                 ->addItem($viewWithConditionKey)
-                ->addItem(array(
+                ->addItem([
                 'key' => $viewWithCondition->count(),
                 'condition' => ''
-            ));
+            ]);
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -2105,15 +2151,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
      * @param string $viewType
      *            The type of the view
-     * @param integer $viewWithConditionKey
+     * @param int $viewWithConditionKey
      *            The key of the view to add
-     * @return string The rendered view
+     * @return void
      */
-    public function deleteViewWithConditionAction($extKey, $section, $itemKey, $viewType, $viewWithConditionKey)
+    public function deleteViewWithConditionAction(string $extKey, string $section, int $itemKey, string $viewType, int $viewWithConditionKey)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2129,11 +2175,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -2143,13 +2189,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $folderKey
+     * @param int $folderKey
      *            The key of the folder to add
-     * @return string The rendered view
+     * @return void
      */
-    public function addNewFolderAction($extKey, $section, $itemKey, $folderKey = NULL)
+    public function addNewFolderAction(string $extKey, string $section, int $itemKey, int $folderKey = null)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2157,23 +2203,24 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
-        if ($folderKey === NULL) {
+        if ($folderKey === null) {
             $folders = $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->addItem('folders');
-            $folders->addItem($folderKey)->addItem(array(
+
+            $folders->addItem($folderKey)->addItem([
                 'label' => '',
                 'configuration' => '',
                 'order' => $folders->count()
-            ));
+            ]);
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -2183,13 +2230,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $folderKey
+     * @param int $folderKey
      *            The key of the folder to move up
-     * @return string The rendered view
+     * @return void
      */
-    public function moveUpFolderAction($extKey, $section, $itemKey, $folderKey)
+    public function moveUpFolderAction(string $extKey, string $section, int $itemKey, int $folderKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -2206,12 +2253,12 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem($itemKey)
                 ->getItem('folders')
                 ->find('order', $toPosition);
-            $fromItem->replace(array(
+            $fromItem->replace([
                 'order' => $toPosition
-            ));
-            $toItem->replace(array(
+            ]);
+            $toItem->replace([
                 'order' => $fromPosition
-            ));
+            ]);
         } else {
             $count = $sectionManager->getItem($section)
                 ->getItem($itemKey)
@@ -2221,17 +2268,17 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem($itemKey)
                 ->getItem('folders') as $key => $field) {
                 $position = $field->getItem('order');
-                $field->replace(array(
+                $field->replace([
                     'order' => ((int) ($position + $count - 2) % $count) + 1
-                ));
+                ]);
             }
         }
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -2241,13 +2288,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $folderKey
+     * @param int $folderKey
      *            The key of the folder to move down
-     * @return string The rendered view
+     * @return void
      */
-    public function moveDownFolderAction($extKey, $section, $itemKey, $folderKey)
+    public function moveDownFolderAction(string $extKey, string $section, int $itemKey, int $folderKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -2268,12 +2315,12 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem($itemKey)
                 ->getItem('folders')
                 ->find('order', $toPosition);
-            $fromItem->replace(array(
+            $fromItem->replace([
                 'order' => $toPosition
-            ));
-            $toItem->replace(array(
+            ]);
+            $toItem->replace([
                 'order' => $fromPosition
-            ));
+            ]);
         } else {
             $count = $sectionManager->getItem($section)
                 ->getItem($itemKey)
@@ -2283,17 +2330,17 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem($itemKey)
                 ->getItem('folders') as $key => $field) {
                 $position = $field->getItem('order');
-                $field->replace(array(
+                $field->replace([
                     'order' => ((int) $position % $count) + 1
-                ));
+                ]);
             }
         }
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -2303,13 +2350,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $folderKey
+     * @param int $folderKey
      *            The key of the folder to delete
-     * @return string The rendered view
+     * @return void
      */
-    public function deleteFolderAction($extKey, $section, $itemKey, $folderKey)
+    public function deleteFolderAction(string $extKey, string $section, int $itemKey, int $folderKey)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2324,24 +2371,28 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->deleteItem($folderKey);
 
         // Deletes the folder input for the view in all field of the newTables
-        foreach ($sectionManager->getItem('newTables') as $tableKey => $table) {
-            foreach ($table->getItem('fields') as $fieldKey => $field) {
-                if ($field->getItem('folders') !== NULL && $field->getItem('folders')->getItem($itemKey) == $folderKey) {
-                    $field->getItem('folders')->deleteItem($itemKey);
+        if (is_array($sectionManager->getItem('existingTables'))) {
+            foreach ($sectionManager->getItem('newTables') as $tableKey => $table) {
+                foreach ($table->getItem('fields') as $fieldKey => $field) {
+                    if ($field->getItem('folders') !== null && $field->getItem('folders')->getItem($itemKey) == $folderKey) {
+                        $field->getItem('folders')->deleteItem($itemKey);
+                    }
                 }
-            }
 
-            // Delete the foldeKeys input
-            if ($table->getItem('folderKeys') !== NULL && $table->getItem('folderKeys')->getItem($itemKey) == $folderKey) {
-                $table->getItem('folderKeys')->deleteItem($itemKey);
+                // Delete the foldeKeys input
+                if ($table->getItem('folderKeys') !== null && $table->getItem('folderKeys')->getItem($itemKey) == $folderKey) {
+                    $table->getItem('folderKeys')->deleteItem($itemKey);
+                }
             }
         }
 
         // Deletes the folder input for the view in all field of the existingTables
-        foreach ($sectionManager->getItem('existingTables') as $tableKey => $table) {
-            foreach ($table->getItem('fields') as $fieldKey => $field) {
-                if ($field->getItem('folders') !== NULL && $field->getItem('folders')->getItem($itemKey) == $folderKey) {
-                    $field->getItem('folders')->deleteItem($itemKey);
+        if (is_array($sectionManager->getItem('existingTables'))) {
+            foreach ($sectionManager->getItem('existingTables') as $tableKey => $table) {
+                foreach ($table->getItem('fields') as $fieldKey => $field) {
+                    if ($field->getItem('folders') !== null && $field->getItem('folders')->getItem($itemKey) == $folderKey) {
+                        $field->getItem('folders')->deleteItem($itemKey);
+                    }
                 }
             }
         }
@@ -2357,19 +2408,19 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 ->getItem('folders')
                 ->sortBy('order');
             foreach ($sortedFoldersByOrder as $folderKey => $folder) {
-                $folder->replace(array(
+                $folder->replace([
                     'order' => $counter ++
-                ));
+                ]);
             }
         }
 
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -2379,13 +2430,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $whereTagKey
+     * @param int $whereTagKey
      *            The key of the whereTag to create
-     * @return string The rendered view
+     * @return void
      */
-    public function addNewWhereTagAction($extKey, $section, $itemKey, $whereTagKey = NULL)
+    public function addNewWhereTagAction(string $extKey, string $section, int $itemKey, int $whereTagKey = null)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2393,23 +2444,23 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
-        if ($whereTagKey === NULL) {
+        if ($whereTagKey === null) {
             $whereTags = $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->addItem('whereTags');
-            $whereTags->addItem($whereTagKey)->addItem(array(
+            $whereTags->addItem($whereTagKey)->addItem([
                 'title' => '',
                 'where' => '',
                 'order' => ''
-            ));
+            ]);
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -2419,13 +2470,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $whereTagKey
+     * @param int $whereTagKey
      *            The key of the folder to delete
-     * @return string The rendered view
+     * @return void
      */
-    public function deleteWhereTagAction($extKey, $section, $itemKey, $whereTagKey)
+    public function deleteWhereTagAction(string $extKey, string $section, int $itemKey, int $whereTagKey)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2439,11 +2490,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->deleteItem($whereTagKey);
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey
-        ));
+        ]);
     }
 
     /**
@@ -2453,15 +2504,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @param integer $boxItemKey
+     * @param int $boxItemKey
      *            The key of the folder to edit
-     * @return string The rendered view
+     * @return void
      */
-    public function addNewBoxItemAction($extKey, $section, $itemKey, $fieldKey, $boxItemKey = NULL)
+    public function addNewBoxItemAction(string $extKey, string $section, int $itemKey, int $fieldKey, int $boxItemKey = null)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2469,26 +2520,26 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the boxItem at the end if no key is provided
-        if ($boxItemKey === NULL) {
+        if ($boxItemKey === null) {
             $boxItem = $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->getItem('fields')
                 ->getItem($fieldKey)
                 ->addItem('items');
-            $boxItem->addItem($boxItemKey)->addItem(array(
+            $boxItem->addItem($boxItemKey)->addItem([
                 'label' => '',
                 'value' => ''
-            ));
+            ]);
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey,
-            'showFieldConfiguration' => TRUE
-        ));
+            'showFieldConfiguration' => true
+        ]);
     }
 
     /**
@@ -2498,15 +2549,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @param integer $fieldKey
+     * @param int $fieldKey
      *            The key of the field to edit
-     * @param integer $boxItemKey
+     * @param int $boxItemKey
      *            The key of the folder to delete
-     * @return string The rendered view
+     * @return void
      */
-    public function deleteBoxItemAction($extKey, $section, $itemKey, $fieldKey, $boxItemKey)
+    public function deleteBoxItemAction(string $extKey, string $section, int $itemKey, int $fieldKey, int $boxItemKey)
     {
         // Loads the configuration and gets the section manager
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
@@ -2536,13 +2587,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', NULL, NULL, array(
+        $this->redirect($section . 'EditSection', null, null, [
             'extKey' => $extKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey,
-            'showFieldConfiguration' => TRUE
-        ));
+            'showFieldConfiguration' => true
+        ]);
     }
 
     /**
@@ -2552,11 +2603,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The extension key
      * @param string $section
      *            The section name
-     * @param integer $itemKey
+     * @param int $itemKey
      *            The key of the item to edit
-     * @return string The rendered view
+     * @return void
      */
-    protected function assignForEditItemAction($extKey, $section, $itemKey)
+    protected function assignForEditItemAction(string $extKey, string $section, int $itemKey)
     {
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
@@ -2569,16 +2620,15 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->getItem('fields')
-                ->sortby(array(
+                ->sortby([
                 'order' => $viewKey
-            ));
+            ]);
         }
         $configuration = $configurationManager->getConfiguration();
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extKey', $extKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configuration);
-        return $configuration;
     }
 
     /**
@@ -2588,17 +2638,16 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function getConfigurationList()
     {
-        $extensionList = array();
-        $this->extensionsNeedTobeUpgraded = FALSE;
-        foreach (GeneralUtility::get_dirs(PATH_typo3conf . 'ext/') as $extensionKey) {
+        $extensionList = [];
+        $this->extensionsNeedTobeUpgraded = false;
+        foreach (GeneralUtility::get_dirs(EnvironmentCompatibility::getTypo3ConfPath() . 'ext/') as $extensionKey) {
 
             $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
             $configurationManager->injectController($this);
 
-            if (! $configurationManager->isSavLibraryKickstarterExtension()) {
-                $configurationManager->checkForUpgrade();
-            }
             if ($configurationManager->isSavLibraryKickstarterExtension()) {
+                $configurationManager->checkForUpgrade();
+
                 $extensionVersion = $configurationManager->getExtensionVersion($extensionKey);
                 $fileName = $configurationManager->getConfigurationFileName($extensionKey, $extensionVersion);
 
@@ -2612,15 +2661,16 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $configurationManager->getSectionManager()
                     ->getItem('general')
                     ->getItem(1)
-                    ->addItem(array(
-                    'isLoadedExtension' => $configurationManager->isLoadedExtension()
-                ));
-                $configurationManager->getSectionManager()
+                    ->addItem([
+                    'isLoadedExtension' => $configurationManager->isLoadedExtension(),
+                    'currentLibraryVersion' => $configurationManager->getCurrentLibraryVersion()
+                ]);
+
+                // Processes teh global flag for upgrades
+                $this->extensionsNeedTobeUpgraded |= $configurationManager->getSectionManager()
                     ->getItem('general')
                     ->getItem(1)
-                    ->addItem(array(
-                    'currentLibraryVersion' => $configurationManager->getCurrentLibraryVersion()
-                ));
+                    ->getItem('extensionMustbeUpgraded');
 
                 // Changes the extension version if needed
                 if ($configurationManager->getSectionManager()
@@ -2630,27 +2680,14 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     $configurationManager->getSectionManager()
                         ->getItem('emconf')
                         ->getItem(1)
-                        ->replace(array(
+                        ->replace([
                         'version' => $extensionVersion
-                    ));
+                    ]);
                     $configurationManager->saveConfiguration();
                 }
 
-                // Checks if the extension must be upgraded
-                if ($configurationManager->getCurrentLibraryVersion() != $configurationManager->getSectionManager()
-                    ->getItem('general')
-                    ->getItem(1)
-                    ->getItem('libraryVersion')) {
-                    $configurationManager->getSectionManager()
-                        ->getItem('general')
-                        ->getItem(1)
-                        ->replace(array(
-                        'extensionMustbeUpgraded' => TRUE
-                    ));
-                    $this->extensionsNeedTobeUpgraded = TRUE;
-                }
-
                 // Checks the compatibillity
+
                 $compatibility = $configurationManager->getSectionManager()
                     ->getItem('general')
                     ->getItem(1)
@@ -2659,24 +2696,21 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     $configurationManager->getSectionManager()
                         ->getItem('general')
                         ->getItem(1)
-                        ->replace(array(
-                        'extensionMustbeUpgraded' => TRUE
-                    ));
-                    $this->extensionsNeedTobeUpgraded = TRUE;
+                        ->replace([
+                        'extensionMustbeUpgraded' => true
+                    ]);
+                    $this->extensionsNeedTobeUpgraded = true;
                 }
-                if (version_compare(TYPO3_version, '6.0', '>=')) {
-                    $wrongCompatibility = ! in_array($compatibility, array(
-                        ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE,
-                        ConfigurationManager::COMPATIBILITY_TYPO3_6x,
-                        ConfigurationManager::COMPATIBILITY_TYPO3_6x_7x,
-                    ));
-                }
+                $wrongCompatibility = ! in_array($compatibility, [
+                    ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT,
+                    ConfigurationManager::COMPATIBILITY_TYPO3_7x
+                ]);
                 $configurationManager->getSectionManager()
                     ->getItem('general')
                     ->getItem(1)
-                    ->replace(array(
+                    ->replace([
                     'wrongCompatibility' => $wrongCompatibility
-                ));
+                ]);
 
                 $extensionList[] = $configurationManager->getConfiguration();
             }

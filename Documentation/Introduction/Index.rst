@@ -102,7 +102,52 @@ The extension `SAV Library Mvc Example0
 was designed to test the SAV Library Kickstarter generation for the SAV Library
 Mvc extension. It implements the same features as SAV Library Example0.
 
-Other examples are also available in the TER.
+Other extensions in relation with the SAV Library Kickstarter Project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Extensions generated for SAV Library Plus
+****************************************
+
+    - SAV Library Example1
+    - SAV Library Example2
+    - SAV Library Example3
+    - SAV Library Example4
+    - SAV Library Example6
+    - SAV Library Example7
+    - SAV Library Example8
+    - SAV Library Example9 - this extension depends on sav_jpgraph and is now obsolete.
+    - SAV Library Example10 - this extension depends on wec_map.
+    - SAV Download
+    - SAV Meetings
+    
+Filters for SAV Library Plus
+****************************
+
+    - SAV Filter Alphabetic
+    - SAV Filter Mini Calendar
+    - SAV Filter Months
+    - SAV Filter Page Access
+    - SAV Filter SAV Filter Search
+    - SAV Filter Selectors
+
+Extensions generated for SAV Library Mvc
+****************************************
+
+    - SAV Calendar Mvc
+
+Filters for SAV Library Plus
+****************************    
+    
+    - SAV Filter MVC
+
+Extensions generated as basic extensions
+****************************************
+
+The following extensions have been kickstarted with the basic type.
+
+    - SAV Charts
+    - SAV Networks
+    
 
 .. warning::
 
@@ -112,9 +157,9 @@ Other examples are also available in the TER.
 
    - The old "sav\_library" extension is now obsolete and the code generation for this extension was removed.
    
-   - The compatibility with TYPO3 4.5 was removed.
+   - The compatibility with TYPO3 4.5 was removed in SAV Library Kickstarter 1.0.0.
    
-
+   - The compatibility with TYPO3 6.2 was removed in SAV Library Kickstarter 1.2.0.
 
 Screenshots
 -----------

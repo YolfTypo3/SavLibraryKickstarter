@@ -3,8 +3,7 @@
 <div class="flags">
 	<div class="col1">
 		<f:comment>Add deleted field</f:comment>
-		<f:form.hidden class="hidden" name="{section}[add_deleted]"
-			value="0" />
+		<f:form.hidden class="hidden" name="{section}[add_deleted]" value="0" />
 		<f:form.checkbox id="add_deleted" class="checkbox"
 			name="{section}[add_deleted]" value="1"
 			checked="{sav:function(name:'setTrueIfNull', arguments:sectionItem.add_deleted)}" />
@@ -12,8 +11,7 @@
 				key="kickstarter.{section}Item.add_deleted" /></label>
 
 		<f:comment>Add hidden field </f:comment>
-		<f:form.hidden class="hidden" name="{section}[add_hidden]"
-			value="0" />
+		<f:form.hidden class="hidden" name="{section}[add_hidden]" value="0" />
 		<f:form.checkbox id="add_hidden" class="checkbox"
 			name="{section}[add_hidden]" value="1"
 			checked="{sav:function(name:'setTrueIfNull', arguments:sectionItem.add_hidden)}" />
@@ -30,8 +28,7 @@
 				key="kickstarter.{section}Item.add_starttime" /></label>
 
 		<f:comment>Add endtime field</f:comment>
-		<f:form.hidden class="hidden" name="{section}[add_endtime]"
-			value="0" />
+		<f:form.hidden class="hidden" name="{section}[add_endtime]" value="0" />
 		<f:form.checkbox id="add_endtime" class="checkbox"
 			name="{section}[add_endtime]" value="1"
 			checked="{sectionItem.add_endtime}" />
@@ -39,8 +36,7 @@
 				key="kickstarter.{section}Item.add_endtime" /></label>
 
 		<f:comment>Add access group field</f:comment>
-		<f:form.hidden class="hidden" name="{section}[add_access]"
-			value="0" />
+		<f:form.hidden class="hidden" name="{section}[add_access]" value="0" />
 		<f:form.checkbox id="add_access" class="checkbox"
 			name="{section}[add_access]" value="1"
 			checked="{sectionItem.add_access}" />
@@ -49,8 +45,7 @@
 	</div>
 	<div class="col2">
 		<f:comment>Add localization</f:comment>
-		<f:form.hidden class="hidden" name="{section}[localization]"
-			value="0" />
+		<f:form.hidden class="hidden" name="{section}[localization]" value="0" />
 		<f:form.checkbox id="localization" class="checkbox"
 			name="{section}[localization]" value="1"
 			checked="{sectionItem.localization}" />
@@ -58,8 +53,7 @@
 				key="kickstarter.{section}Item.localization" /></label>
 
 		<f:comment>Add versioning</f:comment>
-		<f:form.hidden class="hidden" name="{section}[versioning]"
-			value="0" />
+		<f:form.hidden class="hidden" name="{section}[versioning]" value="0" />
 		<f:form.checkbox id="versioning" class="checkbox"
 			name="{section}[versioning]" value="1"
 			checked="{sectionItem.versioning}" />
@@ -67,8 +61,7 @@
 				key="kickstarter.{section}Item.versioning" /></label>
 
 		<f:comment>Add Save and New flag</f:comment>
-		<f:form.hidden class="hidden" name="{section}[save_and_new]"
-			value="0" />
+		<f:form.hidden class="hidden" name="{section}[save_and_new]" value="0" />
 		<f:form.checkbox id="save_and_new" class="checkbox"
 			name="{section}[save_and_new]" value="1"
 			checked="{sectionItem.save_and_new}" />
@@ -105,8 +98,7 @@
 		<f:comment>Add manual ordering</f:comment>
 		<f:form.hidden class="hidden" name="{section}[sorting]" value="0" />
 		<f:form.checkbox id="sorting" class="checkbox"
-			name="{section}[sorting]" value="1"
-			checked="{sectionItem.sorting}" />
+			name="{section}[sorting]" value="1" checked="{sectionItem.sorting}" />
 		<label class="clearNone" for="sorting"><f:translate
 				key="kickstarter.{section}Item.sorting" /></label>
 	</div>
@@ -131,12 +123,13 @@
 			\"}')}" value="{sectionItem.type_field}" />
 
 		<f:comment>Field for ordering </f:comment>
-		<f:if condition="{sectionItem.sorting} == 0}">
+		<f:if condition="{sectionItem.sorting} == 0">
 			<label class="" for="sorting_field"><f:translate
 					key="kickstarter.{section}Item.sorting_field" /></label>
 			<f:form.select id="sorting_field" name="{section}[sorting_field]"
 				options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields, 
-				options:'{crdate:\"[crdate]\", uid:\"[uid]\", cruser_id:\"[cruser_id]\", tstamp:\"[tstamp]\"}')}"
+				options:'{crdate:\"
+				[crdate]\", uid:\"[uid]\", cruser_id:\"[cruser_id]\", tstamp:\"[tstamp]\"}')}"
                 value="{sectionItem.sorting_field}" />
 
 			<f:comment>Sorting order</f:comment>

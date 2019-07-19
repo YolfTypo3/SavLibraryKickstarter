@@ -1,41 +1,26 @@
 <?php
 namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
-/**
- * Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- * (c) 2010 Laurent Foulloy <yolf.typo3@orange.fr>
- * All rights reserved
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- * This class is a backport of the corresponding class of FLOW3.
- * All credits go to the v5 team.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
  *
- * This script is part of the TYPO3 project. The TYPO3 project is
- * free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * The GNU General Public License can be found at
- * http://www.gnu.org/copyleft/gpl.html.
- *
- * This script is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * This copyright notice MUST APPEAR in all copies of the script!
+ * The TYPO3 project - inspiring people to share!
  */
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
 
 /**
  * Upgrades the extension from the kickstarter
  *
  * @package Kickstarter
- * @subpackage Upgrade
- * @version SVN: $Id$
  */
 class UpgradeFromKickstarter extends AbstractUpgradeManager
 {
@@ -56,6 +41,8 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
 
         // Converts each field in utf8 (required by json_encode)
         array_walk_recursive($configuration, '\YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager::utf8_encode');
+
+        $newConfiguration = [];
 
         // Changes the name to 'general' and remove the array
         $newConfiguration['general'] = $configuration['savext'];
@@ -93,26 +80,26 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
         // Creates the configuration directory if needed
         $configurationDirectory = $extensionDirectory . ConfigurationManager::CONFIGURATION_DIRECTORY . $libraryType . '/';
         if (! is_dir($configurationDirectory)) {
-            \TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(ConfigurationManager::getExtensionsRootDir(), $extensionKey . '/' . \YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager::CONFIGURATION_DIRECTORY . $libraryType . '/');
+            GeneralUtility::mkdir_deep($configurationDirectory);
         }
 
         // Saves the library type
-        \TYPO3\CMS\Core\Utility\GeneralUtility::writeFile(\ConfigurationManager::getLibraryTypeFileName($extensionKey), $libraryType);
+        GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extensionKey), $libraryType);
 
         // Saves the file to the JSON format
         $jsonContent = json_encode($newConfiguration);
-        \TYPO3\CMS\Core\Utility\GeneralUtility::writeFile(ConfigurationManager::getConfigurationFileName($extensionKey), $jsonContent);
+        GeneralUtility::writeFile(ConfigurationManager::getConfigurationFileName($extensionKey), $jsonContent);
     }
 
     /**
      * Upgrades the general section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeGeneralSection($configuration)
+    public function upgradeGeneralSection(ItemManager $configuration): array
     {
         // Removes unused fields
         $configuration->getItem(1)->deleteItem('savlibraryVersion');
@@ -139,12 +126,12 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
     /**
      * Upgrades the emconf section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeEmconfSection($configuration)
+    public function upgradeEmconfSection(ItemManager $configuration): array
     {
         $newConfiguration = $configuration->getItemsAsArray();
 
@@ -154,12 +141,12 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
     /**
      * Upgrades the languages section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeLanguagesSection($configuration)
+    public function upgradeLanguagesSection(ItemManager $configuration): array
     {
         $newConfiguration = $configuration->getItemsAsArray();
 
@@ -169,12 +156,12 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
     /**
      * Upgrades the pi section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradePiSection($configuration)
+    public function upgradePiSection(ItemManager $configuration): array
     {
         $newConfiguration = $configuration->getItemsAsArray();
 
@@ -184,13 +171,14 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
     /**
      * Upgrades the newTables section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeNewTablesSection($configuration)
+    public function upgradeNewTablesSection(ItemManager $configuration): array
     {
+        $newConfiguration = [];
         foreach ($configuration->getItemsAsArray() as $key => $item) {
 
             $itemConfiguration = $item;
@@ -254,13 +242,15 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
     /**
      * Upgrades the existingTables section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeExistingTablesSection($configuration)
+    public function upgradeExistingTablesSection(ItemManager $configuration): array
     {
+        $newConfiguration = [];
+        $correctedFieldsConfiguration = [];
         foreach ($configuration->getItemsAsArray() as $key => $item) {
 
             $itemConfiguration = $item;
@@ -325,15 +315,16 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
     /**
      * Upgrades the views section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeViewsSection($configuration)
+    public function upgradeViewsSection(ItemManager $configuration): array
     {
+        $newConfiguration = [];
         foreach ($configuration->getItemsAsArray() as $key => $item) {
-            $itemConfiguration = array();
+            $itemConfiguration = [];
 
             // Title of the view
             $itemConfiguration['title'] = $item['title'];
@@ -377,7 +368,7 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
                             }
                         }
                     } else {
-                        $itemConfiguration['folders'] = NULL;
+                        $itemConfiguration['folders'] = null;
                     }
                     break;
                 case 'input':
@@ -397,7 +388,7 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
                             }
                         }
                     } else {
-                        $itemConfiguration['folders'] = NULL;
+                        $itemConfiguration['folders'] = null;
                     }
                     break;
                 case 'alt':
@@ -437,16 +428,17 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
     /**
      * Upgrades the queries section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeQueriesSection($configuration)
+    public function upgradeQueriesSection(ItemManager $configuration): array
     {
+        $newConfiguration = [];
         foreach ($configuration->getItemsAsArray() as $key => $item) {
 
-            $itemConfiguration = array();
+            $itemConfiguration = [];
 
             // Title of the query
             $itemConfiguration['title'] = $item['title'];
@@ -471,17 +463,17 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
 
             // Where Tags
             if ($item['whereTags']) {
-                eval('$whereTags = array(' . $item['whereTags'] . ');');
+                eval('$whereTags = [' . $item['whereTags'] . '];');
                 $index = 1;
                 foreach ($whereTags as $whereTagKey => $whereTag) {
-                    $itemConfiguration['whereTags'][$index ++] = array(
+                    $itemConfiguration['whereTags'][$index ++] = [
                         'title' => $whereTagKey,
                         'whereClause' => $whereTag['where'],
                         'orderByClause' => $whereTag['order']
-                    );
+                    ];
                 }
             } else {
-                $itemConfiguration['whereTags'] = NULL;
+                $itemConfiguration['whereTags'] = null;
             }
 
             // Removes the item
@@ -495,15 +487,16 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
     /**
      * Upgrades the forms section.
      *
-     * @param array $configuration
+     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *
+     *            
      * @return array The new configuration
      */
-    public function upgradeFormsSection($configuration)
+    public function upgradeFormsSection(ItemManager $configuration): array
     {
+        $newConfiguration = [];
         foreach ($configuration->getItemsAsArray() as $key => $item) {
-            $itemConfiguration = array();
+            $itemConfiguration = [];
 
             // Title of the query
             $itemConfiguration['title'] = $item['title'];
@@ -539,10 +532,10 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
      *
      * @param array $field
      *            The actual field
-     *
+     *            
      * @return array The new field
      */
-    protected function upgradeFieldFromType($field)
+    protected function upgradeFieldFromType(array $field): array
     {
         switch ($field['type']) {
             case 'input':
@@ -555,9 +548,9 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
             case 'check_10':
                 $field['type'] = 'Checkboxes';
                 for ($i = 0; $i < $field['conf_numberBoxes']; $i ++) {
-                    $field['items'][$i] = array(
+                    $field['items'][$i] = [
                         'label' => $field['conf_boxLabel_' . $i]
-                    );
+                    ];
                 }
                 break;
             case 'date':
@@ -581,10 +574,10 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
             case 'radio':
                 $field['type'] = 'RadioButtons';
                 for ($i = 0; $i < $field['conf_select_items']; $i ++) {
-                    $field['items'][$i] = array(
+                    $field['items'][$i] = [
                         'label' => $field['conf_select_item_' . $i],
                         'value' => $field['conf_select_itemvalue_' . $i]
-                    );
+                    ];
                 }
                 break;
             case 'rel':
@@ -599,10 +592,10 @@ class UpgradeFromKickstarter extends AbstractUpgradeManager
             case 'select':
                 $field['type'] = 'Selectorbox';
                 for ($i = 0; $i < $field['conf_select_items']; $i ++) {
-                    $field['items'][$i] = array(
+                    $field['items'][$i] = [
                         'label' => $field['conf_select_item_' . $i],
                         'value' => $field['conf_select_itemvalue_' . $i]
-                    );
+                    ];
                 }
                 break;
             case 'ShowOnly':

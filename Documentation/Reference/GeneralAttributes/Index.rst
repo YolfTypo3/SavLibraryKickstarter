@@ -59,11 +59,11 @@ Property                                                Data type   Default     
 :ref:`General.showIf`                                   String                   Yes  Yes
 :ref:`General.setExtendLink`                            Table name               Yes  No
 :ref:`General.stdWrapItem`                              stdWrap                  Yes  No
-:ref:`General.stdWrapValue`                             stdWrap                  Yes  No
+:ref:`General.stdWrapValue`                             stdWrap                  Yes  Yes
 :ref:`General.styleLabel`                               String                   Yes  Yes
 :ref:`General.styleValue`                               String                   Yes  Yes
 :ref:`General.tsObject`                                 cObject                  Yes  No
-:ref:`General.tsProperties`                             String                   Yes  No
+:ref:`General.tsProperties`                             String                   Yes  Yes
 :ref:`General.value`                                    String                   Yes  Yes
 :ref:`General.verifier`                                 String                   Yes  No
 :ref:`General.verifierMessage`                          String                   Yes  No
@@ -293,28 +293,27 @@ classValue
 
 .. _General.cutIf:
 
-cutIf / showIf
-^^^^^^^^^^^^^^
+cutIf (showIf, requiredIf, queryIf, reqValueIf)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. container:: table-row
 
     Property
-        cutIf / showIf  
+        cutIf (showIf, mailIf, requiredIf, queryIf, reqValueIf)
              
     Data type
       String
          
     Description
-        The string can be:
+        If the condition is true, the property cut, show, mail, required, query or
+        reqValue is activated. The string can be:
              
-        - fieldName=valueCuts / shows the field if current value of the field is
+        - fieldName operator value. Operator can be =, !=, >, <, >= or <=. The condition is true if current value of the field is
           equal to the given value. The markers ###user### or ###cruser### (same
           as user but should be used if a new record is created) will be
-          replaced by the user id. Use EMPTY for the value to test an empty
-          field.
-             
-        - fieldName!=valueCuts / shows the field if current value of the field
-          is not equal to the given value. Same markers as above can be used.
+          replaced by the user id. 
+        - fieldName operateur specialValue. Operator can be is or isnot. The special value can be EMPTY or NEW. The condition is true is the field
+          is (or is not) empty (or a new record).
              
         - ###usergroup=group\_name###The field is cut / shown if the group
           “group\_name” is a valid group for the current user.
@@ -330,8 +329,7 @@ cutIf / showIf
           “group\_name” is not a valid group for the current record. It checks
           the usergroup field in the local table if any.
              
-        Logical connectors & and \| can be used between expression. However no
-        parentheses are allowed.
+        Logical connectors &, \|, and, or can be used between expression.
   
   
 .. _General.cutIfNull:

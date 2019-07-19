@@ -19,7 +19,7 @@
 					<f:form.hidden name="general[section]" value="{section}" />
 					<f:form.hidden name="general[itemKey]" value="{itemKey}" />
 					<div id="content">
-{settings.kickstarter.generalItem.compatibility.0}
+
 						<f:comment>Header</f:comment>
 						<f:render partial="Sections/Partials/Header" arguments="{_all}" />
 
@@ -29,11 +29,10 @@
 								arguments="{_all}" />
 
 							<f:comment>Vendor name</f:comment>
-							<label for="pluginTitle"><f:translate
+							<label for="vendorName"><f:translate
 									key="kickstarter.generalItem.vendorName" /></label>
 							<f:form.textfield id="vendorName" name="general[vendorName]"
-								value="{extension.general.1.vendorName}" 
-								required="TRUE"/>
+								value="{extension.general.1.vendorName}" required="TRUE" />
 
 							<f:comment>Plugin Title, saved in the general section</f:comment>
 							<label for="pluginTitle"><f:translate
@@ -108,29 +107,31 @@
 								options="{sav:buildOptionsForCompatibilitySelectorbox(libraryType:extension.general.1.libraryType)}"
 								value="{extension.general.1.compatibility}" />
 
-                            <f:comment>Add TypoScript configuration</f:comment>
-                            <label for="addTypoScriptConfiguration"><f:translate
-                                    key="kickstarter.generalItem.addTypoScriptConfiguration"/></label>
-                            <f:form.hidden name="general[addTypoScriptConfiguration]" value="0" />
-                            <f:form.checkbox class="checkbox" id="addTypoScriptConfiguration"
-                                name="general[addTypoScriptConfiguration]" value="1"
-                                checked="{extension.general.1.addTypoScriptConfiguration}" />   
+							<f:comment>Add TypoScript configuration</f:comment>
+							<label for="addTypoScriptConfiguration"><f:translate
+									key="kickstarter.generalItem.addTypoScriptConfiguration" /></label>
+							<f:form.hidden name="general[addTypoScriptConfiguration]"
+								value="0" />
+							<f:form.checkbox class="checkbox" id="addTypoScriptConfiguration"
+								name="general[addTypoScriptConfiguration]" value="1"
+								checked="{extension.general.1.addTypoScriptConfiguration}" />
 
-                            <f:comment>Add wizard plugin icon</f:comment>
-                            <label for="addWizardPluginIcon"><f:translate
-                                    key="kickstarter.generalItem.addWizardPluginIcon" arguments="{0:'icon_{extKey->sav:function(name:\'removeUnderscore\')}.png'}"/></label>
-                            <f:form.hidden name="general[addPluginIcon]" value="0" />
-                            <f:form.checkbox class="checkbox" id="addWizardPluginIcon"
-                                name="general[addWizardPluginIcon]" value="1"
-                                checked="{extension.general.1.addWizardPluginIcon}" />                         
-                                
-                            <f:comment>keepExtLocalConf flag</f:comment>
-                            <label for="keepExtLocalConf"><f:translate
-                                    key="kickstarter.generalItem.keepExtLocalConf" /></label>
-                            <f:form.hidden name="general[keepExtLocalConf]" value="0" />
-                            <f:form.checkbox class="checkbox" id="keepExtLocalConf"
-                                name="general[keepExtLocalConf]" value="1"
-                                checked="{extension.general.1.keepExtLocalConf}" />
+							<f:comment>Add wizard plugin icon</f:comment>
+							<label for="addWizardPluginIcon"><f:translate
+									key="kickstarter.generalItem.addWizardPluginIcon"
+									arguments="{0:'icon_{extKey->sav:function(name:\'removeUnderscore\')}.png'}" /></label>
+							<f:form.hidden name="general[addPluginIcon]" value="0" />
+							<f:form.checkbox class="checkbox" id="addWizardPluginIcon"
+								name="general[addWizardPluginIcon]" value="1"
+								checked="{extension.general.1.addWizardPluginIcon}" />
+
+							<f:comment>keepExtLocalConf flag</f:comment>
+							<label for="keepExtLocalConf"><f:translate
+									key="kickstarter.generalItem.keepExtLocalConf" /></label>
+							<f:form.hidden name="general[keepExtLocalConf]" value="0" />
+							<f:form.checkbox class="checkbox" id="keepExtLocalConf"
+								name="general[keepExtLocalConf]" value="1"
+								checked="{extension.general.1.keepExtLocalConf}" />
 
 							<f:comment>Debug Query flag</f:comment>
 							<label for="debug"><f:translate

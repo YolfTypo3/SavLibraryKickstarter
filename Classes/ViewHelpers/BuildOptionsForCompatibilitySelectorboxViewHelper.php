@@ -2,20 +2,24 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
-
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
  * A view helper for building the options for the compatibility selector.
@@ -30,68 +34,62 @@ use YolfTypo3\SavLibraryKickstarter\Configuration\ConfigurationManager;
  * the options
  *
  * @package SavLibraryKickstarter
- * @subpackage ViewHelpers
  */
-class BuildOptionsForCompatibilitySelectorboxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class BuildOptionsForCompatibilitySelectorboxViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
-
-    /**
+     * Initializes arguments.
      *
-     * @param string $libraryType
-     *            The library type
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('libraryType', 'string', 'Library type', true);
+    }
+
+    /**
+     * Renders the option for the compatibility
+     *
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
      *
      * @return array the options
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
      */
-    public function render($libraryType)
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        // Gets the settings
-        $extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
-        $pluginName = $this->controllerContext->getRequest()->getPluginName();
-        $settings = $this->getSettings($extensionName, $pluginName);
+        // Gets the arguments
+        $libraryType = $arguments['libraryType'];
 
-        switch($libraryType) {
+        // Gets the configuration manager
+        $configurationManager = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationManagerInterface::class);
+
+        // Gets the settings
+        $settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+
+        switch ($libraryType) {
             case ConfigurationManager::TYPE_SAV_LIBRARY_BASIC:
+                $options = [
+                    ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
+                    ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
+                ];
+                break;
             case ConfigurationManager::TYPE_SAV_LIBRARY_MVC:
-                $options = array(
-                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE],
-                );
+                $options = [
+                    ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
+                    ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
+                ];
                 break;
             case ConfigurationManager::TYPE_SAV_LIBRARY_PLUS:
-                $options = array(
-                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_6x_AND_ABOVE],
-                    ConfigurationManager::COMPATIBILITY_TYPO3_6x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_6x],
-                    ConfigurationManager::COMPATIBILITY_TYPO3_6x_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_6x_7x],
-                );
+                $options = [
+                    ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
+                    ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
+                ];
                 break;
         }
         return $options;
-    }
-
-
-    /**
-     * Returns TypoScript settings array
-     *
-     * @param string $extensionName Name of the extension
-     * @param string $pluginName Name of the plugin
-     * @return array
-     */
-    public function getSettings($extensionName, $pluginName)
-    {
-
-        $typoScript = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
-            $extensionName,
-            $pluginName);
-
-        return $typoScript;
-
     }
 }
 ?>

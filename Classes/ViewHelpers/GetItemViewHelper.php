@@ -2,47 +2,57 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
- * This script is part of the TYPO3 project - inspiring people to share! *
- * *
- * TYPO3 is free software; you can redistribute it and/or modify it under *
- * the terms of the GNU General Public License version 2 as published by *
- * the Free Software Foundation. *
- * *
- * This script is distributed in the hope that it will be useful, but *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN- *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General *
- * Public License for more details. *
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with TYPO3 source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Returns an item in an array
  *
- * @package SavLibraryMvc
- * @version $Id:
+ * @package SavLibraryKickstarter
+ *         
  */
-class GetItemViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class GetItemViewHelper extends AbstractViewHelper
 {
 
     /**
-     * viewhelper.
+     * Initializes arguments.
      *
-     * @param array $value
-     *            The value of the parameter to change
-     * @param string $key
-     *            The key of the parameter to change
-     * @return string The modified compressed parameters
-     * @author Laurent Foulloy <yolf.typo3@orange.fr>
-     *         @api
+     * @return void
      */
-    public function render($value = NULL, $key = NULL)
+    public function initializeArguments()
     {
-        if ($value === NULL) {
+        $this->registerArgument('value', 'array', 'Value of the parameter to change', false, null);
+        $this->registerArgument('key', 'string', 'Key of the parameter to change', false, null);
+    }
+
+    /**
+     * Gets the item.
+     *
+     * @return mixed The item
+     */
+    public function render()
+    {
+        // Gets the arguments
+        $value = $this->arguments['value'];
+        $key = $this->arguments['key'];
+
+        if ($value === null) {
             $value = $this->renderChildren();
         }
 
-        if ($value === NULL) {
-            return NULL;
-        } elseif ($key === NULL) {
+        if ($value === null) {
+            return null;
+        } elseif ($key === null) {
             return current($value);
         } else {
             return $value[$key];

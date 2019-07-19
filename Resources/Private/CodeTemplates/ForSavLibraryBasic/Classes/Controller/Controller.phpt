@@ -6,6 +6,7 @@
     controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}',
     actionName:     '{extension.views->sav:getItem()->sav:getItem(key:\'title\')->sav:lowerCamel()}'
 }">
+    
 namespace {vendorName}\{extensionName}\Controller;
 !
 /**
@@ -48,7 +49,7 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      *
      * @var string
      */
-    protected static $cssPath = 'Resources/Public/Styles/{extensionName}.css';
+    protected static $cssPath = 'Resources/Public/Css/{extensionName}.css';
 !    
     /**
      * Initializes the controller before invoking an action method.
@@ -64,7 +65,8 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
         $cssFile = ExtensionManagementUtility::siteRelPath($extensionKey) . self::$cssPath;
         $this->addCascadingStyleSheet($cssFile);    
     }
-!
+! 
+<f:comment>Do not remove</f:comment>
     /**
      * {actionName} action
      *
@@ -82,7 +84,7 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      *
      * @param string $cascadingStyleSheet
      *
-     * @return none
+     * @return void
      */
     protected function addCascadingStyleSheet($cascadingStyleSheet)
     {

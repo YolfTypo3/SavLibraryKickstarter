@@ -21,6 +21,9 @@ Changelog
 =======  ===========================================================================
 Version  Changes
 =======  ===========================================================================
+9.5.0    - Compatibility with 6.2 removed.
+         - Compatibility changed to TYPO3 9.5.x.
+
 1.1.0    - Code generation improved.
          - Compatibility changed to TYPO3 8.9.
          - composer.json added

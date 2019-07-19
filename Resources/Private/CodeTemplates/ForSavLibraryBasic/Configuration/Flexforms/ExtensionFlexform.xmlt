@@ -14,7 +14,7 @@
                         <TCEforms>
                             <exclude>0</exclude>
                             <label></label>
-                            <displayCond>EXT:ConditionToHideThisRecordIfFlexformIsNotUsed:LOADED:true</displayCond>
+                            <displayCond>FIELD:settings.flexform.none:REQ:true</displayCond>
                             <config>
                                 <type>none</type>
                             </config>
