@@ -1,21 +1,10 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. include:: ../../Includes.txt
 
 .. _functions:
 
+=========
 Functions
----------
+=========
 
 Functions are applied to the value of the field. They can be also
 applied to left and right contents. In this case, "Left" or "Right"
@@ -24,22 +13,22 @@ should be added to the function name and the optional attributes (**Not yet impl
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Functions.makeDateFormat`                         None                     Yes  Yes
-:ref:`Functions.makeEmailLink`                          None                     Yes  Yes
-:ref:`Functions.makeExtLink`                            None                     Yes  No
-:ref:`Functions.makeImage`                              None                     Yes  No
-:ref:`Functions.makeItemLink`                           None                     Yes  Yes
-:ref:`Functions.makeLink`                               None                     Yes  No
-:ref:`Functions.makeNewWindowLink`                      None                     Yes  No
-:ref:`Functions.makeUrlLink`                            None                     Yes  No
-:ref:`Functions.makeXmlLabel`                           None                     Yes  No
+:ref:`functions.makeDateFormat`                         None                     Yes  Yes
+:ref:`functions.makeEmailLink`                          None                     Yes  Yes
+:ref:`functions.makeExtLink`                            None                     Yes  No
+:ref:`functions.makeImage`                              None                     Yes  No
+:ref:`functions.makeItemLink`                           None                     Yes  Yes
+:ref:`functions.makeLink`                               None                     Yes  No
+:ref:`functions.makeNewWindowLink`                      None                     Yes  No
+:ref:`functions.makeUrlLink`                            None                     Yes  No
+:ref:`functions.makeXmlLabel`                           None                     Yes  No
 ======================================================= =========== ============ ==== ====
 
 
-.. _Functions.makeDateFormat:
+.. _functions.makeDateFormat:
 
 func = makeDateFormat;
-^^^^^^^^^^^^^^^^^^^^^^
+======================
 
 .. container:: table-row
 
@@ -60,10 +49,10 @@ func = makeDateFormat;
 
 
 
-..  _Functions.makeEmailLink:
+..  _functions.makeEmailLink:
 
 func = makeEmailLink;
-^^^^^^^^^^^^^^^^^^^^^
+=====================
 
 .. container:: table-row
 
@@ -85,10 +74,10 @@ func = makeEmailLink;
 
 
 
-.. _Functions.makeExtLink:
+.. _functions.makeExtLink:
 
 func = makeExtLink;
-^^^^^^^^^^^^^^^^^^^
+===================
 
 .. container:: table-row
 
@@ -130,11 +119,10 @@ func = makeExtLink;
    
 
 
-
-.. _Functions.makeImage:
+.. _functions.makeImage:
 
 func = makeImage;
-^^^^^^^^^^^^^^^^^
+=================
 
 .. container:: table-row
 
@@ -163,10 +151,10 @@ func = makeImage;
    
 
 
-.. _Functions.makeItemLink:
+.. _functions.makeItemLink:
 
 func = makeItemLink;
-^^^^^^^^^^^^^^^^^^^^
+====================
 
 .. container:: table-row
 
@@ -200,10 +188,10 @@ func = makeItemLink;
 
 
 
-.. _Functions.makeLink:
+.. _functions.makeLink:
 
 func = makeLink;
-^^^^^^^^^^^^^^^^
+================
 
 .. container:: table-row
 
@@ -241,10 +229,10 @@ func = makeLink;
           the uid of the page associated with the link.
 
 
-.. _Functions.makeNewWindowLink:
+.. _functions.makeNewWindowLink:
 
 func = makeNewWindowLink;
-^^^^^^^^^^^^^^^^^^^^^^^^^
+=========================
 
 .. container:: table-row
 
@@ -283,10 +271,10 @@ func = makeNewWindowLink;
      
 
 
-.. _Functions.makeUrlLink:
+.. _functions.makeUrlLink:
 
 func = makeUrlLink;
-^^^^^^^^^^^^^^^^^^^
+===================
 
 .. container:: table-row
 
@@ -314,10 +302,10 @@ func = makeUrlLink;
    
 
 
-.. _Functions.makeXmlLabel:
+.. _functions.makeXmlLabel:
 
 func = makeXmlLabel;
-^^^^^^^^^^^^^^^^^^^^
+====================
 
 .. container:: table-row
 

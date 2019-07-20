@@ -1,39 +1,28 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _relation_n_n:
 
-
+======================
 Relation n:n (subform)
-----------------------
-
+======================
 
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Relation_n_n.addDelete`                           Boolean     0            Yes  Yes
-:ref:`Relation_n_n.addSave`                             Boolean     0            Yes  Yes
-:ref:`Relation_n_n.addUpDown`                           Boolean     0            Yes  Yes
-:ref:`Relation_n_n.maxSubformItems`                     Integer     0            Yes  Yes
-:ref:`Relation_n_n.noFirstLast`                         Boolean     0            Yes  Yes
-:ref:`Relation_n_n.subformTitle`                        String                   Yes  Yes
+:ref:`relation_n_n.addDelete`                           Boolean     0            Yes  Yes
+:ref:`relation_n_n.addSave`                             Boolean     0            Yes  Yes
+:ref:`relation_n_n.addUpDown`                           Boolean     0            Yes  Yes
+:ref:`relation_n_n.maxSubformItems`                     Integer     0            Yes  Yes
+:ref:`relation_n_n.noFirstLast`                         Boolean     0            Yes  Yes
+:ref:`relation_n_n.subformTitle`                        String                   Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
-.. _Relation_n_n.addDelete:
+.. _relation_n_n.addDelete:
 
 addDelete
-^^^^^^^^^
+=========
 
 .. container:: table-row
 
@@ -50,10 +39,10 @@ addDelete
     0
 
 
-.. _Relation_n_n.addSave:
+.. _relation_n_n.addSave:
 
 addSave
-^^^^^^^
+=======
 
 .. container:: table-row
 
@@ -72,10 +61,10 @@ addSave
     0
 
 
-.. _Relation_n_n.addUpDown:
+.. _relation_n_n.addUpDown:
 
 addUpDown
-^^^^^^^^^
+=========
 
 .. container:: table-row
 
@@ -93,10 +82,10 @@ addUpDown
     0
 
 
-.. _Relation_n_n.maxSubformItems:
+.. _relation_n_n.maxSubformItems:
 
 maxSubformItems
-^^^^^^^^^^^^^^^
+===============
 
 .. container:: table-row
 
@@ -114,10 +103,10 @@ maxSubformItems
     0
 
 
-.. _Relation_n_n.noFirstLast:
+.. _relation_n_n.noFirstLast:
 
 noFirstLast
-^^^^^^^^^^^
+===========
 
 .. container:: table-row
 
@@ -135,10 +124,10 @@ noFirstLast
     0
 
 
-.. _Relation_n_n.subformTitle:
+.. _relation_n_n.subformTitle:
 
 subformTitle
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
 

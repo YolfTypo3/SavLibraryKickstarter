@@ -1,35 +1,25 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _introduction:
 
-
+============
 Introduction
 ============
 
 What does it do?
-----------------
+================
 
 The `SAV Library Kickstarter <https://typo3.org/extensions/repository/view/sav_library_kickstarter>`_ 
 is a code generator, developed with extbase and fluid, to produce Frontend plugins.
 
 Basic code generation
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 This new feature was introduced in version 1.0.0 to kickstart extensions
 based on fluid and extbase.
 
 Code generation for the SAV Library Plus
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 The `SAV Library Plus Extension
 <https://typo3.org/extensions/repository/view/sav_library_plus>`_ is stable since many years. 
@@ -68,7 +58,7 @@ The SAV Library Kickstarter generates extensions which include:
 - Many other features.
 
 Code Generation for the SAV Library Mvc
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------
 
 The `SAV Library Mvc Extension <https://typo3.org/extensions/repository/view/sav_library_mvc>`_ is the new 
 development of the SAV Library which fully relies on the MVC approach
@@ -79,14 +69,14 @@ This library is in beta state because it does not implement yet all the features
 However available features are enough for most extensions.
 
 Latest developments
-^^^^^^^^^^^^^^^^^^^
+====================
 
 The latest developments of the `SAV Library Kickstarter Project
 <https://github.com/YolfTypo3/SavLibraryKickstarterProject>`_ 
 are available on GitHub.
 
 Test extensions
-^^^^^^^^^^^^^^^
+===============
 
 The extension `SAV Basic Example0
 <https://typo3.org/extensions/repository/view/sav_basic_example0>`_
@@ -103,10 +93,10 @@ was designed to test the SAV Library Kickstarter generation for the SAV Library
 Mvc extension. It implements the same features as SAV Library Example0.
 
 Other extensions in relation with the SAV Library Kickstarter Project
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=====================================================================
 
 Extensions generated for SAV Library Plus
-****************************************
+-----------------------------------------
 
     - SAV Library Example1
     - SAV Library Example2
@@ -121,27 +111,22 @@ Extensions generated for SAV Library Plus
     - SAV Meetings
     
 Filters for SAV Library Plus
-****************************
+----------------------------
 
-    - SAV Filter Alphabetic
-    - SAV Filter Mini Calendar
-    - SAV Filter Months
-    - SAV Filter Page Access
-    - SAV Filter SAV Filter Search
-    - SAV Filter Selectors
+    - SAV Filters
 
 Extensions generated for SAV Library Mvc
-****************************************
+----------------------------------------
 
     - SAV Calendar Mvc
 
 Filters for SAV Library Plus
-****************************    
+----------------------------    
     
     - SAV Filter MVC
 
 Extensions generated as basic extensions
-****************************************
+----------------------------------------
 
 The following extensions have been kickstarted with the basic type.
 
@@ -154,66 +139,62 @@ The following extensions have been kickstarted with the basic type.
    - Do not forget to include the **SAV Library Kickstarter static template** which is now required. 
    
 .. important::
-
-   - The old "sav\_library" extension is now obsolete and the code generation for this extension was removed.
    
-   - The compatibility with TYPO3 4.5 was removed in SAV Library Kickstarter 1.0.0.
-   
-   - The compatibility with TYPO3 6.2 was removed in SAV Library Kickstarter 1.2.0.
+   - The compatibility with TYPO3 7.6 was removed in SAV Library Kickstarter 9.5.0.
 
 Screenshots
------------
+===========
 
 SAV Library Example0: Generated List view
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 .. figure:: ../Images/ScreenshotsExample0ListView.png
 
 
 SAV Library Example0: Generated Single view
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------
 
 .. figure:: ../Images/ScreenshotsExample0SingleView.png
 
 
 SAV Library Example0: Generated Edit view
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 .. figure:: ../Images/ScreenshotsExample0EditView.png
 
 
 Kickstarter: Extension List
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
 .. figure:: ../Images/ScreenshotsExtensionList.png
 
 
 Kickstarter: “Extension configuration” section
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------------
 
 .. figure:: ../Images/ScreenshotsExtensionConfigurationSection.png
 
 
 Kickstarter: “New tables” section
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------
 
 .. figure:: ../Images/ScreenshotsNewTablesSection.png
 
 
 Kickstarter: “Views” section
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 .. figure:: ../Images/ScreenshotsViewsSection.png
 
 
 Kickstarter: “Queries” section
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 .. figure:: ../Images/ScreenshotsQueriesSection.png
 
 
 Kickstarter: “Forms” section
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 .. figure:: ../Images/ScreenshotsFormsSection.png
 

@@ -1,41 +1,31 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _link:
 
-
+====
 Link
-----
+====
 
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Link.fieldLink`                                   Field name               Yes  Yes
-:ref:`Link.fieldMessage`                                Field name               Yes  Yes
-:ref:`Link.generateRTF`                                 Boolean     0            Yes  No
-:ref:`Link.link`                                        String                   Yes  Yes
-:ref:`Link.message`                                     String                   Yes  Yes
-:ref:`Link.saveFileRTF`                                 String                   Yes  No
-:ref:`Link.tableName.fieldName`                         String                   Yes  No
-:ref:`Link.templateRTF`                                 String                   Yes  No
+:ref:`link.fieldLink`                                   Field name               Yes  Yes
+:ref:`link.fieldMessage`                                Field name               Yes  Yes
+:ref:`link.generateRTF`                                 Boolean     0            Yes  No
+:ref:`link.link`                                        String                   Yes  Yes
+:ref:`link.message`                                     String                   Yes  Yes
+:ref:`link.saveFileRTF`                                 String                   Yes  No
+:ref:`link.tableName.fieldName`                         String                   Yes  No
+:ref:`link.templateRTF`                                 String                   Yes  No
 ======================================================= =========== ============ ==== ====
 
 
 
-.. _Link.fieldLink:
+.. _link.fieldLink:
 
 fieldLink
-^^^^^^^^^
+=========
 
 .. container:: table-row
 
@@ -50,10 +40,10 @@ fieldLink
       given by fieldName.
   
 
-.. _Link.fieldMessage:
+.. _link.fieldMessage:
 
 fieldMessage
-^^^^^^^^^^^^
+============
    
 .. container:: table-row
 
@@ -68,10 +58,10 @@ fieldMessage
         is given by fieldName.
     
   
-.. _Link.generateRTF:
+.. _link.generateRTF:
 
 generateRTF
-^^^^^^^^^^^
+===========
 
 .. container:: table-row
 
@@ -88,10 +78,10 @@ generateRTF
         0
 
 
-.. _Link.link:
+.. _link.link:
 
 link
-^^^^
+====
 
 .. container:: table-row
 
@@ -105,10 +95,10 @@ link
         The string will be used for the link instead of the field value.
    
 
-.. _Link.message:
+.. _link.message:
 
 message
-^^^^^^^
+=======
 
 .. container:: table-row
 
@@ -123,10 +113,10 @@ message
    
     
 
-.. _Link.saveFileRTF:
+.. _link.saveFileRTF:
 
 saveFileRTF
-^^^^^^^^^^^
+===========
 
 .. container:: table-row
 
@@ -142,10 +132,10 @@ saveFileRTF
         used.
   
 
-.. _Link.tableName.fieldName:
+.. _link.tableName.fieldName:
 
 tableName.fieldName
-^^^^^^^^^^^^^^^^^^^
+===================
 
 .. container:: table-row
 
@@ -167,10 +157,10 @@ tableName.fieldName
    
 
   
-.. _Link.templateRTF:
+.. _link.templateRTF:
 
 templateRTF
-^^^^^^^^^^^
+===========
 
 .. container:: table-row
 

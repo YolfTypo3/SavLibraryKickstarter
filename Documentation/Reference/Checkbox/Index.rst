@@ -1,36 +1,25 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _checkbox:
 
-
-
+=========================
 Checkbox: simple checkbox
--------------------------
+=========================
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Checkbox.checkboxSelectedImage`                   String                   Yes  Yes
-:ref:`Checkbox.checkboxNotSelectedImage`                String                   Yes  Yes
-:ref:`Checkbox.displayAsImage`                          Boolean     1            Yes  Yes
-:ref:`Checkbox.doNotDisplayIfNotChecked`                Boolean     0            Yes  Yes
+:ref:`checkbox.checkboxSelectedImage`                   String                   Yes  Yes
+:ref:`checkbox.checkboxNotSelectedImage`                String                   Yes  Yes
+:ref:`checkbox.displayAsImage`                          Boolean     1            Yes  Yes
+:ref:`checkbox.doNotDisplayIfNotChecked`                Boolean     0            Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
-.. _Checkbox.checkboxSelectedImage:
+.. _checkbox.checkboxSelectedImage:
          
 checkboxSelectedImage
-^^^^^^^^^^^^^^^^^^^^^
+=====================
 
 .. container:: table-row
 
@@ -46,10 +35,10 @@ checkboxSelectedImage
 
   
  
-.. _Checkbox.checkboxNotSelectedImage:
+.. _checkbox.checkboxNotSelectedImage:
 
 checkboxNotSelectedImage
-^^^^^^^^^^^^^^^^^^^^^^^^
+========================
 
 .. container:: table-row
 
@@ -64,10 +53,10 @@ checkboxNotSelectedImage
     directory. It replaces the default image for an unselected checkbox.
 
   
-.. _Checkbox.displayAsImage:
+.. _checkbox.displayAsImage:
 
 displayAsImage
-^^^^^^^^^^^^^^
+==============
 
 .. container:: table-row
 
@@ -84,10 +73,10 @@ displayAsImage
     1
 
 
-.. _Checkbox.doNotDisplayIfNotChecked:
+.. _checkbox.doNotDisplayIfNotChecked:
 
 doNotDisplayIfNotChecked
-^^^^^^^^^^^^^^^^^^^^^^^^
+========================
 
 .. container:: table-row
 

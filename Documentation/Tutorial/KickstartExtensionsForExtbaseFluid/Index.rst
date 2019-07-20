@@ -1,20 +1,10 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _kickstartingExtensionsForExtbaseFluid:
 
-
+=========================================
 Kickstarting extensions for extbase/fluid
------------------------------------------
+=========================================
 
 Fill the form and click on the "Save" button.   
   
@@ -61,7 +51,7 @@ The final step is to generate the extension by clicking on the "Generte" button.
 
 
 Installing the extension
-^^^^^^^^^^^^^^^^^^^^^^^^
+========================
 
 Install you extension either with the extension manager or with SAV Library Kickstarer
 

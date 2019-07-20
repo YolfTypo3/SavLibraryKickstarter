@@ -1,19 +1,8 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. include:: ../Includes.txt
 
 .. _tutorial:
 
+========
 Tutorial
 ========
 
@@ -21,7 +10,7 @@ The aim of this tutorial is to show how to use the SAV Library
 Kickstarter.
 
 Creating the extension
-----------------------
+======================
 
 If you have neither created any extension with the SAV Library
 Kickstarter nor having SAV Library extensions uploaded, you will
@@ -67,7 +56,7 @@ Three library types are available:
   when using the SAV Library Plus or SAV Library Mvc. The controller displays a very basic template.
 
 Table of Contents
------------------
+=================
  
 .. toctree::
    :maxdepth: 5

@@ -1,32 +1,22 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _string:
 
-
+======
 String
-------
+======
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`String.size`                                      Integer     30           Yes  Yes
-:ref:`String.keepZero`                                  Boolean     0            Yes  No
+:ref:`string.size`                                      Integer     30           Yes  Yes
+:ref:`string.keepZero`                                  Boolean     0            Yes  No
 ======================================================= =========== ============ ==== ====
 
-.. _String.size:
+.. _string.size:
 
 size
-^^^^
+====
    
 .. container:: table-row
 
@@ -43,10 +33,10 @@ size
     30
 
 
-.. _String.keepZero:
+.. _string.keepZero:
 
 keepZero
-^^^^^^^^
+========
 
 .. container:: table-row
 

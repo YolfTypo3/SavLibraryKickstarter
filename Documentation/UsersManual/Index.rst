@@ -1,24 +1,13 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _usersManual:
 
-
-
+============
 Users manual
 ============
 
 Installation
-------------
+============
 
 - Download the extension “sav\_library\_kickstarter” and install it.
 
@@ -32,7 +21,7 @@ Installation
      tutorial section of this manual first.
 
 Updating previously generated extensions
-----------------------------------------
+========================================
 
 The SAV Library Kickstarter comes with an upgrade feature which will
 upgrade your extensions to the most recent version. When the SAV
@@ -84,7 +73,8 @@ For each extension in this list, several information are displayed:
   extension and instal/uninstall the extension.
 
 Managing extension versions
----------------------------
+===========================
+
 Management of extension versions was introduced in version 0.5.0 of 
 the SAV Library Kickstarter. In the extension list, clicking on the extension 
 version leads to a selector box with the available extension versions as shown below.
@@ -104,12 +94,12 @@ Select the version you want to work with and it will be loaded.
    .. figure:: ../Images/UsersManualManagingExtensionVersionsNotTheLatest.png   
 
 Creating a new extension
-------------------------
+========================
 
 See the tutorial section for more details.
 
 Copying an extension
---------------------
+====================
 
 The kickstarter has a copy feature to duplicate extensions. Click on
 the copy icon as shown below.
@@ -125,9 +115,7 @@ Enter the new extension key and click on the “Save” button. That's it
 
 
 Caching
--------
-.. important::
-   This setting is taken into account only if the Library type is set to "Plus".
+=======
    
 The plugin behaviour may be changed for each form. By default, the
 plugin runs as USER\_INT for each form, that is no caching is

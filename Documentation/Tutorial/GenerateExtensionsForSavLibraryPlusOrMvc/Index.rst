@@ -1,35 +1,29 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _generatingExtensions:
 
-
+============================================================
 Generating extensions for SAV Library Plus or SAV Libray Mvc
-------------------------------------------------------------
+============================================================
 
 In the following, this tutorial details the first steps used to create from scratch the extension "sav\_library\_example0".
 
 .. warning::
+
    Do not forget to provide a **vendor name** which will be used in namespaces 
    (see https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/Namespaces/Index.html).
    
 .. important::
+
    Since the Library Type is set to "Plus" this test extension requires the SAV Library Plus extension to be downloaded from the TER and installed. 
 
 .. caution::
+
    If you want to test the extension with the SAV Library Mvc, set the Library type to "Mvc", download the SAV Livbrary Mvc 
    from the TER and install it. 
 
 .. tip::
+
    Test extensions implementing many features are available in the TER:
    
    - `sav_library_example0 <https://typo3.org/extensions/repository/view/sav_library_example0>`_ to be used with SAV Library Plus.
@@ -160,7 +154,7 @@ generation of the extension.
 .. figure:: ../../Images/TutorialKickstarterSQL.png
 
 Installing the extension
-^^^^^^^^^^^^^^^^^^^^^^^^
+========================
 
 Click on the “SAV Kickstarter” item in the “Admin tools” menu to
 display the extension list and click on the “Install” icon as shown
@@ -235,7 +229,7 @@ Click on a folder tab to change the view.
 .. figure:: ../../Images/TutorialSingleViewThirdFolder.png
 
 More information
-^^^^^^^^^^^^^^^^
+================
 
 Please read the reference section for the field configuration
 (remember that a context sensitive help is also available for each

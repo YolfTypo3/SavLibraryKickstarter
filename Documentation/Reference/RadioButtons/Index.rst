@@ -1,36 +1,26 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _radioButtons:
 
-
+=============
 Radio buttons
--------------
+=============
 
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`RadioButtons.cols`                                Integer     1            Yes  Yes
-:ref:`RadioButtons.default`                             Integer                  Yes  Yes
-:ref:`RadioButtons.displayAsImage`                      Boolean     1            Yes  Yes
-:ref:`RadioButtons.horizontalLayout`                    Boolean     0            Yes  Yes
+:ref:`radioButtons.cols`                                Integer     1            Yes  Yes
+:ref:`radioButtons.default`                             Integer                  Yes  Yes
+:ref:`radioButtons.displayAsImage`                      Boolean     1            Yes  Yes
+:ref:`radioButtons.horizontalLayout`                    Boolean     0            Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
-.. _RadioButtons.cols:
+.. _radioButtons.cols:
 
 cols
-^^^^
+====
 
 .. container:: table-row
 
@@ -47,10 +37,10 @@ cols
         1
 
 
-.. _RadioButtons.default:
+.. _radioButtons.default:
 
 default
-^^^^^^^
+=======
 
 .. container:: table-row
 
@@ -64,10 +54,10 @@ default
         Default value.
        
 
-.. _RadioButtons.displayAsImage:
+.. _radioButtons.displayAsImage:
 
 displayAsImage
-^^^^^^^^^^^^^^
+==============
 
 .. container:: table-row
 
@@ -84,10 +74,10 @@ displayAsImage
         1
 
 
-.. _RadioButtons.horizontalLayout:
+.. _radioButtons.horizontalLayout:
 
 horizontalLayout
-^^^^^^^^^^^^^^^^
+================
 
 .. container:: table-row
    

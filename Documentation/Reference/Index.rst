@@ -1,18 +1,8 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _reference:
 
-
+=========
 Reference
 =========
 
@@ -39,7 +29,7 @@ any field and to the function options.
 
 
 Table of Contents
------------------
+=================
 
 .. toctree::
    :maxdepth: 5
@@ -55,10 +45,12 @@ Table of Contents
    GeneralAttributes/Index
    Graph/Index
    Link/Index
+   Numeric/Index
    RadioButtons/Index
    Relation_1_n/Index
    Relation_n_n/Index
    RichTextEditor/Index
    Selectorbox/Index
+   ShowOnly/Index
    String/Index
    Textarea/Index

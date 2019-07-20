@@ -20,10 +20,11 @@
 			"role": "Developer"
 		}
 	],
-	"replace": {
-		"sav_library_kickstarter": "self.version",
-		"typo3-ter/sav-library-kickstarter": "self.version"
-	},
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "sav_library_kickstarter"
+        }
+    },    
 	"require": {
 		"typo3/cms-core": ">=8.7,<10.0"
 	},

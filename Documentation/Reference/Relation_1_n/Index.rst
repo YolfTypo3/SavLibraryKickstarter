@@ -1,45 +1,34 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _relation_1_n:
 
-
+===============================================================
 Relation 1:n (Selectorbox) or relation n:n (Double selectorbox)
----------------------------------------------------------------
-
+===============================================================
 
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Relation_1_n.aliasSelect`                         Field name               Yes  No
-:ref:`Relation_1_n.additionalTableSelect`               String                   Yes  No
-:ref:`Relation_1_n.applyFuncToRecords`                  Boolean     0            Yes  No
-:ref:`Relation_1_n.groupBySelect`                       String                   Yes  No
-:ref:`Relation_1_n.labelSelect`                         Field name               Yes  No
-:ref:`Relation_1_n.orderSelect`                         String                   Yes  No
-:ref:`Relation_1_n.overrideEnableFields`                Boolean     0            Yes  No
-:ref:`Relation_1_n.overrideStartingPoint`               Boolean     0            Yes  No
-:ref:`Relation_1_n.separator`                           String                   Yes  No
-:ref:`Relation_1_n.singleWindow`                        Boolean     0            Yes  No
-:ref:`Relation_1_n.specialFields`                       String                   Yes  No
-:ref:`Relation_1_n.whereSelect`                         String                   Yes  No
+:ref:`relation_1_n.aliasSelect`                         Field name               Yes  No
+:ref:`relation_1_n.additionalTableSelect`               String                   Yes  No
+:ref:`relation_1_n.applyFuncToRecords`                  Boolean     0            Yes  No
+:ref:`relation_1_n.groupBySelect`                       String                   Yes  No
+:ref:`relation_1_n.labelSelect`                         Field name               Yes  No
+:ref:`relation_1_n.orderSelect`                         String                   Yes  No
+:ref:`relation_1_n.overrideEnableFields`                Boolean     0            Yes  No
+:ref:`relation_1_n.overrideStartingPoint`               Boolean     0            Yes  No
+:ref:`relation_1_n.separator`                           String                   Yes  No
+:ref:`relation_1_n.singleWindow`                        Boolean     0            Yes  No
+:ref:`relation_1_n.specialFields`                       String                   Yes  No
+:ref:`relation_1_n.whereSelect`                         String                   Yes  No
 ======================================================= =========== ============ ==== ====
 
 
-.. _Relation_1_n.additionalTableSelect:
+.. _relation_1_n.additionalTableSelect:
 
 additionalTableSelect
-^^^^^^^^^^^^^^^^^^^^^
+=====================
 
 .. container:: table-row
 
@@ -56,10 +45,10 @@ additionalTableSelect
 
 
 
-.. _Relation_1_n.aliasSelect:
+.. _relation_1_n.aliasSelect:
 
 aliasSelect
-^^^^^^^^^^^
+===========
 
 .. container:: table-row
 
@@ -75,10 +64,10 @@ aliasSelect
 
 
 
-.. _Relation_1_n.applyFuncToRecords:
+.. _relation_1_n.applyFuncToRecords:
 
 applyFuncToRecords
-^^^^^^^^^^^^^^^^^^
+==================
 
 .. container:: table-row
 
@@ -96,10 +85,10 @@ applyFuncToRecords
         0
   
   
-.. _Relation_1_n.content:
+.. _relation_1_n.content:
 
 content
-^^^^^^^
+=======
 .. container:: table-row
 
     Property 
@@ -135,10 +124,10 @@ content
 
 
 
-.. _Relation_1_n.groupBySelect:
+.. _relation_1_n.groupBySelect:
 
 groupBySelect
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
 
@@ -153,10 +142,10 @@ groupBySelect
 
   
 
-.. _Relation_1_n.labelSelect:
+.. _relation_1_n.labelSelect:
 
 labelSelect
-^^^^^^^^^^^
+===========
 
 .. container:: table-row
 
@@ -171,10 +160,10 @@ labelSelect
 
 
 
-.. _Relation_1_n.orderSelect:
+.. _relation_1_n.orderSelect:
 
 orderSelect
-^^^^^^^^^^^
+===========
  
 .. container:: table-row
 
@@ -191,10 +180,10 @@ orderSelect
 
 
 
-.. _Relation_1_n.overrideEnableFields:
+.. _relation_1_n.overrideEnableFields:
 
 overrideEnableFields
-^^^^^^^^^^^^^^^^^^^^
+====================
 
 .. container:: table-row
 
@@ -216,10 +205,10 @@ overrideEnableFields
         0
 
 
-.. _Relation_1_n.overrideStartingPoint:
+.. _relation_1_n.overrideStartingPoint:
 
 overrideStartingPoint
-^^^^^^^^^^^^^^^^^^^^^
+=====================
 
 .. container:: table-row
 
@@ -237,10 +226,10 @@ overrideStartingPoint
     Default
         0
 
-.. _Relation_1_n.separator:
+.. _relation_1_n.separator:
 
 separator
-^^^^^^^^^
+=========
 
 .. container:: table-row
 
@@ -258,10 +247,10 @@ separator
 
 
   
-.. _Relation_1_n.singleWindow:
+.. _relation_1_n.singleWindow:
 
 singleWindow
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
 
@@ -280,10 +269,10 @@ singleWindow
         0
 
 
-.. _Relation_1_n.specialFields:
+.. _relation_1_n.specialFields:
 
 specialFields
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
 
@@ -299,10 +288,10 @@ specialFields
 
 
 
-.. _Relation_1_n.whereSelect:
+.. _relation_1_n.whereSelect:
 
 whereSelect
-^^^^^^^^^^^
+===========
 
 .. container:: table-row
 

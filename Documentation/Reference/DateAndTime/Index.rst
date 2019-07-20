@@ -1,35 +1,24 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _dateAndTime:
 
-
+=============
 Date and time
--------------
-
+=============
 
 ======================================================= =========== ============== ==== ====
 Property                                                Data type   Default        Plus Mvc
 ======================================================= =========== ============== ==== ====
-:ref:`DateAndTime.format`                               Date format %d/%m/%Y %H:%M Yes  Yes
-:ref:`DateAndTime.noDefault`                            Boolean     0              Yes  Yes
+:ref:`dateAndTime.format`                               Date format %d/%m/%Y %H:%M Yes  Yes
+:ref:`dateAndTime.noDefault`                            Boolean     0              Yes  Yes
 ======================================================= =========== ============== ==== ====
 
 
 
-.. _DateAndTime.format:
+.. _dateAndTime.format:
 
 format
-^^^^^^
+======
 
 .. container:: table-row
 
@@ -47,16 +36,16 @@ format
          
         ::
          
-        format = %A %B %Y at %H:%M;
+        	format = %A %B %Y at %H:%M;
      
     Default
         %d/%m/%Y %H:%M
 
 
-.. _DateAndTime.noDefault:
+.. _dateAndTime.noDefault:
 
 noDefault
-^^^^^^^^^
+=========
 
 .. container:: table-row
 

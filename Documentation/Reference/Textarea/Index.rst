@@ -1,33 +1,23 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _textarea:
 
-
+========
 Textarea
---------
+========
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Textarea.cols`                                    Integer     30           Yes  Yes
-:ref:`Textarea.rows`                                    Integer     5            Yes  Yes
+:ref:`textarea.cols`                                    Integer     30           Yes  Yes
+:ref:`textarea.rows`                                    Integer     5            Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
-.. _Textarea.cols:
+.. _textarea.cols:
 
 cols
-^^^^
+====
 
 .. container:: table-row
 
@@ -45,10 +35,10 @@ cols
     30
 
 
-.. _Textarea.rows:
+.. _textarea.rows:
 
 rows
-^^^^
+====
 
 .. container:: table-row
 

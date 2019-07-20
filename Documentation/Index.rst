@@ -1,59 +1,47 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _start:
 
 =======================
 SAV Library Kickstarter
 =======================
 
-.. only:: html
-
-  :Classification:
+:Extension key:
     sav_library_kickstarter
 
-  :Version:
+:Version:
     |release|
 
-  :Language:
+:Language:
     en
 
-  :Description:
+:Description:
     Kickstarter, based on fluid and extbase, which automatically generates
     extensions for the SAV Library Plus and SAV Library. Multiple views of
     the data including forms with Front End editing facilities
     can be generated.
 
-  :Keywords:
+:Keywords:
     SAV Library Kickstarter, Extension generator
 
-  :Copyright:
-    2006-2015
+:Copyright:
+    2010
 
-  :Author:
+:Author:
     Laurent Foulloy
 
-  :Email:
+:Email:
     yolf.typo3@orange.fr
 
-  :License:
+:License:
     This document is published under the Open Content License
     available from http://www.opencontent.org/opl.shtml
 
-  :Rendered:
+:Rendered:
     |today|
 
-  The content of this document is related to TYPO3,
-  a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+The content of this document is related to TYPO3,
+a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
 
 
 Table of Contents

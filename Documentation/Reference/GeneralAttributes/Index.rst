@@ -1,83 +1,73 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _generalAttributes:
 
-
+==================
 General attributes
-------------------
+==================
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`General.addEdit`                                  Boolean     0            Yes  No
-:ref:`General.addEditIfAdmin`                           Boolean     0            Yes  No
-:ref:`General.addEditIfNull`                            Boolean     0            Yes  No
-:ref:`General.addLeftIfNotNull`                         String                   Yes  No
-:ref:`General.addLeftIfNull`                            String                   Yes  No
-:ref:`General.addNewIcon`                               Boolean     0            Yes  No
-:ref:`General.addRighIfNotNull`                         String                   Yes  No
-:ref:`General.addRighIfNull`                            String                   Yes  No
-:ref:`General.alias`                                    Field name               Yes  No
-:ref:`General.classLabel`                               String                   Yes  Yes
-:ref:`General.classValue`                               String                   Yes  Yes
-:ref:`General.cutIf`                                    String                   Yes  Yes
-:ref:`General.cutIfNull`                                Boolean     0            Yes  Yes
-:ref:`General.cutLabel`                                 Boolean     0            Yes  Yes
-:ref:`General.edit`                                     Boolean     1            Yes  Yes
-:ref:`General.editAdminPlus`                            Boolean     0            Yes  No
-:ref:`General.func`                                     String                   Yes  No
-:ref:`General.funcAddLeftIfNotNull`                     String                   Yes  No
-:ref:`General.funcAddLeftIfNull`                        String                   Yes  No
-:ref:`General.funcAddRightIfNotNull`                    String                   Yes  No
-:ref:`General.funcAddRightIfNull`                       String                   Yes  No
-:ref:`General.fusion`                                   {begin,                  Yes  Yes
+:ref:`general.addEdit`                                  Boolean     0            Yes  No
+:ref:`general.addEditIfAdmin`                           Boolean     0            Yes  No
+:ref:`general.addEditIfNull`                            Boolean     0            Yes  No
+:ref:`general.addLeftIfNotNull`                         String                   Yes  No
+:ref:`general.addLeftIfNull`                            String                   Yes  No
+:ref:`general.addNewIcon`                               Boolean     0            Yes  No
+:ref:`general.addRighIfNotNull`                         String                   Yes  No
+:ref:`general.addRighIfNull`                            String                   Yes  No
+:ref:`general.alias`                                    Field name               Yes  No
+:ref:`general.classLabel`                               String                   Yes  Yes
+:ref:`general.classValue`                               String                   Yes  Yes
+:ref:`general.cutIf`                                    String                   Yes  Yes
+:ref:`general.cutIfNull`                                Boolean     0            Yes  Yes
+:ref:`general.cutLabel`                                 Boolean     0            Yes  Yes
+:ref:`general.edit`                                     Boolean     1            Yes  Yes
+:ref:`general.editAdminPlus`                            Boolean     0            Yes  No
+:ref:`general.func`                                     String                   Yes  No
+:ref:`general.funcAddLeftIfNotNull`                     String                   Yes  No
+:ref:`general.funcAddLeftIfNull`                        String                   Yes  No
+:ref:`general.funcAddRightIfNotNull`                    String                   Yes  No
+:ref:`general.funcAddRightIfNull`                       String                   Yes  No
+:ref:`general.fusion`                                   {begin,                  Yes  Yes
                                                         end}
-:ref:`General.label`                                    String                   Yes  Yes
-:ref:`General.mail`                                     Boolean     0            Yes  No
-:ref:`General.mailAlways`                               Boolean     0            Yes  No
-:ref:`General.mailAuto`                                 Boolean     0            Yes  No
-:ref:`General.onLabel`                                  Boolean     0            Yes  No
-:ref:`General.orderLinkInTitle`                         Boolean     0            Yes  Yes
-:ref:`General.orderLinkInTitleSetup`                    String      \:link\:     Yes  Yes
-:ref:`General.query`                                    SQL                      Yes  No
+:ref:`general.label`                                    String                   Yes  Yes
+:ref:`general.mail`                                     Boolean     0            Yes  No
+:ref:`general.mailAlways`                               Boolean     0            Yes  No
+:ref:`general.mailAuto`                                 Boolean     0            Yes  No
+:ref:`general.onLabel`                                  Boolean     0            Yes  No
+:ref:`general.orderLinkInTitle`                         Boolean     0            Yes  Yes
+:ref:`general.orderLinkInTitleSetup`                    String      \:link\:     Yes  Yes
+:ref:`general.query`                                    SQL                      Yes  No
                                                         statements
-:ref:`General.queryOnValue`                             String                   Yes  No
-:ref:`General.queryForEach`                             Field name               Yes  No
-:ref:`General.renderReqValue`                           Boolean     0            Yes  No
-:ref:`General.reqValue`                                 SQL SELECT               Yes  No
+:ref:`general.queryOnValue`                             String                   Yes  No
+:ref:`general.queryForEach`                             Field name               Yes  No
+:ref:`general.renderReqValue`                           Boolean     0            Yes  No
+:ref:`general.reqValue`                                 SQL SELECT               Yes  No
                                                         statement
-:ref:`General.showIf`                                   String                   Yes  Yes
-:ref:`General.setExtendLink`                            Table name               Yes  No
-:ref:`General.stdWrapItem`                              stdWrap                  Yes  No
-:ref:`General.stdWrapValue`                             stdWrap                  Yes  Yes
-:ref:`General.styleLabel`                               String                   Yes  Yes
-:ref:`General.styleValue`                               String                   Yes  Yes
-:ref:`General.tsObject`                                 cObject                  Yes  No
-:ref:`General.tsProperties`                             String                   Yes  Yes
-:ref:`General.value`                                    String                   Yes  Yes
-:ref:`General.verifier`                                 String                   Yes  No
-:ref:`General.verifierMessage`                          String                   Yes  No
-:ref:`General.verifierParam`                            String                   Yes  No
-:ref:`General.verifierSetWarning`                       Boolean     0            Yes  No
-:ref:`General.wrapItem`                                 Wrap                     Yes  Yes
+:ref:`general.showIf`                                   String                   Yes  Yes
+:ref:`general.setExtendLink`                            Table name               Yes  No
+:ref:`general.stdWrapItem`                              stdWrap                  Yes  No
+:ref:`general.stdWrapValue`                             stdWrap                  Yes  Yes
+:ref:`general.styleLabel`                               String                   Yes  Yes
+:ref:`general.styleValue`                               String                   Yes  Yes
+:ref:`general.tsObject`                                 cObject                  Yes  No
+:ref:`general.tsProperties`                             String                   Yes  Yes
+:ref:`general.value`                                    String                   Yes  Yes
+:ref:`general.verifier`                                 String                   Yes  No
+:ref:`general.verifierMessage`                          String                   Yes  No
+:ref:`general.verifierParam`                            String                   Yes  No
+:ref:`general.verifierSetWarning`                       Boolean     0            Yes  No
+:ref:`general.wrapItem`                                 Wrap                     Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
 
-.. _General.addEdit:
+.. _general.addEdit:
   
 addEdit
-^^^^^^^
+=======
 
 .. container:: table-row
 
@@ -99,10 +89,10 @@ addEdit
         0
 
 
-.. _General.addEditIfAdmin:
+.. _general.addEditIfAdmin:
 
 addEditIfAdmin
-^^^^^^^^^^^^^^
+==============
 
 .. container:: table-row
 
@@ -120,10 +110,10 @@ addEditIfAdmin
         0
      
   
-.. _General.addEditIfNull:
+.. _general.addEditIfNull:
 
 addEditIfNull
-^^^^^^^^^^^^^
+=============
    
 .. container:: table-row
 
@@ -141,10 +131,10 @@ addEditIfNull
         0
 
 
-.. _General.addLeftIfNotNull:
+.. _general.addLeftIfNotNull:
 
 addLeftIfNotNull
-^^^^^^^^^^^^^^^^
+================
 
 .. container:: table-row
 
@@ -161,10 +151,10 @@ addLeftIfNotNull
         0 
 
 
-.. _General.addLeftIfNull:
+.. _general.addLeftIfNull:
 
 addLeftIfNull
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
 
@@ -178,10 +168,10 @@ addLeftIfNull
         String will be added to the left if the field value is null.
 
 
-.. _General.addNewIcon:
+.. _general.addNewIcon:
 
 addNewIcon
-^^^^^^^^^^
+==========
 
 .. container:: table-row
 
@@ -196,10 +186,10 @@ addNewIcon
         of days given by the int number.
 
 
-.. _General.addRighIfNotNull:
+.. _general.addRighIfNotNull:
 
 addRighIfNotNull
-^^^^^^^^^^^^^^^^
+================
 
 .. container:: table-row
 
@@ -215,10 +205,10 @@ addRighIfNotNull
 
    
 
-.. _General.addRighIfNull:
+.. _general.addRighIfNull:
 
 addRighIfNull
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
 
@@ -233,10 +223,10 @@ addRighIfNull
    
 
 
-.. _General.alias:
+.. _general.alias:
 
 alias
-^^^^^
+=====
 
 .. container:: table-row
 
@@ -252,10 +242,10 @@ alias
     
 
 
-.. _General.classLabel:
+.. _general.classLabel:
 
 classLabel
-^^^^^^^^^^
+==========
 
 .. container:: table-row
 
@@ -271,10 +261,10 @@ classLabel
 
 
 
-.. _General.classValue:
+.. _general.classValue:
 
 classValue
-^^^^^^^^^^
+==========
 
 .. container:: table-row
 
@@ -291,10 +281,10 @@ classValue
 
 
 
-.. _General.cutIf:
+.. _general.cutIf:
 
 cutIf (showIf, requiredIf, queryIf, reqValueIf)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+===============================================
 
 .. container:: table-row
 
@@ -332,10 +322,10 @@ cutIf (showIf, requiredIf, queryIf, reqValueIf)
         Logical connectors &, \|, and, or can be used between expression.
   
   
-.. _General.cutIfNull:
+.. _general.cutIfNull:
 
 cutIfNull
-^^^^^^^^^
+=========
 
 .. container:: table-row
 
@@ -352,10 +342,10 @@ cutIfNull
         0
 
 
-.. _General.cutLabel:
+.. _general.cutLabel:
 
 cutLabel
-^^^^^^^^
+========
 
 .. container:: table-row
 
@@ -372,10 +362,10 @@ cutLabel
         0
 
 
-.. _General.edit:
+.. _general.edit:
 
 edit
-^^^^
+====
 
 .. container:: table-row
 
@@ -392,10 +382,10 @@ edit
         1 in Edit views 
 
 
-.. _General.editAdminPlus:
+.. _general.editAdminPlus:
 
 editAdminPlus
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
 
@@ -425,10 +415,10 @@ editAdminPlus
             0
 
 
-.. _General.func:
+.. _general.func:
 
 func
-^^^^
+====
 
 .. container:: table-row
 
@@ -443,10 +433,10 @@ func
    
 
 
-.. _General.funcAddLeftIfNotNull:
+.. _general.funcAddLeftIfNotNull:
 
 funcAddLeftIfNotNull
-^^^^^^^^^^^^^^^^^^^^
+====================
 
 .. container:: table-row
 
@@ -461,10 +451,10 @@ funcAddLeftIfNotNull
         function, defined by "func=function\_name;" property, is not null.
 
 
-.. _General.funcAddLeftIfNull:
+.. _general.funcAddLeftIfNull:
 
 funcAddLeftIfNull
-^^^^^^^^^^^^^^^^^
+=================
 
 .. container:: table-row
 
@@ -480,10 +470,10 @@ funcAddLeftIfNull
 
 
 
-.. _General.funcAddRightIfNotNull:
+.. _general.funcAddRightIfNotNull:
 
 funcAddRightIfNotNull
-^^^^^^^^^^^^^^^^^^^^^
+=====================
 
 .. container:: table-row
 
@@ -499,10 +489,10 @@ funcAddRightIfNotNull
    
 
 
-.. _General.funcAddRightIfNull:
+.. _general.funcAddRightIfNull:
 
 funcAddRightIfNull
-^^^^^^^^^^^^^^^^^^
+==================
    
 .. container:: table-row
 
@@ -518,10 +508,10 @@ funcAddRightIfNull
    
 
 
-.. _General.fusion:
+.. _general.fusion:
 
 fusion
-^^^^^^
+======
 
 .. container:: table-row
 
@@ -544,10 +534,10 @@ fusion
    
 
 
-.. _General.label:
+.. _general.label:
 
 label
-^^^^^
+=====
 
 .. container:: table-row
 
@@ -562,10 +552,10 @@ label
 
 
 
-.. _General.mail:
+.. _general.mail:
 
 mail
-^^^^
+====
 
 .. container:: table-row
 
@@ -638,10 +628,10 @@ mail
         0
 
 
-.. _General.mailAlways:
+.. _general.mailAlways:
 
 mailAlways
-^^^^^^^^^^
+==========
 
 .. container:: table-row
 
@@ -705,10 +695,10 @@ mailAlways
         0
 
 
-.. _General.mailAuto:
+.. _general.mailAuto:
 
 mailAuto
-^^^^^^^^
+========
 
 .. container:: table-row
        
@@ -772,10 +762,10 @@ mailAuto
         0
 
 
-.. _General.onLabel:
+.. _general.onLabel:
 
 onLabel
-^^^^^^^
+=======
 
 .. container:: table-row
        
@@ -793,10 +783,10 @@ onLabel
         0
 
 
-.. _General.orderLinkInTitle:
+.. _general.orderLinkInTitle:
 
 orderLinkInTitle
-^^^^^^^^^^^^^^^^
+================
 
 .. container:: table-row
        
@@ -841,10 +831,10 @@ orderLinkInTitle
         0
 
 
-.. _General.orderLinkInTitleSetup:
+.. _general.orderLinkInTitleSetup:
 
 orderLinkInTitleSetup
-^^^^^^^^^^^^^^^^^^^^^
+=====================
 
 .. container:: table-row
        
@@ -876,10 +866,10 @@ orderLinkInTitleSetup
         \:link\:
 
 
-.. _General.query:
+.. _general.query:
 
 query
-^^^^^
+=====
 
 .. container:: table-row
        
@@ -918,10 +908,10 @@ query
 
 
 
-.. _General.queryOnValue:
+.. _general.queryOnValue:
 
 queryOnValue
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
        
@@ -937,10 +927,10 @@ queryOnValue
    
 
 
-.. _General.queryForEach:
+.. _general.queryForEach:
 
 queryForEach
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
        
@@ -963,10 +953,10 @@ queryForEach
 
 
 
-.. _General.renderReqValue:
+.. _general.renderReqValue:
 
 renderReqValue
-^^^^^^^^^^^^^^
+==============
 
 .. container:: table-row
        
@@ -983,10 +973,10 @@ renderReqValue
         0
 
 
-.. _General.reqValue:
+.. _general.reqValue:
 
 reqValue
-^^^^^^^^
+========
 
 .. container:: table-row
        
@@ -1026,10 +1016,10 @@ reqValue
 
   
 
-.. _General.setExtendLink:
+.. _general.setExtendLink:
 
 setExtendLink
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
        
@@ -1046,10 +1036,10 @@ setExtendLink
 
 
 
-.. _General.showIf:
+.. _general.showIf:
 
 showIf
-^^^^^^
+======
 
 .. container:: table-row
        
@@ -1060,16 +1050,16 @@ showIf
         String       
 
     Description
-        See :ref:`General.cutIf`.         
+        See :ref:`general.cutIf`.         
 
    
 
 
 
-.. _General.stdWrapItem: 
+.. _general.stdWrapItem: 
 
 stdWrapItem
-^^^^^^^^^^^
+===========
 
 .. container:: table-row
 
@@ -1091,10 +1081,10 @@ stdWrapItem
 
 
 
-.. _General.stdWrapValue:
+.. _general.stdWrapValue:
 
 stdWrapValue
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
 
@@ -1114,10 +1104,10 @@ stdWrapValue
    
   
   
-.. _General.styleLabel:
+.. _general.styleLabel:
 
 styleLabel
-^^^^^^^^^^
+==========
 
 .. container:: table-row
 
@@ -1134,10 +1124,10 @@ styleLabel
 
 
 
-.. _General.styleValue:
+.. _general.styleValue:
 
 styleValue
-^^^^^^^^^^
+==========
 
 .. container:: table-row
 
@@ -1154,10 +1144,10 @@ styleValue
 
 
 
-.. _General.tsObject:
+.. _general.tsObject:
 
 tsObject
-^^^^^^^^
+========
 
 .. container:: table-row
        
@@ -1173,10 +1163,10 @@ tsObject
    
 
 
-.. _General.tsProperties:
+.. _general.tsProperties:
 
 tsProperties
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
 
@@ -1196,10 +1186,10 @@ tsProperties
 
 
 
-.. _General.value:
+.. _general.value:
 
 value
-^^^^^
+=====
 
 .. container:: table-row
 
@@ -1215,10 +1205,10 @@ value
    
 
 
-.. _General.verifier:
+.. _general.verifier:
 
 verifier
-^^^^^^^^
+========
 
 .. container:: table-row
 
@@ -1245,10 +1235,10 @@ verifier
    
 
 
-.. _General.verifierMessage:
+.. _general.verifierMessage:
 
 verifierMessage
-^^^^^^^^^^^^^^^
+===============
 
 .. container:: table-row
 
@@ -1269,10 +1259,10 @@ verifierMessage
         title according to the localization.
    
 
-.. _General.verifierParam:
+.. _general.verifierParam:
 
 verifierParam
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
 
@@ -1286,7 +1276,7 @@ verifierParam
         The string can be:
          
         - a regular expression for the verifier "isValidPattern". For example
-          /^[A-Za-z0-9\_]\*$/ will allow any input which contains letters,
+          /=[A-Za-z0-9\_]\*$/ will allow any input which contains letters,
           numbers or underline characters.
          
         - an integer value for the verifier "isValidLength".
@@ -1300,10 +1290,10 @@ verifierParam
 
 
 
-.. _General.verifierSetWarning:
+.. _general.verifierSetWarning:
 
 verifierSetWarning
-^^^^^^^^^^^^^^^^^^
+==================
 
 .. container:: table-row
 
@@ -1322,10 +1312,10 @@ verifierSetWarning
         0
 
 
-.. _General.wrapItem:
+.. _general.wrapItem:
 
 wrapItem
-^^^^^^^^
+========
 
 .. container:: table-row
 

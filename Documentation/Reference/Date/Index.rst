@@ -1,34 +1,24 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _date:
 
-
+====
 Date
-----
+====
 
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Date.format`                                      Date format %d/%m/%Y     Yes  Yes
-:ref:`Date.noDefault`                                   Boolean     0            Yes  Yes
+:ref:`date.format`                                      Date format %d/%m/%Y     Yes  Yes
+:ref:`date.noDefault`                                   Boolean     0            Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
-.. _Date.format:
+.. _date.format:
 
 format
-^^^^^^
+======
 
 .. container:: table-row
 
@@ -52,10 +42,10 @@ format
         %d/%m/%Y
 
 
-.. _Date.noDefault:
+.. _date.noDefault:
 
 noDefault
-^^^^^^^^^
+=========
 
 .. container:: table-row
 

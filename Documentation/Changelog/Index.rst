@@ -1,18 +1,8 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _changelog:
 
-
+=========
 Changelog
 =========
 
@@ -21,8 +11,13 @@ Changelog
 =======  ===========================================================================
 Version  Changes
 =======  ===========================================================================
-9.5.0    - Compatibility with 6.2 removed.
+9.5.0    - Compatibility with 7.6 removed.
          - Compatibility changed to TYPO3 9.5.x.
+         - Code generation improved.   
+         - Basic documentation generation for Docker added.    
+         
+1.2.0    - Compatibility with 6.2 removed.
+         - Compatibility changed to TYPO3 9.0.         
 
 1.1.0    - Code generation improved.
          - Compatibility changed to TYPO3 8.9.

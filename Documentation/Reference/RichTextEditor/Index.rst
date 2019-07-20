@@ -1,38 +1,28 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _richTextEditor:
 
-
+================
 Rich Text Editor
-----------------
+================
 
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`RichTextEditor.height`                            Integer     Default RTE  Yes  Yes
+:ref:`richTextEditor.height`                            Integer     Default RTE  Yes  Yes
                                                                     value        
-:ref:`RichTextEditor.rteStyleSheet`                     String                   Yes  No                                                                         
-:ref:`RichTextEditor.width`                             Integer     Default RTE  Yes  Yes
+:ref:`richTextEditor.rteStyleSheet`                     String                   Yes  No                                                                         
+:ref:`richTextEditor.width`                             Integer     Default RTE  Yes  Yes
                                                                     value             
 ======================================================= =========== ============ ==== ====
 
 
 
-.. _RichTextEditor.height:
+.. _richTextEditor.height:
 
 height
-^^^^^^
+======
 
 .. container:: table-row
 
@@ -50,10 +40,10 @@ height
         Default RTE value
 
 
-.. _RichTextEditor.rteStyleSheet:
+.. _richTextEditor.rteStyleSheet:
 
 rteStyleSheet
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
 
@@ -67,10 +57,10 @@ rteStyleSheet
         Adds a style sheet to the rich text editor
 
 
-.. _RichTextEditor.width:
+.. _richTextEditor.width:
 
 width
-^^^^^
+=====
 
 .. container:: table-row
 

@@ -1,38 +1,27 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _checkboxes:
 
-
-
+==============================
 Checkboxes: several checkboxes
-------------------------------
+==============================
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Checkboxes.checkboxSelectedImage`                 String                   Yes  Yes
-:ref:`Checkboxes.checkboxNotSelectedImage`              String                   Yes  Yes
-:ref:`Checkboxes.cols`                                  Integer     1            Yes  Yes
-:ref:`Checkboxes.displayAsImage`                        Boolean     1            Yes  Yes
-:ref:`Checkboxes.doNotDisplayIfNotChecked`              Boolean     0            Yes  Yes
-:ref:`Checkboxes.nbItems`                               Integer     1            Yes  Yes
+:ref:`checkboxes.checkboxSelectedImage`                 String                   Yes  Yes
+:ref:`checkboxes.checkboxNotSelectedImage`              String                   Yes  Yes
+:ref:`checkboxes.cols`                                  Integer     1            Yes  Yes
+:ref:`checkboxes.displayAsImage`                        Boolean     1            Yes  Yes
+:ref:`checkboxes.doNotDisplayIfNotChecked`              Boolean     0            Yes  Yes
+:ref:`checkboxes.nbItems`                               Integer     1            Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
-.. _Checkboxes.checkboxSelectedImage:
+.. _checkboxes.checkboxSelectedImage:
 
 checkboxSelectedImage
-^^^^^^^^^^^^^^^^^^^^^
+=====================
 
 .. container:: table-row
 
@@ -48,10 +37,10 @@ checkboxSelectedImage
     replaces the default image for a selected checkbox.
 
 
-.. _Checkboxes.checkboxNotSelectedImage:
+.. _checkboxes.checkboxNotSelectedImage:
 
 checkboxNotSelectedImage
-^^^^^^^^^^^^^^^^^^^^^^^^
+========================
 
 .. container:: table-row
 
@@ -67,10 +56,10 @@ checkboxNotSelectedImage
     replaces the default image for an unselected checkbox.
 
 
-.. _Checkboxes.cols:
+.. _checkboxes.cols:
 
 cols
-^^^^
+====
 
 .. container:: table-row
 
@@ -87,10 +76,10 @@ cols
     1
 
 
-.. _Checkboxes.displayAsImage:
+.. _checkboxes.displayAsImage:
 
 displayAsImage
-^^^^^^^^^^^^^^
+==============
 
 .. container:: table-row
 
@@ -107,10 +96,10 @@ displayAsImage
     1 
 
 
-.. _Checkboxes.doNotDisplayIfNotChecked:
+.. _checkboxes.doNotDisplayIfNotChecked:
 
 doNotDisplayIfNotChecked
-^^^^^^^^^^^^^^^^^^^^^^^^
+========================
 
 .. container:: table-row
 
@@ -128,10 +117,10 @@ doNotDisplayIfNotChecked
     0
 
 
-.. _Checkboxes.nbItems:
+.. _checkboxes.nbItems:
 
 nbItems
-^^^^^^^
+=======
 
 .. container:: table-row
 

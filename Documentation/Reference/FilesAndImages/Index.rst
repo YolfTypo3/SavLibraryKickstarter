@@ -1,48 +1,38 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. _filesAndImages:
 
-
+================
 Files and images
-----------------
+================
 
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus MVC
 ======================================================= =========== ============ ==== ====
-:ref:`FilesAndImages.addIcon`                           Boolean     0            Yes  Yes
-:ref:`FilesAndImages.addLinkInEditMode`                 Boolean     0            Yes  No
-:ref:`FilesAndImages.addToUploadFolder`                 String      None         Yes  No
-:ref:`FilesAndImages.addToUploadFolderFromField`        Field name  None         Yes  No
-:ref:`FilesAndImages.alt`                               String      None         Yes  Yes
-:ref:`FilesAndImages.default`                           String      None         Yes  Yes
-:ref:`FilesAndImages.fieldAlt`                          Field name  None         Yes  Yes
-:ref:`FilesAndImages.fieldMessage`                      Field name  None         Yes  Yes
-:ref:`FilesAndImages.height`                            Integer     None         Yes  Yes
-:ref:`FilesAndImages.iframe`                            Boolean     0            Yes  No
-:ref:`FilesAndImages.message`                           String      None         Yes  Yes
-:ref:`FilesAndImages.onlyFileName`                      String      None         Yes  No
-:ref:`FilesAndImages.size`                              Integer     None         Yes  No
-:ref:`FilesAndImages.tsProperties`                      String      None         Yes  No
-:ref:`FilesAndImages.uploadFolder`                      String      None         Yes  No
-:ref:`FilesAndImages.width`                             Integer     None         Yes  Yes
+:ref:`filesAndImages.addIcon`                           Boolean     0            Yes  Yes
+:ref:`filesAndImages.addLinkInEditMode`                 Boolean     0            Yes  No
+:ref:`filesAndImages.addToUploadFolder`                 String      None         Yes  No
+:ref:`filesAndImages.addToUploadFolderFromField`        Field name  None         Yes  No
+:ref:`filesAndImages.alt`                               String      None         Yes  Yes
+:ref:`filesAndImages.default`                           String      None         Yes  Yes
+:ref:`filesAndImages.fieldAlt`                          Field name  None         Yes  Yes
+:ref:`filesAndImages.fieldMessage`                      Field name  None         Yes  Yes
+:ref:`filesAndImages.height`                            Integer     None         Yes  Yes
+:ref:`filesAndImages.iframe`                            Boolean     0            Yes  No
+:ref:`filesAndImages.message`                           String      None         Yes  Yes
+:ref:`filesAndImages.onlyFileName`                      String      None         Yes  No
+:ref:`filesAndImages.size`                              Integer     None         Yes  No
+:ref:`filesAndImages.tsProperties`                      String      None         Yes  No
+:ref:`filesAndImages.uploadFolder`                      String      None         Yes  No
+:ref:`filesAndImages.width`                             Integer     None         Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
-.. _FilesAndImages.addIcon:
+.. _filesAndImages.addIcon:
 
 addIcon
-^^^^^^^
+=======
 
 .. container:: table-row
 
@@ -59,10 +49,10 @@ addIcon
         0
 
 
-.. _FilesAndImages.addLinkInEditMode:
+.. _filesAndImages.addLinkInEditMode:
 
 addLinkInEditMode
-^^^^^^^^^^^^^^^^^
+=================
 
 .. container:: table-row
 
@@ -79,10 +69,10 @@ addLinkInEditMode
         0
 
 
-.. _FilesAndImages.addToUploadFolder:
+.. _filesAndImages.addToUploadFolder:
 
 addToUploadFolder
-^^^^^^^^^^^^^^^^^
+=================
 
 .. container:: table-row
 
@@ -98,10 +88,10 @@ addToUploadFolder
 
 
 
-.. _FilesAndImages.addToUploadFolderFromField:
+.. _filesAndImages.addToUploadFolderFromField:
 
 addToUploadFolderFromField
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+==========================
 
 .. container:: table-row
 
@@ -128,10 +118,10 @@ addToUploadFolderFromField
 
 
 
-.. _FilesAndImages.alt:
+.. _filesAndImages.alt:
 
 alt
-^^^
+===
 
 .. container:: table-row
 
@@ -146,10 +136,10 @@ alt
 
 
 
-.. _FilesAndImages.default:
+.. _filesAndImages.default:
 
 default
-^^^^^^^
+=======
 
 .. container:: table-row
 
@@ -166,10 +156,10 @@ default
 
 
 
-.. _FilesAndImages.fieldAlt:
+.. _filesAndImages.fieldAlt:
 
 fieldAlt
-^^^^^^^^
+========
 
 .. container:: table-row
 
@@ -185,10 +175,10 @@ fieldAlt
 
 
 
-.. _FilesAndImages.fieldMessage:
+.. _filesAndImages.fieldMessage:
 
 fieldMessage
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
 
@@ -203,10 +193,10 @@ fieldMessage
         is given by field\_name.
 
 
-.. _FilesAndImages.height:
+.. _filesAndImages.height:
 
 height
-^^^^^^
+======
 
 .. container:: table-row
 
@@ -223,10 +213,10 @@ height
 
 
 
-.. _FilesAndImages.iframe:
+.. _filesAndImages.iframe:
 
 iframe
-^^^^^^
+======
 
 .. container:: table-row
 
@@ -243,10 +233,10 @@ iframe
         0
 
 
-.. _FilesAndImages.message:
+.. _filesAndImages.message:
 
 message
-^^^^^^^
+=======
 
 .. container:: table-row
 
@@ -261,10 +251,10 @@ message
 
 
 
-.. _FilesAndImages.onlyFileName:
+.. _filesAndImages.onlyFileName:
 
 onlyFileName
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
 
@@ -279,10 +269,10 @@ onlyFileName
 
 
 
-.. _FilesAndImages.size:
+.. _filesAndImages.size:
 
 size
-^^^^
+====
 
 .. container:: table-row
 
@@ -298,10 +288,10 @@ size
 
 
 
-.. _FilesAndImages.tsProperties:
+.. _filesAndImages.tsProperties:
 
 tsProperties
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
 
@@ -322,10 +312,10 @@ tsProperties
 
 
 
-.. _FilesAndImages.uploadFolder:
+.. _filesAndImages.uploadFolder:
 
 uploadFolder
-^^^^^^^^^^^^
+============
 
 .. container:: table-row
 
@@ -340,10 +330,10 @@ uploadFolder
         attribute in the TCA.
 
 
-.. _FilesAndImages.width:
+.. _filesAndImages.width:
 
 width
-^^^^^
+=====
 
 .. container:: table-row
 

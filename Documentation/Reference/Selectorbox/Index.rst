@@ -1,34 +1,23 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _selectorbox:
 
-
+===========
 Selectorbox
------------
-
+===========
 
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`Selectorbox.func`                                 Integer                  Yes  No
-:ref:`Selectorbox.separator`                            String                   Yes  No
+:ref:`selectorbox.func`                                 Integer                  Yes  No
+:ref:`selectorbox.separator`                            String                   Yes  No
 ======================================================= =========== ============ ==== ====
 
 
-.. _Selectorbox.func:
+.. _selectorbox.func:
 
 func
-^^^^
+====
 
 .. container:: table-row
 
@@ -55,10 +44,10 @@ func
         See :ref:`functions` for the associated parameters .
  
 
-.. _Selectorbox.separator:
+.. _selectorbox.separator:
 
 separator
-^^^^^^^^^
+=========
 
 .. container:: table-row
 

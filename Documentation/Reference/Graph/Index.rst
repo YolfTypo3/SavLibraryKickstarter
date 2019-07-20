@@ -1,34 +1,24 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+.. include:: ../../Includes.txt
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-  :class:  typoscript
-.. role::   php(code)
+.. _graph:
 
-
+=====
 Graph
------
+=====
 
 
 ======================================================= =========== ============== ==== ====
 Property                                                Data type   Default        Plus Mvc
 ======================================================= =========== ============== ==== ====
-:ref:`Graph.graphTemplate`                              String                     Yes  Yes
-:ref:`Graph.tags`                                       String                     Yes  Yes
+:ref:`graph.graphTemplate`                              String                     Yes  Yes
+:ref:`graph.tags`                                       String                     Yes  Yes
 ======================================================= =========== ============== ==== ====
 
 
-.. _Graph.graphTemplate:
+.. _graph.graphTemplate:
 
 graphTemplate
-^^^^^^^^^^^^^
+=============
 
 .. container:: table-row
 
@@ -42,10 +32,10 @@ graphTemplate
         File name of the XML template from the site root.
 
 
-.. _Graph.tags:
+.. _graph.tags:
 
 tags
-^^^^
+====
 
 .. container:: table-row
 
