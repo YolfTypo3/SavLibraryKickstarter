@@ -1,0 +1,54 @@
+.. include:: Includes.txt
+
+.. _start:
+
+<f:format.padding padLength="{extension.general.1.extensionKey->sav:function(name:'strlen')}" padString="="></f:format.padding> 
+{extension.documentation.1.title}
+<f:format.padding padLength="{extension.general.1.extensionKey->sav:function(name:'strlen')}" padString="="></f:format.padding> 
+
+:Extension key:
+    {extension.general.1.extensionKey}
+
+:Version:
+    |release|
+
+:Language:
+    en
+
+:Description:
+    {extension.emconf.1.description}
+
+:Keywords:
+	{extension.general.1.extensionKey}    
+
+:Copyright:
+    <f:format.date format="Y">now</f:format.date>
+
+:Author:
+    {extension.emconf.1.author}
+
+:Email:
+    {extension.emconf.1.author_email}
+
+:License:
+    This document is published under the Open Content License
+    available from http://www.opencontent.org/opl.shtml
+
+  :Rendered:
+    |today|
+
+  The content of this document is related to TYPO3,
+  a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+
+
+Table of Contents
+=================
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+   :glob:
+  
+   Introduction/Index
+   Changelog/Index
+

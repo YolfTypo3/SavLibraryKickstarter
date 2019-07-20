@@ -240,21 +240,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
         $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
-        // Sets the compatibilty if not already done
-        $compatibility = $configurationManager->getSectionManager()
-            ->getItem('general')
-            ->getItem(1)
-            ->getItem('compatibility');
-        if (is_null($compatibility)) {
-            $compatibility = ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT;
-            $configurationManager->getSectionManager()
-                ->getItem('general')
-                ->getItem(1)
-                ->replace([
-                'compatibility' => $compatibility
-            ]);
-        }
         $configurationManager->upgradeExtension();
+        $configurationManager->getCodeGenerator()->buildExtension();
+        $configurationManager->getExtensionManager()->checkDbUpdate();
 
         $this->redirect('extensionList');
     }
@@ -272,22 +260,12 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             $configurationManager->injectController($this);
 
             if ($configurationManager->isSavLibraryKickstarterExtension()) {
-                // Checks if the extension must be upgraded
+                // Checks if the extension must be upgradedd
                 $configurationManager->loadConfiguration();
-                if ($configurationManager->getCurrentLibraryVersion() != $configurationManager->getSectionManager()
+                if ($configurationManager->getSectionManager()
                     ->getItem('general')
                     ->getItem(1)
-                    ->getItem('libraryVersion')) {
-                    $configurationManager->checkForUpgrade();
-                    $configurationManager->getCodeGenerator()->buildExtension();
-                    $configurationManager->getExtensionManager()->checkDbUpdate();
-                    $configurationManager->getSectionManager()
-                        ->getItem('general')
-                        ->getItem(1)
-                        ->replace([
-                        'extensionMustbeUpgraded' => false
-                    ]);
-                    $configurationManager->saveConfiguration();
+                    ->getItem('extensionMustbeUpgraded')) {
                     $this->redirect('upgradeExtensions');
                 }
             }
@@ -2666,51 +2644,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     'currentLibraryVersion' => $configurationManager->getCurrentLibraryVersion()
                 ]);
 
-                // Processes teh global flag for upgrades
+                // Processes the global flag for upgrades
                 $this->extensionsNeedTobeUpgraded |= $configurationManager->getSectionManager()
                     ->getItem('general')
                     ->getItem(1)
                     ->getItem('extensionMustbeUpgraded');
-
-                // Changes the extension version if needed
-                if ($configurationManager->getSectionManager()
-                    ->getItem('emconf')
-                    ->getItem(1)
-                    ->getItem('version') != $extensionVersion) {
-                    $configurationManager->getSectionManager()
-                        ->getItem('emconf')
-                        ->getItem(1)
-                        ->replace([
-                        'version' => $extensionVersion
-                    ]);
-                    $configurationManager->saveConfiguration();
-                }
-
-                // Checks the compatibillity
-
-                $compatibility = $configurationManager->getSectionManager()
-                    ->getItem('general')
-                    ->getItem(1)
-                    ->getItem('compatibility');
-                if (is_null($compatibility)) {
-                    $configurationManager->getSectionManager()
-                        ->getItem('general')
-                        ->getItem(1)
-                        ->replace([
-                        'extensionMustbeUpgraded' => true
-                    ]);
-                    $this->extensionsNeedTobeUpgraded = true;
-                }
-                $wrongCompatibility = ! in_array($compatibility, [
-                    ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT,
-                    ConfigurationManager::COMPATIBILITY_TYPO3_7x
-                ]);
-                $configurationManager->getSectionManager()
-                    ->getItem('general')
-                    ->getItem(1)
-                    ->replace([
-                    'wrongCompatibility' => $wrongCompatibility
-                ]);
 
                 $extensionList[] = $configurationManager->getConfiguration();
             }

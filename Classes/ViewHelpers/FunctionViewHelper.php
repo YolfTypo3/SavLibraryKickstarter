@@ -32,7 +32,7 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  * TxSavlibraryexampleTest
  *
  * @package SavLibraryMvc
- *         
+ *
  */
 class FunctionViewHelper extends AbstractViewHelper
 {
@@ -241,6 +241,22 @@ class FunctionViewHelper extends AbstractViewHelper
     }
 
     /**
+     * Returns the length of a string
+     *
+     * @param string $string
+     *            The argument
+     * @return integer
+     */
+    private function strlen(string $string): int
+    {
+        debug([
+            $string,
+            strlen($string)
+        ]);
+        return strlen($string);
+    }
+
+    /**
      * Returns the md5 value of a string as integer
      *
      * @param string $string
@@ -253,7 +269,7 @@ class FunctionViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Retmoves the underscore in a string
+     * Removes the underscore in a string
      *
      * @param string $string
      *            The argument
@@ -437,7 +453,7 @@ class FunctionViewHelper extends AbstractViewHelper
      *            The string
      * @param int $arguments
      *            The start argument
-     *            
+     *
      * @return string
      */
     private function substr(string $string, int $arguments): string
@@ -452,7 +468,7 @@ class FunctionViewHelper extends AbstractViewHelper
      *            The string
      * @param array $arguments
      *            The start argument
-     *            
+     *
      * @return string
      */
     private function strReplace(string $string, array $arguments): string
@@ -465,7 +481,7 @@ class FunctionViewHelper extends AbstractViewHelper
      *
      * @param array $argument
      *            The argument
-     *            
+     *
      * @return bool
      */
     private function TYPO3VersionCompare(array $arguments): bool

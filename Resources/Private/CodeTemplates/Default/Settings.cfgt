@@ -1,0 +1,27 @@
+# Sphinx setup file for this project
+#
+
+[general]
+project     = {extension.documentation.1.title}
+release     = {extension.emconf.1.version}
+copyright   = since 1999 by the {extension.emconf.1.author}
+
+[html_theme_options]
+<f:if condition="{extension.documentation.1.gitHubRepository}">
+github_branch        = {extension.documentation.1.gitHubBranch}
+github_repository    = {extension.documentation.1.gitHubRepository}
+</f:if>
+project_contact      = {extension.documentation.1.projectContact}
+project_discussions  = {extension.documentation.1.projectDiscussion}
+project_home         = {extension.documentation.1.projectHome}
+project_issues       = {extension.documentation.1.projectIssues}
+project_repository   = {extension.documentation.1.projectRepository}
+
+[intersphinx_mapping]
+{extension.documentation.1.interSphinxMapping}
+
+[extensions]
+{extension.documentation.1.extensions}
+
+[extlinks]
+issue = {extension.documentation.1.projectIssues}/%s | Issue #
