@@ -6,19 +6,19 @@
 Introduction
 ============
 
-What does it do?
+What Does it Do?
 ================
 
 The `SAV Library Kickstarter <https://typo3.org/extensions/repository/view/sav_library_kickstarter>`_ 
 is a code generator, developed with extbase and fluid, to produce Frontend plugins.
 
-Basic code generation
+Basic Code Generation
 ---------------------
 
 This new feature was introduced in version 1.0.0 to kickstart extensions
 based on fluid and extbase.
 
-Code generation for the SAV Library Plus
+Code Generation for the SAV Library Plus
 ----------------------------------------
 
 The `SAV Library Plus Extension
@@ -68,14 +68,14 @@ PHP coding** are the same as in SAV Library Plus.
 This library is in beta state because it does not implement yet all the features available with SAV Library Plus. 
 However available features are enough for most extensions.
 
-Latest developments
+Latest Developments
 ====================
 
 The latest developments of the `SAV Library Kickstarter Project
 <https://github.com/YolfTypo3/SavLibraryKickstarterProject>`_ 
 are available on GitHub.
 
-Test extensions
+Test Extensions
 ===============
 
 The extension `SAV Basic Example0
@@ -92,48 +92,47 @@ The extension `SAV Library Mvc Example0
 was designed to test the SAV Library Kickstarter generation for the SAV Library
 Mvc extension. It implements the same features as SAV Library Example0.
 
-Other extensions in relation with the SAV Library Kickstarter Project
+Other Extensions in Relation with the SAV Library Kickstarter Project
 =====================================================================
 
-Extensions generated for SAV Library Plus
+Extensions Generated for SAV Library Plus
 -----------------------------------------
 
-    - SAV Library Example1
-    - SAV Library Example2
-    - SAV Library Example3
-    - SAV Library Example4
-    - SAV Library Example6
-    - SAV Library Example7
-    - SAV Library Example8
-    - SAV Library Example9 - this extension depends on sav_jpgraph and is now obsolete.
-    - SAV Library Example10 - this extension depends on wec_map.
-    - SAV Download
-    - SAV Meetings
+- SAV Library Example1
+- SAV Library Example2
+- SAV Library Example3
+- SAV Library Example4
+- SAV Library Example6
+- SAV Library Example7
+- SAV Library Example8
+- SAV Library Example9 - this extension depends on sav_jpgraph and is now obsolete.
+- SAV Library Example10 - this extension depends on wec_map.
+- SAV Download
+- SAV Meetings
     
 Filters for SAV Library Plus
 ----------------------------
 
-    - SAV Filters
+- SAV Filters
 
-Extensions generated for SAV Library Mvc
+Extensions Generated for SAV Library Mvc
 ----------------------------------------
 
-    - SAV Calendar Mvc
+- SAV Calendar Mvc
 
 Filters for SAV Library Plus
 ----------------------------    
     
-    - SAV Filter MVC
+- SAV Filter MVC
 
-Extensions generated as basic extensions
+Extensions Generated as Basic Extensions
 ----------------------------------------
 
 The following extensions have been kickstarted with the basic type.
 
-    - SAV Charts
-    - SAV Networks
+- SAV Charts
+- SAV Networks
     
-
 .. warning::
 
    - Do not forget to include the **SAV Library Kickstarter static template** which is now required. 
@@ -145,19 +144,19 @@ The following extensions have been kickstarted with the basic type.
 Screenshots
 ===========
 
-SAV Library Example0: Generated List view
+SAV Library Example0: Generated List View
 -----------------------------------------
 
 .. figure:: ../Images/ScreenshotsExample0ListView.png
 
 
-SAV Library Example0: Generated Single view
+SAV Library Example0: Generated Single View
 -------------------------------------------
 
 .. figure:: ../Images/ScreenshotsExample0SingleView.png
 
 
-SAV Library Example0: Generated Edit view
+SAV Library Example0: Generated Edit View
 -----------------------------------------
 
 .. figure:: ../Images/ScreenshotsExample0EditView.png
@@ -169,31 +168,31 @@ Kickstarter: Extension List
 .. figure:: ../Images/ScreenshotsExtensionList.png
 
 
-Kickstarter: “Extension configuration” section
+Kickstarter: “Extension Configuration” Section
 ----------------------------------------------
 
 .. figure:: ../Images/ScreenshotsExtensionConfigurationSection.png
 
 
-Kickstarter: “New tables” section
+Kickstarter: “New Tables” Section
 ---------------------------------
 
 .. figure:: ../Images/ScreenshotsNewTablesSection.png
 
 
-Kickstarter: “Views” section
+Kickstarter: “Views” Section
 ----------------------------
 
 .. figure:: ../Images/ScreenshotsViewsSection.png
 
 
-Kickstarter: “Queries” section
+Kickstarter: “Queries” Section
 ------------------------------
 
 .. figure:: ../Images/ScreenshotsQueriesSection.png
 
 
-Kickstarter: “Forms” section
+Kickstarter: “Forms” Section
 ----------------------------
 
 .. figure:: ../Images/ScreenshotsFormsSection.png

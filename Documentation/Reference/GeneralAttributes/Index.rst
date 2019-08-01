@@ -3,7 +3,7 @@
 .. _generalAttributes:
 
 ==================
-General attributes
+General Attributes
 ==================
 
 ======================================================= =========== ============ ==== ====
@@ -179,7 +179,7 @@ addNewIcon
        addNewIcon
 
     Data type
-        Boolean
+        Integer
 
     Description
         A new icon, will be displayed in front of the field during the number
@@ -1335,7 +1335,3 @@ wrapItem
          
         The marker $$$label[fieldName]$$$ will be replaced by the fieldName
         title according to the localization.
-
-
-
-

@@ -3,7 +3,7 @@
 .. _sponsorsAndCredits:
 
 ====================
-Sponsors and credits
+Sponsors and Credits
 ====================
 
 Sponsors
@@ -18,4 +18,3 @@ Thanks to:
 
 - Paula Auwehla for having detected several bugs.
 - Erwin Winkel and Ronald Wopereis for having reported the generation of several warnings.
-

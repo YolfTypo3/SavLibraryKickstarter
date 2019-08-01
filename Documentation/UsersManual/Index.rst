@@ -20,7 +20,7 @@ Installation
    - If you are not familiar with the SAV Library Kickstarter, read the
      tutorial section of this manual first.
 
-Updating previously generated extensions
+Updating Previously Generated Extensions
 ========================================
 
 The SAV Library Kickstarter comes with an upgrade feature which will
@@ -28,13 +28,13 @@ upgrade your extensions to the most recent version. When the SAV
 Library version used for the extension generation is not the same as
 the installed SAV Library version, the following display will be
 obtained. Since Version 0.2.0 of the SAV Library Kickstarter a global
-upgrade icon was added.
+upgrade icon was added which upgrades extensions 10 by 10.
 
 .. figure:: ../Images/UsersManualUpgradingExtension.png 
 
 Click on the upgrade icon on the same line as the extension name to
 upgrade it to the latest version of the code generator or click on the
-icon at the right of the “plus” icon to upgrade all extensions that
+icon at the right of the **plus** icon to upgrade all extensions that
 need to be upgraded. Once upgraded, the upgrade icons will disappear
 and the library version will be displayed in green as shown below.
 
@@ -72,7 +72,7 @@ For each extension in this list, several information are displayed:
   actions are : edit the extension, generate the extension, copy the
   extension and instal/uninstall the extension.
 
-Managing extension versions
+Managing Extension Versions
 ===========================
 
 Management of extension versions was introduced in version 0.5.0 of 
@@ -93,12 +93,12 @@ Select the version you want to work with and it will be loaded.
 
    .. figure:: ../Images/UsersManualManagingExtensionVersionsNotTheLatest.png   
 
-Creating a new extension
+Creating a New Extension
 ========================
 
 See the tutorial section for more details.
 
-Copying an extension
+Copying an Extension
 ====================
 
 The kickstarter has a copy feature to duplicate extensions. Click on

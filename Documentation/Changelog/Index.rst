@@ -11,12 +11,12 @@ Changelog
 =======  ===========================================================================
 Version  Changes
 =======  ===========================================================================
-9.5.0    - Compatibility with 7.6 removed.
+9.5.0    - Compatibility with TYPO3 7.6 removed.
          - Compatibility changed to TYPO3 9.5.x.
          - Code generation improved.   
          - Basic documentation generation for Docker added.    
          
-1.2.0    - Compatibility with 6.2 removed.
+1.2.0    - Compatibility with TYPO3 6.2 removed.
          - Compatibility changed to TYPO3 9.0.         
 
 1.1.0    - Code generation improved.

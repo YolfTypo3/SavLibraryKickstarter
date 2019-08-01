@@ -7,38 +7,38 @@ SAV Library Kickstarter
 =======================
 
 :Extension key:
-    sav_library_kickstarter
+   sav_library_kickstarter
 
 :Version:
-    |release|
+   |release|
 
 :Language:
-    en
+   en
 
 :Description:
-    Kickstarter, based on fluid and extbase, which automatically generates
-    extensions for the SAV Library Plus and SAV Library. Multiple views of
-    the data including forms with Front End editing facilities
-    can be generated.
+   Kickstarter, based on fluid and extbase, which automatically generates
+   extensions for the SAV Library Plus and SAV Library. Multiple views of
+   the data including forms with Front End editing facilities
+   can be generated.
 
 :Keywords:
-    SAV Library Kickstarter, Extension generator
+   SAV Library Kickstarter, Extension generator
 
 :Copyright:
-    2010
+   2010
 
 :Author:
-    Laurent Foulloy
+   Laurent Foulloy
 
 :Email:
-    yolf.typo3@orange.fr
+   yolf.typo3@orange.fr
 
 :License:
-    This document is published under the Open Content License
-    available from http://www.opencontent.org/opl.shtml
+   This document is published under the Open Content License
+   available from http://www.opencontent.org/opl.shtml
 
 :Rendered:
-    |today|
+   |today|
 
 The content of this document is related to TYPO3,
 a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
@@ -56,8 +56,6 @@ Table of Contents
    UsersManual/Index
    Tutorial/Index
    Reference/Index
-   KnownProblems/Index
-   To-doList/Index
    SponsorsAndCredits/Index
    Changelog/Index
 

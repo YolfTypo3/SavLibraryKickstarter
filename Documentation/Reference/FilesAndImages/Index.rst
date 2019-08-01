@@ -3,7 +3,7 @@
 .. _filesAndImages:
 
 ================
-Files and images
+Files and Images
 ================
 
 
@@ -22,6 +22,7 @@ Property                                                Data type   Default     
 :ref:`filesAndImages.iframe`                            Boolean     0            Yes  No
 :ref:`filesAndImages.message`                           String      None         Yes  Yes
 :ref:`filesAndImages.onlyFileName`                      String      None         Yes  No
+:ref:`filesAndImages.renderAsLink`                      Boolean     0            Yes  No
 :ref:`filesAndImages.size`                              Integer     None         Yes  No
 :ref:`filesAndImages.tsProperties`                      String      None         Yes  No
 :ref:`filesAndImages.uploadFolder`                      String      None         Yes  No
@@ -268,6 +269,23 @@ onlyFileName
         Displays only the file name.
 
 
+.. _filesAndImages.renderAsLink:
+
+renderAsLink
+============
+
+.. container:: table-row
+
+    Property 
+        renderAsLink
+
+    Data type
+        Boolean
+        
+    Description
+        If set image is rendered as a link.
+        
+        
 
 .. _filesAndImages.size:
 
@@ -345,4 +363,3 @@ width
         
     Description
         Sets the width of an image or of the iframe.
-

@@ -519,6 +519,9 @@
             <trans-unit id="kickstarter.newTablesItem.header_field" xml:space="preserve">
                 <source>Label-field:</source>
             </trans-unit>
+            <trans-unit id="kickstarter.newTablesItem.moveAfter" xml:space="preserve">
+                <source>Select and save, then chick on Up or Down icons to move a field after the selected one.</source>
+            </trans-unit>            
             <trans-unit id="kickstarter.existingTablesItem.tablename" xml:space="preserve">
                 <source>Table Name:</source>
             </trans-unit>

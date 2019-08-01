@@ -1,11 +1,3 @@
-<f:comment>Create icon.gif</f:comment>
-<sav:function name="copyFile" arguments="{
-  source:'Resources/Private/CodeTemplates/Default/Resources/Icons/ext_icon.gif',
-  destinationExtension:extension.general.1.extensionKey,
-  destination:'ext_icon.gif',
-  keepFile:1
-}" />
-
 <f:comment>Create Extension.svg</f:comment>
 <f:alias
     map="{

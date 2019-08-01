@@ -31,7 +31,7 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  * the oprtions
  *
  * @package SavLibraryKickstarter
- *         
+ *
  */
 class GetRelationTableKeyForSubformViewHelper extends AbstractViewHelper
 {
@@ -75,12 +75,25 @@ class GetRelationTableKeyForSubformViewHelper extends AbstractViewHelper
                     $realTableName = 'tx_' . str_replace('_', '', $extensionKey) . '_domain_model_' . $table['tablename'];
                     break;
             }
-
             if ($realTableName == $tableName) {
-                return $tableKey;
+                return [
+                    'section' => 'newTables',
+                    'key' => $tableKey
+                ];
             }
         }
-        return 0;
+        foreach ($argumentsOption['existingTables'] as $tableKey => $table) {
+            if ($table['tablename'] == $tableName) {
+                return [
+                    'section' => 'existingTables',
+                    'key' => $tableKey
+                ];
+            }
+        }
+        return [
+            'section' => 'newTables',
+            'key' => 0
+        ];
     }
 }
 ?>

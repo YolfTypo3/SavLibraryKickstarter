@@ -54,5 +54,3 @@ rows
 
   Default
     5
-
-

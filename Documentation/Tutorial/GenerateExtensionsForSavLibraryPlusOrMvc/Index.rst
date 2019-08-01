@@ -3,7 +3,7 @@
 .. _generatingExtensions:
 
 ============================================================
-Generating extensions for SAV Library Plus or SAV Libray Mvc
+Generating Extensions for SAV Library Plus or SAV Libray Mvc
 ============================================================
 
 In the following, this tutorial details the first steps used to create from scratch the extension "sav\_library\_example0".
@@ -153,7 +153,7 @@ generation of the extension.
 
 .. figure:: ../../Images/TutorialKickstarterSQL.png
 
-Installing the extension
+Installing the Extension
 ========================
 
 Click on the “SAV Kickstarter” item in the “Admin tools” menu to
@@ -228,7 +228,7 @@ Click on a folder tab to change the view.
 
 .. figure:: ../../Images/TutorialSingleViewThirdFolder.png
 
-More information
+More Information
 ================
 
 Please read the reference section for the field configuration
@@ -237,4 +237,3 @@ field in the SAV Library Kickstarter).
 
 The tutorials section in the SAV Library Plus documentation provides
 also several examples.
-

@@ -255,6 +255,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function upgradeExtensionsAction()
     {
+        $counter = 0;
         foreach (GeneralUtility::get_dirs(EnvironmentCompatibility::getTypo3ConfPath() . 'ext/') as $extensionKey) {
             $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
             $configurationManager->injectController($this);
@@ -266,8 +267,18 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     ->getItem('general')
                     ->getItem(1)
                     ->getItem('extensionMustbeUpgraded')) {
-                    $this->redirect('upgradeExtensions');
+
+                    $configurationManager->upgradeExtension();
+                    $configurationManager->getCodeGenerator()->buildExtension();
+                    $configurationManager->getExtensionManager()->checkDbUpdate();
+
+                    $counter = $counter + 1;
                 }
+            }
+
+            // Upgrades extensions 10 by 10
+            if ($counter == 10) {
+                break;
             }
         }
         $this->redirect('extensionList');
@@ -626,24 +637,6 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             }
         }
 
-        $configurationManager->saveConfiguration();
-
-        // Orders the section item according to the view
-        if ($sectionManager->getItem($section)
-            ->getItem($itemKey)
-            ->addItem('fields')
-            ->count() > 0) {
-            $viewKey = $sectionManager->getItem($section)
-                ->getItem($itemKey)
-                ->getItem('viewKey');
-            $sectionManager->getItem($section)
-                ->getItem($itemKey)
-                ->getItem('fields')
-                ->reIndex([
-                'order' => $viewKey
-            ]);
-        }
-
         // Changes the view if any provided
         if ($viewKey !== null) {
             $sectionManager->getItem($section)
@@ -662,6 +655,25 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $viewKey => $folderKey
             ]);
         }
+
+        // Orders the section item according to the view
+        if ($sectionManager->getItem($section)
+            ->getItem($itemKey)
+            ->addItem('fields')
+            ->count() > 0) {
+            $viewKey = $sectionManager->getItem($section)
+                ->getItem($itemKey)
+                ->getItem('viewKey');
+            $sectionManager->getItem($section)
+                ->getItem($itemKey)
+                ->getItem('fields')
+                ->reIndex([
+                'order' => $viewKey
+            ]);
+        }
+
+        // Saves the configuration
+        $configurationManager->saveConfiguration();
 
         // Sets the folder labels
         $folderLabels = [];
@@ -912,7 +924,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->getSectionManager()
             ->getItem($section)
             ->getItem($itemKey)
-            ->getItem('fields')
+            ->addItem('fields')
             ->replaceAll([
             'viewKey' => $viewKey
         ]);
@@ -1230,6 +1242,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->addItem([
             'version' => '0.0.0'
         ]);
+        $sectionManager->addItem('documentation')->addItem(1);
         $sectionManager->addItem('newTables');
         $sectionManager->addItem('views');
         $sectionManager->addItem('queries');
@@ -1277,6 +1290,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $sectionManager = $configurationManager->getSectionManager();
 
         // Saves the configuration
+        unset($arguments['general']['version']);
         $sectionManager->getItem('general')
             ->addItem(1)
             ->replace($arguments['general']);
@@ -1674,7 +1688,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         // Gets the fields in the view
         $fields = $item->getItem('fields');
         $fieldsInView = [];
-        $keyList = [];
+        $fieldKeysInView = [];
         foreach ($fields as $key => $field) {
             if (is_null($folderKey) || $field->getItem('folders')->getItem($viewKey) == $folderKey) {
                 $fieldsInView[$key] = $field;
@@ -1684,12 +1698,13 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Gets the from position and the from item
         $fromPositionInView = array_search($fieldKey, $fieldKeysInView);
-
-        // Processes the items depending on the from position in the view
-        if (! $item['upDownValue']) {
-            $upDownValue = 1;
+        if (! empty($item['moveAfter']) && $item['moveAfter'] != - 1) {
+            $upDownValue = $fromPositionInView - $item['moveAfter'] - 1;
+            $sectionManager->getItem($section)
+                ->getItem($itemKey)
+                ->deleteItem('moveAfter');
         } else {
-            $upDownValue = $item['upDownValue'];
+            $upDownValue = 1;
         }
 
         // Gets the new order for the items to be moved
@@ -1774,7 +1789,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         // Gets the fields in the view
         $fields = $item->getItem('fields');
         $fieldsInView = [];
-        $keyList = [];
+        $fieldKeysInView = [];
         foreach ($fields as $key => $field) {
             if (is_null($folderKey) || $field->getItem('folders')->getItem($viewKey) == $folderKey) {
                 $fieldsInView[$key] = $field;
@@ -1787,20 +1802,23 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Processes the items depending on the from position in the view
         $count = count($fieldKeysInView);
-        if (! $item['upDownValue']) {
-            $upDownValue = 1;
+        if (! empty($item['moveAfter']) && $item['moveAfter'] != - 1) {
+            $upDownValue = ($count + 1 + $item['moveAfter'] - $fromPositionInView) % ($count + 1);
+            $sectionManager->getItem($section)
+                ->getItem($itemKey)
+                ->deleteItem('moveAfter');
         } else {
-            $upDownValue = $item['upDownValue'];
+            $upDownValue = 1;
         }
 
         // Gets the new order for the items to be moved
         $count = count($fieldKeysInView);
+
         $itemsToOrder = [];
         foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
             $newKey = null;
 
             if ($fromPositionInView < $count - $upDownValue) {
-
                 if (($positionInView <= $fromPositionInView + $upDownValue) && ($positionInView > $fromPositionInView)) {
                     $newKey = $fieldKeysInView[$positionInView - 1];
                 } elseif ($positionInView == $fromPositionInView) {
@@ -1832,52 +1850,6 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ]);
         }
 
-        /*
-         *
-         * if ($fromPositionInView < $count - 1) {
-         * // Gets the from item and order
-         * $fromItem = $fieldsInView[$fieldKey];
-         * $fromOrder = $fromItem->getItem('order')->getItem($viewKey);
-         * // Gets the to poisition, item and order
-         * $toPositionInView = $fromPositionInView + 1;
-         * $toItem = $fieldsInView[$fieldKeysInView[$toPositionInView]];
-         * $toOrder = $toItem->getItem('order')->getItem($viewKey);
-         * // Replaces the orders
-         * $fromItem->replace([
-         * 'order' => [
-         * $viewKey => $toOrder
-         * ]
-         * ]
-         * );
-         * $toItem->replace([
-         * 'order' => [
-         * $viewKey => $fromOrder
-         * ]
-         * ]
-         * );
-         * } else {
-         * // Gets the rotated toOrder array
-         * $count = count($fieldKeysInView);
-         * $rotatedToOrders = [];
-         * foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
-         * $rotatedKey = $fieldKeysInView[($positionInView + 1) % $count];
-         * $rotatedToOrders[$positionInView] = $item->getItem('fields')
-         * ->getItem($rotatedKey)
-         * ->addItem('order')
-         * ->getItem($viewKey);
-         * }
-         * // Sets the new order key
-         * foreach ($fieldKeysInView as $positionInView => $fieldKeyInView) {
-         * $fromItem = $fieldsInView[$fieldKeyInView];
-         * $fromItem->replace([
-         * 'order' => [
-         * $viewKey => $rotatedToOrders[$positionInView]
-         * ]
-         * ]
-         * );
-         * }
-         * }
-         */
         // Saves and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [

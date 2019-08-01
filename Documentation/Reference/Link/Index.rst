@@ -174,10 +174,3 @@ templateRTF
         Defines the template to be used by the RTF generator. Field markers
         ###tableName.fieldName### or ###fieldName### (for aliases) can be
         used.
-   
-
-   
-
-
-
-

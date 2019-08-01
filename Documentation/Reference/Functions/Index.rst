@@ -328,4 +328,3 @@ func = makeXmlLabel;
         ::
          
             xmlLabel = LLL:EXT:my_ext/locallang_db.xml:tx_myext.my_field.I.;
-

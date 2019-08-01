@@ -293,7 +293,7 @@ class ItemManager extends \ArrayObject
      *            The field to be searched
      * @param mixed $searchKey
      *            The search key
-     *            
+     *
      *            return mixed The searched item
      */
     protected function searchFieldValue($field, $searchKey)
@@ -321,7 +321,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $searchKey
      *            The search key
-     *            
+     *
      *            return none
      */
     public function reIndex($searchKey)

@@ -1,44 +1,51 @@
 .. include:: Includes.txt
 
 .. _start:
-
-<f:format.padding padLength="{extension.general.1.extensionKey->sav:function(name:'strlen')}" padString="="></f:format.padding> 
+<f:if condition="{extension.documentation.1.title}">
+<f:then>
+<f:format.padding padLength="{extension.documentation.1.title->sav:function(name:'strlen')}" padString="="></f:format.padding> 
 {extension.documentation.1.title}
-<f:format.padding padLength="{extension.general.1.extensionKey->sav:function(name:'strlen')}" padString="="></f:format.padding> 
-
+<f:format.padding padLength="{extension.documentation.1.title->sav:function(name:'strlen')}" padString="="></f:format.padding> 
+</f:then>
+<f:else>
+<f:format.padding padLength="{extension.emconf.1.title->sav:function(name:'strlen')}" padString="="></f:format.padding> 
+{extension.emconf.1.title}
+<f:format.padding padLength="{extension.emconf.1.title->sav:function(name:'strlen')}" padString="="></f:format.padding> 
+</f:else>
+</f:if>
 :Extension key:
-    {extension.general.1.extensionKey}
+   {extension.general.1.extensionKey}
 
 :Version:
-    |release|
+   |release|
 
 :Language:
-    en
+   en
 
 :Description:
-    {extension.emconf.1.description}
+   {extension.emconf.1.description}
 
 :Keywords:
-	{extension.general.1.extensionKey}    
+   {extension.general.1.extensionKey}    
 
 :Copyright:
-    <f:format.date format="Y">now</f:format.date>
+   <f:format.date format="Y">now</f:format.date>
 
 :Author:
-    {extension.emconf.1.author}
+   {extension.emconf.1.author}
 
 :Email:
-    {extension.emconf.1.author_email}
+   {extension.emconf.1.author_email}
 
 :License:
-    This document is published under the Open Content License
-    available from http://www.opencontent.org/opl.shtml
+   This document is published under the Open Content License
+   available from http://www.opencontent.org/opl.shtml
 
-  :Rendered:
-    |today|
+:Rendered:
+   |today|
 
-  The content of this document is related to TYPO3,
-  a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+The content of this document is related to TYPO3,
+a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
 
 
 Table of Contents
@@ -51,4 +58,3 @@ Table of Contents
   
    Introduction/Index
    Changelog/Index
-

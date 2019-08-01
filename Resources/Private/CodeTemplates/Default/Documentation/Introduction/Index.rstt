@@ -1,10 +1,10 @@
-.. include:: Includes.txt
+.. include:: ../Includes.txt
 
 ============
 Introduction
 ============
 
-What does it do?
+What Does it Do?
 ================
 
 Enter description here.
@@ -15,6 +15,6 @@ Screenshots
 Put your images in Doucmentation/Images and insert figures as shown below.
 
 ..code:
-	.. figure:: ../Images/Test.png
-  		:alt: Test screenshot
+   .. figure:: ../Images/Test.png
+      :alt: Test screenshot
   

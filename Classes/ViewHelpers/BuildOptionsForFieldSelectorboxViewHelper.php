@@ -44,6 +44,7 @@ class BuildOptionsForFieldSelectorboxViewHelper extends AbstractViewHelper
     {
         $this->registerArgument('fields', 'array', 'Fields', true);
         $this->registerArgument('options', 'array', 'Intitial option values', false, []);
+        $this->registerArgument('keyAsValue', 'bool', 'Use the key of the field array as value', false, false);
     }
 
     /**
@@ -60,11 +61,14 @@ class BuildOptionsForFieldSelectorboxViewHelper extends AbstractViewHelper
         // Gets the arguments
         $fields = $arguments['fields'];
         $options = $arguments['options'];
+        $keyAsValue = $arguments['keyAsValue'];
 
         if (is_array($fields)) {
-            foreach ($fields as $field) {
+
+            foreach ($fields as $fieldKey => $field) {
+                $key = ($keyAsValue ? $fieldKey : $field['fieldname']);
                 $options = array_merge($options, [
-                    $field['fieldname'] => $field['fieldname']
+                    $key => $field['fieldname']
                 ]);
             }
         }

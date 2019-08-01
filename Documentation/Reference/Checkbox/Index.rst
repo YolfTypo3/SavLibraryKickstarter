@@ -3,7 +3,7 @@
 .. _checkbox:
 
 =========================
-Checkbox: simple checkbox
+Checkbox: Simple Checkbox
 =========================
 
 ======================================================= =========== ============ ==== ====
@@ -92,6 +92,3 @@ doNotDisplayIfNotChecked
      
   Default
     0
-
-
-

@@ -61,8 +61,3 @@ separator
         It can be used with selector boxes associated with a MM relation to
         replace the default <br /> separator between items in showAll or
         showSingle views.
-
-
-
-
-

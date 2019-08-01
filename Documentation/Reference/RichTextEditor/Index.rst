@@ -76,5 +76,3 @@ width
        
     Default
         Default RTE value
-
-

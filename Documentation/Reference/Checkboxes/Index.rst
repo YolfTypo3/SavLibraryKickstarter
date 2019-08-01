@@ -3,7 +3,7 @@
 .. _checkboxes:
 
 ==============================
-Checkboxes: several checkboxes
+Checkboxes: Several Checkboxes
 ==============================
 
 ======================================================= =========== ============ ==== ====
@@ -132,6 +132,3 @@ nbItems
 
   Description
     Number of items to display.
-
-
-

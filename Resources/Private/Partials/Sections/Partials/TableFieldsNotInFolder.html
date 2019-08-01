@@ -17,8 +17,11 @@
 			</f:else>
 		</f:if>
 
-		<f:form.textfield class="fieldName" id="upDownValue"
-			name="{section}[upDownValue]" value="{sectionItem.upDownValue}" />
+		<f:form.select name="{section}[moveAfter]"
+			options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields,keyAsValue:1)}"
+			value="{sectionItem.moveAfter}" prependOptionLabel="---"
+			prependOptionValue="-1" />
+		<f:translate key="kickstarter.newTablesItem.moveAfter"/>
 	</div>
 </div>
 <f:if condition="{sectionItem.showAllFields}">

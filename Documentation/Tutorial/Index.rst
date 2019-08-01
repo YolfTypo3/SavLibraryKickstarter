@@ -9,7 +9,7 @@ Tutorial
 The aim of this tutorial is to show how to use the SAV Library
 Kickstarter.
 
-Creating the extension
+Creating the Extension
 ======================
 
 If you have neither created any extension with the SAV Library

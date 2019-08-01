@@ -10,9 +10,26 @@ Graph
 ======================================================= =========== ============== ==== ====
 Property                                                Data type   Default        Plus Mvc
 ======================================================= =========== ============== ==== ====
+:ref:`graph.allowQueries`                               Boolean     0              Yes
 :ref:`graph.graphTemplate`                              String                     Yes  Yes
 :ref:`graph.tags`                                       String                     Yes  Yes
 ======================================================= =========== ============== ==== ====
+
+.. _graph.allowQueries:
+
+allowQueries
+============
+
+.. container:: table-row
+
+    Property
+        allowQueriese
+   
+    Data type
+        Bollean
+         
+    Description
+        Allows the use of queries with graphs.
 
 
 .. _graph.graphTemplate:
@@ -54,7 +71,3 @@ tags
         .. note::
         
             Since SAV Library Kickstarter 1.2.0, the property "tags" replaces the former property "markers".
-
-   
-
-

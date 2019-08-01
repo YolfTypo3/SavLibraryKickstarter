@@ -3,7 +3,7 @@
 .. _relation_1_n:
 
 ===============================================================
-Relation 1:n (Selectorbox) or relation n:n (Double selectorbox)
+Relation 1:n (Selectorbox) or Relation n:n (Double Selectorbox)
 ===============================================================
 
 
@@ -318,13 +318,3 @@ whereSelect
         - ###group\_list != list\_of\_comma\_separed\_fe\_groups###. To be used
           with a selector on fe\_users. It checks if the user does not belong to
           the group list.
-   
-
-
-
-
-
-
-
-
-

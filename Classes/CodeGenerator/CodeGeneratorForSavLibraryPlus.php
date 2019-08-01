@@ -88,7 +88,7 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
 
         // Generates Documentation files
         $this->buildDocumentation();
-        
+
         // Generates the language files
         $this->buildLanguageFiles();
 
@@ -459,7 +459,12 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
 
                                     // Checks if it is a subform
                                     if ($field['type'] == 'RelationManyToManyAsSubform') {
-                                        $relationTable[$viewKey][$field['conf_rel_table']] = $cryptedFullFieldName;
+                                        if ($field['conf_rel_table'] == '_CUSTOM') {
+                                            $relationTableName = $field['conf_custom_table_name'];
+                                        } else {
+                                            $relationTableName = $field['conf_rel_table'];
+                                        }
+                                        $relationTable[$viewKey][$relationTableName] = $cryptedFullFieldName;
                                     }
 
                                     // Checks if its a subform field

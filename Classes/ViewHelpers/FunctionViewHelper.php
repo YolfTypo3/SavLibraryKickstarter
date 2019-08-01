@@ -249,10 +249,6 @@ class FunctionViewHelper extends AbstractViewHelper
      */
     private function strlen(string $string): int
     {
-        debug([
-            $string,
-            strlen($string)
-        ]);
         return strlen($string);
     }
 

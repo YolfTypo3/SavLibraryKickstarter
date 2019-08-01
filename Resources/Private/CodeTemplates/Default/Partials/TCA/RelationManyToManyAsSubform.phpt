@@ -1,6 +1,13 @@
 'config' => [
     'type' => 'inline',
-    'foreign_table' =>  '{field.conf_rel_table}',
+    <f:if condition="{field.conf_rel_table} == '_CUSTOM'">
+        <f:then>
+    'foreign_table' => '{field.conf_custom_table_name}',
+        </f:then>
+        <f:else>
+    'foreign_table' => '{field.conf_rel_table}',
+        </f:else>
+    </f:if>    
     'foreign_sortby' => 'sorting',
     'size' => {f:if(condition:field.conf_relations_selsize, then:field.conf_relations_selsize, else:1)},
     'minitems' => 0,

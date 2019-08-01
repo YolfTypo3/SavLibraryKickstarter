@@ -140,7 +140,3 @@ subformTitle
   Description
     If set, the string will be displayed in the title bar of the subform.
     Localization tags and markers can be used. 
-
-
-
-

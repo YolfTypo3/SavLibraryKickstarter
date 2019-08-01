@@ -1,18 +1,22 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
 <f:comment>Special processing if the field is a subform</f:comment>
+<f:alias
+		map="{rel_table:'{f:if(condition:\'{field.conf_rel_table}==\"_CUSTOM\"\',then:field.conf_custom_table_name,else:field.conf_rel_table)}'}">
+			
 <f:if condition="{0:field.type} == {0:'RelationManyToManyAsSubform'}">
 	<f:alias
-		map="{relationTableKey:'{sav:GetRelationTableKeyForSubform(arguments:extension, tableName:field.conf_rel_table)}'}">
+		map="{relationTableKey:'{sav:GetRelationTableKeyForSubform(arguments:extension, tableName:rel_table)}'}">
+
 		<f:if
-			condition="{extension->sav:getItem(key:section)->sav:getItem(key:relationTableKey)->sav:getItem(key:'fields')}">
+			condition="{extension->sav:getItem(key:relationTableKey.section)->sav:getItem(key:relationTableKey.key)->sav:getItem(key:'fields')}">
 			<f:then>
 				<f:if condition="{selectedFieldKey} == {key}">
 					<li>
 						<div class="subform">
 							<ul>
 								<f:for
-									each="{extension->sav:getItem(key:section)->sav:getItem(key:relationTableKey)->sav:getItem(key:'fields')}"
+									each="{extension->sav:getItem(key:relationTableKey.section)->sav:getItem(key:relationTableKey.key)->sav:getItem(key:'fields')}"
 									key="subformFieldKey" as="subformField">
 									<li
 										class="field {f:if(condition:'{selectedFieldKey} == {subformFieldKey}', then:'selected')}">
@@ -22,7 +26,7 @@
 												<f:link.action
 													class="{f:if(condition:'{selected}', then:'{class} bold')}"
 													action="editFieldConfiguration"
-													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}"
+													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}"
 													section="{sav:function(name:'md5int', arguments:subformField.fieldname)}">
                                                     {subformField.fieldname}
                                                 </f:link.action>
@@ -32,40 +36,40 @@
 											<div class="fieldType">{f:translate(key:'kickstarter.field.fieldType.{subformField.type}')}</div>
 											<div class="fieldControls">
 												<f:form.hidden class="hidden"
-													name="subforms[{relationTableKey}][{section}][fields][{subformFieldKey}][order][{sectionItemViewKey}]"
+													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][order][{sectionItemViewKey}]"
 													value="{order}" />
 												<f:form.hidden class="hidden"
-													name="subforms[{relationTableKey}][{section}][fields][{subformFieldKey}][order][{sectionItemViewKey}]"
+													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][order][{sectionItemViewKey}]"
 													value="{order}" />
 												<f:form.hidden class="hidden"
-													name="subforms[{relationTableKey}][{section}][fields][{subformFieldKey}][folders][{sectionItemViewKey}]"
+													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][folders][{sectionItemViewKey}]"
 													value="{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}" />
 												<f:form.checkbox class="checkbox"
-													name="subforms[{relationTableKey}][{section}][fields][{subformFieldKey}][selected][{sectionItemViewKey}]"
+													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][selected][{sectionItemViewKey}]"
 													value="1" checked="{selected}" />
 												<f:link.action action="editFieldConfiguration"
-													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}">
+													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}">
 													<f:image class="editFieldConfiguration"
 														src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
 														alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
 														title="{f:translate(key:'kickstarter.edit')}" />
 												</f:link.action>
 												<f:link.action action="moveDownField"
-													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, fieldKey:subformFieldKey}">
+													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="moveDownField"
 														src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
 														alt="{f:translate(key:'kickstarter.moveDown')}"
 														title="{f:translate(key:'kickstarter.moveDown')}" />
 												</f:link.action>
 												<f:link.action action="moveUpField"
-													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, fieldKey:subformFieldKey}">
+													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="moveUpField"
 														src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
 														alt="{f:translate(key:'kickstarter.moveUp')}"
 														title="{f:translate(key:'kickstarter.moveUp')}" />
 												</f:link.action>
 												<f:link.action action="deleteField"
-													arguments="{extKey:extKey, section:section, itemKey:relationTableKey, fieldKey:subformFieldKey}">
+													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="deleteField"
 														src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
 														alt="kickstarter.delete"
@@ -96,5 +100,6 @@
 		</f:if>
 	</f:alias>
 </f:if>
+</f:alias>
 
 
