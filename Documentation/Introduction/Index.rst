@@ -29,8 +29,8 @@ The SAV Library Plus extension relies on a conventional approach for the
 queries but uses fluid for the rendering of views.
 
 The concept used in the SAV Library Plus relies on forms. A form is a
-way of presenting data. It includes list view, single view or edit
-view of the data. An extension may contain several forms. The
+way of presenting data. It includes **List** view, **Single** view or **Edit**
+views of the data. An extension may contain several forms. The
 generator handles also special views like print views or update views.
 Data presentation may differ from one view to another. A query is
 associated with each form. Therefore, when several forms are used in
@@ -40,7 +40,7 @@ The SAV Library Kickstarter generates extensions which include:
 
 - Creation of multiple views of the data,
 
-- Front end input of the data,
+- Frontend input of the data,
 
 - Views with folders,
 
@@ -168,31 +168,31 @@ Kickstarter: Extension List
 .. figure:: ../Images/ScreenshotsExtensionList.png
 
 
-Kickstarter: “Extension Configuration” Section
+Kickstarter: Extension Configuration Section
 ----------------------------------------------
 
 .. figure:: ../Images/ScreenshotsExtensionConfigurationSection.png
 
 
-Kickstarter: “New Tables” Section
+Kickstarter: New Tables Section
 ---------------------------------
 
 .. figure:: ../Images/ScreenshotsNewTablesSection.png
 
 
-Kickstarter: “Views” Section
+Kickstarter: Views Section
 ----------------------------
 
 .. figure:: ../Images/ScreenshotsViewsSection.png
 
 
-Kickstarter: “Queries” Section
+Kickstarter: Queries Section
 ------------------------------
 
 .. figure:: ../Images/ScreenshotsQueriesSection.png
 
 
-Kickstarter: “Forms” Section
+Kickstarter: Forms Section
 ----------------------------
 
 .. figure:: ../Images/ScreenshotsFormsSection.png

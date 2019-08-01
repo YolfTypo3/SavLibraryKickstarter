@@ -21,7 +21,7 @@ obtain the following display.
 If you have already created extensions with the SAV Library
 Kickstarter or uploaded SAV Library extensions, they will be displayed.
 
-To create a new extension, click on the "Create a new extension" icon
+To create a new extension, click on the **Create a new extension** icon
 as shown below.
 
 .. figure:: ../Images/TutorialKickstarterNewExtension.png
@@ -44,16 +44,20 @@ Three library types are available:
 
 - **Mvc** - The SAV Library Kickstarter generates an extension which requires
   the SAV Library Mvc to be loaded.
-  The `SAV Library Mvc Extension <http://typo3.org/extensions/repository/view/sav_library_mvc>`_ is the new 
-  development of the SAV Library which fully relies on the MVC approach
+  The `SAV Library Mvc Extension <http://typo3.org/extensions/repository/view/sav_library_mvc>`_ 
+  is the new development of the SAV Library which fully relies on the MVC approach
   with extbase and fluid. The configuration parameters to develop extension **without any
-  PHP coding** are the same as in SAV Library Plus. This library is in beta state because it does not implement yet all 
-  the features available with SAV Library Plus. However available features are enough for most extensions.
+  PHP coding** are the same as in SAV Library Plus. This library is in beta state because 
+  it does not implement yet all 
+  the features available with SAV Library Plus. However available features are enough 
+  for most extensions.
 
 - **Basic** - This new feature was introduced in version 1.0.0 to **kickstart extensions
   based on extbase and fluid**.
-  This basic generation includes the database, models, repositories and TCA generation for all the types available 
-  when using the SAV Library Plus or SAV Library Mvc. The controller displays a very basic template.
+  This basic generation includes the database, models, repositories and TCA generation 
+  for all the types available 
+  when using the SAV Library Plus or SAV Library Mvc. The controller displays 
+  a very basic template.
 
 Table of Contents
 =================

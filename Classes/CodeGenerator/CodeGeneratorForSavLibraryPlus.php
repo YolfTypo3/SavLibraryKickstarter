@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
- * This class generates the code for a front end plugin.
+ * This class generates the code for a frontend plugin.
  *
  * It is based on the same idea developed by Ingmar Schlecht for the extbase_kickstater.
  * Code templates are used to build the file contents. They are processed by a fluid parser.

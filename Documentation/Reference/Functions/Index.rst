@@ -7,7 +7,7 @@ Functions
 =========
 
 Functions are applied to the value of the field. They can be also
-applied to left and right contents. In this case, "Left" or "Right"
+applied to left and right contents. In this case, **Lef** or **Right**
 should be added to the function name and the optional attributes (**Not yet implemented in SAV Library Mvc**).
 
 ======================================================= =========== ============ ==== ====
@@ -44,7 +44,7 @@ func = makeDateFormat;
         Optional attributes can be added:
          
         - format = string; The string should be a format that makes sense for
-          the php-function strftime(). By defaut, "%d/%m/%Y" and "%d/%m/%Y %H:%M" are 
+          the php-function strftime(). By defaut, **%d/%m/%Y** and **%d/%m/%Y %H:%M** are 
           respectively used for date and datetime.
 
 
@@ -69,7 +69,7 @@ func = makeEmailLink;
          
         - message = string; Message associated with the link.
          
-        - fieldMessage = fieldName; Sets the attribute "message" with the
+        - fieldMessage = fieldName; Sets the attribute **message** with the
           content of the field whose name is given by fieldName.
 
 
@@ -89,11 +89,11 @@ func = makeExtLink;
                             
     Description
         This function generates a hyperlink associated with the value of the
-        field. It will open the "showSingle" view associated with the selected
+        field. It will open the **Single** view associated with the selected
         item in another extension. The following attributes must be provided:
          
         - ext = string; (string is the extension name followedby the form name.
-          Example "myext\_intranet").
+          Example **myext_intranet**).
          
         - pageId = integer; (integer is the page id where the extension is the
           content element).
@@ -111,11 +111,11 @@ func = makeExtLink;
         - valueIsUid = 1; The field value is used as the uid of the page
           associated with the link.
          
-        - restrictLinkTo = ###usergroup=group\_name###; the link will be
-          displayed if the user belongs to the group\_name.
+        - restrictLinkTo = ###usergroup=group_name###; the link will be
+          displayed if the user belongs to the **group_name**.
          
-        - restrictLinkTo = ###usergroup!=group\_name###; the link will be
-          displayed if the user does not belong to the group\_name.
+        - restrictLinkTo = ###usergroup!=group_name###; the link will be
+          displayed if the user does not belong to the **group_name**.
    
 
 
@@ -144,9 +144,9 @@ func = makeImage;
          
         - height = integer; (height of the image in pixels).
          
-        - alt = string; (string will be the "alt" attribute of the image).
+        - alt = string; (string will be the **alt** attribute of the image).
          
-        - fieldAlt = field\_name; (the "alt" attribute will be the value of the
+        - fieldAlt = field_name; (the **alt** attribute will be the value of the
           fieldname for the current record).
    
 
@@ -166,7 +166,7 @@ func = makeItemLink;
               
     Description
         This function generates a hyperlink associated with the value of the
-        field. It will open the "Single" view associated with the selected
+        field. It will open the **Single** view associated with the selected
         item.
          
         Optional attributes can be added:
@@ -174,11 +174,11 @@ func = makeItemLink;
         - folderTab = string; (string is the folder tab name, if the extension
           uses serveral folders).
          
-        - updateForm = 1; makes it possible to open an "update" view instead of
-          the "Show single" view (**Not yet implemented in SAV Library Mvc**).
+        - updateForm = 1; makes it possible to open an **update** view instead of
+          the **Single** view (**Not yet implemented in SAV Library Mvc**).
          
-        - inputForm = 1; makes it possible to open an "Edit" view instead
-          of the "Single" view.
+        - inputForm = 1; makes it possible to open an **Edit** view instead
+          of the **Single** view.
          
         - setUid = integer; the integer defines the page uid associated with the
           link.
@@ -219,7 +219,7 @@ func = makeLink;
           the link.
          
         - fieldMessage = fieldName; Sets the attribute
-          "message" with the content of the field whose
+          **message** with the content of the field whose
           name is given by fieldName.
          
         - setUid = integer; the integer defines the 
@@ -247,27 +247,27 @@ func = makeNewWindowLink;
         field which opens a new window. Paramaters are :
          
         - windowUrl = string; string is the url. The marker
-          ###special[fieldname]### from selectors can be used. This parameter is
+          **###special[fieldname]###** from selectors can be used. This parameter is
           not necessary if the field is an image.
          
         Optional attributes can be added:
          
         - windowText = string; string will be added above the image. The marker
-          ###special[fieldname]### from selectors can be used.
+          **###special[fieldname]###** from selectors can be used.
          
         - windowBodyStyle = string; string will be added as the style attribute
-          to the body html tag. Do not forget to use \; for style attributes,
+          to the body html tag. Do not forget to use **\\;** for style attributes,
           since the semi-colon is use to split field attributes, and do not
           forget to end your definition by a semi-colon. Example:
          
         ::
          
-            windowBodyStyle = fontweight:bold\;font-color:blue\;;
+            windowBodyStyle = fontweight:bold\\;font-color:blue\\;;
          
         - message = string; Message associated with the link.
          
-        - fieldMessage = fieldName; Sets the attribute "message" with the
-          content of the field whose name is given by fieldName.
+        - fieldMessage = fieldName; Sets the attribute **message** with the
+          content of the field whose name is given by **fieldName**.
      
 
 
@@ -292,13 +292,13 @@ func = makeUrlLink;
         - link = string; The string will be used for the link instead of the
           field value.
          
-        - fieldLink = fieldName; Sets the attribute "link" with the content of
+        - fieldLink = fieldName; Sets the attribute **link** with the content of
           the field whose name is given by fieldName.
          
         - message = string; Message associated with the link.
          
-        - fieldMessage = fieldName; Sets the attribute "message" with the
-          content of the field whose name is given by fieldName.
+        - fieldMessage = fieldName; Sets the attribute **message** with the
+          content of the field whose name is given by **fieldName**.
    
 
 
@@ -321,10 +321,10 @@ func = makeXmlLabel;
          
         - xmlLabel = string; the string is the label definition. For example,
           assume that the value comes from a selectorbox whose label definition
-          is in the file locallang\_db.xml in the extension "my\_ext". Assume
-          also that the field is "my\_field". Then, to obtain the label one has
+          is in the file **locallang_db.xlf** in the extension **my_ext**. Assume
+          also that the field is **my_field**. Then, to obtain the label one has
           to write
          
         ::
          
-            xmlLabel = LLL:EXT:my_ext/locallang_db.xml:tx_myext.my_field.I.;
+            xmlLabel = LLL:EXT:my_ext/locallang_db.xlf:tx_myext.my_field.I.;

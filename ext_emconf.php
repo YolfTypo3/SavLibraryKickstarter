@@ -8,7 +8,7 @@
  ***************************************************************/
 $EM_CONF[$_EXTKEY] = [
     'title' => 'SAV Library Kickstarter',
-    'description' => 'Kickstarter which automatically generates SAV Library Plus, SAV Library Mvc and basic fluid/extbase based extensions.  Multiple views of the data including forms with Front End editing facilities can be generated.',
+    'description' => 'Kickstarter which automatically generates SAV Library Plus, SAV Library Mvc and basic fluid/extbase based extensions.  Multiple views of the data including forms with frontend editing facilities can be generated.',
     'category' => 'misc',
     'author' => 'Laurent Foulloy',
     'author_email' => 'yolf.typo3@orange.fr',

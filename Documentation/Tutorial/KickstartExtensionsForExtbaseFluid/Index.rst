@@ -6,7 +6,7 @@
 Kickstarting extensions for extbase/fluid
 =========================================
 
-Fill the form and click on the "Save" button.   
+Fill the form and click on the **Save** button.   
   
 .. figure:: ../../Images/TutorialKickstarterExtensionConfigurationForBasicType.png
 
@@ -14,15 +14,17 @@ Fill the form and click on the "Save" button.
    Do not forget to provide a **vendor name** which will be used in namespaces 
    (see https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/Namespaces/Index.html).
    
-Click on the cross icon of the “Forms” section, enter a name and **save**. The form name will be the extbase **controller name**.
+Click on the cross icon of the **Forms** section, enter a name and **save**. 
+The form name will be the extbase **controller name**.
 
 .. figure:: ../../Images/TutorialKickstarterAddingANewFormForBasicType.png
    
-Click on the cross icon of the “Views” section, enter a name and **save**. The view name will be the **default action name**.
+Click on the cross icon of the **Views** section, enter a name and **save**. 
+The view name will be the **default action name**.
    
 .. figure:: ../../Images/TutorialKickstarterAddingANewViewForBasicType.png   
 
-Click on the cross icon of the "New tables" section, enter a short name and a title for
+Click on the cross icon of the **New tables** section, enter a short name and a title for
 the table, change the flags if necessary and **save**.
 
 .. warning::
@@ -33,7 +35,7 @@ the table, change the flags if necessary and **save**.
 
 Add the table fields by clicking on the cross icon at the right of the
 fields overview. By default, the field name and title are set to
-“New”.
+**New**.
 
 .. tip::
    if you have several field, in order to fasten the process, you may
@@ -45,7 +47,7 @@ Each field can be edited, moved up or down and deleted using the icons. Provide
 a field name (name in the database), a label and a type. The kickstarter will 
 generates the TCA for conventional useful types. **Do not forget to save**.
 
-The final step is to generate the extension by clicking on the "Generte" button.
+The final step is to generate the extension by clicking on the **Generte** button.
 
 .. figure:: ../../Images/TutorialKickstarterGeneratingExtensionForBasicType.png
 
@@ -55,12 +57,12 @@ Installing the extension
 
 Install you extension either with the extension manager or with SAV Library Kickstarer
 
-Create a page and insert a plugin content element and select “SAV
-Basic Example0” in the plugin selector.
+Create a page and insert a plugin content element and select **SAV
+Basic Example0** in the plugin selector.
 
 .. figure:: ../../Images/TutorialKickstarterAddingPluginForBasicType.png
 
-Go to your page in Front End and you should see the following caption.
+Go to your page in the frontend and you should see the following caption.
 
 .. figure:: ../../Images/TutorialKickstarterPluginInFrontendForBasicType.png
 

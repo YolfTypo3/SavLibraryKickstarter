@@ -18,7 +18,7 @@ SAV Library Kickstarter
 :Description:
    Kickstarter, based on fluid and extbase, which automatically generates
    extensions for the SAV Library Plus and SAV Library. Multiple views of
-   the data including forms with Front End editing facilities
+   the data including forms with frontend editing facilities
    can be generated.
 
 :Keywords:

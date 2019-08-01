@@ -59,8 +59,8 @@ aliasSelect
         Field name
                   
     Description
-        Defines an alias used in the SELECT query. Markers ###fieldname### can
-        be used, fieldname must be in the relation table.
+        Defines an alias used in the SELECT query. Markers **###fieldname###** can
+        be used, **fieldname** must be in the relation table.
 
 
 
@@ -78,7 +78,7 @@ applyFuncToRecords
         Boolean
                   
     Description
-        If true the function defined by the “func” attribute is applied to
+        If true the function defined by the **func** attribute is applied to
         each record of a double selector in the single view.
 
     Default
@@ -98,17 +98,17 @@ content
         SQL SELECT statement
  
     Description
-        SQL SELECT statement must have an alias "uid" and an alias "label"
+        SQL SELECT statement must have an alias **uid** and an alias **label**
         which will be used as the value to display. Special markers can be
         used in the statement :
          
-        - ###uid### will be replaced by the current record uid.
+        - **###uid###** will be replaced by the current record uid.
          
-        - ###uidSelected### will be replaced by the selected item.
+        - **###uidSelected###** will be replaced by the selected item.
          
-        - ###user### will be replaced by the user id.
+        - **###user###** will be replaced by the user id.
          
-        - ###cruser### will be replaced by the user id.
+        - **###cruser###** will be replaced by the user id.
          
         The following example returns a selectorbox with the usernames that
         are linked with the user by a MM relation:
@@ -194,8 +194,8 @@ overrideEnableFields
         Boolean
                    
     Description
-        If set, the method enableFields of the class tslib\_cObj which filters
-        out records with start/end times or hidden/fe\_groups fields is not
+        If set, the method enableFields of the class tslib_cObj which filters
+        out records with start/end times or hidden/fe_groups fields is not
         applied to the query associated with the selectorbox.
          
         It may be used in specific cases when you needed to retreive all the
@@ -284,7 +284,7 @@ specialFields
         
     Description
         The value of the fields will be propagated in the
-        ###special[fieldname]### marker when available.
+        **###special[fieldname]### marker** when available.
 
 
 
@@ -304,17 +304,16 @@ whereSelect
     Description
         Defines the WHERE clause for the selector. It can be:
          
-        - a conventional MySQL clause.- The marker ###user### can be used. It
-          will be replaced by the user uid.- The marker ###uid### can be used.
-          it will be replaced by the main current record.- The marker
-          ###CURRENT\_PID### can be used. It will be replaced by the current
-          page uid.- The marker ###STORAGE\_PID### can be used. It will be
-          replaced by the storage page uid.
+        - a conventional MySQL clause. The marker **###user###** 
+          will be replaced by the user uid.The marker **###uid###** or 
+          **###uidMainTable###** will be replaced by the main current record.
+          The marker **###CURRENT_PID###** will be replaced by the current
+          page uid.
          
-        - ###group\_list = list\_of\_comma\_separed\_fe\_groups###. To be used
-          with a selector on fe\_users. It checks if the user belongs to the
+        - ###group_list = list_of_comma_separed_fe_groups###. To be used
+          with a selector on **fe_users**. It checks if the user belongs to the
           group list.
          
-        - ###group\_list != list\_of\_comma\_separed\_fe\_groups###. To be used
-          with a selector on fe\_users. It checks if the user does not belong to
+        - ###group_list != list_of_comma_separed_fe_groups###. To be used
+          with a selector on **fe_users**. It checks if the user does not belong to
           the group list.

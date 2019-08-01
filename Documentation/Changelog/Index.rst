@@ -37,25 +37,25 @@ Version  Changes
          - Documentation converted to the reStructuredText format.
          - Bug when calling context sensitive help corrected.
          - Extension versions are kept and can be managed easily. 
-         - Generation of  the "types" field in tca.php for extensions using starttime, 
+         - Generation of  the **types** field in tca.php for extensions using starttime, 
            endtime or access group  fields corrected.
          - Compatibility with TYPO3 7.x.x added
 
 0.4.1    - Code slighly modified in accordance to the TYPO3 coding guidelines.
          - Compatibility with TYPO3 6.2 improved.
-         - New type "Currency" added (Feature #52986).
+         - New type **Currency** added (Feature #52986).
          - Bug #53253 corrected.
 
 0.4.0    - Compatibility with TYPO3 6.1 and 6.2 added.
          - Subforms can be included into subforms.
 
-0.3.0    - Small improvements in the code generation for sav\_library\_plus and
+0.3.0    - Small improvements in the code generation for sav_library_plus and
            in fluid templates.
          - documentation and csh files updated.
          - Compatibility with TYP03 6.0 added.
          - Download button added in the extension list.
          - Flag added in the extension configuration to keep the
-           ext\_localconf.php file.  
+           ext_localconf.php file.  
 
 0.2.2    - Small bug corrected and calls to deprecated functions removed.
          - Documentation updated to the new documentation template.
@@ -90,7 +90,7 @@ Version  Changes
 0.1.0    - Several features were improved.
          - Generation of MVC type extension working with extbase and fluid was
            added. The generated extensions require SAV Library MVC
-           (sav\_library\_mvc) to be loaded.
+           (sav_library_mvc) to be loaded.
 
 0.0.2    - Parser modified to work with fluid 1.2.0 (TYPO3 4.4.0) and fluid 1.0.2
            (TYPO3 4.3.3).

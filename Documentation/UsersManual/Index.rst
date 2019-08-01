@@ -9,7 +9,8 @@ Users manual
 Installation
 ============
 
-- Download the extension “sav\_library\_kickstarter” and install it.
+- Download the extension `SAV Library Kickstarter 
+  <https://typo3.org/extensions/repository/view/sav_library_kickstarter>`_ and install it.
 
 .. warning::
 
@@ -54,15 +55,15 @@ For each extension in this list, several information are displayed:
   extension by clicking on the upgrade icon.
 
 - The library type which indicates the required library type for the
-  extension. “Plus” is the default.
+  extension. **Plus** is the default.
 
 - The list of the forms used in the extension since one extension may
   contain several forms. For each form you can select if the plugin will
   behave as a USER for this form, that is caching will be possible. By
-  default, the plugin will behave as a USER\_INT for all forms, that is
+  default, the plugin will behave as a **USER_INT** for all forms, that is
   no caching is available. If you want to make a form behaving as a
-  USER, edit the form section associated with your extension and check
-  the “Allow caching” flag.
+  **USER**, edit the form section associated with your extension and check
+  the **Allow caching** flag.
 
 - The debug queries flag which indicates whether you have set this flag
   in the extension configuration view. This flag should only be used
@@ -106,7 +107,7 @@ the copy icon as shown below.
 
 .. figure:: ../Images/UsersManualCopyingAnExtension.png
 
-Enter the new extension key and click on the “Save” button. That's it
+Enter the new extension key and click on the **Save** button. That's it
 !
 
 .. figure:: ../Images/UsersManualNewExtensionName.png
@@ -118,15 +119,15 @@ Caching
 =======
    
 The plugin behaviour may be changed for each form. By default, the
-plugin runs as USER\_INT for each form, that is no caching is
-performed. By selecting the checkbox “Allow caching” in the “Forms”
+plugin runs as **USER_INT** for each form, that is no caching is
+performed. By selecting the checkbox **Allow caching** in the **Forms**
 section of the Kickstarter, the plugin will run as USER for this form.
-It means that caching will be set. A “cHash” parameter is added to
-each item links used to access to the “Single” view associated with
+It means that caching will be set. A **cHash** parameter is added to
+each item links used to access to the **Single** view associated with
 the item.
 
 .. figure:: ../Images/UsersManualCaching.png
 
-When the plugin is running as USER (caching enabled) and an item is
-updated in the “Edit” view, the cache of the current page is cleared
+When the plugin is running as **USER** (caching enabled) and an item is
+updated in the **Edit** view, the cache of the current page is cleared
 on saving so that updated information could be displayed.

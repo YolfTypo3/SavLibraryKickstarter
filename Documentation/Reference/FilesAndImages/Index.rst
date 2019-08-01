@@ -103,18 +103,18 @@ addToUploadFolderFromField
         Field name
 
     Description
-        Adds the content of the field whose name is given by "field\_name" to
+        Adds the content of the field whose name is given by **field_name** to
         the uploadFolder attribute. This information is separated with an
         underscore.
 
-        Example: if the field\_name is "my\_field" and its contents is "123",
+        Example: if the **field_name** is **my_field** and its contents is **123**,
         then
 
         ::
 
             AddToUploadFolderFromField = my_field;
 
-        will add "\_123" to the uploadFolder name.
+        will add **_123** to the uploadFolder name.
 
 
 
@@ -152,8 +152,8 @@ default
     
     Description
         Defines the default image if the content of the field is null
-        otherwise the default image is “unknown.gif” taken in the directory
-        sav\_library\_Plus/Resources/Private/Images.
+        otherwise the default image is **unknown.gif** taken in the directory
+        **sav_library_Plus/Resources/Public/Images**.
 
 
 
@@ -171,8 +171,8 @@ fieldAlt
         Field name
 
     Description
-        Sets the "alt" attribute with the content of the field whose name is
-        given by field\_name.
+        Sets the **alt** attribute with the content of the field whose name is
+        given by field_name.
 
 
 
@@ -190,8 +190,8 @@ fieldMessage
         Field name
 
     Description
-        Sets the attribute "message" with the content of the field whose name
-        is given by field\_name.
+        Sets the attribute **message** with the content of the field whose name
+        is given by field_name.
 
 
 .. _filesAndImages.height:
@@ -283,7 +283,7 @@ renderAsLink
         Boolean
         
     Description
-        If set image is rendered as a link.
+        If set, the image is rendered as a link.
         
         
 
@@ -321,12 +321,12 @@ tsProperties
 
     Description
         It makes it possible to use the graphic possibilities of TYPO3. If
-        set, an IMAGE cObject is generated with the given TS properties.
+        set, an IMAGE cObject is generated with the given TypoScript properties.
 
         .. important::
         
             Do not forget that the configuration field is ended by a semi-column,
-            therefore if you need a semi-column in your TS write it “\;”
+            therefore if you need a semi-column in your TypoScript, write it **\\;**.
 
 
 

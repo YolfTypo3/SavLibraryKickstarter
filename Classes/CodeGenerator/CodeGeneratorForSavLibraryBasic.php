@@ -16,7 +16,7 @@ namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * This class generates the code for a front end plugin.
+ * This class generates the code for a frontend plugin.
  *
  * It is based on the same idea developed by Ingmar Schlecht for the extbase_kickstater.
  * Code templates are used to build the file contents. They are processed by a fluid parser.
@@ -54,7 +54,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
 
         // Generates composer.json
         $this->buildComposer();
-        
+
         // Generates ext_localconf.php
         $this->buildExtLocalConf();
 
@@ -65,7 +65,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
         $this->buildConfigurationFlexform();
         $this->buildConfigurationTca();
         $this->buildConfigurationTypoScript();
-        
+
         // Generates Documentation files
         $this->buildDocumentation();
 
@@ -88,7 +88,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
     /**
      * Specific methods for this generator
      */
-    
+
     /**
      * Builds the CSS file.
      *
@@ -143,7 +143,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
             GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/TypoScript/setup.txt', $fileContents);
         }
     }
-   
+
     /**
      * Builds The fluid directories.
      *

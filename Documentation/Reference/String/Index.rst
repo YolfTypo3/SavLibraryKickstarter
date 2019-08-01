@@ -47,7 +47,7 @@ keepZero
     Boolean
     
   Description
-    If set and the field is equal to zero the "0" is displayed otherwise
+    If set and the field is equal to zero the **0** is displayed otherwise
     an empty field is displayed.
      
   Default

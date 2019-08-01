@@ -38,7 +38,7 @@ Property                                                Data type   Default     
 :ref:`general.mailAuto`                                 Boolean     0            Yes  No
 :ref:`general.onLabel`                                  Boolean     0            Yes  No
 :ref:`general.orderLinkInTitle`                         Boolean     0            Yes  Yes
-:ref:`general.orderLinkInTitleSetup`                    String      \:link\:     Yes  Yes
+:ref:`general.orderLinkInTitleSetup`                    String      :link:       Yes  Yes
 :ref:`general.query`                                    SQL                      Yes  No
                                                         statements
 :ref:`general.queryOnValue`                             String                   Yes  No
@@ -59,7 +59,10 @@ Property                                                Data type   Default     
 :ref:`general.verifierMessage`                          String                   Yes  No
 :ref:`general.verifierParam`                            String                   Yes  No
 :ref:`general.verifierSetWarning`                       Boolean     0            Yes  No
+:ref:`general.wrapInnerItem`                            Wrap                     Yes  No
 :ref:`general.wrapItem`                                 Wrap                     Yes  Yes
+:ref:`general.wrapItemIfNotCut`                         Wrap                     Yes  No
+:ref:`general.wrapValue`                                Wrap                     Yes  No
 ======================================================= =========== ============ ==== ====
 
 
@@ -78,12 +81,12 @@ addEdit
         Boolean      
            
     Description
-        When the field is used in an "Update form" view, it will add an input
+        When the field is used in an **Update form** view, it will add an input
         element for update that can be used with the marker
-        ###field\_name\_Edit### where "field\_name" is the name of the field.
+        **###field_name_Edit###** where **field_name** is the name of the field.
              
         See also the help for Form views (showAllItemTemplate) to see how to
-        use markers ###field[field\_name, label]###. 
+        use markers **###field[field_name, label]###**. 
        
     Default
         0
@@ -256,7 +259,7 @@ classLabel
         String
         
     Description
-        The default class "label" associated with the label of the displayed
+        The default class **label** associated with the label of the displayed
         value will be replaced by the string.
 
 
@@ -275,7 +278,7 @@ classValue
         String
       
     Description
-        The default class "value" associated with the displayed value will be
+        The default class **value** associated with the displayed value will be
         replaced by the string.   
        
 
@@ -283,40 +286,42 @@ classValue
 
 .. _general.cutIf:
 
-cutIf (showIf, requiredIf, queryIf, reqValueIf)
-===============================================
+cutIf (showIf, requiredIf, queryIf, reqValueIf, editIf, valueif)
+================================================================
 
 .. container:: table-row
 
     Property
-        cutIf (showIf, mailIf, requiredIf, queryIf, reqValueIf)
+        cutIf (showIf, mailIf, requiredIf, queryIf, reqValueIf, editIf, valueIf)
              
     Data type
       String
          
     Description
-        If the condition is true, the property cut, show, mail, required, query or
-        reqValue is activated. The string can be:
+        If the condition is true, the property cut, show, mail, required, query, 
+        reqValue, edit or value is activated. The string can be:
              
-        - fieldName operator value. Operator can be =, !=, >, <, >= or <=. The condition is true if current value of the field is
-          equal to the given value. The markers ###user### or ###cruser### (same
+        - fieldName operator value. Operator can be =, !=, >, <, >= or <=. 
+          The condition is true if current value of the field is
+          equal to the given value. The markers **###user###** or **###cruser###** (same
           as user but should be used if a new record is created) will be
           replaced by the user id. 
-        - fieldName operateur specialValue. Operator can be is or isnot. The special value can be EMPTY or NEW. The condition is true is the field
+        - fieldName operateur specialValue. Operator can be is or isnot. 
+          The special value can be **EMPTY** or **NEW**. The condition is true is the field
           is (or is not) empty (or a new record).
              
-        - ###usergroup=group\_name###The field is cut / shown if the group
-          “group\_name” is a valid group for the current user.
+        - ###usergroup=group_name### The field is cut or shown if the group
+          **group_name** is a valid group for the current user.
              
-        - ###usergroup!=group\_name###The field is cut / shown if the group
-          “group\_name” is not a valid group for the current user.
+        - ###usergroup!=group_name### The field is cut or shown if the group
+          **group_name** is not a valid group for the current user.
              
-        - ###group=group\_name###The field is cut / shown if the group
-          “group\_name” is a valid group for the current record. It checks the
+        - ###group=group_name### The field is cut or shown if the group
+          **group_name** is a valid group for the current record. It checks the
           usergroup field in the local table if any.
              
-        - ###group!=group\_name###The field is cut / shown if the group
-          “group\_name” is not a valid group for the current record. It checks
+        - ###group!=group_name### The field is cut or shown if the group
+          **group_name** is not a valid group for the current record. It checks
           the usergroup field in the local table if any.
              
         Logical connectors &, \|, and, or can be used between expression.
@@ -397,14 +402,14 @@ editAdminPlus
        
     Description
         Makes the field editable in an input form, if the user has the
-        "Admin+" right. To be an "Admin" user, his/her TSConfig must contain a
+        **Admin+** right. To be an **Admin** user, his/her TSConfig must contain a
         line as follows:
              
-        - extKey\_Admin=value where “extKey” is the extension key and value is
-          one of the possible value of the "Input Admin Field" defined in the
+        - extKey_Admin=value where **extKey** is the extension key and value is
+          one of the possible value of the **Input Admin Field** defined in the
           flexform associated with the extension.
              
-        - The user becomes an "Admin+" user, if his/her TSConfig contains a line
+        - The user becomes an **Admin+** user, if his/her TSConfig contains a line
           as follows:
              
         ::
@@ -448,7 +453,7 @@ funcAddLeftIfNotNull
                
     Description
         String will be added to the left if the result of the applied
-        function, defined by "func=function\_name;" property, is not null.
+        function, defined by **func=function_name;** property, is not null.
 
 
 .. _general.funcAddLeftIfNull:
@@ -466,7 +471,7 @@ funcAddLeftIfNull
          
     Description
         String will be added to the left if the result of the applied
-        function, defined by "func=function\_name;" property, is null.
+        function, defined by **func=function_name;** property, is null.
 
 
 
@@ -485,7 +490,7 @@ funcAddRightIfNotNull
          
     Description
         String will be added to the right if the result of the applied
-        function, defined by "func=function\_name;" property, is not null.
+        function, defined by **func=function_name;** property, is not null.
    
 
 
@@ -504,7 +509,7 @@ funcAddRightIfNull
 
     Description
         String will be added to the right if the result of the applied
-        function, defined by "func=function\_name;" property, is null.
+        function, defined by **func=function_name;** property, is null.
    
 
 
@@ -572,7 +577,7 @@ mail
         has to be sent. Mail information are the following and can be used as
         properties:
          
-        - fieldForCheckMail=field\_name; The mail will be sent if the value of
+        - fieldForCheckMail=field_name; The mail will be sent if the value of
           the fieldname for the current row is not null.
          
         - mailIfFieldSetTo=string; The mail will be sent if the value of the
@@ -581,36 +586,36 @@ mail
           values, the mail is sent is the value of the fieldname for the current
           row belongs to this list (only in SAV Library Plus).
          
-        - mailSender=string; mail of the sender. Marker ###user\_email### will
+        - mailSender=string; mail of the sender. The marker **###user_email###** will
           be replaced by the user email.
          
         - mailReceiver=string; mail of the person who will receive the mail and
           process the information.
          
-        - mailReceiverFromField=field\_name; The field\_name contains the mail
+        - mailReceiverFromField=field_name; The **field_name** contains the mail
           of the person who will receive the mail and process the information.
          
-        - mailReceiverFromQuery=MySQL\_Query; The receiver is obtained from a
-          select query with an alias "value" that will used to retrieve the
+        - mailReceiverFromQuery=MySQL_Query; The receiver is obtained from a
+          select query with an alias **value** that will used to retrieve the
           receiver. Example:
          
           ::
          
             SELECT email AS value FROM fe_users WHERE ... 
          
-        - mailSubject=string; subject of the mail. Markers ###fieldname### are
+        - mailSubject=string; subject of the mail. Markers **###fieldname###** are
           allowed and will be replaced by their current value.
          
-        - mailMessage=string, mail message. Markers ###fieldname### are allowed
+        - mailMessage=string, mail message. Markers **###fieldname###** are allowed
           and will be replaced by their current value.
          
         - mailcc=string; if set the string is used as Cc: for the mail.
 
-        - mailccFromField=field\_name; The field\_name contains the mail
+        - mailccFromField=field_name; The **field_name** contains the mail
           of the person who will receive the mail in carbon copy.
          
-        - mailReceiverFromQuery=MySQL\_Query; The receiver is obtained from a
-          select query with an alias "value" that will used to retrieve the
+        - mailReceiverFromQuery=MySQL_Query; The receiver is obtained from a
+          select query with an alias **value** that will used to retrieve the
           carbon copy information.
                    
         - mailMessageLanguage=string; This parameter will force the language for
@@ -620,7 +625,7 @@ mail
           language for the message to the value of the field (for example a
           selector box).
          
-        Localization by means of the file locallang.xml can be used with
+        Localization by means of the file **locallang.xlf** can be used with
         $$$tag$$$ which will be replaced by its value according to the
         configuration language.
    
@@ -648,17 +653,17 @@ mailAlways
         The mail is always sent when saving. Mail information are the
         following:
          
-        - mailSender=string; mail of the sender. Marker ###user\_email### will
+        - mailSender=string; mail of the sender. The marker **###user_email###** will
           be replaced by the user email.
          
         - mailReceiver=string; mail of the person who will receive the mail and
           process the information.
          
-        - mailReceiverFromField=field\_name; The field\_name contains the mail
+        - mailReceiverFromField=field_name; The **field_name** contains the mail
           of the person who will receive the mail and process the information.
              
-        - mailReceiverFromQuery=MySQL\_Query; The receiver is obtained from a
-          select query with an alias "value" that will used to retreive the
+        - mailReceiverFromQuery=MySQL_Query; The receiver is obtained from a
+          select query with an alias **value** that will used to retreive the
           receiver. Example:
          
           ::
@@ -673,14 +678,14 @@ mailAlways
          
         - mailcc=string; if set the string is used as Cc: for the mail.
 
-        - mailccFromField=field\_name; The field\_name contains the mail
+        - mailccFromField=field_name; The **field_name** contains the mail
           of the person who will receive the mail in carbon copy.
          
-        - mailReceiverFromQuery=MySQL\_Query; The receiver is obtained from a
-          select query with an alias "value" that will used to retrieve the
+        - mailReceiverFromQuery=MySQL_Query; The receiver is obtained from a
+          select query with an alias **value** that will used to retrieve the
           carbon copy information.
                    
-        Localization by means of the file locallang.xml can be used with
+        Localization by means of the file **locallang.xlf** can be used with
         $$$tag$$$ which will be replaced by its value according to the
         configuration language.
          
@@ -715,39 +720,39 @@ mailAuto
         The mail is sent when saving, if the field is not empty and if one
         field in the form is changed. Mail information are the following:
          
-        - mailSender=string; mail of the sender. The marker ###user\_email###
+        - mailSender=string; mail of the sender. The marker **###user_email###**
           will be replaced by the user email.
          
         - mailReceiver=string; mail of the person who will receive the mail and
           process the information.
          
-        - mailReceiverFromField=field\_name; The field\_name contains the mail
+        - mailReceiverFromField=field_name; The **field_name** contains the mail
           of the person who will receive the mail and process the information.
          
-        - mailReceiverFromQuery=MySQL\_Query; The receiver is obtained from a
-          select query with an alias "value" that will used to retreive the
+        - mailReceiverFromQuery=MySQL_Query; The receiver is obtained from a
+          select query with an alias **value*** that will used to retreive the
           receiver. Example:
          
         ::
          
             SELECT email AS value FROM fe_users WHERE ... 
          
-        - mailSubject=string; subject of the mail. Markers ###fieldname### are
+        - mailSubject=string; subject of the mail. Markers **###fieldname###** are
           allowed and will be replaced by their current value.
          
-        - mailMessage=string, mail message. Markers ###fieldname### are allowed
+        - mailMessage=string, mail message. Markers **###fieldname###** are allowed
           and will be replaced by their current value.
            
         - mailcc=string; if set the string is used as Cc: for the mail.
 
-        - mailccFromField=field\_name; The field\_name contains the mail
+        - mailccFromField=field_name; The **field_name** contains the mail
           of the person who will receive the mail in carbon copy.
          
-        - mailReceiverFromQuery=MySQL\_Query; The receiver is obtained from a
-          select query with an alias "value" that will used to retrieve the
+        - mailReceiverFromQuery=MySQL_Query; The receiver is obtained from a
+          select query with an alias **value** that will used to retrieve the
           carbon copy information.        
          
-        Localization by means of the file locallang.xml can be used with
+        Localization by means of the file **locallang.xlf** can be used with
         $$$tag$$$ which will be replaced by its value according to the
         onfiguration language.
          
@@ -798,12 +803,12 @@ orderLinkInTitle
         
     Description
         If this property is set, it makes it possible to generate a hyperlink
-        in the title bar of the "list view". The hyperlink is associated with
-        the field if the marker ###fieldname### is used in the "Title bar"
-        section. Order clauses have to be defined in the "Where Tags" section
-        of the "Query Form".
+        in the title bar of the **List** view. The hyperlink is associated with
+        the field if the marker **###fieldname###** is used in the **Title bar**
+        section. Order clauses have to be defined in the **Where Tags** section
+        of the **Query Form**.
          
-        Use the two followings “Where Tags”:
+        Use the two followings **Where Tags**:
          
         ::
          
@@ -821,7 +826,7 @@ orderLinkInTitle
          
             ###link(Default)[whereTagName1(,whereTageName2)]###
          
-        If the optional part “Default” is used, by default the whereTagName1
+        If the optional part **Default** is used, by default the whereTagName1
         is assumed when the extension is launched.
          
         The optional whereTagName2 can be used to set a toggle link with two
@@ -845,9 +850,9 @@ orderLinkInTitleSetup
         String
                  
     Description    
-        This property controls the display of the link when “orderLinkInTitle”
-        is set. The format is “param1:param2:param3” where “param1” to
-        “param3” can take the following values:
+        This property controls the display of the link when **orderLinkInTitle**
+        is set. The format is **param1:param2:param3** where **param1** to
+        **param3** can take the following values:
          
         - value: the field value is displayed,
          
@@ -863,7 +868,7 @@ orderLinkInTitleSetup
         - if there is no value, nothing is displayed.
       
     Default
-        \:link\:
+        :link:
 
 
 .. _general.query:
@@ -881,25 +886,23 @@ query
   
     Description
         The query will be executed once the input form data have been saved.
-        Therefore, it can only be used with "input" or "update" views.
+        Therefore, it can only be used with **Edit** or **Update** views.
          
         .. important::
             Because any query may be executed, for security reason, this
             property can only be used if an admin user has checked the field
-            “Allow the use of the “query” property” in the advanced folder of the
+            **Allow the use of the “query” property** in the advanced folder of the
             flexform.
          
         It may be useful, for example, to update a specific table when the
         current data are saved. Several queries can be used in the SQL
-        statements. Each query must be separated using "\;".
+        statements. Each query must be separated using **\\;**.
          
         Special markers can be used in the statement:
          
-        - ###uid### will be replaced by the current record uid.
+        - ###uid### or ###uidMainTable### will be replaced by the current record uid.
          
-        - ###CURRENT\_PID### will be replaced by the current page uid.
-         
-        - ###STORAGE\_PID### will be replaced by the storage page uid.
+        - ###CURRENT_PID### will be replaced by the current page uid.
          
         - ###user### will be replaced by the user id.
          
@@ -944,7 +947,7 @@ queryForEach
         If the field is a true MM relation, the query, as defined above, will
         be executed for all the record in the relation.
          
-        The special marker ###field\_name###, where "field\_name" is the field
+        The special marker **###field_name###**, where **field_name** is the field
         where the relation is defined, can be used to identify the record. It
         will be replaced by the uid of the associated record.
    
@@ -966,7 +969,7 @@ renderReqValue
     Data type
         Boolean               
     Description
-        Rendering is applied to the value provided by the "reqValue" attribute
+        Rendering is applied to the value provided by the **reqValue** attribute
         according to the type of the field.
    
     Default
@@ -987,7 +990,7 @@ reqValue
         SQL SELECT statement       
 
     Description
-        SQL SELECT statement must have an alias "value" which will be used as
+        SQL SELECT statement must have an alias **value** which will be used as
         the value to display.
          
         Special markers can be used in the statement :
@@ -999,11 +1002,11 @@ reqValue
          
         - ###user### will be replaced by the user id.
          
-        - ###row[field\_name]### where field\_name is the name of a field in the
+        - ###row[field_name]### where **field_name** is the name of a field in the
           current record, will be replaced by its current value.
          
         The following example returns the name of the user who has created the
-        current record, assuming that tx\_mytable is the local table:
+        current record, assuming that **tx_mytable** is the local table:
          
         ::
          
@@ -1071,12 +1074,12 @@ stdWrapItem
          
     Description
         It defines a conventional TypoScript stdWrap property. You can add
-        here full TS syntax.
+        here full TypoScript syntax.
          
         .. important::
         
             Do not forget that the configuration field is ended by a semi-column,
-            therefore if you need a semi-column in your TS write it "\;".
+            therefore if you need a semi-column in your TypoScript write it **\\;**.
           
 
 
@@ -1096,11 +1099,11 @@ stdWrapValue
   
     Description
         It defines a conventional TypoScript stdWrap property. You can add
-        here full TS syntax.
+        here full TypoScript syntax.
          
         .. important:: 
             Do not forget that the configuration field is ended by a semi-column,
-            therefore if you need a semi-column in your TS write it "\;".
+            therefore if you need a semi-column in your TypoScript write it **\\;**.
    
   
   
@@ -1158,7 +1161,7 @@ tsObject
         cObject
               
     Description
-        It defines a TS content object (e.g. TEXT)
+        It defines a TypoScript content object (e.g. TEXT)
    
    
 
@@ -1177,11 +1180,11 @@ tsProperties
         String
            
     Description
-        It defines the properties of the TS cObject.
+        It defines the properties of the TypoScript cObject.
          
         .. important::
             Do not forget that the configuration field is ended by a semi-column,
-            therefore if you need a semi-column in your TS write it “\;”.
+            therefore if you need a semi-column in your TypoScript write it **\\;**.
 
 
 
@@ -1251,11 +1254,11 @@ verifierMessage
     Description
         It replaces the default message.
          
-        Localization by means of the file locallang.xml can be used with
+        Localization by means of the file **locallang.xlf** can be used with
         $$$tag$$$ which will be replaced by its value according to the
         configuration language.
          
-        The marker $$$label[fieldName]$$$ will be replaced by the fieldName
+        The marker **$$$label[fieldName]$$$** will be replaced by the fieldName
         title according to the localization.
    
 
@@ -1275,17 +1278,17 @@ verifierParam
     Description
         The string can be:
          
-        - a regular expression for the verifier "isValidPattern". For example
-          /=[A-Za-z0-9\_]\*$/ will allow any input which contains letters,
+        - a regular expression for the verifier **isValidPattern**. For example
+          /=[A-Za-z0-9\_]*$/ will allow any input which contains letters,
           numbers or underline characters.
          
-        - an integer value for the verifier "isValidLength".
+        - an integer value for the verifier **isValidLength**.
          
         - an interval [a, b] where a and b are integers for the verifier
-          "isValidInterval".
+          **isValidInterval**.
          
-        - a SELECT query for "isValidQuery". The marker ###value### in the query
-          will be replaced by the value of the field. The marker ###uid### will
+        - a SELECT query for **isValidQuery**. The marker **###value###** in the query
+          will be replaced by the value of the field. The marker **###uid###** will
           be replaced by the uid of the current record.
 
 
@@ -1311,7 +1314,31 @@ verifierSetWarning
     Default
         0
 
+.. _general.wrapInnerItem:
 
+wrapInnerItem
+=============
+
+.. container:: table-row
+
+    Property  
+        wrapItem    
+
+    Data type
+        Wrap 
+         
+    Description
+        The string will be used to wrap the inner item. The syntax in the same as in
+        TypoScript.
+        
+        Localization by means of the file locallang.xlf can be used with
+        **$$$tag$$$** which will be replaced by its value according to the
+        configuration language.
+         
+        The marker **$$$label[fieldName]$$$** will be replaced by the fieldName
+        title according to the localization.
+        
+        
 .. _general.wrapItem:
 
 wrapItem
@@ -1329,9 +1356,58 @@ wrapItem
         The string will be used to wrap the item. The syntax in the same as in
         TypoScript.
          
-        Localization by means of the file locallang.xml can be used with
-        $$$tag$$$ which will be replaced by its value according to the
+        Localization by means of the file **locallang.xlf** can be used with
+        **$$$tag$$$** which will be replaced by its value according to the
         configuration language.
          
-        The marker $$$label[fieldName]$$$ will be replaced by the fieldName
+        The marker **$$$label[fieldName]$$$** will be replaced by the fieldName
         title according to the localization.
+        
+.. _general.wrapItemIfNotCut:
+
+wrapItemIfNotCut
+================
+
+.. container:: table-row
+
+    Property  
+        wrapItem    
+
+    Data type
+        Wrap 
+         
+    Description
+        The string will be used to wrap the inner item if it is not cut. 
+        The syntax in the same as in TypoScript.
+        
+        Localization by means of the file **locallang.xlf** can be used with
+        **$$$tag$$$** which will be replaced by its value according to the
+        configuration language.
+         
+        The marker **$$$label[fieldName]$$$** will be replaced by the fieldName
+        title according to the localization. 
+ 
+        
+.. _general.wrapValue:
+
+wrapInnerItem
+=============
+
+.. container:: table-row
+
+    Property  
+        wrapItem    
+
+    Data type
+        Wrap 
+         
+    Description
+        The string will be used to wrap the value. The syntax in the same as in
+        TypoScript.        
+        
+        Localization by means of the file **locallang.xlf** can be used with
+        **$$$tag$$$** which will be replaced by its value according to the
+        configuration language.
+         
+        The marker **$$$label[fieldName]$$$** will be replaced by the fieldName
+        title according to the localization.        

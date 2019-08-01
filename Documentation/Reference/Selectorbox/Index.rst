@@ -29,7 +29,7 @@ func
   
     Description
         It associates a function with the selectorbox items. The parameter
-        function\_name can be:
+        **function_name** can be:
              
         - makeItemLink
              
