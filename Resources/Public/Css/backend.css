@@ -1,20 +1,25 @@
-/* CSS Document */
-/* --- --- --- */
+/*
+ *
+ * CSS Document for SAV Library Kickstarter backend
+ *
+ */
 
-/* General tags */
-BODY, SELECT, INPUT, TEXTAREA {
+/* 
+ * General tags 
+ */
+body, select, input, textarea {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
 	margin: 0px;
 	color: black;
 }
 
-A {
+a {
 	text-decoration: none;
 	color: black;
 }
 
-A IMG {
+a img {
 	border: none;
 }
 
@@ -23,18 +28,18 @@ div#savLibraryKickstarter {
 	width: 1400px;
 }
 
-div#savLibraryKickstarter INPUT {
+div#savLibraryKickstarter input {
 	padding: 0 3px;
 	vertical-align: middle;
 }
 
-div#savLibraryKickstarter LABEL {
-	line-height: 12px;
-	min-height: 12px;
+div#savLibraryKickstarter label {
 	vertical-align: middle;
 }
 
-/* Useful classes */
+/* 
+ * Useful classes 
+ */
 .bold {
 	font-weight: bold;
 }
@@ -55,13 +60,17 @@ div#savLibraryKickstarter LABEL {
 	clear: none;
 }
 
-/* Error message */
+/*
+ * Error message 
+ */
 .errorMessage {
 	color: red;
 	margin: 5px;
 }
 
-/* color definition for views */
+/*
+ * Color definition for views 
+ */
 .list {
 	color: red;
 }
@@ -94,40 +103,47 @@ div#savLibraryKickstarter LABEL {
 	color: orange;
 }
 
-/* Header */
-#header DIV.logo {
+/*
+ * Header 
+ */
+#header div.logo {
 	text-align: center;
 	margin: 10px 0px 20px 0px;
 }
 
-#header DIV.logo DIV.kickstarterTitle {
+#header div.logo div.kickstarterTitle {
 	font-size: 40px;
 	color: orange;
 	height: 40px;
 	line-height: 14px;
 }
 
-#header DIV.logo DIV.extensionTitle {
+#header div.logo div.extensionTitle {
 	font-size: 20px;
 	color: orange;
 	line-height: 14px;
 }
-#header DIV.logo DIV.extensionTitle SPAN{
+
+#header div.logo div.extensionTitle span {
 	margin: 0 3px;
 }
-#header DIV.logo DIV.kickstarterTitle SPAN{
+
+#header div.logo div.kickstarterTitle span {
 	margin: 0 3px;
 }
-#header DIV.logo DIV.extensionTitle SPAN.debugQueryOn {
+
+#header div.logo div.extensionTitle span.debugQueryOn {
 	color: red;
 }
 
-#header DIV.logo DIV.extensionTitle SPAN.extensionNotLoaded {
+#header div.logo div.extensionTitle span.extensionNotLoaded {
 	color: red;
 }
 
-/* Tabs */
-DIV.viewTabs {
+/* 
+ * Tabs 
+ */
+div.viewTabs {
 	float: left;
 	width: 100%;
 	background: url(./Images/folderTabBorder.gif) repeat-x bottom;
@@ -135,24 +151,24 @@ DIV.viewTabs {
 	padding: 0px;
 }
 
-DIV.viewTabs DIV.buttons {
+div.viewTabs div.buttons {
 	margin-bottom: 10px;
 }
 
-DIV.viewTabs UL.viewTabs {
+div.viewTabs ul.viewTabs {
 	float: left;
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
 }
 
-DIV.viewTabs LI {
+div.viewTabs li {
 	display: inline;
 	margin: 0px;
 	padding: 0px;
 }
 
-DIV.viewTabs LI A {
+div.viewTabs li a {
 	float: left;
 	background: url(./Images/folderTabRight.gif) no-repeat right top;
 	border-bottom: 1px solid #84B0C7;
@@ -160,32 +176,32 @@ DIV.viewTabs LI A {
 	font-weight: bold;
 }
 
-DIV.viewTabs LI A SPAN {
+div.viewTabs li a span {
 	display: block;
 	background: url(./Images/folderTabLeft.gif) no-repeat left top;
 	padding: 5px 9px;
 	white-space: nowrap;
 }
 
-DIV.viewTabs LI.currentTab A {
+div.viewTabs li.currentTab a {
 	background-position: 100% -150px;
 	border-width: 0px;
 }
 
-DIV.viewTabs LI A:hover {
+div.viewTabs li a:hover {
 	background-position: 100% -150px;
 }
 
-DIV.viewTabs LI A:hover SPAN {
+div.viewTabs li a:hover span {
 	background-position: 0% -150px;
 }
 
-DIV.viewTabs LI.currentTab A SPAN {
+div.viewTabs li.currentTab a span {
 	background-position: 0% -150px;
 	padding-bottom: 6px;
 }
 
-DIV.folderTabs {
+div.folderTabs {
 	float: left;
 	width: 100%;
 	background: url(./Images/folderTabBorder.gif) repeat-x bottom;
@@ -193,24 +209,24 @@ DIV.folderTabs {
 	padding: 0px;
 }
 
-DIV.folderTabs DIV.buttons {
+div.folderTabs div.buttons {
 	margin-bottom: 10px;
 }
 
-DIV.folderTabs UL.folderTabs {
+div.folderTabs ul.folderTabs {
 	float: left;
 	margin: 0px;
 	padding: 0px;
 	list-style: none;
 }
 
-DIV.folderTabs LI {
+div.folderTabs li {
 	display: inline;
 	margin: 0px;
 	padding: 0px;
 }
 
-DIV.folderTabs LI A {
+div.folderTabs li a {
 	float: left;
 	background: url(./Images/folderTabRight.gif) no-repeat right top;
 	border-bottom: 1px solid #84B0C7;
@@ -218,50 +234,52 @@ DIV.folderTabs LI A {
 	font-weight: bold;
 }
 
-DIV.folderTabs LI A SPAN {
+div.folderTabs li a span {
 	display: block;
 	background: url(./Images/folderTabLeft.gif) no-repeat left top;
 	padding: 5px 9px;
 	white-space: nowrap;
 }
 
-DIV.folderTabs LI.currentTab A {
+div.folderTabs li.currentTab a {
 	background-position: 100% -150px;
 	border-width: 0px;
 }
 
-DIV.folderTabs LI A:hover {
+div.folderTabs li a:hover {
 	background-position: 100% -150px;
 }
 
-DIV.folderTabs LI A:hover SPAN {
+div.folderTabs li a:hover span {
 	background-position: 0% -150px;
 }
 
-DIV.folderTabs LI.currentTab A SPAN {
+div.folderTabs li.currentTab a span {
 	background-position: 0% -150px;
 	padding-bottom: 6px;
 }
 
-/* Menu */
+/* 
+ * Menu 
+ */
 #menu {
 	float: left;
 	margin: 0px 5px 0px 5px;
 	min-height: 500px;
 }
 
-#menu A {
+#menu a {
 	text-decoration: none;
 }
 
-#menu UL {
+#menu ul {
 	clear: left;
 	float: left;
 	padding: 0px;
 	margin: 0px;
 }
 
-#menu LI {
+#menu li {
 	clear: left;
 	float: left;
 	list-style: none;
@@ -269,15 +287,15 @@ DIV.folderTabs LI.currentTab A SPAN {
 	margin: 0px;
 }
 
-#menu LI.section {
+#menu li.section {
 	margin-bottom: 2px;
 }
 
-#menu LI.selected {
+#menu li.selected {
 	background-color: #e0e0e0;
 }
 
-#menu LI.section DIV.title {
+#menu li.section div.title {
 	float: left;
 	width: 200px;
 	font-weight: bold;
@@ -286,7 +304,7 @@ DIV.folderTabs LI.currentTab A SPAN {
 	padding: 2px;
 }
 
-#menu LI.section DIV.icon {
+#menu li.section div.icon {
 	float: left;
 	width: 20px;
 	background-color: #ffffff;
@@ -295,11 +313,11 @@ DIV.folderTabs LI.currentTab A SPAN {
 	padding: 2px;
 }
 
-#menu LI.section DIV.selected {
+#menu li.section div.selected {
 	background-color: #e0e0e0;
 }
 
-#menu LI.item DIV.title {
+#menu li.item div.title {
 	float: left;
 	width: 200px;
 	font-weight: normal;
@@ -308,7 +326,7 @@ DIV.folderTabs LI.currentTab A SPAN {
 	padding: 2px;
 }
 
-#menu LI.item DIV.icon {
+#menu li.item div.icon {
 	float: left;
 	width: 20px;
 	font-weight: normal;
@@ -318,97 +336,106 @@ DIV.folderTabs LI.currentTab A SPAN {
 	padding: 2px;
 }
 
-/* Content */
+/* 
+ * Content 
+ */
 #content {
 	float: left;
 	margin: 0px 5px 0px 5px;
 	width: 500px;
 }
 
-#content DIV.header {
+#content div.header {
 	float: left;
 	margin-bottom: 10px;
 	line-height: 1;
 }
 
-#content DIV.header DIV.logo {
+#content div.header div.logo {
 	float: left;
 	font-size: 20px;
 }
 
-#content DIV.header DIV.buttons {
+#content div.header div.buttons {
 	float: left;
 	margin-left: 10px;
 }
 
-#content DIV.header DIV.buttons DIV.docheader-csh {
+#content div.header div.buttons div.docheader-csh {
 	float: left;
 	margin-right: 10px;
 }
 
-#content DIV.body {
+#content div.header div.buttons button {
+	float: left;
+	padding: 0px;
+	width: 30px;
+	height: 22px;
+}
+
+#content div.body {
 	float: none;
 	display: block;
 }
 
-#content DIV.body .clearNone {
+#content div.body .clearNone {
 	clear: none;
 }
 
-#content DIV.body LABEL {
+#content div.body label {
 	clear: left;
 	float: left;
-	padding: 3px 3px 3px 0px;
+	margin-right: 3px;
 	font-weight: bold;
 }
 
-#content DIV.body LABEL.checkbox {
+#content div.body label.checkbox {
 	padding: 0px;
 	width: 200px;
 }
 
-#content DIV.body INPUT {
+#content div.body input {
 	clear: left;
 	float: left;
 	width: 400px;
 }
 
-#content DIV.body INPUT.checkbox {
+#content div.body input.checkbox {
 	width: 10px;
 	margin: 3px 3px 0px 0px;
 }
 
-#content DIV.body INPUT.integer {
+#content div.body input.integer {
 	width: 25px;
 }
 
-#content DIV.body SELECT {
+#content div.body select {
 	clear: left;
 	float: left;
-	margin: 3px 3px 0px 0px;
+	margin-right: 3px;
 }
 
-#content DIV.body TEXTAREA {
+#content div.body textarea {
 	clear: left;
 	float: left;
 	width: 500px;
 	margin-top: 2px;
 }
 
-#content DIV.body SPAN.oldExtensionKey {
+#content div.body span.oldExtensionKey {
 	float: left;
 	margin-left: 5px;
 	padding: 3px 0px 3px 0px;
 }
 
-#content DIV.body UL {
+#content div.body ul {
 	clear: left;
 	float: left;
 	padding: 0px;
 	margin: 0px;
 }
 
-#content DIV.body LI {
+#content div.body li {
 	clear: left;
 	float: left;
 	list-style: none;
@@ -416,22 +443,24 @@ DIV.folderTabs LI.currentTab A SPAN {
 	margin: 0px;
 }
 
-#content DIV.body DIV.folderTabs LI {
+#content div.body div.folderTabs li {
 	clear: none;
 	float: none;
 }
 
-/* Extension list */
+/* 
+ * Extension list 
+ */
 #extensionList {
 	float: left;
 	margin: 10px;
 }
 
-#extensionList A {
+#extensionList a {
 	text-decoration: none;
 }
 
-#extensionList DIV.title UL {
+#extensionList div.title ul {
 	float: left;
 	clear: left;
 	list-style: none;
@@ -440,7 +469,7 @@ DIV.folderTabs LI.currentTab A SPAN {
 	border-bottom: solid 1px black;
 }
 
-#extensionList DIV.body UL {
+#extensionList div.body ul {
 	float: left;
 	clear: left;
 	list-style: none;
@@ -449,7 +478,7 @@ DIV.folderTabs LI.currentTab A SPAN {
 	border-bottom: solid 1px #E0E0E0;
 }
 
-#extensionList DIV LI {
+#extensionList div li {
 	clear: none;
 	float: left;
 	text-align: center;
@@ -458,11 +487,11 @@ DIV.folderTabs LI.currentTab A SPAN {
 	padding: 0px;
 }
 
-#extensionList DIV.title LI {
+#extensionList div.title li {
 	font-weight: bold;
 }
 
-#extensionList DIV LI.extensionName {
+#extensionList div li.extensionName {
 	clear: left;
 	width: 180px;
 	margin: 0px;
@@ -470,100 +499,100 @@ DIV.folderTabs LI.currentTab A SPAN {
 	overflow: hidden;
 }
 
-#extensionList DIV LI.extensionName a {
+#extensionList div li.extensionName a {
 	color: black;
 }
 
-#extensionList DIV LI.extensionName a:hover {
+#extensionList div li.extensionName a:hover {
 	color: #FF8700;
 }
 
-#extensionList DIV.body LI.extensionName {
+#extensionList div.body li.extensionName {
 	text-align: left;
 }
 
-#extensionList DIV LI.extensionVersion {
+#extensionList div li.extensionVersion {
 	width: 60px;
 }
 
-#extensionList DIV LI.libraryVersion {
+#extensionList div li.libraryVersion {
 	width: 60px;
 }
 
-#extensionList DIV.body LI.libraryVersion {
+#extensionList div.body li.libraryVersion {
 	color: green;
 }
 
-#extensionList DIV.body LI.wrongVersion {
+#extensionList div.body li.wrongVersion {
 	color: red;
 	font-weight: bold;
 }
 
-#extensionList DIV.body LI.extensionVersion A {
+#extensionList div.body li.extensionVersion a {
 	color: green;
 }
 
-#extensionList DIV.body LI.NotLatest A {
+#extensionList div.body li.NotLatest a {
 	color: red;
 	font-weight: bold;
 }
 
-#extensionList DIV LI.libraryType {
+#extensionList div li.libraryType {
 	text-align: left;
 	width: 60px;
 }
 
-#extensionList DIV LI.libraryType .icon {
+#extensionList div li.libraryType .icon {
 	margin-right: 3px;
 }
 
-#extensionList DIV LI.compatibility {
+#extensionList div li.compatibility {
 	width: 90px;
 }
 
-#extensionList DIV.body LI.compatibility {
+#extensionList div.body li.compatibility {
 	color: green;
 }
 
-#extensionList DIV.body LI.wrongCompatibility {
+#extensionList div.body li.wrongCompatibility {
 	color: red;
 	font-weight: bold;
 }
 
-#extensionList DIV.title LI.forms {
+#extensionList div.title li.forms {
 	width: 150px;
 }
 
-#extensionList DIV.title LI.cache {
+#extensionList div.title li.cache {
 	width: 60px;
 }
 
-#extensionList DIV.title LI.buttons {
+#extensionList div.title li.buttons {
 	width: 150px;
 	text-align: left;
 }
 
-#extensionList DIV.title LI.buttons IMG {
+#extensionList div.title li.buttons img {
 	margin-right: 3px;
 }
 
-#extensionList DIV.title LI.buttons IMG.createExtension {
+#extensionList div.title li.buttons img.createExtension {
 	margin-left: 80px;
 	margin-right: 7px;
 }
 
-#extensionList DIV.body LI.forms {
+#extensionList div.body li.forms {
 	width: 210px;
 	text-align: left;
 }
 
-#extensionList DIV.body LI.forms UL {
+#extensionList div.body li.forms ul {
 	border: 0px;
 	padding: 0px;
 	margin: 0px;
 }
 
-#extensionList DIV.body LI.forms LI {
+#extensionList div.body li.forms li {
 	clear: left;
 	float: left;
 	height: 15px;
@@ -571,478 +600,522 @@ DIV.folderTabs LI.currentTab A SPAN {
 	margin: 0px;
 }
 
-#extensionList DIV.body LI.forms DIV.formName {
+#extensionList div.body li.forms div.formName {
 	float: left;
 	width: 150px;
 	height: 15px;
 	overflow: hidden;
 }
 
-#extensionList DIV.body LI.forms DIV.cache {
+#extensionList div.body li.forms div.cache {
 	float: left;
 	width: 60px;
 	height: 15px;
 	text-align: center;
 }
 
-#extensionList DIV LI.debugQueries {
+#extensionList div li.debugQueries {
 	width: 60px;
 }
 
-#extensionList DIV.body LI.debugQueries {
+#extensionList div.body li.debugQueries {
 	float: left;
 	width: 60px;
 	text-align: center;
 }
 
-#extensionList DIV IMG.cacheChecked {
+#extensionList div img.cacheChecked {
 	width: 13px;
 	height: 12px;
 }
 
-#extensionList DIV IMG.debugQueriesChecked {
+#extensionList div img.debugQueriesChecked {
 	width: 14px;
 	height: 13px;
 }
 
-#extensionList DIV.body LI.buttons {
+#extensionList div.body li.buttons {
 	width: 150px;
 	text-align: left;
 }
 
-#extensionList DIV.body LI.buttons IMG {
+#extensionList div.body li.buttons img {
 	margin-right: 3px;
 }
 
-/* Extension Manager Configuration Section */
-#emconfSection DIV.body INPUT.version {
+/* 
+ * Extension Manager Configuration Section 
+ */
+#emconfSection div.body input.version {
 	width: 10px;
 	float: left;
 	clear: none;
 	margin: 3px 3px 0px 3px;
 }
 
-#emconfSection DIV.body INPUT.submit {
+#emconfSection div.body input.submit {
 	width: auto;
 	float: left;
 	clear: none;
 	margin: 2px 3px 0px 3px;
 }
 
+#emconfSection #content div.body button.libraryType {
+	float: left;
+	padding: 0px;
+	width: 30px;
+	height: 22px;
+}
+	
+/* 
+ * New Tables Section 
+ */
 #newTablesSection #content {
 	width: 1000px;
 }
 
-#newTablesSection DIV.header {
+#newTablesSection div.header {
 	width: 1000px;
 	float: left;
 	clear: left;
+	line-height: 1;
 }
 
-#newTablesSection DIV.body {
+#newTablesSection div.body {
 	width: 1000px;
 	float: left;
 }
 
-#newTablesSection DIV.body SPAN.extensionKey {
+#newTablesSection div.body span.extensionKey {
 	margin-left: 10px;
 	font-style: italic;
 }
 
-#newTablesSection DIV.body DIV.selected {
+#newTablesSection div.body div.selected {
 	background-color: #e0e0e0;
 }
 
-#newTablesSection DIV.body DIV.flags {
+#newTablesSection div.body div.flags {
 	width: 1000px;
 	float: left;
 	clear: left;
 	margin: 5px 0px 0px 0px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV {
+#newTablesSection div.body div.flags label {
+	margin: 0px 0px 5px 3px;
+	min-height:17px;
+}
+
+#newTablesSection div.body div.flags select {
+	margin: 0px 0px 5px 0px;
+	min-height:17px;
+}
+
+#newTablesSection div.body div.flags input {
+	margin: 0px 0px 5px 0px;
+	min-height:17px;
+}
+
+#newTablesSection div.body div.flags div {
 	float: left;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col1 {
+#newTablesSection div.body div.flags div.col1 {
 	min-width: 170px;
 	clear: left;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col2 {
+#newTablesSection div.body div.flags div.col2 {
 	width: 195px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col2 LABEL {
+#newTablesSection div.body div.flags div.col2 label {
 	width: 170px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col3 {
+#newTablesSection div.body div.flags div.col3 {
 	width: 135px;
 }
 
-#
-#newTablesSection DIV.body DIV.flags DIV.col3 LABEL {
+#newTablesSection div.body div.flags div.col3 label {
 	width: 115px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col4 {
+#newTablesSection div.body div.flags div.col4 {
 	width: 210px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col4 LABEL {
+#newTablesSection div.body div.flags div.col4 label {
 	width: 180px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col4 LABEL.descendingOrder {
+#newTablesSection div.body div.flags div.col4 label.descendingOrder {
 	width: 100px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col4 LABEL.defIcon {
+#newTablesSection div.body div.flags div.col4 label.defIcon {
 	width: 80px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col4 INPUT {
+#newTablesSection div.body div.flags div.col4 input {
 	float: left;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col4 INPUT.checkbox {
+#newTablesSection div.body div.flags div.col4 input.checkbox {
 	clear: left;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col4 SELECT {
+#newTablesSection div.body div.flags div.col4 select {
 	float: left;
 	max-width: 210px;
 }
 
-#newTablesSection DIV.body DIV.flags DIV.col4 SELECT#defIcon {
+#newTablesSection div.body div.flags div.col4 select#defIcon {
 	float: left;
 	max-width: 130px;
 }
 
-/* Existing Tables Section */
+/* 
+ * Existing Tables Section 
+ */
 #existingTablesSection #content {
 	width: 1000px;
 }
 
-#existingTablesSection DIV.header {
+#existingTablesSection div.header {
 	width: 1000px;
 	float: left;
 	clear: left;
+	line-height: 1;
 }
 
-#existingTablesSection DIV.body {
+#existingTablesSection div.body {
 	width: 1000px;
 	float: left;
 }
 
-#existingTablesSection DIV.body SPAN.extensionKey {
+#existingTablesSection div.body span.extensionKey {
 	margin-left: 10px;
 	font-style: italic;
 }
 
-#existingTablesSection DIV.body DIV.selected {
+#existingTablesSection div.body div.selected {
 	background-color: #e0e0e0;
 }
 
-#existingTablesSection DIV.body IMG.importFields {
+#existingTablesSection div.body img.importFields {
 	float: left;
-	margin: 5px 0px 0px 0px;
 }
 
-/* Forms Section : Views definition */
-#formsSection DIV.viewsDefinition {
+/* 
+ * Forms Section : Views definition 
+ */
+#formsSection div.viewsDefinition {
 	clear: left;
 	float: left;
 	margin-top: 5px;
 }
 
-#formsSection DIV.viewsDefinition IMG {
+#formsSection div.viewsDefinition img {
 	float: left;
 	margin-left: 4px;
 }
 
-#formsSection DIV.viewsDefinition IMG.addNewViewWithCondition {
-	margin-top: 5px;
-}
-
-#formsSection DIV.viewsDefinition INPUT.condition {
+#formsSection div.viewsDefinition input.condition {
 	clear: none;
 	float: left;
-	margin: 3px 0px 0px 0px;
 	width: 340px;
 }
 
-#formsSection DIV.viewsDefinition IMG.deleteFolder {
+#formsSection div.viewsDefinition img.deleteFolder {
 	margin-left: 8px;
 }
 
-/* Fields configuration */
-#fieldsConfiguration {
-	float: left;
-	margin-top: 10px;
-}
-
-#fieldsConfiguration DIV.field {
-	float: left;
-	margin-top: 5px;
-	padding: 3px;
-}
-
-#fieldsConfiguration DIV.field DIV.fieldLabel {
-	display: block;
-	width: 200px;;
-	font-weight: bold;
-	margin-bottom: 5px;
-}
-
-#fieldsConfiguration DIV.field IMG.gotoTop {
-	float: left;
-	padding-right: 3px;
-}
-
-#fieldsConfiguration DIV.field DIV.label {
-	clear: left;
-	float: left;
-	width: 150px;
-}
-
-#fieldsConfiguration DIV.field DIV.value {
-	clear: none;
-	float: left;
-}
-
-#fieldsConfiguration DIV.field DIV.value INPUT {
-	width: 200px;
-}
-
-/* Fields overview */
+/* 
+ * Fields overview 
+ */
 #fieldsOverview {
 	width: 700px;
 	float: left;
 	margin: 10px 5px 0px 5px;
 }
 
-#fieldsOverview DIV.header {
+#fieldsOverview div.header {
 	width: 700px;
 	float: left;
 	margin-bottom: 15px;
 }
 
-#fieldsOverview DIV.header DIV.logo {
+#fieldsOverview div.header div.logo {
 	float: left;
 	font-size: 20px;
 }
 
-#fieldsOverview DIV.header:first-child DIV.logo:first-child {
+#fieldsOverview div.header:first-child div.logo:first-child {
 	max-width: 200px;
 	float: left;
 	font-size: 20px;
 }
 
-#fieldsOverview DIV.header DIV.buttons {
+#fieldsOverview div.header div.buttons {
 	max-width: 500px;
 	float: left;
 	margin-left: 10px;
 }
 
-#fieldsOverview DIV.header DIV.buttons INPUT.submit {
+#fieldsOverview div.header div.buttons button.submit {
+	float: left;
+	margin-right: 3px;
+	padding: 0px;
+	width: 30px;
+	height: 22px;
+}
+
+#fieldsOverview div.header div.buttons button.submit img {
+	float: none;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+#fieldsOverview div.header div.buttons select {
 	float: left;
 	margin-right: 3px;
 }
 
-#fieldsOverview DIV.header:first-child DIV.buttons INPUT.submit {
-	width: 75px;
-}
-
-#fieldsOverview DIV.header DIV.buttons SELECT {
+#fieldsOverview div.header div.buttons select.moveAfter {
 	float: left;
-	margin-right: 3px;
+	margin-left: 40px;
 }
 
-#fieldsOverview DIV.header DIV.buttons IMG {
+#fieldsOverview div.header div.buttons img {
 	float: left;
-	margin-right: 5px;
+	margin: 3px 5px 3px 0px;
 }
 
-#fieldsOverview DIV.header DIV.buttons DIV.viewSelectorbox {
+#fieldsOverview div.header div.buttons div.viewSelectorbox {
 	float: left;
 	width: 70px;
 	padding: 0px;
 	margin: 0px 3px 0px 3px;
 }
 
-#fieldsOverview DIV.fields {
+#fieldsOverview div.fields {
 	width: 700px;
 	float: left;
 }
 
-#fieldsOverview DIV.fields UL {
+#fieldsOverview div.fields ul {
 	clear: left;
 	float: left;
 	padding: 0px;
 	margin: 0px;
 }
 
-#fieldsOverview DIV.fields LI {
+#fieldsOverview div.fields li {
 	clear: left;
 	float: left;
 	list-style: none;
 	margin: 0px 0px 3px 0px;
 }
 
-#fieldsOverview DIV.fields LI.title {
+#fieldsOverview div.fields li.title {
 	font-weight: bold;
 	padding: 5px 0px 3px 0px;
 }
 
-#fieldsOverview DIV.fields LI.field {
+#fieldsOverview div.fields li.field {
 	padding: 0px;
 }
 
-#fieldsOverview DIV.fields LI.selected {
+#fieldsOverview div.fields li.selected {
 	background-color: #e0e0e0;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldName {
+#fieldsOverview div.fields li div.fieldName {
 	width: 200px;
 	float: left;
 	margin-left: 5px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldName A {
+#fieldsOverview div.fields li div.fieldName a {
 	float: left;
 	overflow: hidden;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldName INPUT {
+#fieldsOverview div.fields li div.fieldName input {
 	width: 195px;
 	float: left;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldTitle {
+#fieldsOverview div.fields li div.fieldTitle {
 	float: left;
 	width: 130px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldTitle INPUT {
+#fieldsOverview div.fields li div.fieldTitle input {
 	width: 125px;
 	float: left;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldType {
+#fieldsOverview div.fields li div.fieldType {
 	width: 130px;
 	float: left;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldType SELECT {
+#fieldsOverview div.fields li div.fieldType select {
 	width: 125px;
 	float: left;
 }
 
-#fieldsOverview DIV.fields LI DIV.folder {
+#fieldsOverview div.fields li div.folder {
 	width: 150px;
 	float: left;
 	margin-left: 55px;
 }
 
-#fieldsOverview DIV.fields LI DIV.value {
+#fieldsOverview div.fields li div.value {
 	float: left;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldControls {
+#fieldsOverview div.fields li div.fieldControls {
 	float: left;
 	width: 230px;
 	margin: 0px;
 	padding: 0px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldControls IMG {
+#fieldsOverview div.fields li div.fieldControls img {
 	float: left;
 	margin: 0px;
 	padding: 0px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldControls INPUT.checkbox {
+#fieldsOverview div.fields li div.fieldControls input.checkbox {
 	float: left;
-	margin: 2px 2px;
+	margin: 2px 2px; */
 	padding: 0px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldControls IMG.deleteField {
+#fieldsOverview div.fields li div.fieldControls img.deleteField {
 	margin-left: 2px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldControls IMG.editFieldConfiguration
+#fieldsOverview div.fields li div.fieldControls img.editFieldConfiguration
 	{
-	margin: 2px 2px 0px 4px;
+	margin: 0px 2px 0px 4px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldControls IMG.moveDownField {
-	margin: 2px 1px 0px 1px;
+#fieldsOverview div.fields li div.fieldControls img.moveDownField {
+	margin: 0px 1px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldControls IMG.moveUpField {
-	margin: 2px 1px 0px 1px;
+#fieldsOverview div.fields li div.fieldControls img.moveUpField {
+	margin: 0px 1px;
 }
 
-#fieldsOverview DIV.fields LI DIV.fieldControls SELECT.folder {
+#fieldsOverview div.fields li div.fieldControls select.folder {
 	width: 170px;
 	float: left;
 	margin: 2px 0px 2px 3px;
 	padding: 0px;
 }
 
-#fieldsOverview DIV.fields LI DIV.subform {
+#fieldsOverview div.fields li div.subform {
 	width: 692px;
 	float: left;
 	margin: 0px 2px 0px 2px;
 	border: 2px solid #84B0C7
 }
 
-#fieldsOverview DIV.fields LI DIV.subform DIV.fieldControls {
+#fieldsOverview div.fields li div.subform div.fieldControls {
 	float: left;
 	width: 220px;
 	margin: 0px;
 	padding: 0px;
 }
 
-#fieldsOverview DIV.inFolders {
+#fieldsOverview div.inFolders {
 	margin-bottom: 10px;
 	border-bottom: 1px solid #84B0C7;
 	border-right: 1px solid #84B0C7;
 	border-left: 1px solid #84B0C7;
 }
 
-#fieldsOverview DIV.notInFolders {
+#fieldsOverview div.notInFolders {
 	border: 1px solid #84B0C7;
 	margin-bottom: 10px;
 }
 
-/* Field configuration */
+/* 
+ * Fields configuration 
+ */
+#fieldsConfiguration {
+	float: left;
+	margin-top: 10px;
+}
+
+#fieldsConfiguration div.field {
+	float: left;
+	margin-top: 5px;
+	padding: 3px;
+}
+
+#fieldsConfiguration div.field div.fieldLabel {
+	display: block;
+	width: 200px;;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+#fieldsConfiguration div.field img.gotoTop {
+	float: left;
+	padding-right: 3px;
+}
+
+#fieldsConfiguration div.field div.label {
+	clear: left;
+	float: left;
+	width: 150px;
+}
+
+#fieldsConfiguration div.field div.value {
+	clear: none;
+	float: left;
+}
+
+#fieldsConfiguration div.field div.value input {
+	width: 200px;
+}
+
+
+/* 
+ * Field configuration 
+ */ 
 #fieldConfiguration {
 	width: 430px;
 	float: left;
 	margin: 10px 5px 0px 5px;
 }
 
-#fieldConfiguration DIV.header {
+#fieldConfiguration div.header {
 	float: left;
 	margin-bottom: 15px;
 }
 
-#fieldConfiguration DIV.header DIV.logo {
+#fieldConfiguration div.header div.logo {
 	float: left;
 	font-size: 20px;
 }
 
-#fieldConfiguration DIV.basic {
+#fieldConfiguration div.basic {
 	clear: left;
 	float: left;
 	margin-top: 10px;
 }
 
-#fieldConfiguration DIV.basic DIV.label {
+#fieldConfiguration div.basic div.label {
 	clear: left;
 	float: left;
 	width: 100px;
@@ -1052,26 +1125,26 @@ DIV.folderTabs LI.currentTab A SPAN {
 	text-align: left;
 }
 
-#fieldConfiguration DIV.basic DIV.value {
+#fieldConfiguration div.basic div.value {
 	clear: none;
 	float: left;
 }
 
-#fieldConfiguration DIV.basic DIV.value INPUT {
+#fieldConfiguration div.basic div.value input {
 	width: 200px;
 }
 
-#fieldConfiguration DIV.basic DIV.value INPUT.validationRules {
+#fieldConfiguration div.basic div.value input.validationRules {
 	width: 300px;
 }
 
-#fieldConfiguration DIV.configuration {
+#fieldConfiguration div.configuration {
 	clear: left;
 	float: left;
 	margin-top: 15px;
 }
 
-#fieldConfiguration DIV.configuration DIV.label {
+#fieldConfiguration div.configuration div.label {
 	clear: left;
 	float: left;
 	width: 100px;
@@ -1079,164 +1152,159 @@ DIV.folderTabs LI.currentTab A SPAN {
 	margin: 0px 10px 3px 0px;
 }
 
-#fieldConfiguration DIV.configuration DIV.value {
+#fieldConfiguration div.configuration div.value {
 	clear: none;
 	float: left;
 	width: 50px;
 	font-weight: bold;
-	margin: 0px 10px 3px 3px;
+	margin: 0px 10px 3px 0px;
 }
 
-#fieldConfiguration DIV.configuration LABEL {
+#fieldConfiguration div.configuration label {
 	clear: none;
 	float: left;
 	font-weight: bold;
 }
 
-#fieldConfiguration DIV.configuration SELECT {
+#fieldConfiguration div.configuration select {
 	clear: left;
 	float: left;
 	text-align: left;
 	margin: 0px 10px 3px 0px;
 }
 
-#fieldConfiguration DIV.configuration INPUT {
+#fieldConfiguration div.configuration input {
 	clear: left;
 	float: left;
 	text-align: left;
 	margin: 0px 10px 3px 0px;
 }
 
-#fieldConfiguration DIV.configuration INPUT.integer {
+#fieldConfiguration div.configuration input.integer {
 	width: 50px;
 }
 
-#fieldConfiguration DIV.configuration INPUT.string {
+#fieldConfiguration div.configuration input.string {
 	width: 200px;
 }
 
-#fieldConfiguration DIV.configuration INPUT.itemLabel {
+#fieldConfiguration div.configuration input.itemLabel {
 	width: 100px;
 }
 
-#fieldConfiguration DIV.configuration INPUT.itemValue {
+#fieldConfiguration div.configuration input.itemValue {
 	clear: none;
 	width: 50px;
 }
 
-#fieldConfiguration DIV.configuration IMG.addNewBoxItem {
-	float: left;
-	margin-left: 3px;
-}
-
-#fieldConfiguration DIV.configuration IMG.deleteBoxItem {
+#fieldConfiguration div.configuration img.addNewBoxItem {
 	float: left;
 }
 
-#fieldConfiguration DIV.configuration TEXTAREA {
+#fieldConfiguration div.configuration img.deleteBoxItem {
+	float: left;
+}
+
+#fieldConfiguration div.configuration textarea {
 	width: 430px;
 	clear: left;
 	float: left;
 }
 
-#fieldConfiguration DIV.configuration DIV.docheader-csh {
+#fieldConfiguration div.configuration div.docheader-csh {
 	clear: left;
 	float: left;
 }
 
-/* Folders definition */
-DIV#foldersDefinition {
+/* 
+ * Folders definition 
+ */
+div#foldersDefinition {
 	clear: left;
 	float: left;
 	margin-top: 5px;
 }
 
-DIV#foldersDefinition LABEL.folders {
+div#foldersDefinition label.folders {
 	margin: 0px 0px 5px 0px;
 }
 
-DIV#foldersDefinition LABEL.folder {
+div#foldersDefinition label.folder {
 	width: 90px;
 }
 
-DIV#foldersDefinition INPUT.folderLabel {
+div#foldersDefinition input.folderLabel {
 	clear: none;
 	float: left;
 	width: 340px;
 	text-align: left;
 }
 
-DIV#foldersDefinition IMG {
+div#foldersDefinition img {
 	float: left;
 	margin-left: 4px;
 }
 
-DIV#foldersDefinition IMG.addNewFolder {
-	margin-top: 5px;
-}
-
-DIV#foldersDefinition IMG.moveUpFolder {
+div#foldersDefinition img.moveUpFolder {
 	margin-top: 2px;
 }
 
-DIV#foldersDefinition IMG.moveDownFolder {
+div#foldersDefinition img.moveDownFolder {
 	margin-top: 2px;
 }
 
-DIV#foldersDefinition IMG.deleteFolder {
+div#foldersDefinition img.deleteFolder {
 	margin-left: 8px;
 }
 
-DIV#foldersDefinition TEXTAREA.folder {
+div#foldersDefinition textarea.folder {
 	clear: none;
 	float: left;
 	margin: 0px 0px 10px 0px;
 	width: 340px;
 }
 
-/* WhereTags definition */
-DIV#whereTagsDefinition {
+/* 
+ * WhereTags definition 
+ */
+div#whereTagsDefinition {
 	clear: left;
 	float: left;
 	margin-top: 5px;
 }
 
-DIV#whereTagsDefinition LABEL.whereTags {
+div#whereTagsDefinition label.whereTags {
 	margin: 0px 0px 5px 0px;
 }
 
-DIV#whereTagsDefinition LABEL.whereTag {
+div#whereTagsDefinition label.whereTag {
 	width: 90px;
 }
 
-DIV#whereTagsDefinition INPUT.whereTag {
+div#whereTagsDefinition input.whereTag {
 	clear: none;
 	float: left;
 	width: 340px;
 	text-align: left;
 }
 
-DIV#whereTagsDefinition IMG {
+div#whereTagsDefinition img {
 	float: left;
 	margin-left: 4px;
 }
 
-DIV#whereTagsDefinition IMG.addNewWhereTag {
-	margin-top: 5px;
-}
-
-DIV#whereTagsDefinition IMG.deleteWhereTag {
+div#whereTagsDefinition img.deleteWhereTag {
 	margin-left: 8px;
 }
 
-DIV#whereTagsDefinition TEXTAREA.whereTag {
+div#whereTagsDefinition textarea.whereTag {
 	clear: none;
 	float: left;
 	margin: 0px 0px 2px 0px;
 	width: 340px;
 }
 
-DIV#whereTagsDefinition TEXTAREA.whereTagLast {
+div#whereTagsDefinition textarea.whereTagLast {
 	clear: none;
 	float: left;
 	margin: 0px 0px 10px 0px;

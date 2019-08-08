@@ -94,10 +94,25 @@
                                     3:'{f:translate(key:\'kickstarter.generalItem.libraryType.3\')}'          
                                 }"
 								value="{extension.general.1.libraryType}" />
-							<f:form.submit class="submit" name="submitAction[load]"
-								value="{f:translate(key:'kickstarter.load')}" />
-							<f:form.submit class="submit" name="submitAction[overwrite]"
-								value="{f:translate(key:'kickstarter.overwrite')}" />
+
+							<f:comment>Load button</f:comment>
+							<f:form.button class="libraryType" name="submitAction[load]"
+								value="{f:translate(key:'kickstarter.load')}">
+								<f:image 
+									src="{sav:getIcon(identifier:'actions-swap')}"
+									alt="{f:translate(key:'kickstarter.load')}"
+									title="{f:translate(key:'kickstarter.load')}" />
+							</f:form.button>
+
+							<f:comment>Overwrite button</f:comment>
+							<f:form.button class="libraryType" name="submitAction[overwrite]"
+								value="{f:translate(key:'kickstarter.overwrite')}">
+								<f:image 
+									src="{sav:getIcon(identifier:'actions-replace')}"
+									alt="{f:translate(key:'kickstarter.overwrite')}"
+									title="{f:translate(key:'kickstarter.overwrite')}" />
+							</f:form.button>
+
 
 							<f:comment>Compatibility</f:comment>
 							<label for="compatibility"><f:translate

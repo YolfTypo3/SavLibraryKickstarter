@@ -18,12 +18,12 @@
 					<li class="debugQueries">{f:translate(key:'kickstarter.extensionList.debugQueries')}</li>
 					<li class="buttons"><f:link.action action="createExtension">
 							<f:image class="createExtension"
-								src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+								src="{sav:getIcon(identifier:'actions-add')}"
 								title="{f:translate(key:'kickstarter.createExtension')}" />
 						</f:link.action> <f:if condition="{extensionsNeedTobeUpgraded}">
 							<f:link.action action="upgradeExtensions">
 								<f:image class="upgradeExtensions"
-									src="EXT:sav_library_kickstarter/Resources/Public/Icons/refresh.gif"
+									src="{sav:getIcon(identifier:'actions-system-extension-update')}"
 									alt="{f:translate(key:'kickstarter.upgradeExtensions')}"
 									title="{f:translate(key:'kickstarter.upgradeExtensions')}" />
 							</f:link.action>
@@ -72,7 +72,7 @@
 										<div class="cache">
 											<f:if condition="{form.userPlugin} == 1">
 												<f:image class="cacheChecked"
-													src="EXT:sav_library_kickstarter/Resources/Public/Icons/ok.gif"
+													src="{sav:getIcon(identifier:'actions-check')}"
 													alt="{f:translate(key:'kickstarter.checked')}"
 													title="{f:translate(key:'kickstarter.checked')}" />
 											</f:if>
@@ -84,7 +84,7 @@
 						<li class="debugQueries"><f:if
 								condition="{extension.general.1.debug}">
 								<f:image class="debugQueriesChecked"
-									src="EXT:sav_library_kickstarter/Resources/Public/Icons/warning.gif"
+									src="{sav:getIcon(identifier:'overlay-warning')}"
 									alt="{f:translate(key:'kickstarter.checked')}"
 									title="{f:translate(key:'kickstarter.checked')}" />
 							</f:if></li>
@@ -92,7 +92,7 @@
 								action="editExtension"
 								arguments="{extKey:extension.general.1.extensionKey}">
 								<f:image class="editExtension"
-									src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
+									src="{sav:getIcon(identifier:'actions-document')}"
 									alt="{f:translate(key:'kickstarter.editExtension')}"
 									title="{f:translate(key:'kickstarter.editExtension')}" />
 							</f:link.action> <f:comment>Generate extension</f:comment> <f:link.action
@@ -100,14 +100,14 @@
 								data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
 								arguments="{extKey:extension.general.1.extensionKey}">
 								<f:image class="installExtension"
-									src="EXT:sav_library_kickstarter/Resources/Public/Icons/generate.gif"
+									src="{sav:getIcon(identifier:'actions-system-refresh')}"
 									alt="{f:translate(key:'kickstarter.generateExtension')}"
 									title="{f:translate(key:'kickstarter.generateExtension')}" />
 							</f:link.action> <f:comment>Copy extension</f:comment> <f:link.action
 								action="copyExtension"
 								arguments="{extKey:extension.general.1.extensionKey}">
 								<f:image class="copyExtension"
-									src="EXT:sav_library_kickstarter/Resources/Public/Icons/copy.gif"
+									src="{sav:getIcon(identifier:'actions-duplicate')}"
 									alt="{f:translate(key:'kickstarter.copyExtension')}"
 									title="{f:translate(key:'kickstarter.copyExtension')}" />
 							</f:link.action> <f:comment>Install/uninstall extension</f:comment> <f:if
@@ -117,7 +117,7 @@
 										data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.uninstalling\')}'}"
 										arguments="{extKey:extension.general.1.extensionKey}">
 										<f:image class="uninstallExtension"
-											src="EXT:sav_library_kickstarter/Resources/Public/Icons/extensionUninstall.png"
+											src="{sav:getIcon(identifier:'actions-system-extension-uninstall')}"
 											alt="{f:translate(key:'kickstarter.uninstallExtension')}"
 											title="{f:translate(key:'kickstarter.uninstallExtension')}" />
 									</f:link.action>
@@ -127,7 +127,7 @@
 										data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.installing\')}'}"
 										arguments="{extKey:extension.general.1.extensionKey}">
 										<f:image class="installExtension"
-											src="EXT:sav_library_kickstarter/Resources/Public/Icons/extensionInstall.png"
+											src="{sav:getIcon(identifier:'actions-system-extension-install')}"
 											alt="{f:translate(key:'kickstarter.installExtension')}"
 											title="{f:translate(key:'kickstarter.installExtension')}" />
 									</f:link.action>
@@ -136,7 +136,7 @@
 								action="downloadExtension"
 								arguments="{extKey:extension.general.1.extensionKey}">
 								<f:image class="downloadExtension"
-									src="EXT:sav_library_kickstarter/Resources/Public/Icons/extensionDownload.png"
+									src="{sav:getIcon(identifier:'actions-system-extension-download')}"
 									alt="{f:translate(key:'kickstarter.downloadExtension')}"
 									title="{f:translate(key:'kickstarter.downloadExtension')}" />
 							</f:link.action> <f:comment>Upgrade the extension</f:comment> <f:if
@@ -145,7 +145,7 @@
 									data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.upgrading\')}'}"
 									arguments="{extKey:extension.general.1.extensionKey}">
 									<f:image class="upgradeExtension"
-										src="EXT:sav_library_kickstarter/Resources/Public/Icons/refresh.gif"
+										src="{sav:getIcon(identifier:'actions-system-extension-update')}"
 										alt="{f:translate(key:'kickstarter.upgradeExtension')}"
 										title="{f:translate(key:'kickstarter.upgradeExtension')}" />
 								</f:link.action>

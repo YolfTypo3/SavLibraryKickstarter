@@ -14,7 +14,8 @@ Version  Changes
 9.5.0    - Compatibility with TYPO3 7.6 removed.
          - Compatibility changed to TYPO3 9.5.x.
          - Code generation improved.   
-         - Basic documentation generation for Docker added.    
+         - Basic documentation generation for Docker added.
+         - Context Sensitive Help replaced by links to the documentation.    
          
 1.2.0    - Compatibility with TYPO3 6.2 removed.
          - Compatibility changed to TYPO3 9.0.         

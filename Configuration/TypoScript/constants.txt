@@ -15,7 +15,7 @@ module.tx_savlibrarykickstarter {
         compatibility.0 = TYPO3 8x-9x 
         compatibility.1 = Obsolete  
         compatibility.2 = Obsolete
-        compatibility.3 = TYPO3 7x  
+        compatibility.3 = Obsolete  
                 
         dependency.emconf.0 = 8.7.0-9.5.99
         dependency.emconf.1 = 6.2.0-6.2.99
@@ -27,10 +27,10 @@ module.tx_savlibrarykickstarter {
         dependency.composer.2 = >=6.2,<8.0        
         dependency.composer.3 = >=7.6,<8.0
                 
-        dependency.emconf.sav_library_plus.default = 1.2.0-0.0.0  
+        dependency.emconf.sav_library_plus.default = 9.5.0.0-0.0.0  
         dependency.emconf.sav_library_mvc.default = 1.2.0-0.0.0    
         
-        dependency.composer.sav_library_plus.default = >=1.2  
+        dependency.composer.sav_library_plus.default = >=9.5.0  
         dependency.composer.sav_library_mvc.default = >=1.2                                      
     }
 }

@@ -22,14 +22,18 @@
 							<f:comment>Displayed if allowed</f:comment>
 							<f:if condition="{isAllowed}">
 								<f:comment>List View</f:comment>
-								<label class="list" for="listView"><f:translate
-										key="kickstarter.{section}Item.listView" /></label>
-								<f:form.select id="listView" name="{section}[listView]"
-									options="{options.list}" value="{sectionItem.listView}" />
-								<f:form.checkbox class="checkbox" id="listViewNotCached"
-									name="{section}[listViewNotCached]" value="1"
-									checked="{sectionItem.listViewNotCached}" />
+								<div class="viewsDefinition">
+									<label class="list" for="listView"><f:translate
+											key="kickstarter.{section}Item.listView" /></label>
+									<f:form.select id="listView" name="{section}[listView]"
+										options="{options.list}" value="{sectionItem.listView}" />
 
+									<f:form.checkbox class="checkbox" id="listViewNotCached"
+										name="{section}[listViewNotCached]" value="1"
+										checked="{sectionItem.listViewNotCached}" />
+									<label class="clearNone" for="listViewNotCached"><f:translate
+											key="kickstarter.{section}Item.listViewNotCached" /></label>
+								</div>
 
 								<f:comment>Single View</f:comment>
 								<div class="viewsDefinition">
@@ -38,16 +42,20 @@
 									<f:link.action action="addNewViewWithCondition"
 										arguments="{extKey:extKey, section:section, viewType:'singleView', itemKey:itemKey}">
 										<f:image class="addNewViewWithCondition"
-											src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+											src="{sav:getIcon(identifier:'actions-add')}"
 											alt="{f:translate(key:'kickstarter.addNewViewWithCondition')}"
 											title="{f:translate(key:'kickstarter.addNewViewWithCondition')}" />
 									</f:link.action>
 									<f:comment>The default Single View</f:comment>
 									<f:form.select id="singleView" name="{section}[singleView]"
 										options="{options.single}" value="{sectionItem.singleView}" />
+
 									<f:form.checkbox class="checkbox" id="singleViewNotCached"
 										name="{section}[singleViewNotCached]" value="1"
 										checked="{sectionItem.singleViewNotCached}" />
+									<label class="clearNone" for="singleViewNotCached"><f:translate
+											key="kickstarter.{section}Item.singleViewNotCached" /></label>
+
 									<f:comment>Single Views with Condition</f:comment>
 									<f:for each="{sectionItem.viewsWithCondition.singleView}"
 										as="viewWithCondition" key="viewWithConditionKey">
@@ -60,8 +68,8 @@
 										<f:link.action action="deleteViewWithCondition"
 											arguments="{extKey:extKey, section:section, itemKey:itemKey, viewType:'singleView', viewWithConditionKey:viewWithConditionKey}">
 											<f:image class="deleteViewWithCondition"
-												src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
-												alt="kickstarter.delete"
+												src="{sav:getIcon(identifier:'actions-delete')}"
+												alt="{f:translate(key:'kickstarter.delete')}"
 												title="{f:translate(key:'kickstarter.delete')}" />
 										</f:link.action>
 									</f:for>
@@ -74,7 +82,7 @@
 									<f:link.action action="addNewViewWithCondition"
 										arguments="{extKey:extKey, section:section, viewType:'editView', itemKey:itemKey}">
 										<f:image class="addNewViewWithCondition"
-											src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+											src="EXT:core/Resources/Public/Icons/T3Icons/actions/actions-add.svg"
 											alt="{f:translate(key:'kickstarter.addNewViewWithCondition')}"
 											title="{f:translate(key:'kickstarter.addNewViewWithCondition')}" />
 									</f:link.action>
@@ -95,8 +103,8 @@
 										<f:link.action action="deleteViewWithCondition"
 											arguments="{extKey:extKey, section:section, itemKey:itemKey, viewType:'editView', viewWithConditionKey:viewWithConditionKey}">
 											<f:image class="deleteViewWithCondition"
-												src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
-												alt="kickstarter.delete"
+												src="EXT:core/Resources/Public/Icons/T3Icons/actions/actions-delete.svg"
+												alt="{f:translate(key:'kickstarter.delete')}"
 												title="{f:translate(key:'kickstarter.delete')}" />
 										</f:link.action>
 									</f:for>

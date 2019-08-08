@@ -6,12 +6,26 @@
 		<f:translate key="kickstarter.{section}SectionTitle" />
 	</div>
 	<div class="buttons">
-		<f:be.buttons.csh table="xEXT_sav_library_kickstarter_{section}" />
-		<f:form.submit class="submit" name="submitAction[save]"
+        <f:comment>Help button</f:comment>
+		<sav:be.buttons.help key="{section}" />
+
+        <f:comment>Save button</f:comment>
+		<f:form.button class="submit" name="submitAction[save]"
 			data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
-			value="{f:translate(key:'kickstarter.save')}" />
-		<f:form.submit class="submit" name="submitAction[generateExtension]"
+			value="{f:translate(key:'kickstarter.save')}">
+			<f:image src="{sav:getIcon(identifier:'actions-save')}"
+				alt="{f:translate(key:'kickstarter.save')}"
+				title="{f:translate(key:'kickstarter.save')}" />
+		</f:form.button>
+
+        <f:comment>Generate button</f:comment>		
+		<f:form.button class="submit" name="submitAction[generateExtension]"
 			data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
-			value="{f:translate(key:'kickstarter.generate')}" />
+			value="{f:translate(key:'kickstarter.generate')}">
+			<f:image class="installExtension"
+				src="{sav:getIcon(identifier:'actions-system-refresh')}"
+				alt="{f:translate(key:'kickstarter.generateExtension')}"
+				title="{f:translate(key:'kickstarter.generateExtension')}" />
+		</f:form.button>
 	</div>
 </div>

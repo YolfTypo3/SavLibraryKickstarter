@@ -83,7 +83,7 @@
 										<f:link.action action="addNewFolder"
 											arguments="{extKey:extKey, section:section, itemKey:itemKey}">
 											<f:image class="addNewFolder"
-												src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+												src="{sav:getIcon(identifier:'actions-add')}"
 												alt="{f:translate(key:'kickstarter.addNewFolder')}"
 												title="{f:translate(key:'kickstarter.addNewFolder')}" />
 										</f:link.action>
@@ -97,22 +97,22 @@
 											<f:link.action action="moveDownFolder"
 												arguments="{extKey:extKey, section:section, itemKey:itemKey, folderKey:folderKey}">
 												<f:image class="moveDownFolder"
-													src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
+													src="{sav:getIcon(identifier:'actions-move-down')}"
 													alt="{f:translate(key:'kickstarter.moveDown')}"
 													title="{f:translate(key:'kickstarter.moveDown')}" />
 											</f:link.action>
 											<f:link.action action="moveUpFolder"
 												arguments="{extKey:extKey, section:section, itemKey:itemKey, folderKey:folderKey}">
 												<f:image class="moveUpFolder"
-													src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
+													src="{sav:getIcon(identifier:'actions-move-up')}"
 													alt="{f:translate(key:'kickstarter.moveUp')}"
 													title="{f:translate(key:'kickstarter.moveUp')}" />
 											</f:link.action>
 											<f:link.action action="deleteFolder"
 												arguments="{extKey:extKey, section:section, itemKey:itemKey, folderKey:folderKey}">
 												<f:image class="deleteFolder"
-													src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
-													alt="kickstarter.delete"
+													src="{sav:getIcon(identifier:'actions-delete')}"
+													alt="{f:translate(key:'kickstarter.delete')}"
 													title="{f:translate(key:'kickstarter.delete')}" />
 											</f:link.action>
 											<label class="folder {sectionItem.type}"><f:translate

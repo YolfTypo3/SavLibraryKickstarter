@@ -50,29 +50,29 @@
 												<f:link.action action="editFieldConfiguration"
 													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}">
 													<f:image class="editFieldConfiguration"
-														src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
-														alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
+														src="{sav:getIcon(identifier:'actions-document')}"
+														alt="{f:translate(key:'kickstarter.edit')}"
 														title="{f:translate(key:'kickstarter.edit')}" />
 												</f:link.action>
 												<f:link.action action="moveDownField"
 													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="moveDownField"
-														src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
+														src="{sav:getIcon(identifier:'actions-move-down')}"
 														alt="{f:translate(key:'kickstarter.moveDown')}"
 														title="{f:translate(key:'kickstarter.moveDown')}" />
 												</f:link.action>
 												<f:link.action action="moveUpField"
 													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="moveUpField"
-														src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
+														src="{sav:getIcon(identifier:'actions-move-up')}"
 														alt="{f:translate(key:'kickstarter.moveUp')}"
 														title="{f:translate(key:'kickstarter.moveUp')}" />
 												</f:link.action>
 												<f:link.action action="deleteField"
 													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="deleteField"
-														src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
-														alt="kickstarter.delete"
+														src="{sav:getIcon(identifier:'actions-delete')}"
+														alt="{f:translate(key:'kickstarter.delete')}"
 														title="{f:translate(key:'kickstarter.delete')}" />
 												</f:link.action>
 											</div>

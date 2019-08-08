@@ -85,7 +85,7 @@
 								<f:link.action action="addNewWhereTag"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey}">
 									<f:image class="addNewWhereTag"
-										src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+										src="{sav:getIcon(identifier:'actions-add')}"
 										alt="{f:translate(key:'kickstarter.addNewWhereTag')}"
 										title="{f:translate(key:'kickstarter.addNewWhereTag')}" />
 								</f:link.action>
@@ -99,8 +99,8 @@
 									<f:link.action action="deleteWhereTag"
 										arguments="{extKey:extKey, section:section, itemKey:itemKey, whereTagKey:whereTagKey}">
 										<f:image class="whereTagDelete"
-											src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
-											alt="kickstarter.delete"
+											src="{sav:getIcon(identifier:'actions-delete')}"
+											alt="{f:translate(key:'kickstarter.delete')}"
 											title="{f:translate(key:'kickstarter.delete')}" />
 									</f:link.action>
 									<label class="whereTag"><f:translate

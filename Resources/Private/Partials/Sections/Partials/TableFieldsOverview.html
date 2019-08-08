@@ -7,30 +7,60 @@
 			<f:translate key="kickstarter.fieldsOverview" />
 		</div>
 		<div class="buttons">
+			<f:comment>Add new field button</f:comment>
 			<f:link.action action="addNewField"
 				arguments="{extKey:extKey, section:section, itemKey:itemKey}">
-				<f:image
-					src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+				<f:image src="{sav:getIcon(identifier:'actions-add')}"
 					alt="{f:translate(key:'kickstarter.addNewField')}"
 					title="{f:translate(key:'kickstarter.addNewField')}" />
 			</f:link.action>
-			<f:form.submit class="submit" name="submitAction[save]"
-				data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
-				value="{f:translate(key:'kickstarter.save')}" />
-			<f:form.submit class="submit" name="submitAction[generateExtension]"
-				data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
-				value="{f:translate(key:'kickstarter.generate')}" />
 
+			<f:comment>Save button</f:comment>
+			<f:form.button class="submit" name="submitAction[save]"
+				data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
+				value="{f:translate(key:'kickstarter.save')}">
+				<f:image src="{sav:getIcon(identifier:'actions-save')}"
+					alt="{f:translate(key:'kickstarter.save')}"
+					title="{f:translate(key:'kickstarter.save')}" />
+			</f:form.button>
+
+			<f:comment>Generate button</f:comment>
+			<f:form.button class="submit" name="submitAction[generateExtension]"
+				data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
+				value="{f:translate(key:'kickstarter.generate')}">
+				<f:image class="installExtension"
+					src="{sav:getIcon(identifier:'actions-system-refresh')}"
+					alt="{f:translate(key:'kickstarter.generateExtension')}"
+					title="{f:translate(key:'kickstarter.generateExtension')}" />
+			</f:form.button>
+
+			<f:comment>View selector</f:comment>
 			<div class="viewSelectorbox">
 				<f:translate key="kickstarter.useFields" />
 			</div>
 			<sav:form.select id="viewSelectorbox"
 				name="{section}[viewSelectorbox]" value=""
 				options="{sav:buildOptionsForViewSelectorbox(views:extension.views)}" />
-			<f:form.submit class="submit" name="submitAction[sortFields]"
-				value="{f:translate(key:'kickstarter.sort')}" />
-			<f:form.submit class="submit" name="submitAction[copyFields]"
-				value="{f:translate(key:'kickstarter.copy')}" />
+				
+				
+			<f:comment>Sort button</f:comment>	
+			<f:form.button class="submit" name="submitAction[sortFields]"
+				value="{f:translate(key:'kickstarter.sort')}">
+				<f:image class="installExtension"
+					src="{sav:getIcon(identifier:'actions-sort-amount-down')}"
+					alt="{f:translate(key:'kickstarter.sort')}"
+					title="{f:translate(key:'kickstarter.sort')}" />
+			</f:form.button>
+			
+			<f:comment>Copy field button</f:comment>	
+			<f:form.button class="submit" name="submitAction[copyFields]"
+				value="{f:translate(key:'kickstarter.copy')}">
+				<f:image class="installExtension"
+					src="{sav:getIcon(identifier:'actions-duplicate')}"
+					alt="{f:translate(key:'kickstarter.copy')}"
+					title="{f:translate(key:'kickstarter.copy')}" />
+			</f:form.button>
+
 		</div>
 	</div>
 
@@ -81,32 +111,40 @@
 										name="{section}[fields][{key}][selected][{sectionItemViewKey}]"
 										value="1" checked="{selected}" />
 								</f:if>
+								
+								<f:comment>Edit button</f:comment>								
 								<f:link.action action="editFieldConfiguration"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
 									<f:image class="editFieldConfiguration"
-										src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
-										alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
+										src="{sav:getIcon(identifier:'actions-document')}"
+										alt="{f:translate(key:'kickstarter.edit')}"
 										title="{f:translate(key:'kickstarter.edit')}" />
 								</f:link.action>
+
+								<f:comment>Down button</f:comment>									
 								<f:link.action action="moveDownField"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
 									<f:image class="moveDownField"
-										src="EXT:sav_library_kickstarter/Resources/Public/Icons/down.gif"
+										src="{sav:getIcon(identifier:'actions-move-down')}"
 										alt="{f:translate(key:'kickstarter.moveDown')}"
 										title="{f:translate(key:'kickstarter.moveDown')}" />
 								</f:link.action>
+								
+								<f:comment>Up button</f:comment>									
 								<f:link.action action="moveUpField"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
 									<f:image class="moveUpField"
-										src="EXT:sav_library_kickstarter/Resources/Public/Icons/up.gif"
+										src="{sav:getIcon(identifier:'actions-move-up')}"
 										alt="{f:translate(key:'kickstarter.moveUp')}"
 										title="{f:translate(key:'kickstarter.moveUp')}" />
 								</f:link.action>
+								
+								<f:comment>Delete button</f:comment>									
 								<f:link.action action="deleteField"
 									arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
 									<f:image class="deleteField"
-										src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
-										alt="kickstarter.delete"
+										src="{sav:getIcon(identifier:'actions-delete')}"
+										alt="{f:translate(key:'kickstarter.delete')}"
 										title="{f:translate(key:'kickstarter.delete')}" />
 								</f:link.action>
 							</div>

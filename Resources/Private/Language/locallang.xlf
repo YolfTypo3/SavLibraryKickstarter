@@ -99,6 +99,9 @@
             <trans-unit id="kickstarter.generating" xml:space="preserve">
                 <source>Generating...</source>
             </trans-unit>
+            <trans-unit id="kickstarter.help" xml:space="preserve">
+                <source>Help</source>
+            </trans-unit>            
             <trans-unit id="kickstarter.upgrading" xml:space="preserve">
                 <source>Upgrading...</source>
             </trans-unit>  
@@ -151,7 +154,7 @@
                 <source>At least one field must be added and selected in a subform</source>
             </trans-unit>
             <trans-unit id="kickstarter.fieldConfiguration" xml:space="preserve">
-                <source>FieldConfiguration</source>
+                <source>Field Configuration</source>
             </trans-unit>
             <trans-unit id="kickstarter.save" xml:space="preserve">
                 <source>Save</source>
@@ -426,9 +429,15 @@
             <trans-unit id="kickstarter.formsItem.listView" xml:space="preserve">
                 <source>List view:</source>
             </trans-unit>
+            <trans-unit id="kickstarter.formsItem.listViewNotCached" xml:space="preserve">
+                <source>Non-cachable List view action (for Mvc type)</source>
+            </trans-unit>               
             <trans-unit id="kickstarter.formsItem.singleView" xml:space="preserve">
                 <source>Single view:</source>
             </trans-unit>
+            <trans-unit id="kickstarter.formsItem.singleViewNotCached" xml:space="preserve">
+                <source>Non-cachable Single view action (for Mvc type)</source>
+            </trans-unit>                        
             <trans-unit id="kickstarter.formsItem.editView" xml:space="preserve">
                 <source>Edit view:</source>
             </trans-unit>
@@ -439,7 +448,7 @@
                 <source>Query:</source>
             </trans-unit>
             <trans-unit id="kickstarter.formsItem.userPlugin" xml:space="preserve">
-                <source>Allow caching:</source>
+                <source>Allow caching (for Plus type):</source>
             </trans-unit>
             <trans-unit id="kickstarter.newTablesItem.tablename" xml:space="preserve">
                 <source>Table Name:</source>
@@ -519,6 +528,9 @@
             <trans-unit id="kickstarter.newTablesItem.header_field" xml:space="preserve">
                 <source>Label-field:</source>
             </trans-unit>
+            <trans-unit id="kickstarter.newTablesItem.label_userFunc" xml:space="preserve">
+                <source>Label User Function:</source>
+            </trans-unit>            
             <trans-unit id="kickstarter.newTablesItem.moveAfter" xml:space="preserve">
                 <source>Select and save, then chick on Up or Down icons to move a field after the selected one.</source>
             </trans-unit>            

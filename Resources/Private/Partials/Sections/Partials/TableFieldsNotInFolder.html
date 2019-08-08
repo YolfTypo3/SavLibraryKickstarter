@@ -1,27 +1,39 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
-
 <f:comment>Adds the fields without any folder (edit, select, move, delete)</f:comment>
 <div class="header">
 
 	<div class="buttons">
 		<f:if condition="{sectionItem.showAllFields}">
 			<f:then>
-				<f:form.submit class="submit"
-					name="submitAction[showFieldsNotInFolders]"
-					value="{f:translate(key:'kickstarter.hideFields')}" />
+				<f:comment>Button to show fields which are not in folders</f:comment>
+				<f:form.button class="submit" name="submitAction[showFieldsNotInFolders]"
+					value="{f:translate(key:'kickstarter.hideFields')}">
+					<f:image 
+						src="{sav:getIcon(identifier:'actions-view-list-collapse')}"
+						alt="{f:translate(key:'kickstarter.hideFields')}"
+						title="{f:translate(key:'kickstarter.hideFields')}" />
+				</f:form.button>
 			</f:then>
 			<f:else>
-				<f:form.submit class="submit" name="submitAction[showAllFields]"
-					value="{f:translate(key:'kickstarter.showAllFields')}" />
+				<f:comment>Button to show all fields</f:comment>
+				<f:form.button class="submit" name="submitAction[showAllFields]"
+					value="{f:translate(key:'kickstarter.showAllFields')}">
+					<f:image 
+						src="{sav:getIcon(identifier:'actions-view-list-expand')}"
+						alt="{f:translate(key:'kickstarter.showAllFields')}"
+						title="{f:translate(key:'kickstarter.showAllFields')}" />
+				</f:form.button>
 			</f:else>
 		</f:if>
 
+        <f:comment>Move after selector</f:comment>
 		<f:form.select name="{section}[moveAfter]"
+		    class="moveAfter"
 			options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields,keyAsValue:1)}"
 			value="{sectionItem.moveAfter}" prependOptionLabel="---"
 			prependOptionValue="-1" />
-		<f:translate key="kickstarter.newTablesItem.moveAfter"/>
+		<f:translate key="kickstarter.newTablesItem.moveAfter" />
 	</div>
 </div>
 <f:if condition="{sectionItem.showAllFields}">
@@ -77,18 +89,22 @@
 												name="{section}[fields][{key}][selected][{sectionItemViewKey}]"
 												value="1" checked="{selected}" />
 										</f:if>
+
+										<f:comment>Edit button</f:comment>
 										<f:link.action action="editFieldConfiguration"
 											arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
 											<f:image class="editFieldConfiguration"
-												src="EXT:sav_library_kickstarter/Resources/Public/Icons/edit.gif"
-												alt="kickstarter.{f:translate(key:'kickstarter.edit')}"
+												src="{sav:getIcon(identifier:'actions-document')}"
+												alt="{f:translate(key:'kickstarter.edit')}"
 												title="{f:translate(key:'kickstarter.edit')}" />
 										</f:link.action>
+
+										<f:comment>Delete button</f:comment>
 										<f:link.action action="deleteField"
 											arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
 											<f:image class="deleteField"
-												src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
-												alt="kickstarter.delete"
+												src="{sav:getIcon(identifier:'actions-delete')}"
+												alt="{f:translate(key:'kickstarter.delete')}"
 												title="{f:translate(key:'kickstarter.delete')}" />
 										</f:link.action>
 

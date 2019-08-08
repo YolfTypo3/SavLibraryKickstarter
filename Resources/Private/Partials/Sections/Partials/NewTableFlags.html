@@ -90,6 +90,10 @@
 		<f:comment>Field Label</f:comment>
 		<label for="header_field"><f:translate
 				key="kickstarter.{section}Item.header_field" /></label>
+				
+		<f:comment>Label User Function</f:comment>
+		<label for="header_field"><f:translate
+				key="kickstarter.{section}Item.label_userFunc" /></label>				
 
 		<f:comment>Field type</f:comment>
 		<label for="type_field"><f:translate
@@ -114,6 +118,8 @@
 		<f:form.select id="header_field" name="{section}[header_field]"
 			options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields, options:'{0:\"
 			\"}')}" value="{sectionItem.header_field}" />
+			
+		<f:comment>Label User Function</f:comment>			
 		<f:form.textfield name="{section}[label_userFunc]"
 			value="{sectionItem.label_userFunc}" />
 

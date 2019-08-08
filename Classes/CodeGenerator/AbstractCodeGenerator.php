@@ -182,7 +182,7 @@ abstract class AbstractCodeGenerator
         // Generates the Configuration/Flexforms directory
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/Flexforms/');
 
-        // Generates he extension flexform
+        // Generates the extension flexform
         $fileContents = $this->generateFile('Configuration/Flexforms/ExtensionFlexform.xmlt');
         GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/Flexforms/ExtensionFlexform.xml', $fileContents);
     }

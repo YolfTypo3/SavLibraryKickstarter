@@ -4,7 +4,7 @@
 		<f:link.action action="addItem"
 			arguments="{extKey:extKey, section:section}">
 			<f:image
-				src="EXT:sav_library_kickstarter/Resources/Public/Icons/add.gif"
+				src="{sav:getIcon(identifier:'actions-add')}"
 				alt="{f:translate(key:'kickstarter.new')}"
 				title="{f:translate(key:'kickstarter.new')}" />
 		</f:link.action>
@@ -21,7 +21,7 @@
 						<f:link.action action="deleteItem"
 							arguments="{extKey:extKey, section:section, itemKey:itemKey}">
 							<f:image
-								src="EXT:sav_library_kickstarter/Resources/Public/Icons/delete.gif"
+								src="{sav:getIcon(identifier:'actions-delete')}"
 								alt="{f:translate(key:'kickstarter.delete')}"
 								title="{f:translate(key:'kickstarter.delete')}" />
 						</f:link.action>
