@@ -53,7 +53,7 @@ Version  Changes
 0.3.0    - Small improvements in the code generation for sav_library_plus and
            in fluid templates.
          - documentation and csh files updated.
-         - Compatibility with TYP03 6.0 added.
+         - Compatibility with TYPO3 6.0 added.
          - Download button added in the extension list.
          - Flag added in the extension configuration to keep the
            ext_localconf.php file.  
