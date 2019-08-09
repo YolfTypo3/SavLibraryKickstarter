@@ -42,13 +42,22 @@ This item opens the form for the configuration of the extension.
 
 - **Library type**: selector which specifies the type of extension
   which will be generated. The **Basic** type can be used to kickstart
-  extension using Fluid and Exbase.
+  extension using Fluid and Exbase. Icons at the right hand side of
+  the selector are still experimental. They should make it possible
+  to migrate a **Plus** type extension to a **Mvc** type extension 
+  and vice-versa.
   
-- **Compatibility**: 
+- **Compatibility**: selector which defines the compatibility of the
+  extension. This selector evolves with the version of TYPO3. If an extension
+  becomes incompatible, it has to be upgraded. 
 
-- **Add TypoScript configuration**: 
+- **Add TypoScript configuration**: if selected, TypoScript configuration files are
+  added (only for **Plus** type. For **Basic** and **Mvc** TypoScript configuration files are
+  always added.
 
-- **Add a wizard plugin icon**: 
+- **Add a wizard plugin icon**: if selected, a wizard icon will be added to the plugin.
+  The wizard icon file must be named **ExtensionWizard.svg** and 
+  put in the directory **Resources/Public/Icons**.
 
 - **Keep the file ext_localconf.php if it exists**: set this option 
   if you **manually** modify the **ext_localconf.php** file. 
