@@ -52,15 +52,23 @@
 					title="{f:translate(key:'kickstarter.sort')}" />
 			</f:form.button>
 			
-			<f:comment>Copy field button</f:comment>	
-			<f:form.button class="submit" name="submitAction[copyFields]"
-				value="{f:translate(key:'kickstarter.copy')}">
+			<f:comment>Copy field configuration button</f:comment>	
+			<f:form.button class="submit" name="submitAction[copyFieldConfiguration]"
+				value="{f:translate(key:'kickstarter.copyField')}">
 				<f:image class="installExtension"
 					src="{sav:getIcon(identifier:'actions-duplicate')}"
-					alt="{f:translate(key:'kickstarter.copy')}"
-					title="{f:translate(key:'kickstarter.copy')}" />
+					alt="{f:translate(key:'kickstarter.copyField')}"
+					title="{f:translate(key:'kickstarter.copyField')}" />
 			</f:form.button>
 
+			<f:comment>Copy fields configuration button</f:comment>	
+			<f:form.button class="submit" name="submitAction[copyFieldsConfiguration]"
+				value="{f:translate(key:'kickstarter.copyFields')}">
+				<f:image class="installExtension"
+					src="{sav:getIcon(identifier:'actions-duplicates')}"
+					alt="{f:translate(key:'kickstarter.copyFields')}"
+					title="{f:translate(key:'kickstarter.copyFields')}" />
+			</f:form.button>
 		</div>
 	</div>
 

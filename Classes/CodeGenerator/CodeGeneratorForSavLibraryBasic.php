@@ -193,14 +193,6 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
             $fileContents = $this->generateFile('Classes/Controller/Controller.phpt');
             GeneralUtility::writeFile($this->extensionDirectory . 'Classes/Controller/' . $controllerName . 'Controller.php', $fileContents);
         }
-
-        // Builds the wizard plugin icon
-        if ($this->sectionManager->getItem('general')
-            ->getItem(1)
-            ->getItem('addWizardPluginIcon')) {
-            $fileContents = $this->generateFile('Classes/Controller/WizardIcon.phpt');
-            GeneralUtility::writeFile($this->extensionDirectory . 'Classes/Controller/' . $controllerName . 'WizardIcon.php', $fileContents);
-        }
     }
 
     /**

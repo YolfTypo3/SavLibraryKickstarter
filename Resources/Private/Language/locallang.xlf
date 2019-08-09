@@ -70,11 +70,14 @@
                 <source>New</source>
             </trans-unit>
             <trans-unit id="kickstarter.sort" xml:space="preserve">
-                <source>Sort</source>
+                <source>Sort in the same order as the selected view</source>
             </trans-unit>
-            <trans-unit id="kickstarter.copy" xml:space="preserve">
-                <source>Copy</source>
+            <trans-unit id="kickstarter.copyField" xml:space="preserve">
+                <source>Copy the field configuration of the selected item from the selected view</source>
             </trans-unit>
+            <trans-unit id="kickstarter.copyFields" xml:space="preserve">
+                <source>Copy the fields configuration from the selected view</source>
+            </trans-unit>            
             <trans-unit id="kickstarter.addNewField" xml:space="preserve">
                 <source>Add a new field</source>
             </trans-unit>
@@ -94,7 +97,7 @@
                 <source>Import fields</source>
             </trans-unit>
             <trans-unit id="kickstarter.useFields" xml:space="preserve">
-                <source>Use fields as in view</source>
+                <source>View</source>
             </trans-unit>
             <trans-unit id="kickstarter.generating" xml:space="preserve">
                 <source>Generating...</source>
@@ -154,7 +157,7 @@
                 <source>At least one field must be added and selected in a subform</source>
             </trans-unit>
             <trans-unit id="kickstarter.fieldConfiguration" xml:space="preserve">
-                <source>Field Configuration</source>
+                <source>Field configuration</source>
             </trans-unit>
             <trans-unit id="kickstarter.save" xml:space="preserve">
                 <source>Save</source>

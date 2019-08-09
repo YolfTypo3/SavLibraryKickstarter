@@ -22,6 +22,16 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['{extension.g
     'list_type',
     '{extension.general.1.extensionKey}'
 );
-</sav:function>
-</f:format.raw>
+!
+// Adds addToInsertRecords() if any
+<f:for each="{extension.newTables}" as="table">
+<f:alias map="{
+  model: '{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey)}'
+}">
+<f:if condition="{table.allow_ce_insert_records}">
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('{model}');
+</f:if>
+</f:alias>
+</f:for>
+</sav:function></f:format.raw>
 ?>

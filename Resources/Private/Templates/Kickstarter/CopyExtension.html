@@ -33,8 +33,15 @@
 								<f:translate key="kickstarter.{section}SectionTitle" />
 							</div>
 							<div class="buttons">
-								<f:form.submit class="submit" name="submitAction[copyExtension]"
-									value="{f:translate(key:'kickstarter.save')}" />
+
+								<f:comment>Save button</f:comment>
+								<f:form.button class="submit" name="submitAction[copyExtension]"
+									data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
+									value="{f:translate(key:'kickstarter.save')}">
+									<f:image src="{sav:getIcon(identifier:'actions-save')}"
+										alt="{f:translate(key:'kickstarter.save')}"
+										title="{f:translate(key:'kickstarter.save')}" />
+								</f:form.button>
 							</div>
 						</div>
 						<div class="body">

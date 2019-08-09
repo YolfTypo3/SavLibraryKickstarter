@@ -62,7 +62,7 @@ class CodeGeneratorForSavLibraryMvc extends AbstractCodeGenerator
         $this->buildConfigurationFlexform();
         $this->buildConfigurationTca();
         $this->buildConfigurationTypoScript();
-        
+
         // Generates Documentation files
         $this->buildDocumentation();
 
@@ -82,7 +82,7 @@ class CodeGeneratorForSavLibraryMvc extends AbstractCodeGenerator
     /**
      * Specific methods for this generator
      */
-    
+
     /**
      * Builds the Configuration/TypoScript file(s).
      *
@@ -118,14 +118,6 @@ class CodeGeneratorForSavLibraryMvc extends AbstractCodeGenerator
             // Every form gets a corresponding Action Controller
             $fileContents = $this->generateFile('Classes/Controller/Controller.phpt', $itemKey);
             GeneralUtility::writeFile($fileDirectory . GeneralUtility::underscoredToUpperCamelCase($item['title']) . 'Controller.php', $fileContents);
-        }
-
-        // Builds the wizard plugin icon
-        if ($this->sectionManager->getItem('general')
-            ->getItem(1)
-            ->getItem('addWizardPluginIcon')) {
-            $fileContents = $this->generateFile('Classes/Controller/WizardIcon.phpt');
-            GeneralUtility::writeFile($this->extensionDirectory . 'Classes/Controller/WizardIcon.php', $fileContents);
         }
     }
 

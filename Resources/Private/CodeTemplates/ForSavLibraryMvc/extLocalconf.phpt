@@ -25,5 +25,24 @@ defined('TYPO3_MODE') or die();
     </f:for>
     ]
 );
+
+<f:if condition="{extension.general.1.addWizardPluginIcon}">
+!
+<f:alias map="{
+    vendorName:     '{extension.general.1.vendorName}',
+    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
+    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+}">
+// Registers the icon
+$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+   \TYPO3\CMS\Core\Imaging\IconRegistry::class
+);
+$iconRegistry->registerIcon(
+   'ext-{extensionName->sav:toLower()}-wizard',
+   \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+   ['source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg']
+);
+</f:alias>
+</f:if>
 </sav:function>
 ?>

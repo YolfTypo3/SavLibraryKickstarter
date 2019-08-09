@@ -1045,7 +1045,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * @param bool $checkLibraryType
      * @return void
      */
-    protected function saveSubmitAction(bool $chekLibraryType = true)
+    protected function saveSubmitAction(bool $checkLibraryType = true)
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
@@ -1127,6 +1127,18 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $libraryName = ConfigurationManager::getLibraryName($libraryType);
                 GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extKey), $libraryName);
             }
+        } elseif (! file_exists(ConfigurationManager::getLibraryTypeFileName($extKey))) {
+            // Just a security since the library type file should have been created before
+            $libraryType = $sectionManager->getItem('general')
+                ->addItem(1)
+                ->getItem('libraryType');
+
+            // Builds the new directory if needed
+            $configurationManager->buildConfigurationDirectory($extKey, $libraryType);
+
+            // Changes the library type file
+            $libraryName = ConfigurationManager::getLibraryName($libraryType);
+            GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extKey), $libraryName);
         }
 
         $sectionManager->getItem('general')
@@ -1522,11 +1534,66 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     }
 
     /**
-     * copyFields submitted action.
+     * copyFieldConfiguration submitted action.
      *
      * @return void
      */
-    protected function copyFieldsSubmitAction()
+    protected function copyFieldConfigurationSubmitAction()
+    {
+        // Gets arguments
+        $arguments = $this->request->getArguments();
+        $extKey = $arguments['extKey'];
+        $section = $arguments['general']['section'];
+        $itemKey = $arguments['general']['itemKey'];
+        $fieldKey = $arguments['general']['fieldKey'];
+
+        // Gets the configuration and the section managers
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
+        $configurationManager->injectController($this);
+        $configurationManager->loadConfiguration();
+        $sectionManager = $configurationManager->getSectionManager();
+
+        // Gets the view key from the selectorbox, sorts by this key and saves.
+        $currentViewKey = $sectionManager->getItem($section)
+            ->getItem($itemKey)
+            ->getItem('viewKey');
+        $selectedViewKey = $arguments[$section]['viewSelectorbox'];
+
+        // Copies the field configuration
+        if (! empty($fieldKey) && ! empty($selectedViewKey)) {
+            $fieldConfiguration = $sectionManager->getItem($section)
+                ->getItem($itemKey)
+                ->getItem('fields')
+                ->getItem($fieldKey)
+                ->getItem('configuration')
+                ->getItem($selectedViewKey);
+            $sectionManager->getItem($section)
+                ->getItem($itemKey)
+                ->getItem('fields')
+                ->getItem($fieldKey)
+                ->getItem('configuration')
+                ->replace([
+                $currentViewKey => $fieldConfiguration
+            ]);
+        }
+
+        // Saves the configuration
+        $configurationManager->saveConfiguration();
+
+        // Redirects to the section action
+        $this->redirect($section . 'EditSection', null, null, [
+            'extKey' => $extKey,
+            'section' => $section,
+            'itemKey' => $itemKey
+        ]);
+    }
+
+    /**
+     * copyFieldsConfiguration submitted action.
+     *
+     * @return void
+     */
+    protected function copyFieldsConfigurationSubmitAction()
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
@@ -1546,25 +1613,27 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->getItem('viewKey');
         $selectedViewKey = $arguments[$section]['viewSelectorbox'];
 
-        // Copy the field configuration
-        foreach ($configurationManager->getSectionManager()
-            ->getItem($section)
-            ->getItem($itemKey)
-            ->getItem('fields') as $fieldKey => $field) {
-            $fieldConfiguration = $sectionManager->getItem($section)
+        // Copies the fields configuration
+        if (! empty($selectedViewKey)) {
+            foreach ($configurationManager->getSectionManager()
+                ->getItem($section)
                 ->getItem($itemKey)
-                ->getItem('fields')
-                ->getItem($fieldKey)
-                ->getItem('configuration')
-                ->getItem($selectedViewKey);
-            $sectionManager->getItem($section)
-                ->getItem($itemKey)
-                ->getItem('fields')
-                ->getItem($fieldKey)
-                ->getItem('configuration')
-                ->replace([
-                $currentViewKey => $fieldConfiguration
-            ]);
+                ->getItem('fields') as $fieldKey => $field) {
+                $fieldConfiguration = $sectionManager->getItem($section)
+                    ->getItem($itemKey)
+                    ->getItem('fields')
+                    ->getItem($fieldKey)
+                    ->getItem('configuration')
+                    ->getItem($selectedViewKey);
+                $sectionManager->getItem($section)
+                    ->getItem($itemKey)
+                    ->getItem('fields')
+                    ->getItem($fieldKey)
+                    ->getItem('configuration')
+                    ->replace([
+                    $currentViewKey => $fieldConfiguration
+                ]);
+            }
         }
 
         // Saves the configuration

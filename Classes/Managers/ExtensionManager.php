@@ -34,21 +34,21 @@ class ExtensionManager
 
     /**
      *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var ObjectManager
      */
     protected $objectManager;
 
     /**
      * Class for install
      *
-     * @var \TYPO3\CMS\Extensionmanager\Utility\InstallUtility
+     * @var InstallUtility
      */
     public $installUtility;
 
     /**
      * Class for file handling
      *
-     * @var \TYPO3\CMS\Extensionmanager\Utility\FileHandlingUtility
+     * @var FileHandlingUtility
      */
     public $fileHandlingUtility;
 

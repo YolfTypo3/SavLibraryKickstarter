@@ -20,6 +20,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use YolfTypo3\SavLibraryKickstarter\Compatibility\EnvironmentCompatibility;
+use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 abstract class AbstractCodeGenerator
@@ -46,7 +47,7 @@ abstract class AbstractCodeGenerator
 
     /**
      *
-     * @var \YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController
+     * @var KickstarterController
      */
     protected $controller;
 
@@ -83,9 +84,9 @@ abstract class AbstractCodeGenerator
     /**
      * Injects the controller
      *
-     * @param \YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController $controller
+     * @param KickstarterController $controller
      */
-    public function injectController(\YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController $controller)
+    public function injectController(KickstarterController $controller)
     {
         $this->controller = $controller;
     }
@@ -113,6 +114,16 @@ abstract class AbstractCodeGenerator
 
         // Generates the icons
         $this->generateFile('icons.t');
+
+        // Builds the page TSconfig the Wizard Icon if any
+        if ($this->sectionManager->getItem('general')
+            ->getItem(1)
+            ->getItem('addWizardPluginIcon')) {
+            GeneralUtility::mkdir_deep($this->extensionDirectory . '/Configuration/TsConfig/Page/Mod/Wizards/');
+
+            $fileContents = $this->generateFile('Configuration/TsConfig/Page/Mod/Wizards/NewContentElement.tsconfigt');
+            GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/TsConfig/Page/Mod/Wizards/NewContentElement.tsconfig', $fileContents);
+        }
     }
 
     /**
@@ -124,7 +135,7 @@ abstract class AbstractCodeGenerator
     {
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/TCA/');
 
-        // For tca, files are written during the generation
+        // For TCA, files are written during the generation
         $this->generateFile('Configuration/TCA/tca.phpt');
     }
 

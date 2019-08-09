@@ -1,0 +1,27 @@
+<?php
+<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+<f:alias map="{
+    vendorName:     '{extension.general.1.vendorName}',
+    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
+    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}',
+    actionName:     '{extension.views->sav:getItem()->sav:getItem(key:\'title\')->sav:lowerCamel()}'
+}">
+mod.wizards <f:format.raw value="{" />
+    newContentElement.wizardItems <f:format.raw value="{" />
+        plugins <f:format.raw value="{" />
+            elements <f:format.raw value="{" />
+                {extension.general.1.extensionKey} <f:format.raw value="{" />
+                    iconIdentifier = ext-{extensionName->sav:toLower()}-wizard
+                    title = {extension.emconf.1.title}
+                    description = {extension.emconf.1.description}
+                    tt_content_defValues <f:format.raw value="{" />
+                        CType = list
+                        list_type = {extension.general.1.extensionKey}
+                    <f:format.raw value="}" />
+                <f:format.raw value="}" />
+            <f:format.raw value="}" />
+        <f:format.raw value="}" />
+    <f:format.raw value="}" />
+<f:format.raw value="}" />
+</f:alias>
+</sav:function>

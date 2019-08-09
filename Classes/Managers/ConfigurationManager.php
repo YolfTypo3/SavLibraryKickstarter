@@ -62,7 +62,7 @@ class ConfigurationManager
 
     /**
      *
-     * @var \YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController
+     * @var KickstarterController
      */
     protected $controller;
 
@@ -74,7 +74,7 @@ class ConfigurationManager
 
     /**
      *
-     * @var \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @var ItemManager
      */
     protected $sectionManager;
 
@@ -86,7 +86,7 @@ class ConfigurationManager
 
     /**
      *
-     * @var \YolfTypo3\SavLibraryKickstarter\Managers\ExtensionManager
+     * @var ExtensionManager
      */
     protected $extensionManager = null;
 
@@ -110,7 +110,7 @@ class ConfigurationManager
     /**
      * Injects the controller
      *
-     * @param \YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController $controller
+     * @param KickstarterController $controller
      */
     public function injectController(KickstarterController $controller)
     {
@@ -132,7 +132,7 @@ class ConfigurationManager
     /**
      * Gets the section manager.
      *
-     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return ItemManager
      */
     public function getSectionManager(): ItemManager
     {
@@ -157,7 +157,7 @@ class ConfigurationManager
     /**
      * Gets the code generator.
      *
-     * @return \YolfTypo3\SavLibraryKickstarter\Managers\ExtensionManager
+     * @return ExtensionManager
      */
     public function getExtensionManager(): ExtensionManager
     {
@@ -485,7 +485,6 @@ class ConfigurationManager
      */
     public function buildConfigurationDirectory(string $extensionKey, int $libraryType)
     {
-
         // Builds the new configuration directory
         $extensionDirectory = self::getExtensionDir($extensionKey);
         $libraryName = self::getLibraryName($libraryType);

@@ -23,6 +23,16 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['{pluginSigna
     'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1'
 );
 </f:alias>
-</sav:function>
-</f:format.raw>
+!
+// Adds addToInsertRecords() if any
+<f:for each="{extension.newTables}" as="table">
+<f:alias map="{
+  model: '{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc: true)}'
+}">
+<f:if condition="{table.allow_ce_insert_records}">
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('{model}');
+</f:if>
+</f:alias>
+</f:for>
+</sav:function></f:format.raw>
 ?>
