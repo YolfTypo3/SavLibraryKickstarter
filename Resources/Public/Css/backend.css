@@ -424,8 +424,8 @@ div.folderTabs li.currentTab a span {
 
 #content div.body span.oldExtensionKey {
 	float: left;
-	margin-left: 5px;
-	padding: 3px 0px 3px 0px;
+	margin-left: 0px 0px 5px 5px;
+
 }
 
 #content div.body ul {
@@ -896,9 +896,10 @@ div.folderTabs li.currentTab a span {
 
 #fieldsOverview div.header div.buttons div.viewSelectorbox {
 	float: left;
-	width: 70px;
+	width: auto;
 	padding: 0px;
-	margin: 0px 3px 0px 3px;
+	margin: 0px 3px 0px 30px;
+	font-weight: bold;
 }
 
 #fieldsOverview div.fields {
