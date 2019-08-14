@@ -27,7 +27,7 @@ module.tx_savlibrarykickstarter {
         dependency.composer.2 = >=6.2,<8.0        
         dependency.composer.3 = >=7.6,<8.0
                 
-        dependency.emconf.sav_library_plus.default = 9.5.0.0-0.0.0  
+        dependency.emconf.sav_library_plus.default = 9.5.0-0.0.0  
         dependency.emconf.sav_library_mvc.default = 1.2.0-0.0.0    
         
         dependency.composer.sav_library_plus.default = >=9.5.0  

@@ -49,7 +49,7 @@ This item opens the form used to generate the documentation of the extension.
   
      ... read the :ref:`SAV Library Kickstarter tutorial section <savlibrarykickstarter:tutorial>` 
 
-- **Extensions**: extensions that will be added the **Settings.cfg** file.
+- **Extensions**: extensions that will be added in the **Settings.cfg** file.
 
 - **Keep Settings.cfg file**: set this option if you **manually** modify
   the **Settings.cfg** file. It will prevent the SAV Library Kickstarter

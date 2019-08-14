@@ -24,23 +24,33 @@ namespace {vendorName}\{extensionName}\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use YolfTypo3\SavLibraryMvc\Controller\DefaultController;
+use {vendorName}\{extensionName}\Domain\Model\{mainModelName};
+use {vendorName}\{extensionName}\Domain\Repository\{mainModelName}Repository;
 !
 /**
  * Controller for the form {controllerName}
  *
  */
-class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\DefaultController
+class {controllerName}Controller extends DefaultController
 {
 
     /**
      * Main repository
      * 
-     * @var <f:format.raw>\{vendorName}\{extensionName}\Domain\Repository\{mainModelName}Repository</f:format.raw>
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     * @extensionScannerIgnoreLine
-     * @inject
+     * @var <f:format.raw>{mainModelName}Repository</f:format.raw>
      */
     protected $mainRepository = null;
+!   
+    /**
+     * Injects the repository.
+     *
+     * @param <f:format.raw>{mainModelName}Repository $repository</f:format.raw>
+     */
+    public function inject{mainModelName}Repository({mainModelName}Repository $repository)
+    {
+        $this->mainRepository = $repository;
+    }        
 !
     /**
      * Subform repository class names
@@ -50,9 +60,9 @@ class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\Def
     protected $subforms = [
         <f:for each="{sav:Mvc.SubformIndexManager(action:'getSubforms')}" as="subform">
         [
-            'repository' => '{vendorName}\\{extensionName}\\Domain\\Repository\\{subform.tableName}Repository',
+            'repository' => \{vendorName}\{extensionName}\Domain\Repository\{subform.tableName}Repository::class,
             'fieldName' => '{subform.fieldName}',
-            'foreignRepository' => '{vendorName}\\{extensionName}\\Domain\\Repository\\{subform.foreignTableName}Repository',
+            'foreignRepository' => \{vendorName}\{extensionName}\Domain\Repository\{subform.foreignTableName}Repository::class,
         ],
         </f:for>
     ];
@@ -60,10 +70,10 @@ class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\Def
     /**
      * Save action for this controller
      *
-     * @param \{vendorName}\{extensionName}\Domain\Model\{mainModelName} $data
+     * @param {mainModelName} $data
      * @return void
      */
-    public function saveAction(\{vendorName}\{extensionName}\Domain\Model\{mainModelName} $data)
+    public function saveAction({mainModelName} $data)
     {
         $this->save($data);
     }

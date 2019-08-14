@@ -14,10 +14,11 @@
                         <TCEforms>
                             <config>
                                 <type>user</type>
-                                <userFunc>user_savlibraryMvcHelp</userFunc>
-                                <userFuncParameters>
-                                    <cshTag>helpGeneral</cshTag>    
-                                </userFuncParameters>                                
+                                <renderType>help</renderType>
+                                <parameters>
+                                	<section>Configuration/FlexformAssociatedWithThePlugin</section>
+                                    <tag>flexformAssociatedWithThePlugin-generalFolder</tag>    
+				                </parameters>                                 
                             </config>                            
                         </TCEforms>                          
                     </helpGeneral>
@@ -119,10 +120,11 @@
                         <TCEforms>
                             <config>
                                 <type>user</type>
-                                <userFunc>user_savlibraryMvcHelp</userFunc>
-                                <userFuncParameters>
-                                        <cshTag>helpInputControls</cshTag>    
-                                </userFuncParameters>                                
+                                <renderType>help</renderType>
+                                <parameters>
+                                	<section>Configuration/FlexformAssociatedWithThePlugin</section>
+                                    <tag>flexformAssociatedWithThePlugin-generalFolder</tag>    
+				                </parameters>                               
                             </config>                            
                         </TCEforms>                                
                     </settings.helpInput>
@@ -279,10 +281,11 @@
                         <TCEforms>
                             <config>
                                 <type>user</type>
-                                <userFunc>user_savlibraryMvcHelp</userFunc>
-                                <userFuncParameters>
-                                        <cshTag>helpAdvanced</cshTag>    
-                                </userFuncParameters>                                
+                                <renderType>help</renderType>
+                                <parameters>
+                                	<section>Configuration/FlexformAssociatedWithThePlugin</section>
+                                    <tag>flexformAssociatedWithThePlugin-generalFolder</tag>    
+				                </parameters>                               
                             </config>                            
                         </TCEforms>                                
                     </helpAdvanced>

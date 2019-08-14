@@ -36,7 +36,7 @@ class {modelName} extends \YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel
      * <sav:function name="removeLineFeed"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Variables/PhpDoc/{field.type}.t', default:'Partials/Model/Variables/PhpDoc/Default.t')}" arguments="{_all}" /></sav:function>
         <f:if condition="{field.validationRules}">
         <f:then>
-     * @validate {field.validationRules}
+     *  @Extbase\Validate({field.validationRules})
         </f:then>
         <f:else>
      * <sav:function name="removeLineFeed"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/ValidationRules/PhpDoc/{field.type}.t', default:'Partials/Model/ValidationRules/PhpDoc/Default.t')}" arguments="{_all}" /></sav:function>
