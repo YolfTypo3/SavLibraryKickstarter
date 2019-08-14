@@ -32,9 +32,73 @@ This item opens the form for the configuration of the extension.
 - **State**: selector which specifies the state of the extension.
 
 - **Dependencies**: specify here the dependencies of the extension.
+  
+  Dependencies must be comma-separated. If only extension names
+  are entered, dependencies will be added in **ext_emconf.php**
+  file without constraints.
 
   The SAV Library Kickstarter generates automatically the dependency
-  to SAV Library Plus or SAV Library Mvc.
+  to SAV Library Plus or SAV Library Mvc for **composer.json** and
+  **ext_emconf.php** files.
+  
+  Constraints can be added for **ext_emconf.php** or **composer.json**.
+  The following example is taken from the extension `sav_library_example10 
+  <https://extensions.typo3.org/extension/sav_library_example10>`_ which 
+  depends on extension `maps2 <https://extensions.typo3.org/extension/maps2>`_.
+ 
+  
+  .. code::
+     
+     maps2(emconf:5.2.3-0.0.0), jweiland/maps2(composer:^5.2.3)
+     
+  The dependency to **maps2** will be added to **ext_emconf.php** with the 
+  constraint **5.2.3-0.0.0**.
+  
+  .. code::
+  
+     'depends' => [
+        'typo3' => '8.7.0-9.5.99',
+        'maps2' => '5.2.3-0.0.0',
+        'sav_library_plus' => '9.5.0-0.0.0'
+     ],     
+  
+  The extension **maps2** has a composer support **jweiland/maps2**. In 
+  such case, you must enter directly the dependency, i.e. **jweiland/maps2**,
+  instead of the extension name. The dependency 
+  is added to **composer.json** with the constraint **^5.2.3**.
+  
+  .. code::
+  
+     "require": {
+        "typo3/cms-core": ">=8.7,<10.0",
+        "jweiland/maps2": "^5.2.3",
+        "typo3-ter/sav-library-plus": ">=9.5.0"
+     },  
+  
+  .. note::
+  
+    When the extension name is used **typo3-ter/** will be prepended 
+    to the extension name to build the dependency in **composer.json**.  
+    
+    For example, the following
+    dependencies are used for the extension `sav_library_example9 
+    <https://extensions.typo3.org/extension/sav_library_example9>`_ which 
+    depends on the extension `sav_charts 
+    <https://extensions.typo3.org/extension/sav_charts>`_.
+    
+    .. code::
+    
+       sav_charts(emconf:9.5.0-0.0.0)(composer:^9.5.0) 
+       
+    It generates the following **require** part in **composer.json**. 
+    
+    .. code::
+       
+        "require": {
+           "typo3/cms-core": ">=8.7,<10.0",
+           "typo3-ter/sav-charts": "^9.5.0",
+           "typo3-ter/sav-library-plus": ">=9.5.0"
+        },
   
 - **Author**: use this field to set the extension's author.   
 

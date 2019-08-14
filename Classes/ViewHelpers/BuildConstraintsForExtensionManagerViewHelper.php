@@ -92,27 +92,44 @@ class BuildConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
 
         // Processes the other dependencies
         $dependencies = $extension['emconf'][1]['dependencies'];
+
         if (! empty($dependencies)) {
             $dependenciesArray = explode(',', $dependencies);
-
             foreach ($dependenciesArray as $dependency) {
                 $match = [];
-                if (preg_match('/^([^[ \(]+)\s*(?:\(([^)]+)\))?/', $dependency, $match)) {
+                if (preg_match('/^([^\(]+)\s*((?:\([^)]+\)\s*){1,2})?/', trim($dependency), $match)) {
                     $dependencyName = $match[1];
-                    $dependencyConstraint = $match[2];
-                    // Adds a blank constraint for ext_emconf.php
-                    $dependenciesResult['emconf'][$dependencyName] = '';
-                    // Adds the dependency in composer.json only if the constaints exists
-                    if (! empty($dependencyConstraint)) {
-                        $dependenciesResult['composer']['typo3-ter/' . str_replace('_', '-', $dependencyName)] = $dependencyConstraint;
-                    } elseif ($libraryDependency != '' && $dependencyName == $libraryDependency) {
-                        // If the default library is used without constraint, the default constraint will be used
-                        unset($dependenciesResult['emconf'][$dependencyName]);
+                    // Parses the constraints if any
+                    if (! empty($match[2])) {
+                        $matches = [];
+                        if (preg_match_all('/\((emconf|composer):([^)]+)\)/', $match[2], $matches)) {
+                            foreach ($matches[0] as $constraintKey => $constraint) {
+                                switch ($matches[1][$constraintKey]) {
+                                    case 'emconf':
+                                        $dependenciesResult['emconf'][$dependencyName] = $matches[2][$constraintKey];
+                                        break;
+                                    case 'composer':
+                                        if (strpos($dependencyName, '/') === false) {
+                                            $dependencyName = 'typo3-ter/' . $dependencyName;
+                                        }
+                                        $dependenciesResult['composer'][str_replace('_', '-', $dependencyName)] = $matches[2][$constraintKey];
+                                        break;
+                                }
+                            }
+                        }
+                    } else {
+                        // Inserts in ext_emconf.php if no dependecies are added
+                        $dependenciesResult['emconf'][$dependencyName] = '';
+                        if ($libraryDependency != '' && $dependencyName == $libraryDependency) {
+                            // If the default library is used without constraint, the default constraint will be used
+                            unset($dependenciesResult['emconf'][$dependencyName]);
+                        }
                     }
                 }
             }
         }
 
+        // Adds the default library dependenciens if not provided
         if ($libraryDependency != '' && ! array_key_exists($libraryDependency, $dependenciesResult['emconf'])) {
             $dependenciesResult['emconf'][$libraryDependency] = $settings['dependency']['emconf'][$libraryDependency]['default'];
             $dependenciesResult['composer']['typo3-ter/' . str_replace('_', '-', $libraryDependency)] = $settings['dependency']['composer'][$libraryDependency]['default'];
@@ -120,17 +137,16 @@ class BuildConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
 
         // Processes the constraints
         $constraints = '';
-
         foreach ($dependenciesResult[$type] as $dependencyKey => $dependency) {
             switch ($type) {
                 case 'emconf':
-                    $constraints .= '\'' . $dependencyKey . '\' => \'' . $dependency . '\',' . chr(10);
+                    $constraint = '\'' . $dependencyKey . '\' => \'' . $dependency . '\'';
                     break;
                 case 'composer':
-                    $constraints .= '"' . $dependencyKey . '": "' . $dependency . '",' . chr(10);
+                    $constraint = '"' . $dependencyKey . '": "' . $dependency . '"';
             }
+            $constraints .= (empty($constraints) ? $constraint : ',' . chr(10) . $constraint);
         }
-        $constraints = substr($constraints, 0, - 2);
 
         return $constraints;
     }
