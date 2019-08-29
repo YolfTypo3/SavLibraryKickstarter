@@ -1,6 +1,7 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
 <f:if condition="{field.conf_relations_mm}">
+!
     /**
      * Adds a {field.fieldname->sav:lowerCamel()}
      * 
@@ -23,8 +24,3 @@
         $this->{field.fieldname->sav:lowerCamel()}->detach(${field.fieldname->sav:lowerCamel()});
     }
 </f:if>
-
-
-
-
-

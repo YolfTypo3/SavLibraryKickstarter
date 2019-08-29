@@ -25,8 +25,9 @@ namespace {vendorName}\{extensionName}\Domain\Model;
  * {modelName} model for the extension {extensionName}
  *
  */
-
-class {modelName} extends \YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel
+use YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel;
+!
+class {modelName} extends DefaultModel
 {
 
     <f:for each="{fields}" as="field">
@@ -39,7 +40,7 @@ class {modelName} extends \YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel
      *  @Extbase\Validate({field.validationRules})
         </f:then>
         <f:else>
-     * <sav:function name="removeLineFeed"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/ValidationRules/PhpDoc/{field.type}.t', default:'Partials/Model/ValidationRules/PhpDoc/Default.t')}" arguments="{_all}" /></sav:function>
+     * <sav:function name="removeLineFeed" arguments="{replacement:'\n     * '}"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/ValidationRules/PhpDoc/{field.type}.t', default:'Partials/Model/ValidationRules/PhpDoc/Default.t')}" arguments="{_all}" /></sav:function>
         </f:else>
         </f:if>
      */
@@ -58,6 +59,7 @@ class {modelName} extends \YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel
     }
 
     <f:for each="{fields}" as="field">
+!    
     /**
      * Getter for {field.fieldname->sav:lowerCamel()}.
      *
@@ -82,9 +84,9 @@ class {modelName} extends \YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel
         <f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Setters/Return/{field.type}.phpt', default:'Partials/Model/Setters/Return/Default.phpt')}" arguments="{_all}" />
         </sav:indent>
     }
-!
+
     <f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Methods/{field.type}.phpt', default:'Partials/Model/Methods/Default.phpt')}" arguments="{_all}" /> 
-!
+
   </f:for>
 	
 }

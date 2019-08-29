@@ -317,14 +317,19 @@ class FunctionViewHelper extends AbstractViewHelper
      *
      * @param string|null $string
      *            The argument
+     * @param array $arguments
      * @return string
      */
-    private function removeLineFeed($string): string
+    private function removeLineFeed($string, array $arguments = null): string
     {
         if ($string === null) {
             return '';
         } else {
-            return preg_replace('/[\n\r]+/', '', $string);
+            $replacement = '';
+            if (isset($arguments['replacement'])) {
+                $replacement = str_replace('\\n', chr(10), $arguments['replacement']);
+            }
+            return preg_replace('/[\n\r]+/', $replacement, $string);
         }
     }
 

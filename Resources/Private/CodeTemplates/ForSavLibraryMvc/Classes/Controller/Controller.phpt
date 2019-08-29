@@ -24,7 +24,6 @@ namespace {vendorName}\{extensionName}\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use YolfTypo3\SavLibraryMvc\Controller\DefaultController;
 use {vendorName}\{extensionName}\Domain\Model\{mainModelName};
 use {vendorName}\{extensionName}\Domain\Repository\{mainModelName}Repository;
 !
@@ -32,7 +31,7 @@ use {vendorName}\{extensionName}\Domain\Repository\{mainModelName}Repository;
  * Controller for the form {controllerName}
  *
  */
-class {controllerName}Controller extends DefaultController
+class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\DefaultController
 {
 
     /**
