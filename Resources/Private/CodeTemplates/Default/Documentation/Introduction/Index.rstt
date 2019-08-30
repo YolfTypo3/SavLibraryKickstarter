@@ -12,9 +12,10 @@ Enter description here.
 Screenshots
 ===========
 
-Put your images in Doucmentation/Images and insert figures as shown below.
+Put your images in Documentation/Images and insert figures as shown below.
 
-..code:
+.. code::
+
    .. figure:: ../Images/Test.png
       :alt: Test screenshot
   
