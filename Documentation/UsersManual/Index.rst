@@ -10,7 +10,7 @@ Installation
 ============
 
 - Download the extension `SAV Library Kickstarter 
-  <https://typo3.org/extensions/repository/view/sav_library_kickstarter>`_ and install it.
+  <https://extensions.typo3.org/extension/sav_library_kickstarter>`_ and install it.
 
 .. warning::
 

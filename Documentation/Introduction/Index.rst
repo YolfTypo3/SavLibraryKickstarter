@@ -9,7 +9,7 @@ Introduction
 What Does it Do?
 ================
 
-The `SAV Library Kickstarter <https://typo3.org/extensions/repository/view/sav_library_kickstarter>`_ 
+The `SAV Library Kickstarter <https://extensions.typo3.org/extension/sav_library_kickstarter>`_ 
 is a code generator, developed with extbase and fluid, to produce Frontend plugins.
 
 Basic Code Generation
@@ -22,7 +22,7 @@ Code Generation for the SAV Library Plus
 ----------------------------------------
 
 The `SAV Library Plus Extension
-<https://typo3.org/extensions/repository/view/sav_library_plus>`_ is stable since many years. 
+<https://extensions.typo3.org/extension/sav_library_plus>`_ is stable since many years. 
 It makes it possible to develop extensions **without any
 PHP coding**, thanks to simple configuration parameters.
 The SAV Library Plus extension relies on a conventional approach for the
@@ -60,7 +60,7 @@ The SAV Library Kickstarter generates extensions which include:
 Code Generation for the SAV Library Mvc
 ---------------------------------------
 
-The `SAV Library Mvc Extension <https://typo3.org/extensions/repository/view/sav_library_mvc>`_ is the new 
+The `SAV Library Mvc Extension <https://extensions.typo3.org/extension/sav_library_mvc>`_ is the new 
 development of the SAV Library which fully relies on the MVC approach
 with extbase and fluid. The configuration parameters to develop extension **without any
 PHP coding** are the same as in SAV Library Plus.
@@ -71,24 +71,24 @@ However available features are enough for most extensions.
 Latest Developments
 ====================
 
-The latest developments of the `SAV Library Kickstarter Project
-<https://github.com/YolfTypo3/SavLibraryKickstarterProject>`_ 
+The latest developments of the `SAV Library Kickstarter
+<https://github.com/YolfTypo3/SavLibraryKickstarter>`_ 
 are available on GitHub.
 
 Test Extensions
 ===============
 
 The extension `SAV Basic Example0
-<https://typo3.org/extensions/repository/view/sav_basic_example0>`_
+<https://extensions.typo3.org/extension/sav_basic_example0>`_
 was designed to test the SAV Library Kickstarter generation for a basic extension with Fluid and Extbase.
 
 The extension `SAV Library Example0
-<https://typo3.org/extensions/repository/view/sav_library_example0>`_
+<https://extensions.typo3.org/extension/sav_library_example0>`_
 was designed to test the SAV Library Kickstarter generation for the SAV Library
 Plus extension. 
 
 The extension `SAV Library Mvc Example0
-<https://typo3.org/extensions/repository/view/sav_librarymvc_example0>`_
+<https://extensions.typo3.org/extension/sav_librarymvc_example0>`_
 was designed to test the SAV Library Kickstarter generation for the SAV Library
 Mvc extension. It implements the same features as SAV Library Example0.
 
@@ -105,8 +105,8 @@ Extensions Generated for SAV Library Plus
 - SAV Library Example6
 - SAV Library Example7
 - SAV Library Example8
-- SAV Library Example9 - this extension depends on sav_jpgraph and is now obsolete.
-- SAV Library Example10 - this extension depends on wec_map.
+- SAV Library Example9 - this extension depends on `sav_charts <https://extensions.typo3.org/extension/sav_charts>`_.
+- SAV Library Example10 - this extension depends on `map2 <https://extensions.typo3.org/extension/map2>`_.
 - SAV Download
 - SAV Meetings
     

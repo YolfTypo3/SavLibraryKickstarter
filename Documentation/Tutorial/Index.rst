@@ -36,7 +36,7 @@ Three library types are available:
 - **Plus** -  The SAV Library Kickstarter generates an extension which requires
   the SAV Library Plus to be loaded.
   The `SAV Library Plus Extension
-  <http://typo3.org/extensions/repository/view/sav_library_plus>`_ is stable since many years. 
+  <https://extensions.typo3.org/extension/sav_library_plus>`_ is stable since many years. 
   It makes it possible to develop extensions **without any
   PHP coding**, thanks to simple configuration parameters.
   The SAV Library Plus extension relies on a conventional approach for the
@@ -44,7 +44,7 @@ Three library types are available:
 
 - **Mvc** - The SAV Library Kickstarter generates an extension which requires
   the SAV Library Mvc to be loaded.
-  The `SAV Library Mvc Extension <http://typo3.org/extensions/repository/view/sav_library_mvc>`_ 
+  The `SAV Library Mvc Extension <https://extensions.typo3.org/extension/sav_library_mvc>`_ 
   is the new development of the SAV Library which fully relies on the MVC approach
   with Extbase and Fluid. The configuration parameters to develop extension **without any
   PHP coding** are the same as in SAV Library Plus. This library is in beta state because 
