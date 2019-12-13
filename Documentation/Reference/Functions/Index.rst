@@ -103,7 +103,9 @@ func = makeExtLink;
         Optional attributes can be added:
          
         - folderTab = string; (string is the folder tab name, if the extension
-          uses serveral folders).         
+          uses serveral folders). 
+          
+        - linkAccessRestrictedPages = 1; The link is built even if the page is protected.        
                   
         - setUid = integer; the integer defines the page uid associated with the
           link.
