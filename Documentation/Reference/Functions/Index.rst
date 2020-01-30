@@ -319,7 +319,7 @@ func = makeXmlLabel;
               
     Description
         This function generates the label from a xml language file. It works
-        with the following parameter:
+        with the following parameters:
          
         - xmlLabel = string; the string is the label definition. For example,
           assume that the value comes from a selectorbox whose label definition
@@ -329,4 +329,6 @@ func = makeXmlLabel;
          
         ::
          
-            xmlLabel = LLL:EXT:my_ext/locallang_db.xlf:tx_myext.my_field.I.;
+            xmlLabel = LLL:EXT:my_ext/Resources/Private/Language/locallang_db.xlf:tx_myext.my_field.I.;
+            
+        - rawValue = 1; the raw alue, i.e. the value stored in the table, is used instead of the rendered one.
