@@ -9,15 +9,29 @@ defined('TYPO3_MODE') or die();
 </f:for>
 !
 // Configures the Dispatcher
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    '{extension.general.1.vendorName}.{extension.general.1.extensionKey}',
-    '{extension.forms->sav:getItem()->sav:getItem(key:'title')}',
-    [
-        '{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}' => '{extension.views->sav:getItem()->sav:getItem(key:'title')->sav:lowerCamel()}',
-    ],
-    // Non-cachable controller actions
-    []
-);
+if (version_compare(\{extension.general.1.vendorName}\{extension.general.1.extensionKey->sav:upperCamel()}\Controller\{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}Controller::getTypo3Version(), '10.0', '<')) {
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    	'{extension.general.1.vendorName}.{extension.general.1.extensionKey}',
+    	'{extension.forms->sav:getItem()->sav:getItem(key:'title')}',
+    	// Cachable controller actions    	
+    	[
+        	'{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}' => '{extension.views->sav:getItem()->sav:getItem(key:'title')->sav:lowerCamel()}',
+    	],
+    	// Non-cachable controller actions
+    	[]
+	);
+} else {
+	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    	'{extension.general.1.extensionKey->sav:upperCamel()}',
+    	'{extension.forms->sav:getItem()->sav:getItem(key:'title')}',
+    	// Cachable controller actions    	
+    	[
+        	\{extension.general.1.vendorName}\{extension.general.1.extensionKey->sav:upperCamel()}\Controller\{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}Controller::class => '{extension.views->sav:getItem()->sav:getItem(key:'title')->sav:lowerCamel()}',
+    	],
+    	// Non-cachable controller actions
+    	[]
+	);
+}
 
 <f:if condition="{extension.general.1.addWizardPluginIcon}">
 !

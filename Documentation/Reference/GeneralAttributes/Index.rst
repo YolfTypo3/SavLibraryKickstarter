@@ -306,21 +306,28 @@ cutIf (showIf, requiredIf, queryIf, reqValueIf, editIf, valueif)
           equal to the given value. The markers **###user###** or **###cruser###** (same
           as user but should be used if a new record is created) will be
           replaced by the user id. 
+          
         - fieldName operateur specialValue. Operator can be is or isnot. 
           The special value can be **EMPTY** or **NEW**. The condition is true is the field
           is (or is not) empty (or a new record).
+          
+        - ###filter = filterName_contentId### The field is cut if the filter with attribut name **filterName**
+          and content id **contentId** is used, e.g. ###filter = searchValue_3490###. 
+          
+        - ###filter != filterName_contentId### The field is cut if the filter with attribut name **filterName**
+          and content id **contentId** is used, e.g. ###filter != searchValue_3490###.           
              
-        - ###usergroup=group_name### The field is cut or shown if the group
+        - ###usergroup =g roup_name### The field is cut or shown if the group
           **group_name** is a valid group for the current user.
              
-        - ###usergroup!=group_name### The field is cut or shown if the group
+        - ###usergroup != group_name### The field is cut or shown if the group
           **group_name** is not a valid group for the current user.
              
-        - ###group=group_name### The field is cut or shown if the group
+        - ###group = group_name### The field is cut or shown if the group
           **group_name** is a valid group for the current record. It checks the
           usergroup field in the local table if any.
              
-        - ###group!=group_name### The field is cut or shown if the group
+        - ###group != group_name### The field is cut or shown if the group
           **group_name** is not a valid group for the current record. It checks
           the usergroup field in the local table if any.
              

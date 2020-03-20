@@ -13,12 +13,16 @@ namespace YolfTypo3\SavLibraryKickstarter\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use Symfony\Component\Yaml\Yaml;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\CommandUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
-use TYPO3\CMS\Core\Cache\CacheManager;
-use YolfTypo3\SavLibraryKickstarter\Compatibility\EnvironmentCompatibility;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
@@ -57,6 +61,34 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('showExtensionVersionSelector', $showExtensionVersionSelector);
         $this->view->assign('extensionsNeedTobeUpgraded', $this->extensionsNeedTobeUpgraded);
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
+    }
+
+    /**
+     * generateLocalDocumentationWithDockerCompose action for this controller.
+     *
+     * @return void
+     */
+    public function generateLocalDocumentationWithDockerComposeAction(string $extKey)
+    {
+        $extensionDirectory = ConfigurationManager::getExtensionDir($extKey);
+        $yamlFile = $extensionDirectory . 'docker-compose.yml';
+        CommandUtility::exec('docker-compose --file="' . $yamlFile . '" run --rm t3docmake', $out);
+
+        $this->redirect('extensionList');
+    }
+
+    /**
+     * showLocalDocumentation action for this controller.
+     *
+     * @return void
+     */
+    public function showLocalDocumentationAction(string $extKey)
+    {
+        $extensionDirectory = ConfigurationManager::getExtensionDir($extKey);
+        $yamlFile = $extensionDirectory . 'docker-compose.yml';
+        CommandUtility::exec('docker-compose --file="' . $yamlFile . '" run --rm t3docmake', $out);
+
+        $this->redirect('extensionList');
     }
 
     /**
@@ -224,7 +256,6 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->injectController($this);
         $configurationManager->loadConfiguration();
         $configurationManager->getCodeGenerator()->buildExtension();
-        $configurationManager->getExtensionManager()->checkDbUpdate();
         $configurationManager->saveConfiguration();
         $this->redirect('extensionList');
     }
@@ -242,8 +273,6 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $configurationManager->loadConfiguration();
         $configurationManager->upgradeExtension();
         $configurationManager->getCodeGenerator()->buildExtension();
-        $configurationManager->getExtensionManager()->checkDbUpdate();
-
         $this->redirect('extensionList');
     }
 
@@ -256,7 +285,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function upgradeExtensionsAction()
     {
         $counter = 0;
-        foreach (GeneralUtility::get_dirs(EnvironmentCompatibility::getTypo3ConfPath() . 'ext/') as $extensionKey) {
+        foreach (GeneralUtility::get_dirs(Environment::getPublicPath() . '/typo3conf/ext/') as $extensionKey) {
             $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
             $configurationManager->injectController($this);
 
@@ -270,7 +299,6 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
                     $configurationManager->upgradeExtension();
                     $configurationManager->getCodeGenerator()->buildExtension();
-                    $configurationManager->getExtensionManager()->checkDbUpdate();
 
                     $counter = $counter + 1;
                 }
@@ -1330,7 +1358,6 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             ->addItem([
             'isGeneratedExtension' => 1
         ]);
-        $configurationManager->getExtensionManager()->checkDbUpdate();
 
         // Clears the cache
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
@@ -1638,36 +1665,6 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         // Saves the configuration
         $configurationManager->saveConfiguration();
-
-        // Redirects to the section action
-        $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
-            'section' => $section,
-            'itemKey' => $itemKey
-        ]);
-    }
-
-    /**
-     * updateDb submitted action.
-     *
-     * @return void
-     */
-    protected function updateDbSubmitAction()
-    {
-        // Gets arguments
-        $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
-        $section = $arguments['general']['section'];
-        $itemKey = $arguments['general']['itemKey'];
-
-        // Gets the configuration and the section managers
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
-        $configurationManager->loadConfiguration();
-        $sectionManager = $configurationManager->getSectionManager();
-
-        // Updates the database
-        $configurationManager->getExtensionManager()->checkDbUpdate();
 
         // Redirects to the section action
         $this->redirect($section . 'EditSection', null, null, [
@@ -2659,7 +2656,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         $extensionList = [];
         $this->extensionsNeedTobeUpgraded = false;
-        foreach (GeneralUtility::get_dirs(EnvironmentCompatibility::getTypo3ConfPath() . 'ext/') as $extensionKey) {
+
+        $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+        $generateLocalDocumentationWithDockerCompose = $extensionConfiguration->get($this->request->getControllerExtensionKey(), 'generateLocalDocumentationWithDockerCompose');
+
+        foreach (GeneralUtility::get_dirs(Environment::getPublicPath() . '/typo3conf/ext/') as $extensionKey) {
 
             $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
             $configurationManager->injectController($this);
@@ -2691,11 +2692,47 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     ->getItem(1)
                     ->getItem('extensionMustbeUpgraded');
 
+                // Checks if the local documentation
+                if ($generateLocalDocumentationWithDockerCompose) {
+                    $extensionDirectory = ConfigurationManager::getExtensionDir($extensionKey);
+                    $fileName = $extensionDirectory . 'docker-compose.yml';
+                    if (file_exists($fileName)) {
+                        $configurationManager->getSectionManager()
+                        ->getItem('general')
+                        ->getItem(1)
+                        ->addItem([
+                            'generateLocalDocumentationWithDockerCompose' => 1,
+                        ]);
+
+                        $localDocumentationFile = '/' . ConfigurationManager::LOCAL_DOCUMENTATION_DIRECTORY . $extensionKey . '/'. ConfigurationManager::LOCAL_DOCUMENTATION_INDEX_FILE;
+                        if (! file_exists(Environment::getPublicPath() . $localDocumentationFile)) {
+                            $localDocumentationFile = '';
+                        }
+                        $errorDocumentationFile = '/' . ConfigurationManager::LOCAL_DOCUMENTATION_DIRECTORY . $extensionKey . '/'. ConfigurationManager::LOCAL_DOCUMENTATION_ERROR_FILE;
+                        if (file_exists(Environment::getPublicPath() . $errorDocumentationFile)) {
+                            $fileContent = file_get_contents(Environment::getPublicPath() . $errorDocumentationFile);
+                            if (empty($fileContent)) {
+                                $errorDocumentationFile = '';
+                            }
+                        } else {
+                            $errorDocumentationFile = '';
+                        }
+
+                        $configurationManager->getSectionManager()
+                        ->getItem('general')
+                        ->getItem(1)
+                        ->addItem([
+                            'localDocumentationFile' => $localDocumentationFile,
+                            'errorDocumentationFile' => $errorDocumentationFile
+                        ]);
+                    }
+                }
                 $extensionList[] = $configurationManager->getConfiguration();
             }
         }
 
         return $extensionList;
     }
+
 }
 ?>

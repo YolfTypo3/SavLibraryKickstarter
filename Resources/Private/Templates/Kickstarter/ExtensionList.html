@@ -149,7 +149,38 @@
 										alt="{f:translate(key:'kickstarter.upgradeExtension')}"
 										title="{f:translate(key:'kickstarter.upgradeExtension')}" />
 								</f:link.action>
-							</f:if></li>
+							</f:if>
+							<f:comment>Generates local documentation</f:comment>
+							<f:if condition="{extension.general.1.generateLocalDocumentationWithDockerCompose}==1"> 
+ 							<f:link.action
+								action="generateLocalDocumentationWithDockerCompose"
+								data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generateLocalDocumentation\')}'}"
+								arguments="{extKey:extension.general.1.extensionKey}">
+								<f:image class="generateLocalDocumentation"
+									src="{sav:getIcon(identifier:'actions-play')}"
+									alt="{f:translate(key:'kickstarter.generateLocalDocumentation')}"
+									title="{f:translate(key:'kickstarter.generateLocalDocumentation')}" />
+							</f:link.action>
+							<f:if condition="{extension.general.1.localDocumentationFile}"> 							
+							<a href="{extension.general.1.localDocumentationFile}" 
+    						 target="_blank">
+    							<f:image class="displayLocalDocumentation"
+									src="{sav:getIcon(identifier:'actions-preview')}"
+									alt="{f:translate(key:'kickstarter.displayLocalDocumentation')}"
+									title="{f:translate(key:'kickstarter.displayLocalDocumentation')}" />
+    						</a>
+    						</f:if>
+ 							<f:if condition="{extension.general.1.errorDocumentationFile}"> 							
+							<a href="{extension.general.1.errorDocumentationFile}" 
+    						 target="_blank">
+    							<f:image class="displayErrorDocumentation"
+									src="{sav:getIcon(identifier:'actions-bolt')}"
+									alt="{f:translate(key:'kickstarter.displayErrorDocumentation')}"
+									title="{f:translate(key:'kickstarter.displayErrorDocumentation')}" />
+    						</a>
+    						</f:if>   						
+ 							</li>							
+							</f:if>
 					</ul>
 				</f:for>
 			</div>

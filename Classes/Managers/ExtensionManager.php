@@ -111,21 +111,5 @@ class ExtensionManager
         $this->fileHandlingUtility->sendZipFileToBrowserAndDelete($fileName);
     }
 
-    /**
-     * Checks the if database must be updated.
-     * If true a flash message is added.
-     *
-     * @param string $extensionKey
-     * @return void
-     */
-    public function checkDbUpdate(string $extensionKey = null)
-    {
-        if ($extensionKey === null) {
-            $extensionKey = $this->extensionKey;
-        }
-
-        $extension = $this->installUtility->enrichExtensionWithDetails($extensionKey);
-        $this->installUtility->processDatabaseUpdates($extension);
-    }
 }
 ?>

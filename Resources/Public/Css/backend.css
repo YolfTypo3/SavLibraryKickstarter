@@ -23,6 +23,10 @@ a img {
 	border: none;
 }
 
+div#typo3-docbody {
+	position: relative !important;
+}
+
 div#savLibraryKickstarter {
 	float: left;
 	width: 1400px;
@@ -568,7 +572,7 @@ div.folderTabs li.currentTab a span {
 }
 
 #extensionList div.title li.buttons {
-	width: 150px;
+	width: 160px;
 	text-align: left;
 }
 
@@ -635,7 +639,7 @@ div.folderTabs li.currentTab a span {
 }
 
 #extensionList div.body li.buttons {
-	width: 150px;
+	width: 160px;
 	text-align: left;
 }
 

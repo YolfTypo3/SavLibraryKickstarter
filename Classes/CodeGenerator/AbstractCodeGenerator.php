@@ -13,13 +13,13 @@ namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use YolfTypo3\SavLibraryKickstarter\Compatibility\EnvironmentCompatibility;
 use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
@@ -76,7 +76,7 @@ abstract class AbstractCodeGenerator
             ->getItem('extensionKey');
 
         // Gets the path, including when the extension is not loaded
-        $this->extensionDirectory = EnvironmentCompatibility::getTypo3ConfPath() . 'ext/' . $this->extensionKey . '/';
+        $this->extensionDirectory = Environment::getPublicPath() . '/typo3conf/ext/' . $this->extensionKey . '/';
 
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
     }

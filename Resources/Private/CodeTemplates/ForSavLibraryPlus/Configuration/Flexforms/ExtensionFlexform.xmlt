@@ -17,7 +17,7 @@
                                 <renderType>help</renderType>
                                 <parameters>
                                 	<section>Configuration/FlexformAssociatedWithThePlugin</section>
-                                    <tag>flexformAssociatedWithThePlugin-generalFolder</tag>    
+                                    <tag>general-folder</tag>    
 				                </parameters>                                
                             </config>                           
                         </TCEforms>                                
@@ -105,7 +105,7 @@
                                 <renderType>help</renderType>
                                 <parameters>
                                 	<section>Configuration/FlexformAssociatedWithThePlugin</section>
-                                    <tag>flexformAssociatedWithThePlugin-inputControlsFolder</tag>    
+                                    <tag>input-controls-folder</tag>    
 				                </parameters>                                
                             </config> 
                         </TCEforms>                                
@@ -256,7 +256,7 @@
                                 <renderType>help</renderType>
                                 <parameters>
                                 	<section>Configuration/FlexformAssociatedWithThePlugin</section>
-                                    <tag>flexformAssociatedWithThePlugin-advancedFolder</tag>    
+                                    <tag>advanced-folder</tag>    
 				                </parameters>                                
                             </config> 
                         </TCEforms>                                
@@ -327,7 +327,7 @@
                                 <renderType>help</renderType>
                                 <parameters>
                                 	<section>Configuration/FlexformAssociatedWithThePlugin</section>
-                                    <tag>flexformAssociatedWithThePlugin-helpPagesFolder</tag>    
+                                    <tag>help-pages-folder</tag>    
 				                </parameters>                                
                             </config> 
                         </TCEforms>                                

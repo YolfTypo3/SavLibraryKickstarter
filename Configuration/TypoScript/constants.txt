@@ -12,21 +12,24 @@ module.tx_savlibrarykickstarter {
         storagePid =
     }
     settings {
-        compatibility.0 = TYPO3 8x-9x 
+        compatibility.0 = TYPO3 9x-10x 
         compatibility.1 = TYPO3 6x is obsolete  
         compatibility.2 = TYPO3 6x-7x is obsolete
-        compatibility.3 = TYPO3 7x is obsolete  
+        compatibility.3 = TYPO3 7x is obsolete
+        compatibility.4 = TYPO3 8x-9x
                 
-        dependency.emconf.0 = 8.7.0-9.5.99
+        dependency.emconf.0 = 9.5.0-10.4.99
         dependency.emconf.1 = 6.2.0-6.2.99
         dependency.emconf.2 = 6.2.0-7.9.99       
         dependency.emconf.3 = 7.6.0-7.9.99 
+        dependency.emconf.4 = 8.7.0-9.5.99        
                              
-        dependency.composer.0 = >=8.7,<10.0
+        dependency.composer.0 = >=9.5,<11.0
         dependency.composer.1 = >=6.2,<7.0       
         dependency.composer.2 = >=6.2,<8.0        
         dependency.composer.3 = >=7.6,<8.0
-                
+        dependency.composer.4 = >=8.7,<10.0
+                        
         dependency.emconf.sav_library_plus.default = 9.5.0-0.0.0  
         dependency.emconf.sav_library_mvc.default = 9.5.0-0.0.0    
         

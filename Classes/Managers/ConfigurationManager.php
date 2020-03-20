@@ -13,11 +13,11 @@ namespace YolfTypo3\SavLibraryKickstarter\Managers;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use YolfTypo3\SavLibraryKickstarter\CodeGenerator;
-use YolfTypo3\SavLibraryKickstarter\Compatibility\EnvironmentCompatibility;
 use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
 use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
 
@@ -42,6 +42,12 @@ class ConfigurationManager
 
     const UPGRADE_ROOT_CLASS_NAME = 'YolfTypo3\\SavLibraryKickstarter\\Upgrade\\';
 
+    const LOCAL_DOCUMENTATION_DIRECTORY = 'typo3conf/Documentation/';
+
+    const LOCAL_DOCUMENTATION_INDEX_FILE = 'Result/project/0.0.0/Index.html';
+
+    const LOCAL_DOCUMENTATION_ERROR_FILE = 'Result/project/0.0.0/_buildinfo/warnings.txt';
+
     // Library types
     const TYPE_SAV_LIBRARY = 0;
 
@@ -59,6 +65,8 @@ class ConfigurationManager
     const COMPATIBILITY_TYPO3_6x_7x = 2;
 
     const COMPATIBILITY_TYPO3_7x = 3;
+
+    const COMPATIBILITY_TYPO3_8x_9x = 4;
 
     /**
      *
@@ -217,7 +225,7 @@ class ConfigurationManager
     public static function getExtensionDir(string $extensionKey): string
     {
         // Gets the path, including when the extension is not loaded
-        return EnvironmentCompatibility::getTypo3ConfPath() . 'ext/' . $extensionKey . '/';
+        return Environment::getPublicPath() . '/typo3conf/ext/' . $extensionKey . '/';
     }
 
     /**
@@ -692,7 +700,7 @@ class ConfigurationManager
             $this->getSectionManager()
                 ->getItem('general')
                 ->getItem(1)
-                ->getItem('upgrades')
+                ->addItem('upgrades')
                 ->replace($upgrades);
 
             // Upgrades the library version if needed

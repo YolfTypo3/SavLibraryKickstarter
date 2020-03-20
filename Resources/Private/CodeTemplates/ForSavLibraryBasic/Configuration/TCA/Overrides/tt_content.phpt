@@ -3,6 +3,7 @@ defined('TYPO3_MODE') or die();
 <f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
 <f:alias map="{
     pluginSignature:  '{extension.general.1.extensionKey->sav:upperCamel()->sav:toLower()}_{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()->sav:toLower()}',
+    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
     controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
 }">
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['{pluginSignature}'] = 'layout,select_key';
@@ -18,7 +19,7 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['{pluginSigna
 !
 // Registers the Plugin to be listed in the Backend.
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    '{extension.general.1.extensionKey}',
+    '{extensionName}',
 	'{controllerName}',
 	'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1'
 );

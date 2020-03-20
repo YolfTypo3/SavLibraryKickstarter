@@ -16,6 +16,7 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use YolfTypo3\SavLibraryKickstarter\Compatibility\Typo3VersionCompatibility;
 use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
@@ -487,7 +488,7 @@ class FunctionViewHelper extends AbstractViewHelper
      */
     private function TYPO3VersionCompare(array $arguments): bool
     {
-        return version_compare(TYPO3_version, $arguments['version'], $arguments['operator']);
+        return version_compare(Typo3VersionCompatibility::getVersion(), $arguments['version'], $arguments['operator']);
     }
 }
 ?>

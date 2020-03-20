@@ -45,6 +45,15 @@
             <trans-unit id="kickstarter.generateExtension" xml:space="preserve">
                 <source>Generate the extension</source>
             </trans-unit>
+            <trans-unit id="kickstarter.generateLocalDocumentation" xml:space="preserve">
+                <source>Generate the local documentation</source>
+            </trans-unit> 
+            <trans-unit id="kickstarter.displayLocalDocumentation" xml:space="preserve">
+                <source>Display the local documentation</source>
+            </trans-unit>        
+            <trans-unit id="kickstarter.displayErrorDocumentation" xml:space="preserve">
+                <source>Display errors in documentation</source>
+            </trans-unit>                                  
             <trans-unit id="kickstarter.upgradeExtension" xml:space="preserve">
                 <source>Upgrade the extension</source>
             </trans-unit>

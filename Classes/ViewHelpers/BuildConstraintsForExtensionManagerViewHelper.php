@@ -110,7 +110,7 @@ class BuildConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
                                         break;
                                     case 'composer':
                                         if (strpos($dependencyName, '/') === false) {
-                                            $dependencyName = 'typo3-ter/' . $dependencyName;
+                                            $dependencyName = 'yolftypo3/' . $dependencyName;
                                         }
                                         $dependenciesResult['composer'][str_replace('_', '-', $dependencyName)] = $matches[2][$constraintKey];
                                         break;
@@ -129,10 +129,15 @@ class BuildConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
             }
         }
 
-        // Adds the default library dependenciens if not provided
-        if ($libraryDependency != '' && ! array_key_exists($libraryDependency, $dependenciesResult['emconf'])) {
-            $dependenciesResult['emconf'][$libraryDependency] = $settings['dependency']['emconf'][$libraryDependency]['default'];
-            $dependenciesResult['composer']['typo3-ter/' . str_replace('_', '-', $libraryDependency)] = $settings['dependency']['composer'][$libraryDependency]['default'];
+        // Adds the default library dependencies if not provided
+        if ($libraryDependency != '') {
+            if (! array_key_exists($libraryDependency, $dependenciesResult['emconf'])) {
+                $dependenciesResult['emconf'][$libraryDependency] = $settings['dependency']['emconf'][$libraryDependency]['default'];
+            }
+            $dependenciesComposerKeys = array_keys($dependenciesResult['composer']);
+            if (! in_array(str_replace('_', '-', $libraryDependency), $dependenciesComposerKeys)) {
+                $dependenciesResult['composer']['yolftypo3/' . str_replace('_', '-', $libraryDependency)] = $settings['dependency']['composer'][$libraryDependency]['default'];
+            }
         }
 
         // Processes the constraints

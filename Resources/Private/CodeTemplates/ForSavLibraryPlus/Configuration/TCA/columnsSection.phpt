@@ -18,7 +18,7 @@
     ],
     'l18n_parent' => [
         'displayCond' => 'FIELD:sys_language_uid:>:0',
-        'exclude' => (version_compare(TYPO3_version, '10.0', '<') ? 1 : null),
+        'exclude' => (version_compare(\YolfTypo3\SavLibraryPlus\Compatibility\Typo3VersionCompatibility::getVersion(), '10.0', '<') ? 1 : null),
         'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
         'config' => [
             'type' => 'select',

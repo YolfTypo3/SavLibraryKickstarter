@@ -9,13 +9,13 @@ Introduction
 What Does it Do?
 ================
 
-The `SAV Library Kickstarter <https://extensions.typo3.org/extension/sav_library_kickstarter>`_ 
-is a code generator, developed with extbase and fluid, to produce Frontend plugins.
+The SAV Library Kickstarter is a code generator, developed with 
+extbase and fluid, to produce Frontend plugins.
 
 Basic Code Generation
 ---------------------
 
-This new feature was introduced in version 1.0.0 to kickstart extensions
+This feature can be used to kickstart extensions
 based on fluid and extbase.
 
 Code Generation for the SAV Library Plus
@@ -69,7 +69,7 @@ This library is in beta state because it does not implement yet all the features
 However available features are enough for most extensions.
 
 Latest Developments
-====================
+===================
 
 The latest developments of the `SAV Library Kickstarter
 <https://github.com/YolfTypo3/SavLibraryKickstarter>`_ 
@@ -135,11 +135,7 @@ The following extensions have been kickstarted with the basic type.
     
 .. warning::
 
-   - Do not forget to include the **SAV Library Kickstarter static template** which is now required. 
-   
-.. important::
-   
-   - The compatibility with TYPO3 7.6 was removed in SAV Library Kickstarter 9.5.0.
+   - Do not forget to include the **SAV Library Kickstarter static template** which is now required.    
 
 Screenshots
 ===========
@@ -196,6 +192,3 @@ Kickstarter: Forms Section
 ----------------------------
 
 .. figure:: ../Images/ScreenshotsFormsSection.png
-
-
-

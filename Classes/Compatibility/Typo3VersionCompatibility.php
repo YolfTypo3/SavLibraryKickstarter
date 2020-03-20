@@ -13,23 +13,28 @@ namespace YolfTypo3\SavLibraryKickstarter\Compatibility;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
- * Compatibility class to get environment paths.
+ * Compatibility class to get information.
  *
- * @package SavLibraryKickstarter
+ * @package SavLibraryPlus
  */
-class EnvironmentCompatibility
+class Typo3VersionCompatibility
 {
-
-    public static function getTypo3ConfPath()
+    /**
+     * @todo Will be removed in TYPO3 11
+     */
+    public static function getVersion()
     {
-        if (version_compare(TYPO3_version, '9.4', '<')) {
-            // @extensionScannerIgnoreLine
-            return PATH_typo3conf;
+        if (class_exists(Typo3Version::class)) {
+            $typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getVersion();
         } else {
-            return \TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/typo3conf/';
+            // @extensionScannerIgnoreLine
+            $typo3Version = TYPO3_version;
         }
+        return $typo3Version;
     }
 }
 

@@ -56,7 +56,7 @@ class HelpViewHelper extends AbstractBackendViewHelper
      *
      * @var string
      */
-    protected static $documentationRootUrl = 'https://docs.typo3.org/typo3cms/extensions/sav_library_kickstarter/stable/';
+    protected static $documentationRootUrl = 'https://docs.typo3.org/p/yolftypo3/sav-library-kickstarter/master/en-us/';
 
     /**
      * Key to section array

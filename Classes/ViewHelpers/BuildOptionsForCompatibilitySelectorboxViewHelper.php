@@ -73,18 +73,21 @@ class BuildOptionsForCompatibilitySelectorboxViewHelper extends AbstractViewHelp
             case ConfigurationManager::TYPE_SAV_LIBRARY_BASIC:
                 $options = [
                     ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
+                    ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x],
                     ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
                 ];
                 break;
             case ConfigurationManager::TYPE_SAV_LIBRARY_MVC:
                 $options = [
                     ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
+                    ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x],
                     ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
                 ];
                 break;
             case ConfigurationManager::TYPE_SAV_LIBRARY_PLUS:
                 $options = [
                     ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
+                    ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x],
                     ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
                 ];
                 break;
