@@ -25,13 +25,13 @@ Version  Changes
 
 1.1.0    - Code generation improved.
          - Compatibility changed to TYPO3 8.9.
-         - composer.json added
-         - Vendor name changed
+         - composer.json added.
+         - Vendor name changed.
 
-1.0.1    - Code generation for sav_library_mvc improved
+1.0.1    - Code generation for sav_library_mvc improved.
 
-1.0.0    - Code generation for basic use with fluid/extbase added
-         - Code generation for sav_library_mvc added
+1.0.0    - Code generation for basic use with fluid/extbase added.
+         - Code generation for sav_library_mvc added.
          - Several bugs corrected (see the forge).
          - Compatibility with TYPO3 8.1.0 added.
          - File organization of generated extensions modified.
