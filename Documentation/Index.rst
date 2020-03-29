@@ -53,6 +53,7 @@ Table of Contents
    :glob:
 
    Introduction/Index
+   Configuration/Index
    UsersManual/Index
    Tutorial/Index
    Reference/Index
