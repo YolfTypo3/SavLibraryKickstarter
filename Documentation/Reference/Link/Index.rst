@@ -13,6 +13,7 @@ Property                                                Data type   Default     
 :ref:`link.fieldLink`                                   Field name               Yes  Yes
 :ref:`link.fieldMessage`                                Field name               Yes  Yes
 :ref:`link.generateRTF`                                 Boolean     0            Yes  No
+:ref:`link.generateRTFButtonIf`                         String                   Yes  No
 :ref:`link.link`                                        String                   Yes  Yes
 :ref:`link.message`                                     String                   Yes  Yes
 :ref:`link.saveFileRTF`                                 String                   Yes  No
@@ -77,6 +78,23 @@ generateRTF
     Default
         0
 
+.. _link.generateRTFButtonIf:
+
+generateRTFButtonIf
+===================
+
+.. container:: table-row
+
+    Property
+        generateRTFButtonIf
+ 
+    Data type
+        String
+         
+    Description
+        If the condition is true, the button to generate the RTF is displayed.
+        (see :ref:`general.cutIf` for details on the condition).
+               
 
 .. _link.link:
 
