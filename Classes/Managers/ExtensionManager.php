@@ -14,7 +14,7 @@ namespace YolfTypo3\SavLibraryKickstarter\Managers;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
 use TYPO3\CMS\Extensionmanager\Utility\FileHandlingUtility;
 
@@ -33,24 +33,18 @@ class ExtensionManager
     protected $extensionKey;
 
     /**
-     *
-     * @var ObjectManager
-     */
-    protected $objectManager;
-
-    /**
      * Class for install
      *
      * @var InstallUtility
      */
-    public $installUtility;
+    protected $installUtility;
 
     /**
      * Class for file handling
      *
      * @var FileHandlingUtility
      */
-    public $fileHandlingUtility;
+    protected $fileHandlingUtility;
 
     /**
      * Constructor.
@@ -60,9 +54,8 @@ class ExtensionManager
     public function __construct(string $extensionKey)
     {
         $this->extensionKey = $extensionKey;
-        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->installUtility = $this->objectManager->get(InstallUtility::class);
-        $this->fileHandlingUtility = $this->objectManager->get(FileHandlingUtility::class);
+        $this->installUtility = GeneralUtility::makeInstance(InstallUtility::class);
+        $this->fileHandlingUtility = GeneralUtility::makeInstance(FileHandlingUtility::class);
     }
 
     /**
@@ -108,8 +101,23 @@ class ExtensionManager
         }
 
         $fileName = $this->fileHandlingUtility->createZipFileFromExtension($extensionKey);
-        $this->fileHandlingUtility->sendZipFileToBrowserAndDelete($fileName);
+        $this->sendZipFileToBrowserAndDelete($fileName);
     }
 
+    /**
+     * Sends a zip file to the browser and deletes it afterwards
+     * Method copied from \TYPO3\CMS\Extensionmanager\Controller\ActionController
+     *
+     * @param string $fileName
+     */
+    protected function sendZipFileToBrowserAndDelete(string $fileName): void
+    {
+        header('Content-Type: application/zip');
+        header('Content-Length: ' . filesize($fileName));
+        header('Content-Disposition: attachment; filename="' . PathUtility::basename($fileName) . '"');
+        readfile($fileName);
+        unlink($fileName);
+        die;
+    }
 }
 ?>
