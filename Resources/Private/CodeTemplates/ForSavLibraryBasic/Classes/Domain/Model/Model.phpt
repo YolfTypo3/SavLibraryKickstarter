@@ -57,6 +57,7 @@ class {modelName} extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function get{field.fieldname->sav:upperCamel()}()
     {
+        <f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Getters/ExtensionScannerIgnoreLine/{field.fieldname->sav:upperCamel()}.t', default:'Partials/Model/Getters/ExtensionScannerIgnoreLine/Default.t')}" arguments="{_all}" />       
         <sav:indent count="8">
         <f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Getters/Return/{field.type}.phpt', default:'Partials/Model/Getters/Return/Default.phpt')}" arguments="{_all}" />
         </sav:indent>
@@ -70,6 +71,7 @@ class {modelName} extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function set{field.fieldname->sav:upperCamel()}(${field.fieldname->sav:lowerCamel()})
     {
+        <f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Getters/ExtensionScannerIgnoreLine/{field.fieldname->sav:upperCamel()}.t', default:'Partials/Model/Getters/ExtensionScannerIgnoreLine/Default.t')}" arguments="{_all}" />       
         <sav:indent count="8">
         <f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Setters/Return/{field.type}.phpt', default:'Partials/Model/Setters/Return/Default.phpt')}" arguments="{_all}" />
         </sav:indent>
@@ -79,6 +81,5 @@ class {modelName} extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
   </f:for>
     
 }
-?>
 </f:alias>
 </sav:function>

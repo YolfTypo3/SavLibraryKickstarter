@@ -36,7 +36,12 @@
 
 								<f:comment>Save button</f:comment>
 								<f:form.button class="submit" name="submitAction[copyExtension]"
-									data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
+									data="{
+										toggle:'popover',
+										content:'{f:translate(key:\'kickstarter.saving\')}',
+										bs-toggle:'popover',
+										bs-content:'{f:translate(key:\'kickstarter.saving\')}'
+									}"
 									value="{f:translate(key:'kickstarter.save')}">
 									<f:image src="{sav:getIcon(identifier:'actions-save')}"
 										alt="{f:translate(key:'kickstarter.save')}"

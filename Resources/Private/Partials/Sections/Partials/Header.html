@@ -11,7 +11,12 @@
 
         <f:comment>Save button</f:comment>
 		<f:form.button class="submit" name="submitAction[save]"
-			data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
+			data="{
+				toggle:'popover',
+				content:'{f:translate(key:\'kickstarter.saving\')}',
+				bs-toggle:'popover',
+				bs-content:'{f:translate(key:\'kickstarter.saving\')}'
+			}"
 			value="{f:translate(key:'kickstarter.save')}">
 			<f:image src="{sav:getIcon(identifier:'actions-save')}"
 				alt="{f:translate(key:'kickstarter.save')}"
@@ -20,7 +25,12 @@
 
         <f:comment>Generate button</f:comment>		
 		<f:form.button class="submit" name="submitAction[generateExtension]"
-			data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
+			data="{
+				toggle:'popover',
+				content:'{f:translate(key:\'kickstarter.generating\')}',
+				bs-toggle:'popover',
+				bs-content:'{f:translate(key:\'kickstarter.generating\')}'
+			}"
 			value="{f:translate(key:'kickstarter.generate')}">
 			<f:image class="installExtension"
 				src="{sav:getIcon(identifier:'actions-system-refresh')}"

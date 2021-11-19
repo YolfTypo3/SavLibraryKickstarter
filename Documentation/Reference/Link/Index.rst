@@ -37,7 +37,7 @@ fieldLink
       Field name
                  
     Description
-      Sets the attribute **link** with the content of the field whose name is
+      Sets the attribute ``link`` with the content of the field whose name is
       given by fieldName.
   
 
@@ -55,7 +55,7 @@ fieldMessage
         fieldName
                 
     Description
-        Sets the attribute **message** with the content of the field whose name
+        Sets the attribute ``message`` with the content of the field whose name
         is given by fieldName.
     
   
@@ -166,8 +166,8 @@ tableName.fieldName
     Description
         String can be string1->string2 or NL-> string2
              
-        In a RTF document, if the field marker **###tableName.fieldName###**
-        exists **string1** will be replaced by **string2** where **string1** 
+        In a RTF document, if the field marker ``###tableName.fieldName###``
+        exists ``string1`` will be replaced by ``string2`` where ``string1`` 
         can be NL (for the ASCII character LF).
              
         It may be useful when one wants to input data in a textarea and
@@ -190,5 +190,5 @@ templateRTF
         
     Description
         Defines the template to be used by the RTF generator. Field markers
-        **###tableName.fieldName###** or **###fieldName###** (for aliases) can be
+        ``###tableName.fieldName###`` or ``###fieldName###`` (for aliases) can be
         used.

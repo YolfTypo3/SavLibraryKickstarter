@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,10 +12,13 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
+
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use YolfTypo3\SavLibraryKickstarter\Compatibility\Typo3VersionCompatibility;
 use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
@@ -242,6 +244,18 @@ class FunctionViewHelper extends AbstractViewHelper
     }
 
     /**
+     * Returns the number of elements in an array
+     *
+     * @param mixed $argument
+     *            The argument
+     * @return integer
+     */
+    private function count($argument): int
+    {
+        return count($argument);
+    }
+
+    /**
      * Returns the length of a string
      *
      * @param string $string
@@ -253,15 +267,17 @@ class FunctionViewHelper extends AbstractViewHelper
         return strlen($string);
     }
 
+
     /**
      * Returns the md5 value of a string as integer
      *
-     * @param string $string
+     * @param string $string|null
      *            The argument
      * @return integer
      */
-    private function md5int(string $string): string
+    private function md5int($string): string
     {
+        $string == $string ?? '';
         return GeneralUtility::md5int($string);
     }
 
@@ -309,7 +325,9 @@ class FunctionViewHelper extends AbstractViewHelper
             $string = preg_replace('/([ \t]*[\r\n]){2,}/', chr(10), $string);
             $string = preg_replace('/' . $arguments['keepLine'] . '([ \t]*[\r\n]){1,2}/', chr(10), $string);
         }
-
+        if ($arguments['htmlentitiesDecode']) {
+            $string = html_entity_decode($string, ENT_QUOTES);
+        }
         return $string;
     }
 
@@ -346,6 +364,25 @@ class FunctionViewHelper extends AbstractViewHelper
         $string = addslashes($string);
         return $string;
     }
+
+    /**
+     * Repeats a string
+     *
+     * @param string $string
+     *            The string to repeat
+     * @param string $arguments
+     *            The number of times
+     * @return string
+     */
+    private function strRepeat(string $string , string $arguments): string
+    {
+
+        if (!is_numeric($arguments)) {
+            $arguments = strlen($arguments);
+        }
+        return str_repeat($string , $arguments);
+    }
+
 
     /**
      * Returns an empty string
@@ -439,6 +476,26 @@ class FunctionViewHelper extends AbstractViewHelper
     }
 
     /**
+     * Creates a directory
+     *
+     * @return void
+     */
+    private function mkdir($arguments)
+    {
+        GeneralUtility::mkdir_deep($arguments['extension'].$arguments['directory']);
+    }
+
+    /**
+     * Writes data into a file
+     *
+     * @return void
+     */
+    private function filePutContents($arguments)
+    {
+        file_put_contents($arguments['filename'], $arguments['data']);
+    }
+
+    /**
      * Returns the time
      *
      * @return int
@@ -488,8 +545,28 @@ class FunctionViewHelper extends AbstractViewHelper
      */
     private function TYPO3VersionCompare(array $arguments): bool
     {
-        return version_compare(Typo3VersionCompatibility::getVersion(), $arguments['version'], $arguments['operator']);
+        return version_compare(GeneralUtility::makeInstance(Typo3Version::class)->getVersion(), $arguments['version'], $arguments['operator']);
+    }
+
+    /**
+     * Returns a left brace
+     *
+     * @param string $string
+     * @return string
+     */
+    private function leftBrace(string $string = null): string
+    {
+        return '{';
+    }
+
+    /**
+     * Returns a right brace
+     *
+     * @param string $string
+     * @return string
+     */
+    private function rightBrace(string $string = null): string
+    {
+        return '}';
     }
 }
-?>
-

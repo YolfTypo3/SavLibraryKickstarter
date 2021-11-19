@@ -33,10 +33,10 @@ eval
   Description
     The field is evaluated. Available evaluations are:
     
-    - **lower** (diplays the field in lowercase)
-    - **password** (replaces the field by \*\*\*\*\*\*\* when not edited)
-    - **trim** (diplays the trimmed field)
-    - **upper** (diplays the field in uppercase)   
+    - ``lower`` (diplays the field in lowercase)
+    - ``password`` (replaces the field by \*\*\*\*\*\*\* when not edited)
+    - ``trim`` (diplays the trimmed field)
+    - ``upper`` (diplays the field in uppercase)   
     
     Evaluations can be comma-separated.   
    
@@ -77,7 +77,7 @@ keepZero
     Boolean
     
   Description
-    If set and the field is equal to zero the **0** is displayed otherwise
+    If set and the field is equal to zero the ``0`` is displayed otherwise
     an empty field is displayed.
      
   Default
@@ -97,7 +97,7 @@ toLower
     Boolean
     
   Description
-    If set the field is converted to the lowercase when saved (to be used in **Edit view**).
+    If set the field is converted to the lowercase when saved (to be used in ``Edit view``).
      
   Default
     0 
@@ -116,7 +116,7 @@ toUpper
     Boolean
     
   Description
-    If set the field is converted to the uppercase when saved (to be used in **Edit view**).
+    If set the field is converted to the uppercase when saved (to be used in ``Edit view``).
      
   Default
     0       
@@ -135,7 +135,7 @@ trim
     Boolean
     
   Description
-    If set the field is trimmed when saved (to be used in **Edit view**).
+    If set the field is trimmed when saved (to be used in ``Edit view``).
      
   Default
     0       

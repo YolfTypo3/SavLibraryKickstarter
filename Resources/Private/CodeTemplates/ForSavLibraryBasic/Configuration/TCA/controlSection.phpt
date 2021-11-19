@@ -24,8 +24,8 @@
     
     <f:if condition="{newTable.localization}">
     'languageField' => 'sys_language_uid',
-    'transOrigPointerField' => 'l18n_parent',
-    'transOrigDiffSourceField' => 'l18n_diffsource',
+    'transOrigPointerField' => 'l10n_parent',
+    'transOrigDiffSourceField' => 'l10n_diffsource',
     </f:if>
     
     <f:if condition="{newTable.sorting}">

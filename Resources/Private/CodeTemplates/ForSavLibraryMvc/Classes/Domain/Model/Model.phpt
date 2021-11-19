@@ -90,6 +90,5 @@ class {modelName} extends DefaultModel
   </f:for>
 	
 }
-?>
 </f:alias>
 </sav:function>

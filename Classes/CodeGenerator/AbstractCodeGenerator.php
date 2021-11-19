@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,11 +12,13 @@ namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
+
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
@@ -32,12 +33,6 @@ abstract class AbstractCodeGenerator
      * @var string
      */
     protected static $codeTemplatesDirectory = 'Resources/Private/CodeTemplates/Default/';
-
-    /**
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     */
-    protected $objectManager;
 
     /**
      *
@@ -77,8 +72,6 @@ abstract class AbstractCodeGenerator
 
         // Gets the path, including when the extension is not loaded
         $this->extensionDirectory = Environment::getPublicPath() . '/typo3conf/ext/' . $this->extensionKey . '/';
-
-        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
     }
 
     /**
@@ -254,10 +247,10 @@ abstract class AbstractCodeGenerator
             GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Includes.txt', $fileContents);
         }
         // Documentation/Index.rst
-        if (! file_exists($this->extensionDirectory . 'Documentation/Index.rst')) {
+        //if (! file_exists($this->extensionDirectory . 'Documentation/Index.rst')) {
             $fileContents = $this->generateFile('Documentation/Index.rstt');
             GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Index.rst', $fileContents);
-        }
+        //}
 
         // Documentation/Introduction/Index.rst
         if (! file_exists($this->extensionDirectory . 'Documentation/Introduction/Index.rst')) {
@@ -299,7 +292,7 @@ abstract class AbstractCodeGenerator
      */
     public function getFileContent(string $templateFilePath): string
     {
-        $controllerExtensionKey = $this->controller->getControllerContext()
+        $controllerExtensionKey = $this->controller
             ->getRequest()
             ->getControllerExtensionKey();
         $filePath = ExtensionManagementUtility::extPath($controllerExtensionKey) . static::$codeTemplatesDirectory . $templateFilePath;
@@ -351,10 +344,10 @@ abstract class AbstractCodeGenerator
     public function parse(string $content, array $arguments = [], string $nameSpace = '{namespace sav=YolfTypo3\\SavLibraryKickstarter\\ViewHelpers}'): string
     {
         // Gets a standalone view
-        $standaloneView = $this->objectManager->get(StandaloneView::class);
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
 
         // Sets the partial root paths
-        $controllerExtensionKey = $this->controller->getControllerContext()
+        $controllerExtensionKey = $this->controller
             ->getRequest()
             ->getControllerExtensionKey();
         $codeTemplatesPath = ExtensionManagementUtility::extPath($controllerExtensionKey) . static::$codeTemplatesDirectory;
@@ -438,7 +431,7 @@ abstract class AbstractCodeGenerator
             ->getItem('vendorName');
 
         if (empty($vendorName)) {
-            $controllerExtensionKey = $this->controller->getControllerContext()
+            $controllerExtensionKey = $this->controller
                 ->getRequest()
                 ->getControllerExtensionKey();
             $message = LocalizationUtility::translate('kickstarter.error.vendorNameMissing', $controllerExtensionKey);
@@ -448,4 +441,3 @@ abstract class AbstractCodeGenerator
         return true;
     }
 }
-?>

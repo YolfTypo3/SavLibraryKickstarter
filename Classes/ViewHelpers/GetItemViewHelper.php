@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,13 +12,16 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
+
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Returns an item in an array
  *
  * @package SavLibraryKickstarter
- *         
+ *
  */
 class GetItemViewHelper extends AbstractViewHelper
 {
@@ -59,4 +61,3 @@ class GetItemViewHelper extends AbstractViewHelper
         }
     }
 }
-?>

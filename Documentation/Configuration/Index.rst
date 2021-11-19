@@ -8,18 +8,18 @@ Configuration
 
 .. important::
 
-	Include the **SAV Library Kickstarter static template**.
+	Include the ``SAV Library Kickstarter static template``.
 
-Generation of local documentation
+Generation of Local Documentation
 ---------------------------------
 
 The Sav Library Kickstarter can generate local documentation for 
-your extensions by means of **docker-compose**.
+your extensions by means of ``docker-compose``.
 
-This feature is enabled using the **Extension configuration** item in 
-the **ADMIN TOOLS -> Settings** menu. Click on **Configure extensions**,
-choose **sav_library_kickstarter**, then check 
-**Generate local documentation with docker-compose** and save the
+This feature is enabled using the ``Extension configuration`` item in 
+the ``ADMIN TOOLS -> Settings`` menu. Click on ``Configure extensions``,
+choose ``sav_library_kickstarter``, then check 
+``Generate local documentation with docker-compose`` and save the
 configuration.
 
 .. figure:: ../Images/ConfigurationGenerationLocalDocumentation.png

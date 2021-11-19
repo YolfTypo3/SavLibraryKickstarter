@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\Managers;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavLibraryKickstarter\Managers;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\Managers;
+
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -246,7 +248,6 @@ class ConfigurationManager
                 // Tries a default name
                 $extensionConfigurationFileName = self::getExtensionDir($extensionKey) . 'ext_emconf.php';
             }
-
             // Opens the file if it exists
             if (file_exists($extensionConfigurationFileName)) {
                 $_EXTKEY = $extensionKey;
@@ -733,4 +734,3 @@ class ConfigurationManager
         }
     }
 }
-?>

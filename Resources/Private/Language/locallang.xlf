@@ -53,7 +53,10 @@
             </trans-unit>        
             <trans-unit id="kickstarter.displayErrorDocumentation" xml:space="preserve">
                 <source>Display errors in documentation</source>
-            </trans-unit>                                  
+            </trans-unit>    
+            <trans-unit id="kickstarter.defautIntersphinxMapping" xml:space="preserve">
+                <source>savlibrarykickstarter = https://docs.typo3.org/p/yolftypo3/sav-library-kickstarter/master/en-us/</source>
+            </trans-unit>                                           
             <trans-unit id="kickstarter.upgradeExtension" xml:space="preserve">
                 <source>Upgrade the extension</source>
             </trans-unit>

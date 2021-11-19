@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\Controller;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,13 +12,17 @@ namespace YolfTypo3\SavLibraryKickstarter\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use Symfony\Component\Yaml\Yaml;
+
+namespace YolfTypo3\SavLibraryKickstarter\Controller;
+
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\CommandUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager;
@@ -30,8 +33,15 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  *
  * @package SavLibraryKickstarter
  */
-class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class KickstarterController extends ActionController
 {
+
+    /**
+     * Backend Template Container
+     *
+     * @var string
+     */
+    protected $defaultViewObjectName = \TYPO3\CMS\Backend\View\BackendTemplateView::class;
 
     /**
      *
@@ -40,10 +50,20 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     protected $extensionsNeedTobeUpgraded = false;
 
     /**
+     * Gets the request
+     *
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
      * extensionList action for this controller.
      *
      * @param string $showExtensionVersionSelector
-     * @return void
+     * @return void|ResponseInterface
      */
     public function extensionListAction(string $showExtensionVersionSelector = null)
     {
@@ -61,6 +81,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('showExtensionVersionSelector', $showExtensionVersionSelector);
         $this->view->assign('extensionsNeedTobeUpgraded', $this->extensionsNeedTobeUpgraded);
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -70,6 +95,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function generateLocalDocumentationWithDockerComposeAction(string $extKey)
     {
+        $out = null;
         $extensionDirectory = ConfigurationManager::getExtensionDir($extKey);
         $yamlFile = $extensionDirectory . 'docker-compose.yml';
         CommandUtility::exec('docker-compose --file="' . $yamlFile . '" run --rm t3docmake', $out);
@@ -84,6 +110,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function showLocalDocumentationAction(string $extKey)
     {
+        $out = null;
         $extensionDirectory = ConfigurationManager::getExtensionDir($extKey);
         $yamlFile = $extensionDirectory . 'docker-compose.yml';
         CommandUtility::exec('docker-compose --file="' . $yamlFile . '" run --rm t3docmake', $out);
@@ -145,20 +172,25 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     /**
      * createExtension action for this controller.
      *
-     * @return void
+     * @return void|ResponseInterface
      */
     public function createExtensionAction()
     {
         $this->view->assign('extensionList', $this->getConfigurationList());
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('itemKey', 1);
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
      * copyExtension action for this controller.
      *
      * @param string $extKey
-     * @return void
+     * @return void|ResponseInterface
      */
     public function copyExtensionAction(string $extKey)
     {
@@ -166,6 +198,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extKey', $extKey);
         $this->view->assign('itemKey', 1);
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -383,7 +420,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @return void
+     * @return void|ResponseInterface
      */
     public function emconfEditSectionAction(string $extKey = null, string $section = null, int $itemKey = null)
     {
@@ -398,6 +435,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('extKey', $extKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configurationManager->getConfiguration());
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -409,7 +451,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @return void
+     * @return void|ResponseInterface
      */
     public function documentationEditSectionAction(string $extKey = null, string $section = null, int $itemKey = null)
     {
@@ -424,6 +466,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('extKey', $extKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configurationManager->getConfiguration());
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -443,7 +490,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The key of the folder
      * @param bool $showFieldConfiguration
      *            Displays the field definition if true
-     * @return void
+     * @return void|ResponseInterface
      */
     public function newTablesEditSectionAction(string $extKey, string $section, int $itemKey, int $fieldKey = null, int $viewKey = null, int $folderKey = null, bool $showFieldConfiguration = false)
     {
@@ -573,6 +620,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('extension', $configuration);
         $this->view->assign('showFieldConfiguration', $showFieldConfiguration);
         $this->view->assign('folderLabels', $folderLabels);
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -592,7 +644,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The key of the folder
      * @param bool $showFieldConfiguration
      *            Displays the field definition if true
-     * @return void
+     * @return void|ResponseInterface
      */
     public function existingTablesEditSectionAction(string $extKey, string $section, int $itemKey, int $fieldKey = null, int $viewKey = null, int $folderKey = null, bool $showFieldConfiguration = false)
     {
@@ -723,6 +775,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('extension', $configuration);
         $this->view->assign('showFieldConfiguration', $showFieldConfiguration);
         $this->view->assign('folderLabels', $folderLabels);
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -815,7 +872,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @return void
+     * @return void|ResponseInterface
      */
     public function viewsEditSectionAction(string $extKey, string $section, int $itemKey)
     {
@@ -854,6 +911,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 break;
         }
         $this->view->assign('extension', $configuration);
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -865,7 +927,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @return void
+     * @return void|ResponseInterface
      */
     public function queriesEditSectionAction(string $extKey, string $section, int $itemKey)
     {
@@ -878,6 +940,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('extKey', $extKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configuration);
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -889,7 +956,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @return void
+     * @return void|ResponseInterface
      */
     public function formsEditSectionAction(string $extKey, string $section, int $itemKey)
     {
@@ -923,6 +990,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
             }
         }
         $this->view->assign('options', $options);
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -1486,8 +1558,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The item
      * @param mixed $key
      *            The item key
-     * @param
-     *            array arguments
+     * @param array $arguments
      *            The arguments
      * @return mixed
      */
@@ -2621,7 +2692,7 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @return void
+     * @return void|ResponseInterface
      */
     protected function assignForEditItemAction(string $extKey, string $section, int $itemKey)
     {
@@ -2645,6 +2716,11 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('extKey', $extKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configuration);
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }
     }
 
     /**
@@ -2698,17 +2774,17 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                     $fileName = $extensionDirectory . 'docker-compose.yml';
                     if (file_exists($fileName)) {
                         $configurationManager->getSectionManager()
-                        ->getItem('general')
-                        ->getItem(1)
-                        ->addItem([
-                            'generateLocalDocumentationWithDockerCompose' => 1,
+                            ->getItem('general')
+                            ->getItem(1)
+                            ->addItem([
+                            'generateLocalDocumentationWithDockerCompose' => 1
                         ]);
 
-                        $localDocumentationFile = '/' . ConfigurationManager::LOCAL_DOCUMENTATION_DIRECTORY . $extensionKey . '/'. ConfigurationManager::LOCAL_DOCUMENTATION_INDEX_FILE;
+                        $localDocumentationFile = '/' . ConfigurationManager::LOCAL_DOCUMENTATION_DIRECTORY . $extensionKey . '/' . ConfigurationManager::LOCAL_DOCUMENTATION_INDEX_FILE;
                         if (! file_exists(Environment::getPublicPath() . $localDocumentationFile)) {
                             $localDocumentationFile = '';
                         }
-                        $errorDocumentationFile = '/' . ConfigurationManager::LOCAL_DOCUMENTATION_DIRECTORY . $extensionKey . '/'. ConfigurationManager::LOCAL_DOCUMENTATION_ERROR_FILE;
+                        $errorDocumentationFile = '/' . ConfigurationManager::LOCAL_DOCUMENTATION_DIRECTORY . $extensionKey . '/' . ConfigurationManager::LOCAL_DOCUMENTATION_ERROR_FILE;
                         if (file_exists(Environment::getPublicPath() . $errorDocumentationFile)) {
                             $fileContent = file_get_contents(Environment::getPublicPath() . $errorDocumentationFile);
                             if (empty($fileContent)) {
@@ -2719,9 +2795,9 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                         }
 
                         $configurationManager->getSectionManager()
-                        ->getItem('general')
-                        ->getItem(1)
-                        ->addItem([
+                            ->getItem('general')
+                            ->getItem(1)
+                            ->addItem([
                             'localDocumentationFile' => $localDocumentationFile,
                             'errorDocumentationFile' => $errorDocumentationFile
                         ]);
@@ -2733,6 +2809,4 @@ class KickstarterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
 
         return $extensionList;
     }
-
 }
-?>

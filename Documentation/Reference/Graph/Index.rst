@@ -63,6 +63,6 @@ tags
          String  
               
     Description
-        Comma-separated list of definitions. Example: **marker#begin =
-        ###beginPeriod###** means that the **marker** whose id is **begin** in the
-        template will be replaced by the SAV Library marker **###beginPeriod###**.
+        Comma-separated list of definitions. Example: ``marker#begin =
+        ###beginPeriod###`` means that the ``marker`` whose id is ``begin`` in the
+        template will be replaced by the SAV Library marker ``###beginPeriod###``.

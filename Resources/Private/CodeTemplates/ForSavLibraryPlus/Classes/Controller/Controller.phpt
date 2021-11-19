@@ -6,8 +6,7 @@
     extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}',
     controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
 }">
-namespace {vendorName}\{extensionName}\Controller;
-!
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -20,6 +19,8 @@ namespace {vendorName}\{extensionName}\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+!
+namespace {vendorName}\{extensionName}\Controller;
 !
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 !
@@ -76,4 +77,3 @@ class {extensionName}Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugi
 }
 </f:alias>
 </sav:function>
-?>

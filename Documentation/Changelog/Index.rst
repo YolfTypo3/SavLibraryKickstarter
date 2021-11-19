@@ -11,9 +11,11 @@ Changelog
 =======  ===========================================================================
 Version  Changes
 =======  ===========================================================================
-10.4.0   - Compatibility changed to TYPO3 10.4.0.
+11.5.0   - Compatibility changed to TYPO3 11.5.x.
 
-10.3.0   - Compatibility changed to TYPO3 10.3.0.
+10.4.0   - Compatibility changed to TYPO3 10.4.x.
+
+10.3.0   - Compatibility changed to TYPO3 10.3.x.
          - Compatibility with TYPO3 8.7 removed.
          
 9.5.0    - Compatibility with TYPO3 7.6 removed.
@@ -43,13 +45,13 @@ Version  Changes
          - Documentation converted to the reStructuredText format.
          - Bug when calling context sensitive help corrected.
          - Extension versions are kept and can be managed easily. 
-         - Generation of  the **types** field in tca.php for extensions using starttime, 
+         - Generation of  the types field in tca.php for extensions using starttime, 
            endtime or access group  fields corrected.
          - Compatibility with TYPO3 7.x.x added
 
 0.4.1    - Code slighly modified in accordance to the TYPO3 coding guidelines.
          - Compatibility with TYPO3 6.2 improved.
-         - New type **Currency** added (Feature #52986).
+         - New type Currency added (Feature #52986).
          - Bug #53253 corrected.
 
 0.4.0    - Compatibility with TYPO3 6.1 and 6.2 added.

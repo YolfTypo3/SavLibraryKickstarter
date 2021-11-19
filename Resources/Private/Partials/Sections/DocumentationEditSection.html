@@ -1,104 +1,108 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
-<f:alias map="{section:'documentation'}">
-	<f:alias map="{sectionItems:'{extension->sav:getItem(key:section)}'}">
-		<f:alias
-			map="{
-            sectionItem:'{sectionItems->sav:getItem(key:itemKey)}'        
-        }">
-			<div id="{section}Section">
-				<f:form method="post" action="save" name="{section}"
-					arguments="{extKey:extKey, section:section, itemKey:itemKey}">
-					<f:form.hidden name="general[section]" value="{section}" />
-					<f:form.hidden name="general[itemKey]" value="{itemKey}" />
-					<div id="content">
+<f:variable name="section" value="documentation" />
+<f:variable name="sectionItems" value="{extension.{section}}" />
+<f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
+<f:variable name="defautIntersphinxMapping"><f:spaceless>
+	<f:if condition="{sectionItem.interSphinxMapping}">
+	<f:then>{sectionItem.interSphinxMapping}</f:then>
+	<f:else><f:translate key="kickstarter.defautIntersphinxMapping" /></f:else>
+	</f:if>
+</f:spaceless></f:variable>
 
-						<f:comment>Header</f:comment>
-						<f:render partial="Sections/Partials/Header" arguments="{_all}" />
+<div id="{section}Section">
+	<f:form method="post" action="save" name="{section}"
+		arguments="{extKey:extKey, section:section, itemKey:itemKey}">
+		<f:form.hidden name="general[section]" value="{section}" />
+		<f:form.hidden name="general[itemKey]" value="{itemKey}" />
+		<div id="content">
 
-						<div class="body">
-							<f:comment>Item title</f:comment>
-							<f:render partial="Sections/Partials/ItemTitle"
-								arguments="{_all}" />
-								
-							<f:comment>GitHub Repository</f:comment>
-							<label for="gitHubRepository"><f:translate
-									key="kickstarter.{section}Item.gitHubRepository" /></label>
-							<f:form.textfield id="gitHubRepository" name="{section}[gitHubRepository]"
-								value="{sectionItem.gitHubRepository}" />
+			<f:comment>Header</f:comment>
+			<f:render partial="Sections/Partials/Header" arguments="{_all}" />
 
-							<f:comment>GitHub Branch</f:comment>
-							<label for="gitHubBranch"><f:translate
-									key="kickstarter.{section}Item.gitHubBranch" /></label>
-							<f:form.textfield id="gitHubBranch" name="{section}[gitHubBranch]"
-								value="{sectionItem.gitHubBranch}" />
+			<div class="body">
+				<f:comment>Item title</f:comment>
+				<f:render partial="Sections/Partials/ItemTitle" arguments="{_all}" />
 
-							<f:comment>Project Contact</f:comment>
-							<label for="projectContact"><f:translate
-									key="kickstarter.{section}Item.projectContact" /></label>
-							<f:form.textfield id="projectContact" name="{section}[projectContact]"
-								value="{sectionItem.projectContact}" />
+				<f:comment>GitHub Repository</f:comment>
+				<label for="gitHubRepository"><f:translate
+						key="kickstarter.{section}Item.gitHubRepository" /></label>
+				<f:form.textfield id="gitHubRepository"
+					name="{section}[gitHubRepository]"
+					value="{sectionItem.gitHubRepository}" />
 
-							<f:comment>Project Discussion</f:comment>
-							<label for="projectDiscussion"><f:translate
-									key="kickstarter.{section}Item.projectDiscussion" /></label>
-							<f:form.textfield id="projectDiscussion" name="{section}[projectDiscussion]"
-								value="{sectionItem.projectDiscussion}" />
+				<f:comment>GitHub Branch</f:comment>
+				<label for="gitHubBranch"><f:translate
+						key="kickstarter.{section}Item.gitHubBranch" /></label>
+				<f:form.textfield id="gitHubBranch" name="{section}[gitHubBranch]"
+					value="{sectionItem.gitHubBranch}" />
 
-							<f:comment>Project Home</f:comment>
-							<label for="projectHome"><f:translate
-									key="kickstarter.{section}Item.projectHome" /></label>
-							<f:form.textfield id="projectHome" name="{section}[projectHome]"
-								value="{sectionItem.projectHome}" />
-								
-							<f:comment>Project Issues</f:comment>
-							<label for="projectIssues"><f:translate
-									key="kickstarter.{section}Item.projectIssues" /></label>
-							<f:form.textfield id="projectIssues" name="{section}[projectIssues]"
-								value="{sectionItem.projectIssues}" />								
+				<f:comment>Project Contact</f:comment>
+				<label for="projectContact"><f:translate
+						key="kickstarter.{section}Item.projectContact" /></label>
+				<f:form.textfield id="projectContact"
+					name="{section}[projectContact]"
+					value="{sectionItem.projectContact}" />
 
-							<f:comment>Project Repository</f:comment>
-							<label for="projectRepository"><f:translate
-									key="kickstarter.{section}Item.projectRepository" /></label>
-							<f:form.textfield id="projectRepository" name="{section}[projectRepository]"
-								value="{sectionItem.projectRepository}" />	
-								
-							<f:comment>InterSphinx Mapping</f:comment>
-							<label for="interSphinxMapping"><f:translate
-									key="kickstarter.{section}Item.interSphinxMapping" /></label>
-							<f:form.textarea id="interSphinxMapping" name="{section}[interSphinxMapping]"
-								value="{sectionItem.interSphinxMapping}"
-								rows="{sav:function(name:'countLines', arguments:sectionItem.interSphinxMapping)}"
-								cols="80" />
+				<f:comment>Project Discussion</f:comment>
+				<label for="projectDiscussion"><f:translate
+						key="kickstarter.{section}Item.projectDiscussion" /></label>
+				<f:form.textfield id="projectDiscussion"
+					name="{section}[projectDiscussion]"
+					value="{sectionItem.projectDiscussion}" />
 
-							<f:comment>Extensions</f:comment>
-							<label for="extensions"><f:translate
-									key="kickstarter.{section}Item.extensions" /></label>
-							<f:form.textarea id="extensions" name="{section}[extensions]"
-								value="{sectionItem.extensions}"
-								rows="{sav:function(name:'countLines', arguments:sectionItem.extensions)}"
-								cols="80" />
+				<f:comment>Project Home</f:comment>
+				<label for="projectHome"><f:translate
+						key="kickstarter.{section}Item.projectHome" /></label>
+				<f:form.textfield id="projectHome" name="{section}[projectHome]"
+					value="{sectionItem.projectHome}" />
 
-							<f:comment>Keep Settings.cfg File</f:comment>
-							<label for="keepSettingsCfg"><f:translate
-									key="kickstarter.{section}Item.keepSettingsCfg" /></label>
-							<f:form.hidden name="{section}[keepSettingsCfg]" value="0" />
-							<f:form.checkbox class="checkbox" id="keepSettingsCfg"
-								name="{section}[keepSettingsCfg]" value="1"
-								checked="{sectionItem.keepSettingsCfg}" />
+				<f:comment>Project Issues</f:comment>
+				<label for="projectIssues"><f:translate
+						key="kickstarter.{section}Item.projectIssues" /></label>
+				<f:form.textfield id="projectIssues" name="{section}[projectIssues]"
+					value="{sectionItem.projectIssues}" />
 
-							<f:comment>Add docker-compose.yml</f:comment>
-							<label for="AddDockerCompose"><f:translate
-									key="kickstarter.{section}Item.AddDockerCompose" /></label>
-							<f:form.hidden name="{section}[AddDockerCompose]" value="0" />
-							<f:form.checkbox class="checkbox" id="AddDockerCompose"
-								name="{section}[AddDockerCompose]" value="1"
-								checked="{sectionItem.AddDockerCompose}" />
-						</div>
-					</div>
-				</f:form>
+				<f:comment>Project Repository</f:comment>
+				<label for="projectRepository"><f:translate
+						key="kickstarter.{section}Item.projectRepository" /></label>
+				<f:form.textfield id="projectRepository"
+					name="{section}[projectRepository]"
+					value="{sectionItem.projectRepository}" />
+
+				<f:comment>InterSphinx Mapping</f:comment>
+				<label for="interSphinxMapping"><f:translate
+						key="kickstarter.{section}Item.interSphinxMapping" /></label>
+				<f:form.textarea id="interSphinxMapping"
+					name="{section}[interSphinxMapping]"
+					value="{defautIntersphinxMapping}"
+					rows="{sav:function(name:'countLines', arguments:sectionItem.interSphinxMapping)}"
+					cols="80" />
+
+				<f:comment>Extensions</f:comment>
+				<label for="extensions"><f:translate
+						key="kickstarter.{section}Item.extensions" /></label>
+				<f:form.textarea id="extensions" name="{section}[extensions]"
+					value="{sectionItem.extensions}"
+					rows="{sav:function(name:'countLines', arguments:sectionItem.extensions)}"
+					cols="80" />
+
+				<f:comment>Keep Settings.cfg File</f:comment>
+				<label for="keepSettingsCfg"><f:translate
+						key="kickstarter.{section}Item.keepSettingsCfg" /></label>
+				<f:form.hidden name="{section}[keepSettingsCfg]" value="0" />
+				<f:form.checkbox class="checkbox" id="keepSettingsCfg"
+					name="{section}[keepSettingsCfg]" value="1"
+					checked="{sectionItem.keepSettingsCfg}" />
+
+				<f:comment>Add docker-compose.yml</f:comment>
+				<label for="AddDockerCompose"><f:translate
+						key="kickstarter.{section}Item.AddDockerCompose" /></label>
+				<f:form.hidden name="{section}[AddDockerCompose]" value="0" />
+				<f:form.checkbox class="checkbox" id="AddDockerCompose"
+					name="{section}[AddDockerCompose]" value="1"
+					checked="{sectionItem.AddDockerCompose}" />
 			</div>
-		</f:alias>
-	</f:alias>
-</f:alias>
-
+		</div>
+	</f:form>
+</div>

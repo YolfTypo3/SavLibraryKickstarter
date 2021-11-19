@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
@@ -125,6 +127,41 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
         // Generates flexforms
         $fileContents = $this->generateFile('Configuration/Library/SavLibraryPlus.xmlt', null, $this->xmlArray);
         GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/Library/SavLibraryPlus.xml', $fileContents);
+    }
+
+    /**
+     * Builds the documentation.
+     *
+     * @return void
+     */
+    protected function buildDocumentation()
+    {
+        // Generates the parent documentation
+        parent::buildDocumentation();
+
+        // Creates the folders
+        GeneralUtility::mkdir_deep($this->extensionDirectory . 'Documentation/Forms');
+
+
+        // Prepares the data
+        $extension = $this->sectionManager->getItemsAsArray();
+        $data = $extension;
+        $data['extensionDirectory'] = $this->extensionDirectory;
+        $data['viewsFields'] = $this->xmlArray['views'];
+
+        // Generates the specific documentation for SAV Library Plus
+        $fileContents = $this->generateFile('Documentation/Forms/Index.rstt', null, $data);
+        GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Forms/Index.rst', $fileContents);
+        if (!empty($extension['newTables'])) {
+            GeneralUtility::mkdir_deep($this->extensionDirectory . 'Documentation/NewTables');
+            $fileContents = $this->generateFile('Documentation/NewTables/Index.rstt', null, $data);
+            GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/NewTables/Index.rst', $fileContents);
+        }
+        if (!empty($extension['existingTables'])) {
+            GeneralUtility::mkdir_deep($this->extensionDirectory . 'Documentation/ExistingTables');
+            $fileContents = $this->generateFile('Documentation/ExistingTables/Index.rstt', null, $data);
+            GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/ExistingTables/Index.rst', $fileContents);
+        }
     }
 
     /**
@@ -623,4 +660,3 @@ class CodeGeneratorForSavLibraryPlus extends AbstractCodeGenerator
         return false;
     }
 }
-?>

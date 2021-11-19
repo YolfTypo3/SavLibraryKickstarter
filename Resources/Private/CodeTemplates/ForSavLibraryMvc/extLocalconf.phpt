@@ -45,4 +45,3 @@ $iconRegistry->registerIcon(
 </f:alias>
 </f:if>
 </sav:function>
-?>

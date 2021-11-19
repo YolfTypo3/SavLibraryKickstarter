@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
+
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -97,5 +99,3 @@ class BuildOrderByClauseViewHelper extends AbstractViewHelper
         return implode(',' . chr(10), $clause);
     }
 }
-?>
-

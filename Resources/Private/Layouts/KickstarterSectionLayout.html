@@ -11,44 +11,41 @@
 			libraryName:'{sav:upperCamel(string:\'{f:translate(key:libraryLabel)}\')}',
 			isAllowed:'{f:if(condition:\'{libraryType} == 3\', then:0, else:1)}'
 			}">
-				<f:be.container
-					includeCssFiles="{0:'{f:uri.resource(path:\'Css/backend.css\')}'}">
-					<div class="typo3-fullDoc">
-						<div id="typo3-docbody">
-							<div id="savLibraryKickstarter">
-								<div id="header">
-									<div class="logo">
-										<div class="kickstarterTitle">
-											<span><f:translate key="kickstarter.title"
-													arguments="{0:libraryName}" /></span> <span>{savLibraryKickstarterVersion}</span>
-										</div>
-										<div class="extensionTitle">
-											<span>{extKey}</span> <span>v{extension.emconf.1.version}</span>
-											<f:if condition="{extensionNotLoaded}">
-												<span class="extensionNotLoaded"><f:translate
-														key="kickstarter.extensionNotLoaded" /></span>
-											</f:if>
-											<f:if condition="{extension.general.1.debug}">
-												<span class="debugQueryOn"><f:translate
-														key="kickstarter.debugQueryOn" /></span>
-											</f:if>
-										</div>
-									</div>
+				<f:be.pageRenderer
+					includeCssFiles="{0:'{f:uri.resource(path:\'Css/backend.css\')}'}" />
+				<div id="savLibraryKickstarter" class="typo3-fullDoc">
+					<div id="typo3-docbody">
+						<div id="header">
+							<div class="logo">
+								<div class="kickstarterTitle">
+									<span><f:translate key="kickstarter.title"
+											arguments="{0:libraryName}" /></span> <span>{savLibraryKickstarterVersion}</span>
 								</div>
-								<f:flashMessages />
-								<f:format.raw>
-									<sav:link.empty key="kickstarterTop" />
-								</f:format.raw>
-
-								<f:comment>Render the menu section</f:comment>
-								<f:render section="menu" arguments="{isAllowed:isAllowed}" />
-
-								<f:comment>Render the content section</f:comment>
-								<f:render section="content" arguments="{isAllowed:isAllowed}" />
+								<div class="extensionTitle">
+									<span>{extKey}</span> <span>v{extension.emconf.1.version}</span>
+									<f:if condition="{extensionNotLoaded}">
+										<span class="extensionNotLoaded"><f:translate
+												key="kickstarter.extensionNotLoaded" /></span>
+									</f:if>
+									<f:if condition="{extension.general.1.debug}">
+										<span class="debugQueryOn"><f:translate
+												key="kickstarter.debugQueryOn" /></span>
+									</f:if>
+								</div>
 							</div>
 						</div>
+						<f:flashMessages />
+						<f:format.raw>
+							<sav:link.empty key="kickstarterTop" />
+						</f:format.raw>
+
+						<f:comment>Render the menu section</f:comment>
+						<f:render section="menu" arguments="{isAllowed:isAllowed}" />
+
+						<f:comment>Render the content section</f:comment>
+						<f:render section="content" arguments="{isAllowed:isAllowed}" />
 					</div>
-				</f:be.container>
+				</div>
 			</f:alias>
 		</f:alias>
 	</f:alias>

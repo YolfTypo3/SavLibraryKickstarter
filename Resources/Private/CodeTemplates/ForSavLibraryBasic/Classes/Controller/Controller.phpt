@@ -5,8 +5,7 @@
     extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
     controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}',
     actionName:     '{extension.views->sav:getItem()->sav:getItem(key:\'title\')->sav:lowerCamel()}'
-}">
-    
+}">   
 namespace {vendorName}\{extensionName}\Controller;
 !
 /**
@@ -21,6 +20,10 @@ namespace {vendorName}\{extensionName}\Controller;
  *
  * The TYPO3 project - inspiring people to share!
 */
+!
+namespace {vendorName}\{extensionName}\Controller;
+!
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
@@ -35,9 +38,8 @@ use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
  */
 !
 class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-{
-!
-    /**
+<sav:function name="leftBrace"/> 
+	/**
      * Css path
      *
      * @var string
@@ -50,7 +52,7 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @return void
      */
     protected function initializeAction() 
-    {
+	<sav:function name="leftBrace"/>
         // Gets the extension key
         $extensionKey = $this->request->getControllerExtensionKey();
 !         
@@ -67,20 +69,25 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
         $extensionWebPath = self::getExtensionWebPath($extensionKey);
         $cssFile = $extensionWebPath . self::$cssPath;
         $this->addCascadingStyleSheet($cssFile);    
-    }
+	<sav:function name="rightBrace"/>
 ! 
 <f:comment>Do not remove</f:comment>
     /**
      * {actionName} action
      *
-     * @return void
+     * @return void|ResponseInterface
      */
     public function {actionName}Action()
-    {  
+	<sav:function name="leftBrace"/>  
         $this->view->assign('extension', $this->request->getControllerExtensionKey());         
         $this->view->assign('controller', $this->request->getControllerName());  
-        $this->view->assign('action', $this->request->getControllerActionName());                      
-    }
+        $this->view->assign('action', $this->request->getControllerActionName());    
+!        
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
+        }                          
+	<sav:function name="rightBrace"/>
 !    
     /**
      * Adds a cascading style Sheet
@@ -90,10 +97,10 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @return void
      */
     protected function addCascadingStyleSheet($cascadingStyleSheet)
-    {
+	<sav:function name="leftBrace"/>
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->addCssFile($cascadingStyleSheet);
-    }     
+	<sav:function name="rightBrace"/>    
 !    
     /**
      * Gets the relative web path of a given extension.
@@ -104,33 +111,14 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @return string The relative web path
      */
     protected static function getExtensionWebPath(string $extension): string
-    {
+	<sav:function name="leftBrace"/>
         $extensionWebPath = PathUtility::getAbsoluteWebPath(ExtensionManagementUtility::extPath($extension));
         if ($extensionWebPath[0] === '/') {
             // Makes the path relative
             $extensionWebPath = substr($extensionWebPath, 1);
         }
         return $extensionWebPath;
-    }
-!    
-    /**
-     * Gets the TYPO3 version
-     *
-     * @todo Will be removed in TYPO3 11
-     *
-     * @return string
-     */
-    public static function getTypo3Version()
-    {
-        if (class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)) {
-            $typo3Version = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getVersion();
-        } else {
-            // @extensionScannerIgnoreLine
-            $typo3Version = TYPO3_version;
-        }
-        return $typo3Version;
-    }     
-}
-?>
+	<sav:function name="rightBrace"/>    
+<sav:function name="rightBrace"/>  
 </f:alias>
 </sav:function>

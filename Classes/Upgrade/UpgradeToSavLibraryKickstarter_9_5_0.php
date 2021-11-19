@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
+
 use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
 
 /**
@@ -22,7 +24,7 @@ use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
  */
 class UpgradeToSavLibraryKickstarter_9_5_0 extends AbstractUpgradeManager
 {
-    
+
     /**
      * Pre processing
      *
@@ -36,4 +38,3 @@ class UpgradeToSavLibraryKickstarter_9_5_0 extends AbstractUpgradeManager
     }
 
 }
-?>

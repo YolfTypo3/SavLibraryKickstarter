@@ -29,7 +29,7 @@ The SAV Library Plus extension relies on a conventional approach for the
 queries but uses fluid for the rendering of views.
 
 The concept used in the SAV Library Plus relies on forms. A form is a
-way of presenting data. It includes **List** view, **Single** view or **Edit**
+way of presenting data. It includes ``List`` view, ``Single`` view or ``Edit``
 views of the data. An extension may contain several forms. The
 generator handles also special views like print views or update views.
 Data presentation may differ from one view to another. A query is
@@ -135,7 +135,7 @@ The following extensions have been kickstarted with the basic type.
     
 .. warning::
 
-   - Do not forget to include the **SAV Library Kickstarter static template** which is now required.    
+   - Do not forget to include the ``SAV Library Kickstarter static template`` which is now required.    
 
 Screenshots
 ===========

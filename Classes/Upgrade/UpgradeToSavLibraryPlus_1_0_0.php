@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
+
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
 
@@ -29,7 +31,7 @@ class UpgradeToSavLibraryPlus_1_0_0 extends AbstractUpgradeManager
      *
      * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $configuration
      *            The actual configuration
-     *            
+     *
      * @return array The new configuration
      */
     public function upgradeGeneralSection(ItemManager $configuration): array
@@ -45,4 +47,3 @@ class UpgradeToSavLibraryPlus_1_0_0 extends AbstractUpgradeManager
         return $newConfiguration;
     }
 }
-?>

@@ -13,13 +13,13 @@ of the extension.
 
 .. tip::
    
-   Click on the icons at the right hand side of **New Tables**:
+   Click on the icons at the right hand side of ``New Tables``:
    
    - to access to this section of the documentation.
    - to save the configuration
    - to generate the extension.
    
-The **Existing Tables** form has three different sections:
+The ``Existing Tables`` form has three different sections:
 
 - the table configuration.
 - the fields overview.

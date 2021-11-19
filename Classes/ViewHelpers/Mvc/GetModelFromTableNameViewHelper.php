@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -30,7 +32,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  * Test
  *
  * @package SavLibraryMvc
- *         
+ *
  */
 class GetModelFromTableNameViewHelper extends AbstractViewHelper
 {
@@ -63,5 +65,3 @@ class GetModelFromTableNameViewHelper extends AbstractViewHelper
         return GeneralUtility::underscoredToUpperCamelCase(str_replace('Tx' . $extensionName . 'DomainModel', '', $tableName));
     }
 }
-?>
-

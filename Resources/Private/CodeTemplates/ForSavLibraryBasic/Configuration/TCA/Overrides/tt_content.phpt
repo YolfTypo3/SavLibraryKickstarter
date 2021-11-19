@@ -36,4 +36,3 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['{pluginSigna
 </f:alias>
 </f:for>
 </sav:function></f:format.raw>
-?>

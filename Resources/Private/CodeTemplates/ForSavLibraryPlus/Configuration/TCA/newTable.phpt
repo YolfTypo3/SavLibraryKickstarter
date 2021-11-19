@@ -2,7 +2,7 @@
 <f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
 defined('TYPO3_MODE') or die();
 !
-if (version_compare(\YolfTypo3\SavLibraryPlus\Compatibility\Typo3VersionCompatibility::getVersion(), '10.0', '<')) {
+if (version_compare(\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getVersion(), '10.0', '<')) {
     $interface = [
     	'showRecordFieldList' => '<f:if condition="{newTable.add_hidden}">hidden</f:if><f:for each="{newTable.fields}" as="field">,{field.fieldname}</f:for>'
     ];
@@ -17,4 +17,3 @@ return [
     <sav:indent count="4"><f:render partial="Configuration/TCA/palettesSection.phpt" arguments="{_all}" /></sav:indent>        
 ];
 </sav:function></f:format.raw>
-?>

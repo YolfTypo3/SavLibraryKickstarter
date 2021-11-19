@@ -12,7 +12,7 @@ This item opens the form for the configuration of the extension.
 
 .. tip::
    
-   Click on the icons at the right hand side of **Extension Configuration**:
+   Click on the icons at the right hand side of ``Extension Configuration``:
    
    - to access to this section of the documentation.
    - to save your configuration
@@ -34,14 +34,14 @@ This item opens the form for the configuration of the extension.
 - **Dependencies**: specify here the dependencies of the extension.
   
   Dependencies must be comma-separated. If only extension names
-  are entered, dependencies will be added in **ext_emconf.php**
+  are entered, dependencies will be added in ``ext_emconf.php``
   file without constraints.
 
   The SAV Library Kickstarter generates automatically the dependency
-  to SAV Library Plus or SAV Library Mvc for **composer.json** and
-  **ext_emconf.php** files.
+  to SAV Library Plus or SAV Library Mvc for ``composer.json`` and
+  ``ext_emconf.php`` files.
   
-  Constraints can be added for **ext_emconf.php** or **composer.json**.
+  Constraints can be added for ``ext_emconf.php`` or ``composer.json``.
   The following example is taken from the extension `sav_library_example10 
   <https://extensions.typo3.org/extension/sav_library_example10>`_ which 
   depends on extension `maps2 <https://extensions.typo3.org/extension/maps2>`_.
@@ -51,8 +51,8 @@ This item opens the form for the configuration of the extension.
      
      maps2(emconf:5.2.3-0.0.0), jweiland/maps2(composer:^5.2.3)
      
-  The dependency to **maps2** will be added to **ext_emconf.php** with the 
-  constraint **5.2.3-0.0.0**.
+  The dependency to ``maps2`` will be added to ``ext_emconf.php`` with the 
+  constraint ``5.2.3-0.0.0``.
   
   .. code::
   
@@ -62,10 +62,10 @@ This item opens the form for the configuration of the extension.
         'sav_library_plus' => '9.5.0-0.0.0'
      ],     
   
-  The extension **maps2** has a composer support **jweiland/maps2**. In 
-  such case, you must enter directly the dependency, i.e. **jweiland/maps2**,
+  The extension ``maps2`` has a composer support ``jweiland/maps2``. In 
+  such case, you must enter directly the dependency, i.e. ``jweiland/maps2``,
   instead of the extension name. The dependency 
-  is added to **composer.json** with the constraint **^5.2.3**.
+  is added to ``composer.json`` with the constraint ``^5.2.3``.
   
   .. code::
   
@@ -77,8 +77,8 @@ This item opens the form for the configuration of the extension.
   
   .. note::
   
-    When the extension name is used **typo3-ter/** will be prepended 
-    to the extension name to build the dependency in **composer.json**.  
+    When the extension name is used ``typo3-ter/`` will be prepended 
+    to the extension name to build the dependency in ``composer.json``.  
     
     For example, the following
     dependencies are used for the extension `sav_library_example9 
@@ -90,7 +90,7 @@ This item opens the form for the configuration of the extension.
     
        sav_charts(emconf:9.5.0-0.0.0)(composer:^9.5.0) 
        
-    It generates the following **require** part in **composer.json**. 
+    It generates the following ``require`` part in ``composer.json``. 
     
     .. code::
        
@@ -105,10 +105,10 @@ This item opens the form for the configuration of the extension.
 - **Author email**: use this field to set the author's email.
 
 - **Library type**: selector which specifies the type of extension
-  which will be generated. The **Basic** type can be used to kickstart
+  which will be generated. The ``Basic`` type can be used to kickstart
   extension using Fluid and Exbase. Icons at the right hand side of
   the selector are still experimental. They should make it possible
-  to migrate a **Plus** type extension to a **Mvc** type extension 
+  to migrate a ``Plus`` type extension to a ``Mvc`` type extension 
   and vice-versa.
   
 - **Compatibility**: selector which defines the compatibility of the
@@ -116,19 +116,19 @@ This item opens the form for the configuration of the extension.
   becomes incompatible, it has to be upgraded. 
 
 - **Add TypoScript configuration**: if selected, TypoScript configuration files are
-  added (only for **Plus** type. For **Basic** and **Mvc** TypoScript configuration files are
+  added (only for ``Plus`` type. For ``Basic`` and ``Mvc`` TypoScript configuration files are
   always added.
 
 - **Add a wizard plugin icon**: if selected, a wizard icon will be added to the plugin.
-  The wizard icon file must be named **ExtensionWizard.svg** and 
-  put in the directory **Resources/Public/Icons**.
+  The wizard icon file must be named ``ExtensionWizard.svg`` and 
+  put in the directory ``Resources/Public/Icons``.
 
 - **Keep the file ext_localconf.php if it exists**: set this option 
-  if you **manually** modify the **ext_localconf.php** file. 
+  if you ``manually`` modify the ``ext_localconf.php`` file. 
   It will prevent the SAV Library Kickstarter to rebuild it.
   
 - **Debug Queries (Use only for developments)**: set this option to display 
-  error messages on queries, if any. The **Debug Query** option should not 
+  error messages on queries, if any. The ``Debug Query`` option should not 
   be left in the final version of your extension for security reasons.
   
 - **New version**: use these checkboxes to automatically ugrade the version of your extension.

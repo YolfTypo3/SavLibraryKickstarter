@@ -8,4 +8,3 @@ defined('TYPO3_MODE') or die();
     '{extension.general.1.pluginTitle->sav:function(name:'stringToUtf8')}'
 );
 </sav:function></f:format.raw>
-?>

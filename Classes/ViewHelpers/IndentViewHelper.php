@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
+
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -42,9 +44,13 @@ class IndentViewHelper extends AbstractViewHelper
         $count = $this->arguments['count'];
 
         $childrenContent = $this->renderChildren();
+        if (!is_string($childrenContent)) {
+            return gettype($childrenContent);
+        }
         $content = explode(chr(10), $childrenContent);
         $glue = chr(10) . str_repeat(' ', $count);
-        return implode($glue, $content);
+        $result = implode($glue, $content);
+
+        return $result;
     }
 }
-?>

@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,7 +12,11 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
+
 use TYPO3\CMS\Core\Package\PackageManager;
+use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -97,7 +100,8 @@ class BuildModelNameViewHelper extends AbstractViewHelper
         // Build map of short keys referencing to real keys:
 
         if (! isset(self::$extensionKeyMap)) {
-            $packageManager = GeneralUtility::makeInstance(PackageManager::class);
+            $dependencyOrderingService = GeneralUtility::makeInstance(DependencyOrderingService::class);
+            $packageManager = GeneralUtility::makeInstance(PackageManager::class, $dependencyOrderingService);
             self::$extensionKeyMap = [];
             foreach ($packageManager->getAvailablePackages() as $package) {
                 $shortKey = str_replace('_', '', $package->getPackageKey());
@@ -112,5 +116,3 @@ class BuildModelNameViewHelper extends AbstractViewHelper
         return $result;
     }
 }
-?>
-

@@ -77,7 +77,6 @@ class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\Def
         $this->save($data);
     }
 }
-?>
 </f:alias>
 </f:alias>
 </sav:function>

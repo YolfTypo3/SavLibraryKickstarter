@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\Utility;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,8 @@ namespace YolfTypo3\SavLibraryKickstarter\Utility;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\Utility;
 
 /**
  * Utilities for converting variables
@@ -73,4 +74,3 @@ class Conversion
         }
     }
 }
-?>

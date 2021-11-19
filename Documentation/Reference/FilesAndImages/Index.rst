@@ -103,18 +103,18 @@ addToUploadFolderFromField
         Field name
 
     Description
-        Adds the content of the field whose name is given by **field_name** to
+        Adds the content of the field whose name is given by ``field_name`` to
         the uploadFolder attribute. This information is separated with an
         underscore.
 
-        Example: if the **field_name** is **my_field** and its contents is **123**,
+        Example: if the ``field_name`` is ``my_field`` and its contents is ``123``,
         then
 
         ::
 
             AddToUploadFolderFromField = my_field;
 
-        will add **_123** to the uploadFolder name.
+        will add ``_123`` to the uploadFolder name.
 
 
 
@@ -152,8 +152,8 @@ default
     
     Description
         Defines the default image if the content of the field is null
-        otherwise the default image is **unknown.gif** taken in the directory
-        **sav_library_Plus/Resources/Public/Images**.
+        otherwise the default image is ``unknown.gif`` taken in the directory
+        ``sav_library_Plus/Resources/Public/Images``.
 
 
 
@@ -171,7 +171,7 @@ fieldAlt
         Field name
 
     Description
-        Sets the **alt** attribute with the content of the field whose name is
+        Sets the ``alt`` attribute with the content of the field whose name is
         given by field_name.
 
 
@@ -190,7 +190,7 @@ fieldMessage
         Field name
 
     Description
-        Sets the attribute **message** with the content of the field whose name
+        Sets the attribute ``message`` with the content of the field whose name
         is given by field_name.
 
 
@@ -326,7 +326,7 @@ tsProperties
         .. important::
         
             Do not forget that the configuration field is ended by a semi-column,
-            therefore if you need a semi-column in your TypoScript, write it **\\;**.
+            therefore if you need a semi-column in your TypoScript, write it ``\\;``.
 
 
 

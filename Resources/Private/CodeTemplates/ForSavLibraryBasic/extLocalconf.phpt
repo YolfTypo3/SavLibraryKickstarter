@@ -9,7 +9,8 @@ defined('TYPO3_MODE') or die();
 </f:for>
 !
 // Configures the Dispatcher
-if (version_compare(\{extension.general.1.vendorName}\{extension.general.1.extensionKey->sav:upperCamel()}\Controller\{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}Controller::getTypo3Version(), '10.0', '<')) {
+$typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+if (version_compare($typo3Version->getVersion(), '10.0', '<')) {
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     	'{extension.general.1.vendorName}.{extension.general.1.extensionKey}',
     	'{extension.forms->sav:getItem()->sav:getItem(key:'title')}',
@@ -57,4 +58,3 @@ $iconRegistry->registerIcon(
 </f:alias>
 </f:if>
 </sav:function>
-?>

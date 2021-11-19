@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\Utility;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavLibraryKickstarter\Utility;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavLibraryKickstarter\Utility;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -34,7 +36,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $item
      *            The item to add.
-     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function addItem($item)
     {
@@ -43,6 +45,7 @@ class ItemManager extends \ArrayObject
             $this->ksort();
             $count = $this->count();
             if ($count > 0) {
+                // @extensionScannerIgnoreLine
                 $iterator = $this->getIterator();
                 $iterator->seek($count - 1);
                 $index = $iterator->key() + 1;
@@ -75,7 +78,7 @@ class ItemManager extends \ArrayObject
     /**
      * Gets the item index.
      *
-     * return mixed Ihe item index
+     * @return mixed Ihe item index
      */
     public function getItemIndex()
     {
@@ -87,7 +90,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemKey
      *            The key of the item.
-     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function getItem($itemKey)
     {
@@ -99,7 +102,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemKey
      *            The key of the item.
-     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function getItemAndSetToZeroIfNull($itemKey)
     {
@@ -116,7 +119,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemKey
      *            The key of the item.
-     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function itemExists($itemKey)
     {
@@ -126,7 +129,7 @@ class ItemManager extends \ArrayObject
     /**
      * Gets all items.
      *
-     * return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function getItems()
     {
@@ -138,7 +141,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemKey
      *            The key of the item to delete
-     *            return none
+     * @return void
      */
     public function deleteItem($itemKey)
     {
@@ -148,7 +151,7 @@ class ItemManager extends \ArrayObject
     /**
      * Gets all items in an Array.
      *
-     * return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function getItemsAsArray()
     {
@@ -168,7 +171,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemValues
      *            The item values to replace
-     *            return none
+     * @return void
      */
     public function replace($itemValues, $item = null)
     {
@@ -197,7 +200,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemValues
      *            The item values to replace
-     *            return none
+     * @return void
      */
     public function replaceAll($itemValues)
     {
@@ -211,7 +214,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $itemValues
      *            The item values to replace
-     *            return none
+     * @return void
      */
     public function deleteAndReplace($itemValues, $item = null)
     {
@@ -231,7 +234,7 @@ class ItemManager extends \ArrayObject
      *            The search key
      * @param mixed $value
      *            Value to find
-     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function find($searchKey, $value)
     {
@@ -249,7 +252,7 @@ class ItemManager extends \ArrayObject
      *
      * @param mixed $searchKey
      *            The search key
-     *            return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @return \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
      */
     public function sortBy($searchKey)
     {
@@ -294,7 +297,7 @@ class ItemManager extends \ArrayObject
      * @param mixed $searchKey
      *            The search key
      *
-     *            return mixed The searched item
+     * @return mixed The searched item
      */
     protected function searchFieldValue($field, $searchKey)
     {
@@ -322,7 +325,7 @@ class ItemManager extends \ArrayObject
      * @param mixed $searchKey
      *            The search key
      *
-     *            return none
+     * @return void
      */
     public function reIndex($searchKey)
     {
@@ -351,7 +354,7 @@ class ItemManager extends \ArrayObject
     /**
      * Reindexes the keys of an arrayObject.
      *
-     * return none
+     * @return void
      */
     public function reIndexKeys()
     {
@@ -372,7 +375,7 @@ class ItemManager extends \ArrayObject
      *            The function to apply
      * @param \ArrayObject $item
      *            The item or sub-item.
-     *            return none
+     * @return void
      */
     public function walkItem($functionName, $arguments = null, $itemToWalk = null)
     {
@@ -408,4 +411,3 @@ class ItemManager extends \ArrayObject
         }
     }
 }
-?>

@@ -1,5 +1,5 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
-<f:layout name="KickstarterExtensionListLayout.html" />
+<f:layout name="KickstarterExtensionListLayout" />
 
 <f:section name="content">
 	<div id="extensionList">
@@ -97,7 +97,12 @@
 									title="{f:translate(key:'kickstarter.editExtension')}" />
 							</f:link.action> <f:comment>Generate extension</f:comment> <f:link.action
 								action="generateExtension"
-								data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generating\')}'}"
+								data="{
+									toggle:'popover',
+									content:'{f:translate(key:\'kickstarter.generating\')}',
+									bs-toggle:'popover',
+									bs-content:'{f:translate(key:\'kickstarter.generating\')}'
+								}"
 								arguments="{extKey:extension.general.1.extensionKey}">
 								<f:image class="installExtension"
 									src="{sav:getIcon(identifier:'actions-system-refresh')}"
@@ -114,7 +119,12 @@
 								condition="{extension.general.1.isLoadedExtension} == 1">
 								<f:then>
 									<f:link.action action="uninstallExtension"
-										data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.uninstalling\')}'}"
+										data="{
+											toggle:'popover',
+											content:'{f:translate(key:\'kickstarter.uninstalling\')}',
+											bs-toggle:'popover',
+											bs-content:'{f:translate(key:\'kickstarter.uninstalling\')}'
+										}"
 										arguments="{extKey:extension.general.1.extensionKey}">
 										<f:image class="uninstallExtension"
 											src="{sav:getIcon(identifier:'actions-system-extension-uninstall')}"
@@ -124,7 +134,12 @@
 								</f:then>
 								<f:else>
 									<f:link.action action="installExtension"
-										data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.installing\')}'}"
+										data="{
+											toggle:'popover',
+											content:'{f:translate(key:\'kickstarter.installing\')}',
+											bs-toggle:'popover',
+											bs-content:'{f:translate(key:\'kickstarter.installing\')}'
+										}"
 										arguments="{extKey:extension.general.1.extensionKey}">
 										<f:image class="installExtension"
 											src="{sav:getIcon(identifier:'actions-system-extension-install')}"
@@ -142,7 +157,12 @@
 							</f:link.action> <f:comment>Upgrade the extension</f:comment> <f:if
 								condition="{extension.general.1.extensionMustbeUpgraded}">
 								<f:link.action action="upgradeExtension"
-									data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.upgrading\')}'}"
+									data="{
+										toggle:'popover',
+										content:'{f:translate(key:\'kickstarter.upgrading\')}',
+										bs-toggle:'popover',
+										bs-content:'{f:translate(key:\'kickstarter.upgrading\')}'
+									}"
 									arguments="{extKey:extension.general.1.extensionKey}">
 									<f:image class="upgradeExtension"
 										src="{sav:getIcon(identifier:'actions-system-extension-update')}"
@@ -154,7 +174,12 @@
 							<f:if condition="{extension.general.1.generateLocalDocumentationWithDockerCompose}==1"> 
  							<f:link.action
 								action="generateLocalDocumentationWithDockerCompose"
-								data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.generateLocalDocumentation\')}'}"
+								data="{
+									toggle:'popover',
+									content:'{f:translate(key:\'kickstarter.generateLocalDocumentation\')}',
+									bs-toggle:'popover',
+									bs-content:'{f:translate(key:\'kickstarter.generateLocalDocumentation\')}'
+								}"
 								arguments="{extKey:extension.general.1.extensionKey}">
 								<f:image class="generateLocalDocumentation"
 									src="{sav:getIcon(identifier:'actions-play')}"

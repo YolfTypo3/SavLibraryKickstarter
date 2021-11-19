@@ -17,4 +17,3 @@ $temporaryColumns = [
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('{model}','<f:for each="{table.fields}" as="field"><f:if condition="{field.type} != 'ShowOnly'">, {sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}<f:if condition="{field.type} == 'RichTextEditor'">;;;richtext[]:rte_transform[mode=ts]</f:if></f:if></f:for>');
 
 </sav:function></f:format.raw>
-?>

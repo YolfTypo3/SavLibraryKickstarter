@@ -28,6 +28,5 @@ class {modelName}Repository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 !
 }
-?>
 </f:alias>
 </sav:function>

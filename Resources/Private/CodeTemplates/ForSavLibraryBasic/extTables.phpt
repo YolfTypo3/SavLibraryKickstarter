@@ -14,4 +14,3 @@ defined('TYPO3_MODE') or die();
 </f:for>
 
 </sav:function>
-?>

@@ -13,13 +13,13 @@ of the extension.
 
 .. tip::
    
-   Click on the icons at the right hand side of **New Tables**:
+   Click on the icons at the right hand side of ``New Tables``:
    
    - to access to this section of the documentation.
    - to save the configuration
    - to generate the extension.
    
-The **New Tables** form has three different sections:
+The ``New Tables`` form has three different sections:
 
 - the table configuration.
 - the fields overview.
@@ -39,33 +39,33 @@ extension.
 
   .. important::
   
-     The SAV Library Kickstarter always prepend to the field **tx_yourextensioname** 
-     for **Plus** type and **tx_yourextensioname_domain_model** for **Basic** and **Mvc**
+     The SAV Library Kickstarter always prepend to the field ``tx_yourextensioname`` 
+     for ``Plus`` type and ``tx_yourextensioname_domain_model`` for ``Basic`` and ``Mvc``
      types.
      
-     If your enter, for example, **shortname**, the real name in the database will be
-     **tx_yourextensioname_shortname** for **Plus** type and 
-     **tx_yourextensioname_domain_model_shortname** for **Basic** and **Mvc**
+     If your enter, for example, ``shortname``, the real name in the database will be
+     ``tx_yourextensioname_shortname`` for ``Plus`` type and 
+     ``tx_yourextensioname_domain_model_shortname`` for ``Basic`` and ``Mvc``
      types.
      
-     For **Plus** type, if you leave this field empty, the real name in the database 
-     for the table will be  **tx_yourextensioname**.
+     For ``Plus`` type, if you leave this field empty, the real name in the database 
+     for the table will be  ``tx_yourextensioname``.
 
 - **Table Title**: enter the table title which will appear in the backend.
 
-- **Add "Deleted" field**: select the checkbox to add the field **deleted** to the table 
+- **Add "Deleted" field**: select the checkbox to add the field ``deleted`` to the table 
   in the database.
   
-- **Add "Hidden" field**: select the checkbox to add the field **hidden** to the table 
+- **Add "Hidden" field**: select the checkbox to add the field ``hidden`` to the table 
   in the database.
   
-- **Add "Starttime" field**: select the checkbox to add the field **starttime** to the table 
+- **Add "Starttime" field**: select the checkbox to add the field ``starttime`` to the table 
   in the database. 
   
-- **Add "Endtime" field**: select the checkbox to add the field **endtime** tor the table 
+- **Add "Endtime" field**: select the checkbox to add the field ``endtime`` tor the table 
   in the database.  
   
-- **Add Access "group" field**: select the checkbox to add the field **fe_group** to the table 
+- **Add Access "group" field**: select the checkbox to add the field ``fe_group`` to the table 
   in the database.
   
 - **Enabled localization features**: select the checkbox to add the fields for the localization
@@ -73,19 +73,19 @@ extension.
   
 - **Enable versioning**: select the checkbox to add the fields for versionning of the record.
 
-- **Add "Save and new" button in forms**: select the checkbox to add a **Save and New** button
-  in **Edit** views.
+- **Add "Save and new" button in forms**: select the checkbox to add a ``Save and New`` button
+  in ``Edit`` views.
   
 - **Allowed in "Insert Records" field in content elements**: select this checkbox if you want
   to add the table to the list of tables allowed to be included by content element type 
   "Insert records".
  
 - **Allowed on pages**: select this checkbox if you want to add the table to the
-  default list of allowed tables on pages. Use the **default icon** selector to choose
+  default list of allowed tables on pages. Use the ``default icon`` selector to choose
   the color of the record icon in the backend.
   
 - **Label-field**: use the selector to choose the field that will appear in the backend.
-  By defaul the label will be the **uid**.      
+  By defaul the label will be the ``uid``.      
   
 - **Label User Function**: when a special labeling is needed in the backend, you may use a 
   `label_userFunc <https://docs.typo3.org/m/typo3/reference-tca/master/en-us/Ctrl
@@ -97,7 +97,7 @@ extension.
 - **Manual ordering of records**: select this checkbox if you want to order manually the records.
 
 - **If "Manual ordering" is not set, order the table by this field**: use this selector to order 
-  the record by ascending order of the **Label-field** in the backend.
+  the record by ascending order of the ``Label-field`` in the backend.
   
 - **Descending order**: select this checkbox for a descending order.
 
@@ -106,28 +106,28 @@ extension.
 Fields Overview
 ===============   
 
-The first part of the **Field overview** section controls several actions.
+The first part of the ``Field overview`` section controls several actions.
 
 .. figure:: ../../../Images/UsersManualKickstarterMenuNewTablesFieldsOverviewControlActions.png 
 
-Icons at the right hand side of **Field Configuration** can be respectively used to:
+Icons at the right hand side of ``Field Configuration`` can be respectively used to:
 
 - add a new field.
 - save the configuration.
 - generate the extension.
-- sort the current view in the same order as the view in the selector **View**.
+- sort the current view in the same order as the view in the selector ``View``.
 - copy the field configuration of the selected field from the view in the selector 
-  **View** to the current view. 
+  ``View`` to the current view. 
 - copy the fields configuration from the view in the selector 
-  **View** to the current view.   
+  ``View`` to the current view.   
 
-The second part of the **Field overview** section deals with the control of fields
+The second part of the ``Field overview`` section deals with the control of fields
 which will be rendered in each view and each folder, if any for the view. You can 
 select a view or a folder in a view, edit, move or delete fields.
 
 .. figure:: ../../../Images/UsersManualKickstarterMenuNewTablesFieldsOverviewViews.png 
 
-The third part of the **Field overview** section provides extra fields control action.
+The third part of the ``Field overview`` section provides extra fields control action.
 
 .. figure:: ../../../Images/UsersManualKickstarterMenuNewTablesFieldsOverviewFieldsControlActions.png 
 
@@ -141,7 +141,7 @@ Field Configuration
 ===================
 
 This section is opened by clicking on a field name or an edit icon in the 
-**Fields Overview** section.
+``Fields Overview`` section.
 
 .. figure:: ../../../Images/UsersManualKickstarterMenuNewTablesFieldConfiguration.png 
 

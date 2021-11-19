@@ -34,4 +34,3 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['{extension.g
 </f:alias>
 </f:for>
 </sav:function></f:format.raw>
-?>

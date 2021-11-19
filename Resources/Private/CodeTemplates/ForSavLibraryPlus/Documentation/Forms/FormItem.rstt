@@ -1,0 +1,88 @@
+.. include:: ../../Includes.txt
+
+.. _<sav:lowerCamel>{form.title}:</sav:lowerCamel>
+.. role:: red
+
+<f:format.padding padLength="{form.title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
+{form.title}
+<f:format.padding padLength="{form.title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
+
+This form contains the following items.
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+   :glob:
+<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"> 
+ 
+<f:if condition="{form.listView} != 0">  
+   ListView/Index
+	<sav:function name="mkdir" arguments="{
+		extension: '{extension.extensionDirectory}', 
+		directory:'Documentation/Forms/{form.title}/ListView/'
+	}" />
+	<f:variable name="viewId">{form.listView}</f:variable>
+	<sav:render partial="Documentation/Forms/ListView/Index.rstt" arguments="{_all}" contentAs="Temp"> 
+		<sav:function name="filePutContents" arguments="{
+			filename: '{extension.extensionDirectory}Documentation/Forms/{form.title}/ListView/Index.rst', 
+			data:'{Temp}'
+		}" />
+	</sav:render>		
+</f:if>
+<f:if condition="{form.singleView} != 0">   
+   SingleView/Index
+	<sav:function name="mkdir" arguments="{
+		extension: '{extension.extensionDirectory}', 
+		directory:'Documentation/Forms/{form.title}/SingleView/'
+	}" />
+	<f:variable name="viewId">{form.singleView}</f:variable>
+	<sav:render partial="Documentation/Forms/SingleView/Index.rstt" arguments="{_all}" contentAs="Temp"> 
+		<sav:function name="filePutContents" arguments="{
+			filename: '{extension.extensionDirectory}Documentation/Forms/{form.title}/SingleView/Index.rst', 
+			data:'{Temp}'
+		}" />
+	</sav:render>   
+</f:if>
+<f:if condition="{form.editView} != 0">   
+   EditView/Index
+	<sav:function name="mkdir" arguments="{
+		extension: '{extension.extensionDirectory}', 
+		directory:'Documentation/Forms/{form.title}/EditView/'
+	}" />
+	<f:variable name="viewId">{form.editView}</f:variable>
+	<sav:render partial="Documentation/Forms/EditView/Index.rstt" arguments="{_all}" contentAs="Temp"> 
+		<sav:function name="filePutContents" arguments="{
+			filename: '{extension.extensionDirectory}Documentation/Forms/{form.title}/EditView/Index.rst', 
+			data:'{Temp}'
+		}" />
+	</sav:render>	   
+</f:if>
+<f:if condition="{form.specialView} != 0">   
+   SpecialView/Index
+	<sav:function name="mkdir" arguments="{
+		extension: '{extension.extensionDirectory}', 
+		directory:'Documentation/Forms/{form.title}/SpecialView/'
+	}" /> 
+	<f:variable name="viewId">{form.specialView}</f:variable>
+	<sav:render partial="Documentation/Forms/SpecialView/Index.rstt" arguments="{_all}" contentAs="Temp"> 
+		<sav:function name="filePutContents" arguments="{
+			filename: '{extension.extensionDirectory}Documentation/Forms/{form.title}/SpecialView/Index.rst', 
+			data:'{Temp}'
+		}" />
+	</sav:render>	  
+</f:if>
+<f:if condition="{form.query} != 0">   
+   Query/Index
+	<sav:function name="mkdir" arguments="{
+		extension: '{extension.extensionDirectory}', 
+		directory:'Documentation/Forms/{form.title}/Query/'
+	}" />
+	<f:variable name="queryId">{form.query}</f:variable>
+	<sav:render partial="Documentation/Forms/Query/Index.rstt" arguments="{_all}" contentAs="Temp"> 
+		<sav:function name="filePutContents" arguments="{
+			filename: '{extension.extensionDirectory}Documentation/Forms/{form.title}/Query/Index.rst', 
+			data:'{Temp}'
+		}" />
+	</sav:render>   
+</f:if>
+</sav:function>

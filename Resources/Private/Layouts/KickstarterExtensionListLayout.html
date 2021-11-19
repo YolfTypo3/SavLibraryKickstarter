@@ -1,8 +1,8 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:spaceless>
-	<f:be.container
-		includeCssFiles="{0:'{f:uri.resource(path:\'Css/backend.css\')}'}">
-		<div class="typo3-fullDoc">
+	<f:be.pageRenderer
+		includeCssFiles="{0:'{f:uri.resource(path:\'Css/backend.css\')}'}"/>
+		<div id="savLibraryKickstarter" class="typo3-fullDoc">
 			<div id="typo3-docbody">
 				<div id="header">
 					<div class="logo">
@@ -18,6 +18,5 @@
 				<f:flashMessages />
 				<f:render section="content" />
 			</div>
-		</div>
-	</f:be.container>
+		</div>		
 </f:spaceless>

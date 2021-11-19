@@ -1,0 +1,36 @@
+<f:format.raw>
+<f:for each="{source.fields}" as="field">
+<f:if condition="{subform}!=1">
+.. _{viewReference}.{source.configuration.label->sav:function(name:'md5int')}.{field.configuration.tableName}.{field.configuration.fieldName}:
+</f:if>
+!
+<f:variable name="fieldTitle">**Field**: ``{field.configuration.fieldName}``</f:variable> 
+{fieldTitle}  
+!
+**Type:** :ref:`{field.configuration.fieldType} <savlibrarykickstarter:{sav:documentationRenderType(string:field.configuration.fieldType)}>`
+<f:variable name="fieldConfiguration">{sav:documentationProcessFieldConfiguration(configuration:field.configuration)}</f:variable>
+	<f:if condition="{fieldConfiguration}"> 
+!
+**Configuration:**
+!
+::
+! 
+		<f:for each="{fieldConfiguration}" as="field" key="fieldKey">
+			<f:if condition="{fieldKey}=='a217895432'"> 
+				<f:then>
+!				
+**Subform Content**
+!
+   <sav:indent count="3" ><f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{source:field,formTitle:'{formTitle}.subform',subform:1}" /></sav:indent>  
+!
+				</f:then>
+				<f:else>				
+  - {fieldKey} = <sav:indent count="5" >{field}</sav:indent> 
+				</f:else>
+			</f:if>
+		</f:for>
+!		
+	</f:if>
+!
+</f:for>
+</f:format.raw>

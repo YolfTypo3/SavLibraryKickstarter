@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,9 +12,11 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
  *
  * The TYPO3 project - inspiring people to share!
  */
+namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
+
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
@@ -66,7 +67,7 @@ class BuildConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
         $type = $arguments['type'];
 
         // Gets the configuration manager
-        $configurationManager = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationManagerInterface::class);
+        $configurationManager = self::getConfigurationManager();
 
         // Gets the settings
         $settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
@@ -155,5 +156,20 @@ class BuildConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
 
         return $constraints;
     }
+
+    /**
+     * Gets the configuration manager
+     *
+     * @return ConfigurationManagerInterface
+     */
+    protected static function getConfigurationManager(): ConfigurationManagerInterface
+    {
+        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
+        if (version_compare($typo3Version->getVersion(), '11.0', '<')) {
+            $configurationManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)->get(ConfigurationManagerInterface::class);
+        } else {
+            $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        }
+        return $configurationManager;
+    }
 }
-?>
