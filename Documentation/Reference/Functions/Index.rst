@@ -105,6 +105,11 @@ func = makeExtLink;
         - folderTab = string; If the extension
           uses serveral folders, string is the folder tab name.
           
+        - forceAbsoluteUrl = 1; Forces links to internal pages to be absolute.
+        
+        - forceAbsoluteUrl.scheme = https; Defines the URL scheme https to be used. 
+          http is the default value.
+                  
         - page = string; Alias to folderTab. 
           
         - linkAccessRestrictedPages = 1; The link is built even if the page is protected.        
