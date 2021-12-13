@@ -120,7 +120,7 @@ func = makeExtLink;
         - valueIsUid = 1; The field value is used as the uid of the item
           associated with the link.
           
-		- subformUidForeignInLink = integer; Makes it possible to access to
+        - subformUidForeignInLink = integer; Makes it possible to access to
 		  a subform item, integer is the uid of the subform item.            
          
         - restrictLinkTo = ###usergroup=group_name###; The link will be
@@ -200,7 +200,7 @@ func = makeItemLink;
         - valueIsUid = 1; The field value is used as the uid of the item
           associated with the link (**Not yet implemented in SAV Library Mvc**).
           
-		- subformUidForeignInLink = integer; Makes it possible to access to
+        - subformUidForeignInLink = integer; Makes it possible to access to
 		  a subform item, integer is the uid of the subform item.       
 
 
