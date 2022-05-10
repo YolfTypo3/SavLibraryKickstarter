@@ -336,9 +336,18 @@
              <trans-unit id="kickstarter.generalItem.debug" xml:space="preserve">
                 <source>Debug Queries (Use only for developments):</source>
             </trans-unit>
+             <trans-unit id="kickstarter.generalItem.debug.none" xml:space="preserve">
+                <source>Off</source>
+            </trans-unit>                        
+            <trans-unit id="kickstarter.generalItem.debug.queriesInError" xml:space="preserve">
+                <source>Queries with errors</source>
+            </trans-unit>
+            <trans-unit id="kickstarter.generalItem.debug.queriesAll" xml:space="preserve">
+                <source>All queries</source>
+            </trans-unit>     
             <trans-unit id="kickstarter.generalItem.version" xml:space="preserve">
                 <source>New version:</source>
-            </trans-unit>
+            </trans-unit>                   
             <trans-unit id="kickstarter.viewsItem.title" xml:space="preserve">
                 <source>Name:</source>
             </trans-unit>

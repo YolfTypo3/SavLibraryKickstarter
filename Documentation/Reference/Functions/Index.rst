@@ -121,7 +121,7 @@ func = makeExtLink;
           associated with the link.
           
         - subformUidForeignInLink = integer; Makes it possible to access to
-		  a subform item, integer is the uid of the subform item.            
+          a subform item, integer is the uid of the subform item.            
          
         - restrictLinkTo = ###usergroup=group_name###; The link will be
           displayed if the user belongs to the ``group_name``.
@@ -201,7 +201,7 @@ func = makeItemLink;
           associated with the link (**Not yet implemented in SAV Library Mvc**).
           
         - subformUidForeignInLink = integer; Makes it possible to access to
-		  a subform item, integer is the uid of the subform item.       
+          a subform item, integer is the uid of the subform item.       
 
 
 

@@ -113,7 +113,6 @@
 									title="{f:translate(key:'kickstarter.overwrite')}" />
 							</f:form.button>
 
-
 							<f:comment>Compatibility</f:comment>
 							<label for="compatibility"><f:translate
 									key="kickstarter.generalItem.compatibility" /></label>
@@ -151,11 +150,14 @@
 							<f:comment>Debug Query flag</f:comment>
 							<label for="debug"><f:translate
 									key="kickstarter.generalItem.debug" /></label>
-							<f:form.hidden name="general[debug]" value="0" />
-							<f:form.checkbox class="checkbox" id="debug"
-								name="general[debug]" value="1"
-								checked="{extension.general.1.debug}" />
-
+							<f:form.select id="debug" name="general[debug]"
+								options="{
+                                    0:'{f:translate(key:\'kickstarter.generalItem.debug.none\')}',
+                                    1:'{f:translate(key:\'kickstarter.generalItem.debug.queriesInError\')}',
+                                    2:'{f:translate(key:\'kickstarter.generalItem.debug.queriesAll\')}'
+                                }"
+								value="{extension.general.1.debug}" />	
+															
 							<f:comment>Version</f:comment>
 							<label for="debug"> <f:translate
 									key="kickstarter.generalItem.version" />

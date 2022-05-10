@@ -120,10 +120,10 @@ Extensions Generated for SAV Library Mvc
 
 - SAV Calendar Mvc
 
-Filters for SAV Library Plus
+Filters for SAV Library Mvc
 ----------------------------    
     
-- SAV Filter MVC
+- SAV Filters
 
 Extensions Generated as Basic Extensions
 ----------------------------------------

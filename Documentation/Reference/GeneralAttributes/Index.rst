@@ -737,7 +737,7 @@ mailAuto
           of the person who will receive the mail and process the information.
          
         - mailReceiverFromQuery=MySQL_Query; The receiver is obtained from a
-          select query with an alias ``value``* that will used to retreive the
+          select query with an alias ``value`` that will used to retreive the
           receiver. Example:
          
         ::
@@ -871,6 +871,8 @@ orderLinkInTitleSetup
          
         - ascdesc: two icons are displayed with separate links to make an
           ascending or descending sort.
+          
+        - label: the field label is displayed.
          
         - if there is no value, nothing is displayed.
       

@@ -15,7 +15,7 @@ This item opens the form for the configuration of the extension.
    Click on the icons at the right hand side of ``Extension Configuration``:
    
    - to access to this section of the documentation.
-   - to save your configuration
+   - to save your configuration.
    - to generate the extension.
 
 - **Title for the extension manager**: title which will be displayed in 
@@ -127,9 +127,31 @@ This item opens the form for the configuration of the extension.
   if you ``manually`` modify the ``ext_localconf.php`` file. 
   It will prevent the SAV Library Kickstarter to rebuild it.
   
-- **Debug Queries (Use only for developments)**: set this option to display 
-  error messages on queries, if any. The ``Debug Query`` option should not 
-  be left in the final version of your extension for security reasons.
+- **Debug Queries (Use only for developments)**: selector which defines
+  the level of debuging. The options are:
+  
+  - ``Off``: no debugging is provided.
+  - ``Queries with errors``: debugging is provided for queries with errors.
+  - ``All queries``: debugging is provided for all queries.
+
+  .. warning::
+  
+    For security reasons, set this selector to ``Off`` in the 
+    final version of your extension.
+  
+  By default, debug information is provided by the TYPO3 Core ``debug()`` function.
+  However, it is often easier to use the TYPO3 Logging system by adding the 
+  following configuration to ``typo3conf/AdditionalConfiguration.php``:
+  
+  .. code::
+  
+    $GLOBALS['TYPO3_CONF_VARS']['LOG']['YolfTypo3']['SavLibraryPlus']['writerConfiguration'] = [
+        \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
+            \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+                'logFile' => \TYPO3\CMS\Core\Core\Environment::getVarPath() . '/log/SavLibraryPlus.log'
+            ],
+        ],
+    ];
   
 - **New version**: use these checkboxes to automatically ugrade the version of your extension.
 
