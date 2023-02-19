@@ -15,7 +15,9 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for sorting the fields in a view.
@@ -24,7 +26,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class SortFieldsViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -37,18 +39,22 @@ class SortFieldsViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the viewhelper
+     * Renders the item
      *
-     * @return array Sorted fields
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render(): array
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $viewKey = $this->arguments['viewKey'];
-        $fields = $this->arguments['fields'];
+        $viewKey = $arguments['viewKey'];
+        $fields = $arguments['fields'];
 
         if ($fields === null) {
-            $fields = $this->renderChildren();
+            $fields = $renderChildrenClosure();
         }
 
         $sortedKeys = [];

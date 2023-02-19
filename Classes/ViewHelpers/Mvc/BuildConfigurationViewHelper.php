@@ -15,7 +15,9 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for to build the view configuration.
@@ -34,7 +36,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class BuildConfigurationViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -46,17 +48,21 @@ class BuildConfigurationViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the viewhelper
+     * Renders the item
      *
-     * @return array The configuration
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render(): array
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $field = $this->arguments['field'];
+        $field = $arguments['field'];
 
         if ($field === null) {
-            $field = $this->renderChildren();
+            $field = $renderChildrenClosure();
         }
 
         $configuration = [];
@@ -82,7 +88,7 @@ class BuildConfigurationViewHelper extends AbstractViewHelper
                     $attributeName = trim(substr($item, 0, $position));
 
                     // Removes trailing spaces
-                    $attributeValue = htmlspecialchars(ltrim(substr($item, $position + 1)));
+                    $attributeValue = str_replace('\'', '\\\'',ltrim(substr($item, $position + 1)));
                     $attributeValue = preg_replace('/\s+([\n\r])/', '$1', $attributeValue);
                     $configuration[$attributeName] = $attributeValue;
                 }

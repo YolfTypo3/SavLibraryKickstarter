@@ -1,5 +1,5 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<?php
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 <f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
 <f:alias map="{
     pluginSignature:  '{extension.general.1.extensionKey->sav:upperCamel()->sav:toLower()}_{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()->sav:toLower()}',

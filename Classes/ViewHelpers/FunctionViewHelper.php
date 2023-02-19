@@ -123,6 +123,19 @@ class FunctionViewHelper extends AbstractViewHelper
     }
 
     /**
+     * Converts a camel string to underscored
+     *
+     * @param string $string
+     *            The string to convert
+     * @return string The underscored string
+     */
+    private function underscored(string $string = null): string
+    {
+        return ($string === null ? '' : GeneralUtility::camelCaseToLowerCaseUnderscored($string));
+    }
+
+
+    /**
      * Returns true if the arguments is null
      *
      * @param mixed $argument
@@ -383,6 +396,18 @@ class FunctionViewHelper extends AbstractViewHelper
         return str_repeat($string , $arguments);
     }
 
+    /**
+     * Regular expression to replace in a string
+     *
+     * @param string|null $string
+     *            The argument
+     * @param array $arguments
+     * @return string
+     */
+    private function regexp($string, array $arguments = null): string
+    {
+        return preg_replace($arguments['pattern'], $arguments['replacement'], $string);
+    }
 
     /**
      * Returns an empty string
@@ -569,4 +594,6 @@ class FunctionViewHelper extends AbstractViewHelper
     {
         return '}';
     }
+
+
 }

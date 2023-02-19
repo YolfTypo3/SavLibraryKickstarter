@@ -1,0 +1,64 @@
+.. include:: ../../Includes.txt
+<sav:function name="removeEmptyLines" arguments="{keepLine:'!',htmlentitiesDecode:1}"> 
+.. _newTables:
+.. role:: red
+!
+==========
+New Tables
+==========
+!
+This extension contains the following new tables:
+<f:for each="{extension.newTables}" as="table" key="tableKey">
+<f:variable name="tableName">{sav:buildTableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename)}</f:variable>
+!
+- :ref:`{tableName} <{tableName}>` 
+</f:for>
+!
+<f:for each="{extension.newTables}" as="table" key="tableKey">
+<f:variable name="tableName">{sav:buildTableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename)}</f:variable>
+.. _{tableName}:
+!
+<f:variable name="title">Table: ``{tableName}``</f:variable>
+{title}
+<f:format.padding padLength="{title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
+!
+**Label:** ``{table.title}``
+!
+Fields
+------
+	<f:for each="{table.fields}" as="field" key="fieldKey">
+!	
+..  container:: row m-0 p-0
+!
+    .. container:: card px-0 h-100
+!
+        ..  rst-class:: card-header
+!
+            ..  rubric:: ``{field.fieldname}``
+!    
+        .. container:: card-body
+!    
+            :Label: {field.title} 
+            :Type: :ref:`{field.type} <savlibrarykickstarter:{sav:documentationRenderType(string:field.type)}>` 
+<f:variable name="usedIn">{sav:documentationRenderUsedIn(extension:extension, name:'newTables', tableKey:tableKey, fieldKey:fieldKey)}</f:variable>
+<f:if condition="{usedIn}">
+<f:then>
+            :Used in: 
+!
+<sav:indent count="12">
+{usedIn}
+</sav:indent>
+</f:then>
+<f:else>
+            :Used in: 
+!            
+                .. warning::
+
+	               Field not used in views.
+</f:else>
+</f:if>
+	</f:for>
+!
+</f:for>
+!
+</sav:function>

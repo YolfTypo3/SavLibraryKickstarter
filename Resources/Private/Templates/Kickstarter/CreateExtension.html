@@ -14,7 +14,7 @@
 				<ul>
 					<li class="extensionName"><f:link.action
 							action="editExtension"
-							arguments="{extKey:extension.general.1.extensionKey}">{extension.general.1.extensionKey}</f:link.action></li>
+							arguments="{extensionKey:extension.general.1.extensionKey}">{extension.general.1.extensionKey}</f:link.action></li>
 				</ul>
 			</f:for>
 		</div>
@@ -24,7 +24,7 @@
 		<f:alias map="{sectionItem:'{extension.{section}.{itemKey}}'}">
 			<div id="{section}Section">
 				<f:form method="post" action="save" name="{section}"
-					arguments="{extKey:extKey, section:section, itemKey:itemKey}">
+					arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
 					<f:form.hidden name="general[section]" value="{section}" />
 					<f:form.hidden name="general[itemKey]" value="{itemKey}" />
 					<div id="content">
@@ -54,7 +54,7 @@
 							<f:comment>Extension key</f:comment>
 							<label for="extensionKey"><f:translate
 									key="kickstarter.{section}Item.extensionKey" /></label>
-							<f:form.textfield id="extensionKey" name="extKey" value="" />
+							<f:form.textfield id="extensionKey" name="extensionKey" value="" />
 
 							<f:comment>Vendor name</f:comment>
 							<label for="pluginTitle"><f:translate
@@ -149,8 +149,7 @@
 							</f:comment>
 							<label for="keepExtLocalConf"><f:translate
 									key="kickstarter.generalItem.keepExtLocalConf" /></label>
-							<f:form.hidden name="general[keepExtLocalConf]" value="0" />
-							<f:form.checkbox class="checkbox" id="keepExtLocalConf"
+							<sav:form.checkbox class="checkbox" id="keepExtLocalConf"
 								name="general[keepExtLocalConf]" value="1"
 								checked="{extension.general.1.keepExtLocalConf}" />
 

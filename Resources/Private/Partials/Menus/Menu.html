@@ -1,20 +1,20 @@
 <div id="menu">
 	<ul>
 		<f:render partial="Menus/MenuItemWithEditButton"
-			arguments="{extKey:extKey, section:'emconf', itemKey:1, selectedItem:selectedItem}" />
+			arguments="{extensionKey:extensionKey, section:'emconf', itemKey:1, selectedItem:selectedItem}" />
 		<f:render partial="Menus/MenuItemWithEditButton"
-			arguments="{extKey:extKey, section:'documentation', itemKey:1, selectedItem:selectedItem}" />
+			arguments="{extensionKey:extensionKey, section:'documentation', itemKey:1, selectedItem:selectedItem}" />
 		<f:render partial="Menus/MenuItemWithNewButton"
-			arguments="{extKey:extKey, section:'newTables', sectionItems:extension.newTables, selectedItem:selectedItem}" />
+			arguments="{extensionKey:extensionKey, section:'newTables', sectionItems:extension.newTables, selectedItem:selectedItem}" />
 		<f:render partial="Menus/MenuItemWithNewButton"
-			arguments="{extKey:extKey, section:'existingTables', sectionItems:extension.existingTables, selectedItem:selectedItem}" />
+			arguments="{extensionKey:extensionKey, section:'existingTables', sectionItems:extension.existingTables, selectedItem:selectedItem}" />
 		<f:render partial="Menus/MenuItemWithNewButton"
-			arguments="{extKey:extKey, section:'views', sectionItems:extension.views, selectedItem:selectedItem}" />
+			arguments="{extensionKey:extensionKey, section:'views', sectionItems:extension.views, selectedItem:selectedItem}" />
 		<f:if condition="{isAllowed}">
 			<f:render partial="Menus/MenuItemWithNewButton"
-				arguments="{extKey:extKey, section:'queries', sectionItems:extension.queries, selectedItem:selectedItem}" />
+				arguments="{extensionKey:extensionKey, section:'queries', sectionItems:extension.queries, selectedItem:selectedItem}" />
 		</f:if>
 		<f:render partial="Menus/MenuItemWithNewButton"
-			arguments="{extKey:extKey, section:'forms', sectionItems:extension.forms, selectedItem:selectedItem}" />
+			arguments="{extensionKey:extensionKey, section:'forms', sectionItems:extension.forms, selectedItem:selectedItem}" />
 	</ul>
 </div>

@@ -26,7 +26,7 @@
 												<f:link.action
 													class="{f:if(condition:'{selected}', then:'{class} bold')}"
 													action="editFieldConfiguration"
-													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}"
+													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}"
 													section="{sav:function(name:'md5int', arguments:subformField.fieldname)}">
                                                     {subformField.fieldname}
                                                 </f:link.action>
@@ -41,35 +41,32 @@
 												<f:form.hidden class="hidden"
 													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][order][{sectionItemViewKey}]"
 													value="{order}" />
-												<f:form.hidden class="hidden"
-													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][folders][{sectionItemViewKey}]"
-													value="{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}" />
-												<f:form.checkbox class="checkbox"
+												<sav:form.checkbox class="checkbox"
 													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][selected][{sectionItemViewKey}]"
 													value="1" checked="{selected}" />
 												<f:link.action action="editFieldConfiguration"
-													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}">
+													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}">
 													<f:image class="editFieldConfiguration"
 														src="{sav:getIcon(identifier:'actions-document')}"
 														alt="{f:translate(key:'kickstarter.edit')}"
 														title="{f:translate(key:'kickstarter.edit')}" />
 												</f:link.action>
 												<f:link.action action="moveDownField"
-													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
+													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="moveDownField"
 														src="{sav:getIcon(identifier:'actions-move-down')}"
 														alt="{f:translate(key:'kickstarter.moveDown')}"
 														title="{f:translate(key:'kickstarter.moveDown')}" />
 												</f:link.action>
 												<f:link.action action="moveUpField"
-													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
+													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="moveUpField"
 														src="{sav:getIcon(identifier:'actions-move-up')}"
 														alt="{f:translate(key:'kickstarter.moveUp')}"
 														title="{f:translate(key:'kickstarter.moveUp')}" />
 												</f:link.action>
 												<f:link.action action="deleteField"
-													arguments="{extKey:extKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
+													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="deleteField"
 														src="{sav:getIcon(identifier:'actions-delete')}"
 														alt="{f:translate(key:'kickstarter.delete')}"

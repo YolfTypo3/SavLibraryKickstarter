@@ -11,9 +11,20 @@
 <f:variable name="fieldConfiguration">{sav:documentationProcessFieldConfiguration(configuration:field.configuration)}</f:variable>
 	<f:if condition="{fieldConfiguration}"> 
 !
+<f:if condition="{field.configuration.fieldType}=='RelationManyToManyAsSubform'">
+<f:then>
+<f:if condition="{fieldConfiguration-> f:count()}>1">
 **Configuration:**
 !
 ::
+</f:if>
+</f:then>
+<f:else>
+**Configuration:**
+!
+::
+</f:else>
+</f:if>
 ! 
 		<f:for each="{fieldConfiguration}" as="field" key="fieldKey">
 			<f:if condition="{fieldKey}=='a217895432'"> 

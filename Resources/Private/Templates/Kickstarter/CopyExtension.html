@@ -14,7 +14,7 @@
 				<ul>
 					<li class="extensionName"><f:link.action
 							action="editExtension"
-							arguments="{extKey:extension.general.1.extensionKey}">{extension.general.1.extensionKey}</f:link.action></li>
+							arguments="{extensionKey:extension.general.1.extensionKey}">{extension.general.1.extensionKey}</f:link.action></li>
 				</ul>
 			</f:for>
 		</div>
@@ -24,7 +24,7 @@
 		<f:alias map="{sectionItem:'{extension.{section}.{itemKey}}'}">
 			<div id="{section}Section">
 				<f:form method="post" action="save" name="{section}"
-					arguments="{extKey:extKey, section:section, itemKey:itemKey}">
+					arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
 					<f:form.hidden name="general[section]" value="{section}" />
 					<f:form.hidden name="general[itemKey]" value="{itemKey}" />
 					<div id="content">
@@ -53,10 +53,10 @@
 							<f:comment>Copy the Extensionf</f:comment>
 							<label><f:translate
 									key="kickstarter.{section}Item.oldExtensionKey" /></label><span
-								class="oldExtensionKey">{extKey}</span> <label
+								class="oldExtensionKey">{extensionKey}</span> <label
 								for="newExtensionKey"><f:translate
 									key="kickstarter.{section}Item.newExtensionKey" /></label>
-							<f:form.textfield id="newExtensionKey" name="newExtKey" value="" />
+							<f:form.textfield id="newExtensionKey" name="newExtensionKey" value="" />
 						</div>
 					</div>
 				</f:form>

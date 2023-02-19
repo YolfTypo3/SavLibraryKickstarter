@@ -1,0 +1,200 @@
+<f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+digraph {extension.general.1.extensionKey} {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	graph [
+		rankdir = "LR"
+	];
+	node [
+		fontsize = "16"
+	];
+	edge [
+	];
+	
+<f:comment>Generates the node for new tables</f:comment>
+<f:for each="{extension.newTables}" as="table" key="tableKey" >
+<f:alias map="{
+  model:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}',
+  modelForMM:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}' 
+}">
+
+	"{model}" [
+		label = 
+			<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD PORT="table"><FONT POINT-SIZE="18"><B>{model}</B></FONT></TD></TR>
+			    <TR><TD BGCOLOR="orange" PORT="uid">uid</TD></TR>
+				<TR><TD PORT="pid">pid</TD></TR>
+				<TR><TD PORT="tstamp">tstamp</TD></TR>
+				<TR><TD PORT="crdate">crdate</TD></TR>
+				<TR><TD PORT="cruser_id">cruser_id</TD></TR>		
+			<f:if condition="{table.versioning}">
+				<TR><TD PORT="t3ver_oid">t3ver_oid</TD></TR>	
+				<TR><TD PORT="t3ver_id">t3ver_id</TD></TR>	
+				<TR><TD PORT="t3ver_wsid">t3ver_wsid</TD></TR>	
+				<TR><TD PORT="t3ver_label">t3ver_label</TD></TR>	
+				<TR><TD PORT="t3ver_state">t3ver_state</TD></TR>	
+				<TR><TD PORT="t3ver_count">t3ver_count</TD></TR>	
+				<TR><TD PORT="t3ver_tstamp">t3ver_tstamp</TD></TR>	
+				<TR><TD PORT="t3_origuid">t3_origuid</TD></TR>	
+			</f:if>
+			<f:if condition="{table.localization}">
+				<TR><TD PORT="sys_language_uid">sys_language_uid</TD></TR>	
+				<TR><TD PORT="l10n_parent">l10n_parent</TD></TR>	
+				<TR><TD PORT="l10n_diffsource">l10n_diffsource</TD></TR>	
+			</f:if>
+			<f:if condition="{table.sorting}">
+				<TR><TD PORT="sorting">sorting</TD></TR>	
+			</f:if>
+			<f:if condition="{table.add_deleted}">
+				<TR><TD PORT="deleted">deleted</TD></TR>	
+			</f:if>
+			<f:if condition="{table.add_hidden}">
+				<TR><TD PORT="hidden">hidden</TD></TR>	
+			</f:if>
+			<f:if condition="{table.add_starttime}">
+				<TR><TD PORT="starttime">starttime</TD></TR>	
+			</f:if>
+			<f:if condition="{table.add_endtime}">
+				<TR><TD PORT="endtime">endtime</TD></TR>	
+			</f:if>
+			<f:if condition="{table.add_access}">
+				<TR><TD PORT="fe_group">fe_group</TD></TR>	
+			</f:if>
+			<f:for each="{table.fields}" as="field">
+			    <f:if condition="{field.type} != 'ShowOnly'">
+				<TR><TD PORT="{field.fieldname}">{field.fieldname}</TD></TR>	
+			    </f:if>
+			</f:for>
+			<f:if condition="{sav:CheckIfFieldsForSpecialViewAreRequired(extension:extension, model:model)}">
+				<TR><TD PORT="_submitted_data_">_submitted_data_</TD></TR>	
+				<TR><TD PORT="_validated_">_validated_</TD></TR>	
+			</f:if>
+			</TABLE>>
+		shape = "none"
+	];
+
+<f:comment>Generates the edge for mm tables</f:comment>
+<f:for each="{table.fields}" as="field">
+<f:variable name="condition1"><f:if condition="{field.type}=='RelationManyToManyAsSubform'">1</f:if></f:variable>
+<f:variable name="condition2"><f:if condition="{field.type}=='RelationManyToManyAsDoubleSelectorbox' && {field.conf_relations_mm}==1">1</f:if></f:variable>
+<f:if condition="{condition1} || {condition2}">
+	<f:if condition="{field.conf_norelation} == 1"> 
+		<f:then>
+		</f:then>
+		<f:else>
+            <f:alias
+                map="{
+                    rel_table:'{f:if(condition:\'{field.conf_rel_table}==\"_CUSTOM\"\',then:field.conf_custom_table_name,else:field.conf_rel_table)}',
+                    arrowtail:'{f:if(condition:\'{field.conf_rel_dummyitem}\',then:\'noneteeodot\',else:\'noneteenonetee\')}'
+                }">    
+            {model}:{field.fieldname} -> {rel_table}:table [dir="both", arrowhead="crowodot", arrowtail="crowodot", label="{modelForMM}_{field.fieldname}_mm", fontcolor="darkred", color="darkred"];       
+            </f:alias>
+		</f:else>
+	</f:if>
+</f:if>
+
+<f:comment>Generates the edge for one-to-many relation tables with only two fields</f:comment>
+<f:if condition="{field.type} == 'RelationOneToManyAsSelectorbox'">
+	<f:variable name="rel_table"><f:switch expression="{field.conf_rel_table}">
+    		<f:case value="_CUSTOM">{field.conf_custom_table_name}</f:case>
+    		<f:case value="pages">pages</f:case>    
+    		<f:case value="fe_users">fe_users</f:case>
+    		<f:case value="fe_groups">fe_groups</f:case>    
+    		<f:case value="tt_content">tt_content</f:case>
+    		<f:defaultCase></f:defaultCase>      
+		</f:switch></f:variable>
+	<f:if condition="{rel_table}">
+	
+	"{rel_table}" [
+		label = 
+			<<TABLE COLOR="darkgreen" BORDER="1" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD PORT="table"><FONT POINT-SIZE="18"><B>{rel_table}</B></FONT></TD></TR>
+			    <TR><TD BGCOLOR="orange" PORT="uid">uid</TD></TR>
+			    <TR><TD PORT="pid">pid</TD></TR>
+			</TABLE>>	
+		shape = "none"
+	];					
+	</f:if>   
+</f:if>  
+</f:for>
+
+    <f:comment>Processes relation one to many</f:comment>
+    <f:for each="{table.fields}" as="field" iteration="iterator">
+    <f:if condition="{field.type} =='RelationOneToManyAsSelectorbox'"> 
+	<f:alias
+		map="{
+			rel_table:'{f:if(condition:\'{field.conf_rel_table}==\"_CUSTOM\"\',then:field.conf_custom_table_name,else:field.conf_rel_table)}',
+			arrowtail:'{f:if(condition:\'{field.conf_rel_dummyitem}\',then:\'noneteeodot\',else:\'noneteenonetee\')}'
+		}">    
+    {rel_table}:uid -> {model}:{field.fieldname} [dir="both", arrowhead="crowodot", arrowtail="{arrowtail}", color="darkblue"];
+	</f:alias>
+    </f:if>  
+	</f:for>
+
+</f:alias>
+</f:for>
+
+<f:for each="{extension.existingTables}" as="table">
+<f:alias map="{
+  model:'{table.tablename}',
+  modelForMM:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}' 
+}">  
+
+	"{model}" [
+		label = 
+			<<TABLE BORDER="1" COLOR="darkgreen" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD PORT="table"><FONT POINT-SIZE="18"><B>{model}</B></FONT></TD></TR>
+			    <TR><TD BGCOLOR="orange" PORT="uid">uid</TD></TR>
+			    <TR><TD PORT="pid">pid</TD></TR>
+<f:if condition="{sav:checkIfNewFieldsAreCreatedInExistingTable(existingTable:table)}">
+    <f:for each="{table.fields}" as="field">  
+	<f:alias map="{  
+	  fieldName:'{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}'
+	}">     
+    	<f:if condition="{field.type} != 'ShowOnly'">
+    	<TR><TD BGCOLOR="lightblue" PORT="{fieldName}">{fieldName}</TD></TR>
+    	</f:if> 
+    </f:alias>	  
+    </f:for>
+</f:if>			    		    			    			    			    			    
+			</TABLE>>	
+		shape = "none"
+	];		
+	
+<f:for each="{table.fields}" as="field">
+<f:variable name="condition1"><f:if condition="{field.type}=='RelationManyToManyAsSubform'">1</f:if></f:variable>
+<f:variable name="condition2"><f:if condition="{field.type}=='RelationManyToManyAsDoubleSelectorbox' && {field.conf_relations_mm}==1">1</f:if></f:variable>
+<f:if condition="{condition1} || {condition2}">
+    <f:if condition="{field.conf_norelation} == 1"> 
+        <f:then>
+        </f:then>
+        <f:else>
+            <f:alias
+                map="{
+                    rel_table:'{f:if(condition:\'{field.conf_rel_table}==\"_CUSTOM\"\',then:field.conf_custom_table_name,else:field.conf_rel_table)}',
+                    arrowtail:'{f:if(condition:\'{field.conf_rel_dummyitem}\',then:\'noneteeodot\',else:\'noneteenonetee\')}'
+                }">    
+            {model}:{field.fieldname} -> {rel_table}:uid [dir="both", arrowhead="crowodot", arrowtail="crowodot", label="{modelForMM}_{field.fieldname}_mm", fontcolor="darkred", color="darkred"];       
+            </f:alias>
+        </f:else>
+    </f:if>
+</f:if>
+</f:for>
+
+    <f:for each="{table.fields}" as="field" iteration="iterator">
+    <f:if condition="{field.type} =='RelationOneToManyAsSelectorbox'"> 
+	<f:alias
+		map="{
+			rel_table:'{f:if(condition:\'{field.conf_rel_table}==\"_CUSTOM\"\',then:field.conf_custom_table_name,else:field.conf_rel_table)}',
+			arrowtail:'{f:if(condition:\'{field.conf_rel_dummyitem}\',then:\'noneteeodot\',else:\'noneteenonetee\')}'
+		}">    
+    {rel_table}:uid -> {model}:{fieldName} [dir="both", arrowhead="crowodot", arrowtail="{arrowtail}", color="darkblue"];
+	</f:alias>
+    </f:if>  
+	</f:for>
+
+</f:alias>
+</f:for>
+}
+</sav:function></f:format.raw>

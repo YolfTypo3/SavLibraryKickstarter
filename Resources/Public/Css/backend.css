@@ -881,6 +881,8 @@ div.folderTabs li.currentTab a span {
 	margin: 0px;
 	padding: 0px;
 	vertical-align: middle;
+    width: 16px;
+    height: 16px;	
 }
 
 #fieldsOverview div.header div.buttons select {
@@ -1171,6 +1173,10 @@ div.folderTabs li.currentTab a span {
 	font-weight: bold;
 }
 
+#fieldConfiguration div.configuration label.clearLeft {
+    clear: left;
+}
+
 #fieldConfiguration div.configuration select {
 	clear: left;
 	float: left;
@@ -1190,7 +1196,7 @@ div.folderTabs li.currentTab a span {
 }
 
 #fieldConfiguration div.configuration input.string {
-	width: 200px;
+	width: 300px;
 }
 
 #fieldConfiguration div.configuration input.itemLabel {

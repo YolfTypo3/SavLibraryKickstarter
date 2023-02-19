@@ -12,6 +12,14 @@
 <label for="conf_custom_table_name"><f:translate
 		key="kickstarter.field.conf_custom_table_name" /></label>
 
+<f:if condition="{mvc}">	
+<f:form.textfield class="string" id="conf_custom_model_name"
+    name="{section}[fields][{fieldKey}][conf_custom_model_name]"
+    value="{field.conf_custom_model_name}" />
+<label for="conf_custom_model_name"><f:translate
+        key="kickstarter.field.conf_custom_model_name" /></label>		
+</f:if>		
+
 <f:comment>Selector for the records storage page</f:comment>
 <f:form.select id="conf_rel_type"
 	name="{section}[fields][{fieldKey}][conf_rel_type]"
@@ -25,9 +33,7 @@
 		key="kickstarter.field.conf_rel_type" /></label>
 
 <f:comment>Checkbox for adding a blank item to the selector</f:comment>
-<f:form.hidden name="{section}[fields][{fieldKey}][conf_rel_dummyitem]"
-	value="0" />
-<f:form.checkbox id="conf_rel_dummyitem"
+<sav:form.checkbox id="conf_rel_dummyitem"
 	name="{section}[fields][{fieldKey}][conf_rel_dummyitem]" value="1"
 	checked="{field.conf_rel_dummyitem}" />
 <label for="conf_rel_dummyitem"><f:translate

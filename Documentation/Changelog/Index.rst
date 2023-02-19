@@ -12,6 +12,8 @@ Changelog
 Version  Changes
 =======  ===========================================================================
 11.5.0   - Compatibility changed to TYPO3 11.5.x.
+         - Generation of Entity Relationship Diagram added in the documentation.
+         - Generation of the documentation improved.
 
 10.4.0   - Compatibility changed to TYPO3 10.4.x.
 

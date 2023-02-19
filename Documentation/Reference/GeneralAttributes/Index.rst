@@ -12,16 +12,19 @@ Property                                                Data type   Default     
 :ref:`general.addEdit`                                  Boolean     0            Yes  No
 :ref:`general.addEditIfAdmin`                           Boolean     0            Yes  No
 :ref:`general.addEditIfNull`                            Boolean     0            Yes  No
-:ref:`general.addLeftIfNotNull`                         String                   Yes  No
-:ref:`general.addLeftIfNull`                            String                   Yes  No
+:ref:`general.addLeftIfNotNull`                         String                   Yes  Yes
+:ref:`general.addLeftIfNull`                            String                   Yes  Yes
 :ref:`general.addNewIcon`                               Boolean     0            Yes  No
-:ref:`general.addRighIfNotNull`                         String                   Yes  No
-:ref:`general.addRighIfNull`                            String                   Yes  No
-:ref:`general.alias`                                    Field name               Yes  No
+:ref:`general.addRighIfNotNull`                         String                   Yes  Yes
+:ref:`general.addRighIfNull`                            String                   Yes  Yes
+:ref:`general.alias`                                    Field name               Yes  Yes
+:ref:`general.classField`                               String                   Yes  Yes
 :ref:`general.classLabel`                               String                   Yes  Yes
 :ref:`general.classValue`                               String                   Yes  Yes
+:ref:`general.cut`                                      Boolean     0            Yes  Yes
 :ref:`general.cutIf`                                    String                   Yes  Yes
 :ref:`general.cutIfNull`                                Boolean     0            Yes  Yes
+:ref:`general.cutIfSameAsPrevious`                      Boolean     0            Yes  Yes
 :ref:`general.cutLabel`                                 Boolean     0            Yes  Yes
 :ref:`general.edit`                                     Boolean     1            Yes  Yes
 :ref:`general.editAdminPlus`                            Boolean     0            Yes  No
@@ -52,7 +55,7 @@ Property                                                Data type   Default     
 :ref:`general.stdWrapValue`                             stdWrap                  Yes  Yes
 :ref:`general.styleLabel`                               String                   Yes  Yes
 :ref:`general.styleValue`                               String                   Yes  Yes
-:ref:`general.tsObject`                                 cObject                  Yes  No
+:ref:`general.tsObject`                                 cObject                  Yes  Yes
 :ref:`general.tsProperties`                             String                   Yes  Yes
 :ref:`general.value`                                    String                   Yes  Yes
 :ref:`general.verifier`                                 String                   Yes  No
@@ -243,6 +246,22 @@ alias
         The displayed value will be provided by the fieldname value for the
         current record.
     
+    
+.. _general.classField:
+
+classField
+==========
+
+.. container:: table-row
+
+    Property
+        classField 
+   
+    Data type
+        String
+        
+    Description
+        The string will be added to the class associated with the field.
 
 
 .. _general.classLabel:
@@ -259,8 +278,7 @@ classLabel
         String
         
     Description
-        The default class ``label`` associated with the label of the displayed
-        value will be replaced by the string.
+        The string will be added to the class associated with the label.
 
 
 
@@ -278,9 +296,29 @@ classValue
         String
       
     Description
-        The default class ``value`` associated with the displayed value will be
-        replaced by the string.   
+        The string will be added to the class associated with the value.   
        
+
+.. _general.cut:
+
+cut
+===
+
+.. container:: table-row
+
+    Property
+        cut    
+
+    Data type
+        Boolean
+     
+    Description
+        Cuts the field. It can be used in special cases
+        when the configuration must be fetched, i.e. for the title bar,
+        but the field should not be displayed in the view.
+      
+    Default
+        0
 
 
 
@@ -353,6 +391,26 @@ cutIfNull
     Default
         0
 
+
+.. _general.cutIfSameAsPrevious:
+
+cutIfSameAsPrevious
+===================
+
+.. container:: table-row
+
+    Property
+        cutIfSameAsPrevious    
+
+    Data type
+        Boolean
+     
+    Description
+        In ListView, this attribute cut the field if its value is the same as
+        in the previous record.
+      
+    Default
+        0
 
 .. _general.cutLabel:
 

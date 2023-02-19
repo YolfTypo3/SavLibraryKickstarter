@@ -4,7 +4,7 @@
 <f:section name="menu">
 	<f:render partial="Menus/Menu"
 		arguments="{
-            extKey:extKey, 
+            extensionKey:extensionKey, 
             extension:extension,
             selectedItem:'queries_{itemKey}',
             isAllowed:isAllowed
@@ -14,7 +14,7 @@
 <f:section name="content">
 	<f:render partial="Sections/QueriesSection"
 		arguments="{
-            extKey:extKey,
+            extensionKey:extensionKey,
             extension:extension,
             itemKey:itemKey,
             isAllowed:isAllowed

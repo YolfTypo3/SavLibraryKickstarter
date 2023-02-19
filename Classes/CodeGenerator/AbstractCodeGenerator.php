@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -16,13 +18,13 @@
 namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Managers\SectionManager;
 
 abstract class AbstractCodeGenerator
 {
@@ -36,7 +38,7 @@ abstract class AbstractCodeGenerator
 
     /**
      *
-     * @var \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager
+     * @var SectionManager
      */
     protected $sectionManager;
 
@@ -59,30 +61,28 @@ abstract class AbstractCodeGenerator
     protected $extensionKey;
 
     /**
-     * Constructor.
+     * Injects the configuration manager
      *
+     * @param ConfigurationManager $configurationManager
      * @return void
      */
-    public function __construct($sectionManager)
+    public function injectConfigurationManager(ConfigurationManager $configurationManager)
     {
-        $this->sectionManager = $sectionManager;
+        // Sets the section manager
+        $this->sectionManager = $configurationManager->getSectionManager();
+
+        // Sets the extension key
         $this->extensionKey = $this->sectionManager->getItem('general')
             ->getItem(1)
             ->getItem('extensionKey');
 
         // Gets the path, including when the extension is not loaded
         $this->extensionDirectory = Environment::getPublicPath() . '/typo3conf/ext/' . $this->extensionKey . '/';
+
+        // Sets the controller
+        $this->controller = $configurationManager->getController();
     }
 
-    /**
-     * Injects the controller
-     *
-     * @param KickstarterController $controller
-     */
-    public function injectController(KickstarterController $controller)
-    {
-        $this->controller = $controller;
-    }
 
     /**
      * Builds composer.json.
@@ -126,6 +126,9 @@ abstract class AbstractCodeGenerator
      */
     protected function buildConfigurationTCA()
     {
+        // Removes existing directories
+        GeneralUtility::rmdir($this->extensionDirectory . 'Configuration/TCA', true);
+
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/TCA/');
 
         // For TCA, files are written during the generation
@@ -150,7 +153,23 @@ abstract class AbstractCodeGenerator
      */
     protected function buildExtLocalConf()
     {
-        if (! $this->sectionManager->getItem('general')
+        if ($this->sectionManager->getItem('general')
+            ->getItem(1)
+            ->getItem('BuildMigration') &&
+            file_exists($this->extensionDirectory . 'ext_localconf.php')) {
+            if (! file_exists($this->extensionDirectory . 'ext_localconf.save')) {
+                $fileContents = GeneralUtility::getUrl($this->extensionDirectory . 'ext_localconf.php');
+                GeneralUtility::writeFile($this->extensionDirectory . 'ext_localconf.save', $fileContents);
+            }
+            $fileContents = $this->generateFile('extLocalconf.phpt');
+            GeneralUtility::writeFile($this->extensionDirectory . 'ext_localconf.php', $fileContents);
+        } elseif ($this->sectionManager->getItem('general')
+            ->getItem(1)
+            ->getItem('keepExtLocalConf') &&
+            file_exists($this->extensionDirectory . 'ext_localconf.php')) {
+            $fileContents = GeneralUtility::getUrl($this->extensionDirectory . 'ext_localconf.php');
+            GeneralUtility::writeFile($this->extensionDirectory . 'ext_localconf.save', $fileContents);
+        } elseif (! $this->sectionManager->getItem('general')
             ->getItem(1)
             ->getItem('keepExtLocalConf') || ($this->sectionManager->getItem('general')
             ->getItem(1)
@@ -189,6 +208,20 @@ abstract class AbstractCodeGenerator
         // Generates the extension flexform
         $fileContents = $this->generateFile('Configuration/Flexforms/ExtensionFlexform.xmlt');
         GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/Flexforms/ExtensionFlexform.xml', $fileContents);
+    }
+
+    /**
+     * Builds the Configuration/Services.yaml file.
+     *
+     * @return void
+     */
+    protected function buildConfigurationServices()
+    {
+        // Generates Services.yaml file if it does not exist
+        if (! file_exists($this->extensionDirectory . 'Configuration/Services.yaml')) {
+            $fileContents = $this->generateFile('Configuration/Services.yamlt');
+            GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/Services.yaml', $fileContents);
+        }
     }
 
     /**
@@ -234,6 +267,7 @@ abstract class AbstractCodeGenerator
             $fileContents = $this->generateFile('Documentation/Settings.cfgt');
             GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Settings.cfg', $fileContents);
         }
+
         // docker-compose.yml
         if ($this->sectionManager->getItem('documentation')
             ->getItem(1)
@@ -241,16 +275,16 @@ abstract class AbstractCodeGenerator
             $fileContents = $this->generateFile('docker-compose.ymlt');
             GeneralUtility::writeFile($this->extensionDirectory . 'docker-compose.yml', $fileContents);
         }
+
         // Documentation/Includes.txt
         if (! file_exists($this->extensionDirectory . 'Documentation/Includes.txt')) {
             $fileContents = $this->generateFile('Documentation/Includes.txtt');
             GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Includes.txt', $fileContents);
         }
+
         // Documentation/Index.rst
-        //if (! file_exists($this->extensionDirectory . 'Documentation/Index.rst')) {
-            $fileContents = $this->generateFile('Documentation/Index.rstt');
-            GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Index.rst', $fileContents);
-        //}
+        $fileContents = $this->generateFile('Documentation/Index.rstt');
+        GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Index.rst', $fileContents);
 
         // Documentation/Introduction/Index.rst
         if (! file_exists($this->extensionDirectory . 'Documentation/Introduction/Index.rst')) {
@@ -263,7 +297,32 @@ abstract class AbstractCodeGenerator
             $fileContents = $this->generateFile('Documentation/Changelog/Index.rstt');
             GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/Changelog/Index.rst', $fileContents);
         }
+
+        // Documentation/EntityRelationshipDiagram
+        GeneralUtility::rmdir($this->extensionDirectory . 'Documentation/EntityRelationshipDiagram', true);
+
+        if ($this->sectionManager->getItem('documentation')
+            ->getItem(1)
+            ->getItem('AddEntityRelationshipDiagram')) {
+
+            GeneralUtility::mkdir_deep($this->extensionDirectory . 'Documentation/EntityRelationshipDiagram/');
+
+            $fileContents = $this->generateFile('Documentation/EntityRelationshipDiagram/Index.rstt');
+            GeneralUtility::writeFile($this->extensionDirectory . 'Documentation/EntityRelationshipDiagram/Index.rst', $fileContents);
+        }
     }
+
+    /**
+     * Removes the directory
+     *
+     * @param string directoryName
+     * @return void
+     */
+    protected function removeDirectory(string $directoryName)
+    {
+        GeneralUtility::rmdir($this->extensionDirectory . $directoryName, true);
+    }
+
 
     /**
      * Gets the code template directory

@@ -68,7 +68,7 @@
 			<f:comment>Special Configuration depending on the field type</f:comment>
 			<div class="configuration">
 				<f:render partial="Types/{field.type}Type.html"
-					arguments="{section:section, itemKey:itemKey, fieldKey:selectedFieldKey, field:field, extension:extension}" />
+					arguments="{section:section, itemKey:itemKey, fieldKey:selectedFieldKey, field:field, extension:extension, mvc:mvc}" />
 				<f:alias
 					map="{value:'{field.configuration->sav:getItem(key:sectionItemViewKey)}'}">
 					<f:form.hidden class="hidden"

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -67,6 +69,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
         $this->buildConfigurationFlexform();
         $this->buildConfigurationTca();
         $this->buildConfigurationTypoScript();
+        $this->buildConfigurationServices();
 
         // Generates Documentation files
         $this->buildDocumentation();

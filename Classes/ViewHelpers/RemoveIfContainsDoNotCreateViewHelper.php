@@ -15,7 +15,9 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper to check if the string contains "DO NOT CREATE".
@@ -35,7 +37,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class RemoveIfContainsDoNotCreateViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -47,17 +49,21 @@ class RemoveIfContainsDoNotCreateViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the viewhelper
+     * Renders the item
      *
-     * @return string Converted string
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render(): string
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $string = $this->arguments['string'];
+        $string = $arguments['string'];
 
         if ($string === null) {
-            $string = $this->renderChildren();
+            $string = $renderChildrenClosure();
         }
         if (strpos($string, 'DO NOT CREATE') === false) {
             return $string;

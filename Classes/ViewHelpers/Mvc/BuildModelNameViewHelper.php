@@ -16,7 +16,6 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 use TYPO3\CMS\Core\Package\PackageManager;
-use TYPO3\CMS\Core\Service\DependencyOrderingService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -53,6 +52,8 @@ class BuildModelNameViewHelper extends AbstractViewHelper
         $this->registerArgument('tableName', 'string', 'Table name', false, null);
         $this->registerArgument('extension', 'array', 'Extension', false, null);
         $this->registerArgument('removeFirstBackslash', 'boolean', 'Flag to remove the first backslash', false, false);
+        $this->registerArgument('shortName', 'boolean', 'If true returns the short name', false, false);
+        $this->registerArgument('tableType', 'string', 'If equals to new, the model is associated with a new table', false, '');
     }
 
     /**
@@ -66,6 +67,8 @@ class BuildModelNameViewHelper extends AbstractViewHelper
         $tableName = $this->arguments['tableName'];
         $extension = $this->arguments['extension'];
         $removeFirstBackslash = $this->arguments['removeFirstBackslash'];
+        $shortName = $this->arguments['shortName'];
+        $tableType = $this->arguments['tableType'];
 
         if ($tableName === null) {
             $tableName = $this->renderChildren();
@@ -73,14 +76,34 @@ class BuildModelNameViewHelper extends AbstractViewHelper
 
         // Extracts the extension and the short model names
         $match = [];
-        preg_match('/^tx_(?P<extensionName>\w+)_domain_model_(?P<shortModelName>\w+)$/', $tableName, $match);
+        if ($tableType == 'new' && $tableName == 'fe_groups') {
+            $modelName = \YolfTypo3\SavLibraryMvc\Domain\Model\FrontendUserGroup::class;
+            $shortModelName = 'FeGroups';
+        } elseif ($tableType == 'new' && $tableName == 'fe_users') {
+            $modelName = \YolfTypo3\SavLibraryMvc\Domain\Model\FrontendUser::class;
+            $shortModelName = 'FeUsers';
+        } elseif (preg_match('/^tx_(?P<extensionName>\w+)_domain_model_(?P<shortModelName>\w+)$/', $tableName, $match)) {
+            // Gets the extension key from the prefix
+            $extensionKey = self::getExtensionKeyByPrefix('tx_' . $match['extensionName']);
+            $shortModelName = GeneralUtility::underscoredToUpperCamelCase($match['shortModelName']);
+        } else {
+            // The model is in the extension
+            $extensionKey = $extension['general'][1]['extensionKey'];
+            $shortModelName = GeneralUtility::underscoredToUpperCamelCase($tableName);
+        }
 
-        // Gets the extension key from the prefix
-        $extensionKey = self::getExtensionKeyByPrefix('tx_' . $match['extensionName']);
+        // Returns the short name if required
+        if ($shortName) {
+            return $shortModelName;
+        }
 
         // Returns the model name
-        $shortModelName = GeneralUtility::underscoredToUpperCamelCase($match['shortModelName']);
-        $modelName = $extension['general'][1]['vendorName'] . '\\' . GeneralUtility::underscoredToUpperCamelCase($extensionKey) . '\\Domain\Model\\' . $shortModelName;
+        if (! isset($modelName)) {
+            $modelName = $extension['general'][1]['vendorName'] .
+                '\\' . GeneralUtility::underscoredToUpperCamelCase($extensionKey) .
+                '\\Domain\Model\\' . $shortModelName;
+        }
+
         if (! $removeFirstBackslash) {
             $modelName = '\\' . $modelName;
         }
@@ -100,8 +123,7 @@ class BuildModelNameViewHelper extends AbstractViewHelper
         // Build map of short keys referencing to real keys:
 
         if (! isset(self::$extensionKeyMap)) {
-            $dependencyOrderingService = GeneralUtility::makeInstance(DependencyOrderingService::class);
-            $packageManager = GeneralUtility::makeInstance(PackageManager::class, $dependencyOrderingService);
+            $packageManager = GeneralUtility::makeInstance(PackageManager::class);
             self::$extensionKeyMap = [];
             foreach ($packageManager->getAvailablePackages() as $package) {
                 $shortKey = str_replace('_', '', $package->getPackageKey());

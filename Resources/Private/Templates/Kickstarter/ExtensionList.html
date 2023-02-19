@@ -36,7 +36,7 @@
 					<ul>
 						<li class="extensionName"><f:link.action
 								action="editExtension"
-								arguments="{extKey:extension.general.1.extensionKey}">{extension.general.1.extensionKey}</f:link.action></li>
+								arguments="{extensionKey:extension.general.1.extensionKey}">{extension.general.1.extensionKey}</f:link.action></li>
 						<f:if
 							condition="{0:showExtensionVersionSelector} == {0:extension.general.1.extensionKey}">
 							<f:then>
@@ -54,7 +54,7 @@
 								<li
 									class="{sav:buildClassForExtensionVersion(extensionKey:extension.general.1.extensionKey, extensionVersion:extension.emconf.1.version)}"><f:link.action
 										action="selectExtensionVersion"
-										arguments="{extKey:extension.general.1.extensionKey}">{extension.emconf.1.version}</f:link.action></li>
+										arguments="{extensionKey:extension.general.1.extensionKey}">{extension.emconf.1.version}</f:link.action></li>
 							</f:else>
 						</f:if>
 						<li
@@ -90,7 +90,7 @@
 							</f:if></li>
 						<li class="buttons"><f:comment>Edit extension</f:comment> <f:link.action
 								action="editExtension"
-								arguments="{extKey:extension.general.1.extensionKey}">
+								arguments="{extensionKey:extension.general.1.extensionKey}">
 								<f:image class="editExtension"
 									src="{sav:getIcon(identifier:'actions-document')}"
 									alt="{f:translate(key:'kickstarter.editExtension')}"
@@ -103,14 +103,14 @@
 									bs-toggle:'popover',
 									bs-content:'{f:translate(key:\'kickstarter.generating\')}'
 								}"
-								arguments="{extKey:extension.general.1.extensionKey}">
+								arguments="{extensionKey:extension.general.1.extensionKey}">
 								<f:image class="installExtension"
 									src="{sav:getIcon(identifier:'actions-system-refresh')}"
 									alt="{f:translate(key:'kickstarter.generateExtension')}"
 									title="{f:translate(key:'kickstarter.generateExtension')}" />
 							</f:link.action> <f:comment>Copy extension</f:comment> <f:link.action
 								action="copyExtension"
-								arguments="{extKey:extension.general.1.extensionKey}">
+								arguments="{extensionKey:extension.general.1.extensionKey}">
 								<f:image class="copyExtension"
 									src="{sav:getIcon(identifier:'actions-duplicate')}"
 									alt="{f:translate(key:'kickstarter.copyExtension')}"
@@ -125,7 +125,7 @@
 											bs-toggle:'popover',
 											bs-content:'{f:translate(key:\'kickstarter.uninstalling\')}'
 										}"
-										arguments="{extKey:extension.general.1.extensionKey}">
+										arguments="{extensionKey:extension.general.1.extensionKey}">
 										<f:image class="uninstallExtension"
 											src="{sav:getIcon(identifier:'actions-system-extension-uninstall')}"
 											alt="{f:translate(key:'kickstarter.uninstallExtension')}"
@@ -140,7 +140,7 @@
 											bs-toggle:'popover',
 											bs-content:'{f:translate(key:\'kickstarter.installing\')}'
 										}"
-										arguments="{extKey:extension.general.1.extensionKey}">
+										arguments="{extensionKey:extension.general.1.extensionKey}">
 										<f:image class="installExtension"
 											src="{sav:getIcon(identifier:'actions-system-extension-install')}"
 											alt="{f:translate(key:'kickstarter.installExtension')}"
@@ -149,7 +149,7 @@
 								</f:else>
 							</f:if> <f:comment>Download extension</f:comment> <f:link.action
 								action="downloadExtension"
-								arguments="{extKey:extension.general.1.extensionKey}">
+								arguments="{extensionKey:extension.general.1.extensionKey}">
 								<f:image class="downloadExtension"
 									src="{sav:getIcon(identifier:'actions-system-extension-download')}"
 									alt="{f:translate(key:'kickstarter.downloadExtension')}"
@@ -163,7 +163,7 @@
 										bs-toggle:'popover',
 										bs-content:'{f:translate(key:\'kickstarter.upgrading\')}'
 									}"
-									arguments="{extKey:extension.general.1.extensionKey}">
+									arguments="{extensionKey:extension.general.1.extensionKey}">
 									<f:image class="upgradeExtension"
 										src="{sav:getIcon(identifier:'actions-system-extension-update')}"
 										alt="{f:translate(key:'kickstarter.upgradeExtension')}"
@@ -180,7 +180,7 @@
 									bs-toggle:'popover',
 									bs-content:'{f:translate(key:\'kickstarter.generateLocalDocumentation\')}'
 								}"
-								arguments="{extKey:extension.general.1.extensionKey}">
+								arguments="{extensionKey:extension.general.1.extensionKey}">
 								<f:image class="generateLocalDocumentation"
 									src="{sav:getIcon(identifier:'actions-play')}"
 									alt="{f:translate(key:'kickstarter.generateLocalDocumentation')}"

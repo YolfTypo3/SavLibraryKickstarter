@@ -62,7 +62,6 @@ class UseDefaultViewHelper extends AbstractViewHelper
         $path = $arguments['path'];
         $fileName = $arguments['fileName'];
         $default = $arguments['default'];
-
         if (file_exists($path . $fileName)) {
             return $fileName;
         } else {

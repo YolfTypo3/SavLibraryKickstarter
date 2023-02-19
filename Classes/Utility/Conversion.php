@@ -35,7 +35,7 @@ class Conversion
         $string = str_replace(' ', '_', $string);
         $parts = explode('_', $string);
         foreach ($parts as $part) {
-            $output .= ucfirst($part);
+            $output .= ucfirst(strtolower($part));
         }
         return $output;
     }
@@ -50,12 +50,8 @@ class Conversion
     static public function lowerCamel(string $string): string
     {
         $output = self::upperCamel($string);
-        if (function_exists('lcfirst')) {
-            return lcfirst($output);
-        } else {
-            $output[0] = strtolower($output[0]);
-            return $output;
-        }
+
+        return lcfirst($output);
     }
 
     /**

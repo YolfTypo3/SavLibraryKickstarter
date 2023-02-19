@@ -1,26 +1,72 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
-
+<f:format.raw> 
+!    
+    /**
+     * Getter for property <{lowerCamelFieldName}>.
+     *
 <f:if condition="{field.conf_relations_mm}">
-!
-    /**
-     * Adds a {field.fieldname->sav:lowerCamel()}
-     * 
-     * @param {field.conf_rel_table->sav:Mvc.BuildModelName(extension:extension)} ${field.fieldname->sav:lowerCamel()}
-     * @return void
-     */
-    public function add{field.fieldname->sav:upperCamel()}({field.conf_rel_table->sav:Mvc.BuildModelName(extension:extension)} ${field.fieldname->sav:lowerCamel()})
+<f:then>
+     * @return {type}
+</f:then>
+<f:else>
+     * @return string
+</f:else>
+</f:if>     */
+    public function get{upperCamelFieldName}(): {f:if(condition:field.conf_relations_mm, then:'?\TYPO3\CMS\Extbase\Persistence\ObjectStorage', else:'?string')}
     {
-        $this->{field.fieldname->sav:lowerCamel()}->attach(${field.fieldname->sav:lowerCamel()});
+        return $this->{lowerCamelFieldName};
     }
 !
     /**
-     * Removes a {field.fieldname->sav:lowerCamel()}
-     * 
-     * @param {field.conf_rel_table->sav:Mvc.BuildModelName(extension:extension)} ${field.fieldname->sav:lowerCamel()}
-     * @return void
-     */
-    public function remove{field.fieldname->sav:upperCamel()}({field.conf_rel_table->sav:Mvc.BuildModelName(extension:extension)} ${field.fieldname->sav:lowerCamel()})
-    {
-        $this->{field.fieldname->sav:lowerCamel()}->detach(${field.fieldname->sav:lowerCamel()});
-    }
+     * Setter for property <{lowerCamelFieldName}>.
+     *
+<f:if condition="{field.conf_relations_mm}">
+<f:then>
+     * @param {type} ${lowerCamelFieldName}
+</f:then>
+<f:else>
+     * @param string
+</f:else>
 </f:if>
+     * @return void
+     */
+    public function set{upperCamelFieldName}({f:if(condition:field.conf_relations_mm, then:'\TYPO3\CMS\Extbase\Persistence\ObjectStorage', else:'string')} ${lowerCamelFieldName})
+    {
+        $this->{lowerCamelFieldName} = ${lowerCamelFieldName};
+    }
+<f:if condition="{field.conf_relations_mm}">
+<f:variable name="typeForAddRemove">{type->sav:function(name:"regexp",arguments:"{pattern:'/^.*?\<(.*?)\>$/', replacement:'$1'}")}</f:variable>
+!
+    /**
+     * Adds a <{lowerCamelFieldName}>.
+     * 
+     * @param {typeForAddRemove} ${lowerCamelFieldName}
+     * @return void
+     */
+    public function add{upperCamelFieldName}({typeForAddRemove} ${lowerCamelFieldName})
+    {
+        $this->{lowerCamelFieldName}->attach(${lowerCamelFieldName});
+    }
+!
+    /**
+     * Removes a <{lowerCamelFieldName}>.
+     * 
+     * @param {typeForAddRemove} ${field.fieldname->sav:lowerCamel()}
+     * @return void
+     */
+    public function remove{upperCamelFieldName}({typeForAddRemove} ${lowerCamelFieldName})
+    {
+        $this->{lowerCamelFieldName}->detach(${lowerCamelFieldName});
+    }
+!
+    /**
+     * Unsets a <{lowerCamelFieldName}>.
+     * 
+     * @return void
+     */
+    public function unset{upperCamelFieldName}()
+    {
+        unset($this->{lowerCamelFieldName});
+    }  
+</f:if>
+</f:format.raw> 

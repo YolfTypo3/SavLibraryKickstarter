@@ -1,0 +1,54 @@
+.. include:: ../../Includes.txt
+<sav:function name="removeEmptyLines" arguments="{keepLine:'!',htmlentitiesDecode:1}"> 
+.. _existingTables:
+.. role:: red
+!
+===============
+Existing Tables
+===============
+!
+This extension modifies the following existing tables.
+<f:for each="{extension.existingTables}" as="table" key="tableKey">
+<f:variable name="tableName">{sav:buildTableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename,shortNameOnly:1)}</f:variable>
+!
+- :ref:`{tableName} <{tableName}>` 
+</f:for>
+!
+<f:for each="{extension.existingTables}" as="table" key="tableKey">
+<f:variable name="tableName">{sav:buildTableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename,shortNameOnly:1)}</f:variable>
+.. _{tableName}:
+!
+<f:variable name="title">Table: ``{tableName}``</f:variable>
+{title}
+<f:format.padding padLength="{title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
+!
+**Label:** ``{table.title}``
+!
+Fields
+------
+	<f:for each="{table.fields}" as="field" key="fieldKey">
+!	
+**Field:** ``{field.fieldname}`` 
+!
+**Label:** {field.title} 
+!
+**Type:** :ref:`{field.type} <savlibrarykickstarter:{sav:documentationRenderType(string:field.type)}>` 
+!
+<f:variable name="usedIn">{sav:documentationRenderUsedIn(extension:extension, name:'existingTables', tableKey:tableKey, fieldKey:fieldKey)}</f:variable>
+<f:if condition="{usedIn}">
+<f:then>
+**Used in:** 
+!
+{usedIn}
+</f:then>
+<f:else>
+.. warning::
+
+	Field not used in views.
+</f:else>
+</f:if>
+	</f:for>
+!
+</f:for>
+!
+</sav:function>

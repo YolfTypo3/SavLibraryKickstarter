@@ -14,12 +14,20 @@
 <label for="conf_custom_table_name"><f:translate
 		key="kickstarter.field.conf_custom_table_name" /></label>
 
+<f:if condition="{mvc}">    
+<f:form.textfield class="string" id="conf_custom_model_name"
+    name="{section}[fields][{fieldKey}][conf_custom_model_name]"
+    value="{field.conf_custom_model_name}" />
+<label for="conf_custom_model_name"><f:translate
+        key="kickstarter.field.conf_custom_model_name" /></label>       
+</f:if> 
+
 <f:comment>True MM relation by default</f:comment>
 <f:form.hidden name="{section}[fields][{fieldKey}][conf_relations_mm]"
 	value="1" />
 
 <f:comment>Checkbox for chosing a field with no relation generated</f:comment>
-<f:form.checkbox id="conf_norelation"
+<sav:form.checkbox id="conf_norelation"
 	name="{section}[fields][{fieldKey}][conf_norelation]" value="1"
 	checked="{field.conf_norelation}" />
 <label for="conf_norelation"><f:translate

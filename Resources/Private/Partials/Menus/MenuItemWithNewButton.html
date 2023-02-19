@@ -2,7 +2,7 @@
 <li class="section">
 	<div class="icon">
 		<f:link.action action="addItem"
-			arguments="{extKey:extKey, section:section}">
+			arguments="{extensionKey:extensionKey, section:section}">
 			<f:image
 				src="{sav:getIcon(identifier:'actions-add')}"
 				alt="{f:translate(key:'kickstarter.new')}"
@@ -19,7 +19,7 @@
 					class="item {f:if(condition:'{selectedItem} == {currentItem}',then:'selected')}">
 					<div class="icon">
 						<f:link.action action="deleteItem"
-							arguments="{extKey:extKey, section:section, itemKey:itemKey}">
+							arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
 							<f:image
 								src="{sav:getIcon(identifier:'actions-delete')}"
 								alt="{f:translate(key:'kickstarter.delete')}"
@@ -28,7 +28,7 @@
 					</div>
 					<div class="title">
 						<f:link.action class="{item.type}" action="{section}EditSection"
-							arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
+							arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
         {item.title}
       </f:link.action>
 					</div>

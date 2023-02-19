@@ -15,7 +15,9 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for transforming a string to lower case.
@@ -33,7 +35,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ToLowerViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -45,17 +47,21 @@ class ToLowerViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the string
+     * Renders the item
      *
-     * @return string Converted string
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render(): string
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $string = $this->arguments['string'];
+        $string = $arguments['string'];
 
         if ($string === null) {
-            $string = $this->renderChildren();
+            $string = $renderChildrenClosure();
         }
         return strtolower($string);
     }

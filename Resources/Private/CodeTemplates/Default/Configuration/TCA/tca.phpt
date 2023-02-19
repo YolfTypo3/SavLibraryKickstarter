@@ -1,8 +1,9 @@
 <sav:function name="removeEmptyLines">
 
-<f:for each="{extension.newTables}" as="newTable">
+<f:for each="{extension.newTables}" as="table">
 	<f:alias map="{
-		 model:'{sav:buildTableName(shortName:newTable.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}'
+        model:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}',
+        modelForMM:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
 	}">
 		<sav:saveContentToFile content='<f:render partial="Configuration/TCA/newTable.phpt" arguments="{_all}"  />'
  				extensionKey="{extension.general.1.extensionKey}" fileName="Configuration/TCA/{model}.php" />
@@ -13,7 +14,7 @@
     <f:alias map="{
         model: '{table.tablename}'
     }">
-        <sav:saveContentToFile content='<f:render partial="Configuration/TCA/existingTable.phpt" arguments="{table:table, model:model, extension:extension}" />'
+        <sav:saveContentToFile content='<f:render partial="Configuration/TCA/existingTable.phpt" arguments="{_all}" />'
             extensionKey="{extension.general.1.extensionKey}" fileName="Configuration/TCA/Overrides/{model}.php" directory="Configuration/TCA/Overrides"/>
     </f:alias>
 </f:for>
@@ -22,8 +23,8 @@
 <sav:saveContentToFile content='<f:render partial="Configuration/TCA/Overrides/tt_content.phpt" arguments="{extension:extension}" />'
             extensionKey="{extension.general.1.extensionKey}" fileName="Configuration/TCA/Overrides/tt_content.php" directory="Configuration/TCA/Overrides"/>
      
-<f:comment>Creates TCA/Overrides/sys_template.php if needed</f:comment>
-<f:if condition="{mvc}">     
+<f:if condition="{mvc}">  
+<f:comment>Creates TCA/Overrides/sys_template.php if needed</f:comment>   
 <sav:saveContentToFile content='<f:render partial="Configuration/TCA/Overrides/sys_template.phpt" arguments="{extension:extension}" />'
             extensionKey="{extension.general.1.extensionKey}" fileName="Configuration/TCA/Overrides/sys_template.php" directory="Configuration/TCA/Overrides"/>
 </f:if> 

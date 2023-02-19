@@ -55,6 +55,10 @@ The SAV Library Kickstarter generates extensions which include:
   
 - Management of different versions of the same extension,
 
+- Generation of the documentation,
+
+- Generation of the Entity Relationship Diagram,
+
 - Many other features.
 
 Code Generation for the SAV Library Mvc

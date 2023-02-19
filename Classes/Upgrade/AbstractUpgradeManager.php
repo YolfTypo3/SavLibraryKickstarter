@@ -15,22 +15,33 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
-use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
+use YolfTypo3\SavLibraryKickstarter\Managers\SectionManager;
 
 /**
  * Abstract upgrade manager
  *
  * @package SavLibraryKickstarter
  */
-abstract class AbstractUpgradeManager
+abstract class AbstractUpgradeManager implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
 
     /**
-     * The extension key.
+     * The extension key
      *
      * @var string
      */
     protected $extensionKey;
+
+    /**
+     * The configuration manager
+     *
+     * @var ConfigurationManager
+     */
+    protected $configurationManager;
 
     /**
      * Constructor.
@@ -45,24 +56,36 @@ abstract class AbstractUpgradeManager
     }
 
     /**
+     * Injects the configuration manager
+     *
+     * @param ConfigurationManager $configurationManager
+     *            The configuration manager
+     * @return void
+     */
+    public function injectConfigurationManager(ConfigurationManager $configurationManager)
+    {
+        $this->configurationManager = $configurationManager;
+    }
+
+    /**
      * Pre processing
      *
-     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $sectionManager
+     * @param SectionManager $sectionManager
      *            The section manager
      * @return void
      */
-    public function preProcessing(ItemManager $sectionManager)
+    public function preProcessing(SectionManager $sectionManager)
     {}
 
     /**
      * Post processing.
      *
-     * @param \YolfTypo3\SavLibraryKickstarter\Utility\ItemManager $sectionManager
+     * @param SectionManager $sectionManager
      *            The section manager
      *
      * @return void
      */
-    public function postProcessing(ItemManager $sectionManager)
+    public function postProcessing(SectionManager $sectionManager)
     {}
 
     /**

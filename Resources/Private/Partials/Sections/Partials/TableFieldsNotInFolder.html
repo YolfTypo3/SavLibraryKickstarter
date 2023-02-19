@@ -85,14 +85,14 @@
 											value="0" />
 										<f:comment>Displayed if allowed</f:comment>
 										<f:if condition="{isAllowed}">
-											<f:form.checkbox class="checkbox"
+											<sav:form.checkbox class="checkbox"
 												name="{section}[fields][{key}][selected][{sectionItemViewKey}]"
 												value="1" checked="{selected}" />
 										</f:if>
 
 										<f:comment>Edit button</f:comment>
 										<f:link.action action="editFieldConfiguration"
-											arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
+											arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
 											<f:image class="editFieldConfiguration"
 												src="{sav:getIcon(identifier:'actions-document')}"
 												alt="{f:translate(key:'kickstarter.edit')}"
@@ -101,7 +101,7 @@
 
 										<f:comment>Delete button</f:comment>
 										<f:link.action action="deleteField"
-											arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:key}">
+											arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, fieldKey:key}">
 											<f:image class="deleteField"
 												src="{sav:getIcon(identifier:'actions-delete')}"
 												alt="{f:translate(key:'kickstarter.delete')}"

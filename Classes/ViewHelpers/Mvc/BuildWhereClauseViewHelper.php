@@ -16,7 +16,10 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use YolfTypo3\SavLibraryKickstarter\Parser\WhereClauseParser;
 
 /**
  * A view helper for building the where clause for the where tags..
@@ -34,37 +37,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class BuildWhereClauseViewHelper extends AbstractViewHelper
 {
-
-    const WHERE_PATTERN = '/
-    (?:
-      (?:
-        (?:(?P<logicalOperator>\s+ (?i:and|or)) \s+)? (?:(?P<negation>(?i:not)) \s+)? (?P<logicalOperand>(?P>expression))
-      ) |
-      (?P<expression>
-        .*?(?=(?P>logicalOperator))|
-        .+
-      )
-    )
-  /x';
-
-    const EXPRESSION_PATTERN = '/
-    (?:
-      (?:
-        (?:\s* (?P<operator>=|!=|>=|<=|>|<|(?i:\sin\s)|(?i:\slike\s)) \s*)?  (?P<operand>(?P<term>(?P>expression))(?P<marker>\# \d+ \#) | (?P>expression))
-      ) |
-      (?P<expression>
-        [^\#]+?(?=(?P>operator))|
-        [^\#]+
-      )
-    )
-  /x';
-
-    /**
-     *
-     * @var array
-     */
-    protected $patterns;
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -76,113 +49,24 @@ class BuildWhereClauseViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the order by clause
+     * Renders the item
      *
-     * @return string the processed where clause
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render(): string
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $clause = $this->arguments['clause'];
+        $clause = $arguments['clause'];
 
         // Replaces the contents between parentheses by markers
-        $this->patterns = [];
-        $index = 0;
-        $match = [];
-        while (preg_match('/\(([^(]*?)\)/', $clause, $match)) {
-            $marker = '#' . $index ++ . '#';
-            $this->patterns[$marker] = $match[1];
-            $clause = str_replace($match[0], $marker, $clause);
-        }
-        $out = $this->processWhereClause($clause);
+        $whereClauseParser = GeneralUtility::makeInstance(WhereClauseParser::class);
+
+        $out = $whereClauseParser->processWhereClause($clause);
 
         return ($out ? $out : 'null');
-    }
-
-    /**
-     * Processes the where clause
-     *
-     * @param string $clause
-     *
-     * @return string the processed where clause
-     */
-    protected function processWhereClause(string $clause): string
-    {
-        $result = '';
-
-        // Splits the clause from the logical operators
-        $matchesWhere = [];
-        preg_match_all(self::WHERE_PATTERN, $clause, $matchesWhere);
-        foreach ($matchesWhere[0] as $matchKey => $match) {
-            if ($matchKey > 0) {
-                $leftHandSideLogicalOperand = $result;
-                $logicalOperator = '$query->logical' . GeneralUtility::underscoredToUpperCamelCase($matchesWhere['logicalOperator'][$matchKey]);
-            }
-            $rightHandSideLogicalOperand = trim($matchesWhere['logicalOperand'][$matchKey]);
-
-            // Splits the operand from the allowed operators
-            $matchesExpression = [];
-            preg_match_all(self::EXPRESSION_PATTERN, $rightHandSideLogicalOperand, $matchesExpression);
-
-            // Gets the left hand side - it must be a field name
-            $leftHandSideOperand = (empty($matchesExpression['marker'][0]) ? trim($matchesExpression['operand'][0]) : trim($matchesExpression['term'][0]) . '(' . $this->processWhereClause($this->patterns[trim($matchesExpression['marker'][0])]) . ')');
-
-            // Gets the right hand side
-            $rightHandSideOperand = '';
-            foreach ($matchesExpression[0] as $matchExpressionKey => $matchExpression) {
-                if ($matchExpressionKey > 0) {
-                    $rightHandSideOperand .= (empty($matchesExpression['marker'][$matchExpressionKey]) ? trim($matchesExpression['operand'][$matchExpressionKey]) : trim($matchesExpression['term'][$matchExpressionKey]) . '(' . $this->processWhereClause($this->patterns[trim($matchesExpression['marker'][$matchExpressionKey])]) . ')');
-                }
-            }
-
-            // Processes the operator
-            if (isset($matchesExpression['operator'][1])) {
-                $rightHandSideOperand = '$this->createQuery()->statement(\'SELECT ' . $rightHandSideOperand . ' AS ' . $leftHandSideOperand . '\')->execute()[0]->get' . GeneralUtility::underscoredToUpperCamelCase($leftHandSideOperand) . '()';
-                switch (trim($matchesExpression['operator'][1])) {
-                    case '=':
-                        $rightHandSideLogicalOperand = '$query->equals(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')';
-                        break;
-                    case '!=':
-                        $rightHandSideLogicalOperand = '$query->logicalNot($query->equals(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . '))';
-                        break;
-                    case '<':
-                        $rightHandSideLogicalOperand = '$query->lessThan(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')';
-                        break;
-                    case '<=':
-                        $rightHandSideLogicalOperand = '$query->lessThanOrEqual(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')';
-                        break;
-                    case '>':
-                        $rightHandSideLogicalOperand = '$query->greaterThan(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')';
-                        break;
-                    case '>=':
-                        $rightHandSideLogicalOperand = '$query->greaterThanOrEqual(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')';
-                        break;
-                    case 'like':
-                        $rightHandSideLogicalOperand = '$query->like(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')';
-                        break;
-                    case 'in':
-                        $rightHandSideLogicalOperand = '$query->in(\'' . $leftHandSideOperand . '\', [' . $rightHandSideOperand . '])';
-                        break;
-                    case '':
-                        $rightHandSideLogicalOperand = '\'' . $leftHandSideOperand . '\'';
-                        break;
-                }
-            } else {
-                $rightHandSideLogicalOperand = $leftHandSideOperand;
-            }
-
-            // Adds the logical not if needed
-            if (! empty($matchesWhere['negation'][$matchKey])) {
-                $rightHandSideLogicalOperand = '$query->logicalNot(' . $rightHandSideLogicalOperand . ')';
-            }
-
-            if ($matchKey > 0) {
-                $result = $logicalOperator . '(' . $leftHandSideLogicalOperand . ',' . $rightHandSideLogicalOperand . ')';
-            } else {
-                $result = $rightHandSideLogicalOperand;
-            }
-        }
-
-        return $result;
     }
 }

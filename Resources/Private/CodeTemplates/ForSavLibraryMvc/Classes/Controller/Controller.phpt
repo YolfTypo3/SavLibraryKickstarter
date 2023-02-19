@@ -7,11 +7,10 @@
     vendorName:     '{extension.general.1.vendorName}',
     extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
     controllerName: '{extension.forms->sav:getItem(key:itemKey)->sav:getItem(key:\'title\')->sav:upperCamel()}',
-    mainModelName:  '{extension.queries->sav:getItem(key:queryIndex)->sav:getItem(key:\'mainTable\')->sav:Mvc.getModelFromTableName(extension:extension.general.1.extensionKey)}',    
+    mainTable:      '{extension.queries->sav:getItem(key:queryIndex)->sav:getItem(key:\'mainTable\')}',    
     controller:     '{extension.forms->sav:getItem(key:itemKey)}'
 }">
-namespace {vendorName}\{extensionName}\Controller;
-!
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -24,32 +23,35 @@ namespace {vendorName}\{extensionName}\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use {vendorName}\{extensionName}\Domain\Model\{mainModelName};
-use {vendorName}\{extensionName}\Domain\Repository\{mainModelName}Repository;
+! 
+namespace {vendorName}\{extensionName}\Controller;
+!
+use {mainTable->sav:Mvc.buildModelName(extension:extension, removeFirstBackslash:1)};
+use {mainTable->sav:Mvc.buildRepositoryName(extension:extension, removeFirstBackslash:1)};
 !
 /**
  * Controller for the form {controllerName}
  *
  */
-class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\DefaultController
+final class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\DefaultController
 {
 
     /**
      * Main repository
      * 
-     * @var <f:format.raw>{mainModelName}Repository</f:format.raw>
+     * @var <f:format.raw>{mainTable->sav:Mvc.buildRepositoryName(extension:extension, shortName:1)}</f:format.raw>
      */
     protected $mainRepository = null;
 !   
     /**
-     * Injects the repository.
+     * Constructor.
      *
-     * @param <f:format.raw>{mainModelName}Repository $repository</f:format.raw>
+     * @return void
      */
-    public function inject{mainModelName}Repository({mainModelName}Repository $repository)
+    public function __construct({mainTable->sav:Mvc.buildRepositoryName(extension:extension, shortName:1)} $repository)
     {
         $this->mainRepository = $repository;
-    }        
+    }   
 !
     /**
      * Subform repository class names
@@ -69,10 +71,10 @@ class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controller\Def
     /**
      * Save action for this controller
      *
-     * @param {mainModelName} $data
+     * @param {mainTable->sav:Mvc.buildModelName(extension:extension, shortName:1)} $data
      * @return void
      */
-    public function saveAction({mainModelName} $data)
+    public function saveAction({mainTable->sav:Mvc.buildModelName(extension:extension, shortName:1)} $data)
     {
         $this->save($data);
     }

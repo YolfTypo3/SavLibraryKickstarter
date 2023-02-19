@@ -1,7 +1,7 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw><sav:function name="removeEmptyLines">
 'columns' => [
-    <f:if condition="{newTable.localization}">
+    <f:if condition="{table.localization}">
     'sys_language_uid' => [
         'exclude' => true,
         'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
@@ -54,17 +54,17 @@
         ]
     ],
     </f:if>
-    <f:if condition="{newTable.add_hidden}">
+    <f:if condition="{table.add_hidden}">
     'hidden' => [
         'exclude' => 1,
-        'label'  => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf.xlf:LGL.hidden',
+        'label'  => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
         'config' => [
             'type'  => 'check',
             'default' => 0,
         ]
     ],
     </f:if>
-    <f:if condition="{newTable.add_starttime}">
+    <f:if condition="{table.add_starttime}">
     'starttime' => [
         'exclude' => true,
         'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
@@ -76,7 +76,7 @@
         ]
     ],
     </f:if>
-    <f:if condition="{newTable.add_endtime}">
+    <f:if condition="{table.add_endtime}">
     'endtime' => [
         'exclude' => true,
         'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
@@ -91,7 +91,7 @@
         ]
     ],
     </f:if>
-    <f:if condition="{newTable.add_access}">
+    <f:if condition="{table.add_access}">
     'fe_group' => [
         'exclude' => 1,
         'label'   => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
@@ -115,17 +115,15 @@
         ],
     ],
     </f:if>   
-    <f:for each="{newTable.fields}" as="field">
-    <sav:removeIfContainsDoNotCreate>
+    <f:for each="{table.fields}" as="field">
     '{field.fieldname}' => [
         'exclude' => 1,
         'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{field.fieldname}',
         <sav:indent count="8"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{_all}" /></sav:indent>
         <f:if condition="{field.displayCondition}">
         <sav:indent count="8">'displayCond' => '{field.displayCondition}',</sav:indent>
-        </f:if>
+        </f:if>      
     ],
-    </sav:removeIfContainsDoNotCreate>
     </f:for>
 ],
 </sav:function></f:format.raw>

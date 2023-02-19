@@ -9,7 +9,7 @@
 				<li
 					class="{f:if(condition:'{folderKey} == {sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}', then:'currentTab')}">
 					<f:link.action action="changeFolder"
-						arguments="{extKey:extKey, section:section, itemKey:itemKey, viewKey:sectionItem.viewKey, folderKey:folderKey}">
+						arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewKey:sectionItem.viewKey, folderKey:folderKey}">
 						<span class="">{folder.label}</span>
 					</f:link.action>
 				</li>

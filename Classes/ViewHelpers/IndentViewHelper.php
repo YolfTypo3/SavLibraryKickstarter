@@ -15,14 +15,16 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Indentation ViewHelper
  */
 class IndentViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -34,16 +36,20 @@ class IndentViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the indented content
+     * Renders the item
      *
-     * @return string Indented content
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render(): string
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $count = $this->arguments['count'];
+        $count = $arguments['count'];
 
-        $childrenContent = $this->renderChildren();
+        $childrenContent = $renderChildrenClosure();
         if (!is_string($childrenContent)) {
             return gettype($childrenContent);
         }

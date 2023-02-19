@@ -4,7 +4,7 @@
 		<div
 			class="icon {f:if(condition:'{selectedItem} == {currentItem}',then:'selected')}">
 			<f:link.action action="{section}EditSection"
-				arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
+				arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
 				<f:image
 					src="{sav:getIcon(identifier:'actions-document')}"
 					alt="{f:translate(key:'kickstarter.edit')}"
@@ -14,7 +14,7 @@
 		<div
 			class="title {f:if(condition:'{selectedItem} == {currentItem}',then:'selected')}">
 			<f:link.action action="{section}EditSection"
-				arguments="{extKey:extKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
+				arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
 				<f:translate key="kickstarter.{section}SectionTitle" />
 			</f:link.action>
 		</div>

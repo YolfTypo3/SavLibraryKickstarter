@@ -6,13 +6,13 @@
 <f:variable name="defautIntersphinxMapping"><f:spaceless>
 	<f:if condition="{sectionItem.interSphinxMapping}">
 	<f:then>{sectionItem.interSphinxMapping}</f:then>
-	<f:else><f:translate key="kickstarter.defautIntersphinxMapping" /></f:else>
+	<f:else><f:translate key="kickstarter.defaultIntersphinxMapping" /></f:else>
 	</f:if>
 </f:spaceless></f:variable>
 
 <div id="{section}Section">
 	<f:form method="post" action="save" name="{section}"
-		arguments="{extKey:extKey, section:section, itemKey:itemKey}">
+		arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
 		<f:form.hidden name="general[section]" value="{section}" />
 		<f:form.hidden name="general[itemKey]" value="{itemKey}" />
 		<div id="content">
@@ -90,18 +90,31 @@
 				<f:comment>Keep Settings.cfg File</f:comment>
 				<label for="keepSettingsCfg"><f:translate
 						key="kickstarter.{section}Item.keepSettingsCfg" /></label>
-				<f:form.hidden name="{section}[keepSettingsCfg]" value="0" />
-				<f:form.checkbox class="checkbox" id="keepSettingsCfg"
+				<sav:form.checkbox class="checkbox" id="keepSettingsCfg"
 					name="{section}[keepSettingsCfg]" value="1"
 					checked="{sectionItem.keepSettingsCfg}" />
 
 				<f:comment>Add docker-compose.yml</f:comment>
 				<label for="AddDockerCompose"><f:translate
 						key="kickstarter.{section}Item.AddDockerCompose" /></label>
-				<f:form.hidden name="{section}[AddDockerCompose]" value="0" />
-				<f:form.checkbox class="checkbox" id="AddDockerCompose"
+				<sav:form.checkbox class="checkbox" id="AddDockerCompose"
 					name="{section}[AddDockerCompose]" value="1"
 					checked="{sectionItem.AddDockerCompose}" />
+
+				<f:comment>Add Entity Relationship Diagram</f:comment>
+				<label for="AddEntityRelationshipDiagram"><f:translate
+						key="kickstarter.{section}Item.AddEntityRelationshipDiagram" /></label>
+				<sav:form.checkbox class="checkbox" id="AddEntityRelationshipDiagram"
+					name="{section}[AddEntityRelationshipDiagram]" value="1"
+					checked="{sectionItem.AddEntityRelationshipDiagram}" />
+
+				<f:comment>Add Form and Table Configuration</f:comment>
+				<label for="AddFormAndTableConfiguration"><f:translate
+						key="kickstarter.{section}Item.AddFormAndTableConfiguration" /></label>
+				<sav:form.checkbox class="checkbox" id="AddFormAndTableConfiguration"
+					name="{section}[AddFormAndTableConfiguration]" value="1"
+					checked="{sectionItem.AddFormAndTableConfiguration}" />
+
 			</div>
 		</div>
 	</f:form>

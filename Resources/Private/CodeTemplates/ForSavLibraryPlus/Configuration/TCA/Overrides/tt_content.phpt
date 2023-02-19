@@ -1,5 +1,5 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<?php
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 <f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['{extension.general.1.extensionKey}_pi1'] = 'layout,select_key';

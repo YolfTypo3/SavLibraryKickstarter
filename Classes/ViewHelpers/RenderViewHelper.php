@@ -15,9 +15,7 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper which returns a file if its exists in the SAV Library Kickstarter

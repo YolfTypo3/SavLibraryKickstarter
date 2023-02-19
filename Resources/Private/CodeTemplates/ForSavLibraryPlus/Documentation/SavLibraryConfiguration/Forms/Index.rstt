@@ -1,0 +1,30 @@
+.. include:: ../../Includes.txt
+
+.. _forms:
+.. role:: red
+
+=====
+Forms
+=====
+
+This extension contains the following forms:
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+   :glob:
+<sav:function name="removeEmptyLines">   
+<f:for each="{extension.forms}" as="form">
+   {form.title}/Index
+	<sav:function name="mkdir" arguments="{
+		extension: '{extension.extensionDirectory}', 
+		directory:'Documentation/SavLibraryConfiguration/Forms/{form.title}/'
+	}" />
+	<sav:render partial="Documentation/SavLibraryConfiguration/Forms/FormItem.rstt" arguments="{_all}" contentAs="Temp"> 
+		<sav:function name="filePutContents" arguments="{
+			filename: '{extension.extensionDirectory}Documentation/SavLibraryConfiguration/Forms/{form.title}/Index.rst', 
+			data:'{Temp}'
+		}" />
+	</sav:render>
+</f:for>
+</sav:function>

@@ -15,7 +15,9 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
 
 /**
@@ -34,7 +36,7 @@ use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
  */
 class LowerCamelViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -46,17 +48,21 @@ class LowerCamelViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the string in lowerCamel
+     * Renders the item
      *
-     * @return string String in lowerCamel
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render(): string
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $string = $this->arguments['string'];
+        $string = $arguments['string'];
 
         if ($string === null) {
-            $string = $this->renderChildren();
+            $string = $renderChildrenClosure();
         }
         return ($string === null ? '' : Conversion::lowerCamel($string));
     }

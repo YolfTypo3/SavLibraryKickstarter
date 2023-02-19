@@ -16,6 +16,8 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for sorting the fields in a view.
@@ -24,7 +26,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class DocumentationProcessFieldConfigurationViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -36,24 +38,30 @@ class DocumentationProcessFieldConfigurationViewHelper extends AbstractViewHelpe
     }
 
     /**
-     * Renders the viewhelper
+     * Renders the table name
      *
-     * @return array Sorted fields
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return string the table name
      */
-    public function render(): array
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $configuration = $this->arguments['configuration'];
+        $configuration = $arguments['configuration'];
 
         if ($configuration === null) {
-            $configuration = $this->renderChildren();
+            $configuration = $renderChildrenClosure();
         }
 
         unset($configuration['tableName']);
         unset($configuration['fieldName']);
         unset($configuration['fieldType']);
+        unset($configuration['fieldTitle']);
         unset($configuration['renderType']);
         unset($configuration['subformItem']);
+
         return $configuration;
     }
 }

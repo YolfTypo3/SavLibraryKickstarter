@@ -1,0 +1,39 @@
+<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><f:alias map="{
+    vendorName:     '{extension.general.1.vendorName}',
+    pluginName:     '{extension.general.1.pluginName}',
+    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
+    ocb: '{',
+    ccb: '}'
+}">routeEnhancers:
+  {extensionName}:
+    type: Extbase
+    extension: {extensionName}
+    plugin: {pluginName}
+    routes:
+<f:for each="{extension.forms}" as="form">
+<f:variable name="controlerName" value="{form->sav:getItem(key:'title')->sav:upperCamel()}" />
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}' 
+        _controller: '{controlerName}::list'
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/{ocb}special{ccb}' 
+        _controller: '{controlerName}::list'
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/single/{ocb}special{ccb}' 
+        _controller: '{controlerName}::single' 
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/edit/{ocb}special{ccb}' 
+        _controller: '{controlerName}::edit'                       
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/delete/{ocb}special{ccb}' 
+        _controller: '{controlerName}::delete'  
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/subform/delete/{ocb}special{ccb}' 
+        _controller: '{controlerName}::deleteInSubform' 
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/subform/up/{ocb}special{ccb}' 
+        _controller: '{controlerName}::upInSubform' 
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/subform/down/{ocb}special{ccb}' 
+        _controller: '{controlerName}::downInSubform' 
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/file/delete/{ocb}special{ccb}' 
+        _controller: '{controlerName}::deleteFile' 
+      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/export/{ocb}special{ccb}' 
+        _controller: '{controlerName}::export'                
+</f:for> 
+    requirements:
+      special: '[a-z0-9\-]+' 
+</f:alias>
+</sav:function>     

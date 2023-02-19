@@ -3,10 +3,18 @@
 <f:variable name="section" value="forms" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
+<f:variable name="mvc" value="{sav:getItem(
+    value:{
+        0:0,
+        1:0,
+        2:1,
+        3:1
+    },
+    key:extension.general.1.libraryType)}" />
 
 <div id="{section}Section">
 	<f:form method="post" action="save" name="{section}"
-		arguments="{extKey:extKey, section:section,itemKey:itemKey}">
+		arguments="{extensionKey:extensionKey, section:section,itemKey:itemKey}">
 		<f:form.hidden name="general[section]" value="{section}" />
 		<f:form.hidden name="general[itemKey]" value="{itemKey}" />
 		<div id="content">
@@ -26,12 +34,15 @@
 								key="kickstarter.{section}Item.listView" /></label>
 						<f:form.select id="listView" name="{section}[listView]"
 							options="{options.list}" value="{sectionItem.listView}" />
-
-						<f:form.checkbox class="checkbox" id="listViewNotCached"
+							
+						<f:comment>Adds caching checkbox if mvc</f:comment>	
+                        <f:if condition="{mvc}">
+						<sav:form.checkbox class="checkbox" id="listViewNotCached"
 							name="{section}[listViewNotCached]" value="1"
 							checked="{sectionItem.listViewNotCached}" />
 						<label class="clearNone" for="listViewNotCached"><f:translate
 								key="kickstarter.{section}Item.listViewNotCached" /></label>
+                        </f:if>					
 					</div>
 
 					<f:comment>Single View</f:comment>
@@ -39,7 +50,7 @@
 						<label class="single" for="singleView"><f:translate
 								key="kickstarter.{section}Item.singleView" /></label>
 						<f:link.action action="addNewViewWithCondition"
-							arguments="{extKey:extKey, section:section, viewType:'singleView', itemKey:itemKey}">
+							arguments="{extensionKey:extensionKey, section:section, viewType:'singleView', itemKey:itemKey}">
 							<f:image class="addNewViewWithCondition"
 								src="{sav:getIcon(identifier:'actions-add')}"
 								alt="{f:translate(key:'kickstarter.addNewViewWithCondition')}"
@@ -49,11 +60,14 @@
 						<f:form.select id="singleView" name="{section}[singleView]"
 							options="{options.single}" value="{sectionItem.singleView}" />
 
-						<f:form.checkbox class="checkbox" id="singleViewNotCached"
+                        <f:comment>Adds caching checkbox if mvc</f:comment> 
+                        <f:if condition="{mvc}">
+						<sav:form.checkbox class="checkbox" id="singleViewNotCached"
 							name="{section}[singleViewNotCached]" value="1"
 							checked="{sectionItem.singleViewNotCached}" />
 						<label class="clearNone" for="singleViewNotCached"><f:translate
 								key="kickstarter.{section}Item.singleViewNotCached" /></label>
+                        </f:if>
 
 						<f:comment>Single Views with Condition</f:comment>
 						<f:for each="{sectionItem.viewsWithCondition.singleView}"
@@ -65,7 +79,7 @@
 								name="{section}[viewsWithCondition][singleView][{viewWithConditionKey}][condition]"
 								value="{viewWithCondition.condition}" />
 							<f:link.action action="deleteViewWithCondition"
-								arguments="{extKey:extKey, section:section, itemKey:itemKey, viewType:'singleView', viewWithConditionKey:viewWithConditionKey}">
+								arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewType:'singleView', viewWithConditionKey:viewWithConditionKey}">
 								<f:image class="deleteViewWithCondition"
 									src="{sav:getIcon(identifier:'actions-delete')}"
 									alt="{f:translate(key:'kickstarter.delete')}"
@@ -79,7 +93,7 @@
 						<label class="edit" for="editView"><f:translate
 								key="kickstarter.{section}Item.editView" /></label>
 						<f:link.action action="addNewViewWithCondition"
-							arguments="{extKey:extKey, section:section, viewType:'editView', itemKey:itemKey}">
+							arguments="{extensionKey:extensionKey, section:section, viewType:'editView', itemKey:itemKey}">
 							<f:image class="addNewViewWithCondition"
 								src="{sav:getIcon(identifier:'actions-add')}"
 								alt="{f:translate(key:'kickstarter.addNewViewWithCondition')}"
@@ -100,7 +114,7 @@
 								name="{section}[viewsWithCondition][editView][{viewWithConditionKey}][condition]"
 								value="{viewWithCondition.condition}" />
 							<f:link.action action="deleteViewWithCondition"
-								arguments="{extKey:extKey, section:section, itemKey:itemKey, viewType:'editView', viewWithConditionKey:viewWithConditionKey}">
+								arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewType:'editView', viewWithConditionKey:viewWithConditionKey}">
 								<f:image class="deleteViewWithCondition"
 									src="{sav:getIcon(identifier:'actions-delete')}"
 									alt="{f:translate(key:'kickstarter.delete')}"
@@ -121,13 +135,15 @@
 					<f:form.select id="query" name="{section}[query]"
 						options="{options.query}" value="{sectionItem.query}" />
 
+                    <f:comment>Adds caching checkbox if not mvc</f:comment> 
+                    <f:if condition="{mvc} == 0">
 					<f:comment>Caching</f:comment>
 					<label for="userPlugin"><f:translate
 							key="kickstarter.{section}Item.userPlugin" /></label>
-					<f:form.hidden name="{section}[userPlugin]" value="0" />
-					<f:form.checkbox class="checkbox" id="userPlugin"
+					<sav:form.checkbox class="checkbox" id="userPlugin"
 						name="{section}[userPlugin]" value="1"
 						checked="{sectionItem.userPlugin}" />
+					</f:if>
 				</f:if>
 			</div>
 		</div>

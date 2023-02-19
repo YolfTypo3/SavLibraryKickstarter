@@ -23,7 +23,7 @@
     'minitems' => 0,
     'maxitems' => {f:if(condition:field.conf_relations, then:field.conf_relations, else:100000)},
     <f:if condition="{field.conf_relations_mm}">
-    'MM' => '{model}_{field.fieldname}_mm',
+    'MM' => '{modelForMM}_{field.fieldname}_mm',
     </f:if>
     </f:alias>
 ], 

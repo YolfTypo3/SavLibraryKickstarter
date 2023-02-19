@@ -11,7 +11,7 @@
 	<f:translate key="kickstarter.field.items.value" />
 </div>
 <f:link.action action="addNewBoxItem"
-	arguments="{extKey:extension.general.1.extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
+	arguments="{extensionKey:extension.general.1.extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
 	<f:image class="addNewBoxItem"
 		src="{sav:getIcon(identifier:'actions-add')}"
 		alt="{f:translate(key:'kickstarter.addNewBoxItem')}"
@@ -25,7 +25,7 @@
 		name="{section}[fields][{fieldKey}][items][{key}][value]"
 		value="{item.value}" />
 	<f:link.action action="deleteBoxItem"
-		arguments="{extKey:extension.general.1.extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey, boxItemKey:key}">
+		arguments="{extensionKey:extension.general.1.extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey, boxItemKey:key}">
 		<f:image class="deleteBoxItem"
 			src="{sav:getIcon(identifier:'actions-delete')}"
 			alt="{f:translate(key:'kickstarter.delete')}"

@@ -15,7 +15,9 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Returns an item in an array
@@ -25,7 +27,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetItemViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -38,18 +40,22 @@ class GetItemViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Gets the item.
+     * Renders the item
      *
-     * @return mixed The item
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render()
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $value = $this->arguments['value'];
-        $key = $this->arguments['key'];
+        $value = $arguments['value'];
+        $key = $arguments['key'];
 
         if ($value === null) {
-            $value = $this->renderChildren();
+            $value = $renderChildrenClosure();
         }
 
         if ($value === null) {

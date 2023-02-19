@@ -16,16 +16,18 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Mvc;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper to manage the subforms.
- *
  *
  * @package SavLibraryKickstarter
  */
 class SubformIndexManagerViewHelper extends AbstractViewHelper
 {
+    use CompileWithRenderStatic;
 
     protected static $count = 0;
 
@@ -46,19 +48,23 @@ class SubformIndexManagerViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the viewhelper
+     * Renders the item
      *
-     * @return mixed
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render()
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $field = $this->arguments['field'];
-        $action = $this->arguments['action'];
-        $tableName = $this->arguments['tableName'];
+        $field = $arguments['field'];
+        $action = $arguments['action'];
+        $tableName = $arguments['tableName'];
 
         if ($field === null) {
-            $field = $this->renderChildren();
+            $field = $renderChildrenClosure();
         }
 
         if ($action === null) {

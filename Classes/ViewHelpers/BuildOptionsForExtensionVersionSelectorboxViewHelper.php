@@ -79,7 +79,7 @@ class BuildOptionsForExtensionVersionSelectorboxViewHelper extends AbstractViewH
 
         $configurationDirectory = $extensionDirectory . ConfigurationManager::CONFIGURATION_DIRECTORY . $libraryName;
 
-        $configurationFilename = pathinfo(ConfigurationManager::CONFIGURATION_FILE_NAME);
+        $configurationFilename = pathinfo(ConfigurationManager::getConfigurationFileName($extensionKey));
 
         $options = [];
         if ($handle = opendir($configurationDirectory)) {

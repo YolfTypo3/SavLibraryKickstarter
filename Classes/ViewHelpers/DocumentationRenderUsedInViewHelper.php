@@ -37,6 +37,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderS
 class DocumentationRenderUsedInViewHelper extends AbstractViewHelper
 {
     use CompileWithContentArgumentAndRenderStatic;
+
     protected static $subforms = [];
 
     /**
@@ -50,7 +51,7 @@ class DocumentationRenderUsedInViewHelper extends AbstractViewHelper
         $this->registerArgument('name', 'string', 'newTables or existingTables', false, 'newTables');
         $this->registerArgument('tableKey', 'integer', 'Table key', true);
         $this->registerArgument('fieldKey', 'integer', 'Field key', true);
-
+        $this->registerArgument('mvc', 'boolean', 'MVC flag', false, false);
     }
     /**
      * Renders the viewhelper
@@ -66,6 +67,7 @@ class DocumentationRenderUsedInViewHelper extends AbstractViewHelper
         $name = $arguments['name'];
         $tableKey = $arguments['tableKey'];
         $fieldKey = $arguments['fieldKey'];
+        $mvc = $arguments['mvc'];
 
         // Builds the table full name
         $extensionKey = $extension['general'][1]['extensionKey'];
@@ -78,7 +80,7 @@ class DocumentationRenderUsedInViewHelper extends AbstractViewHelper
                     'shortName' => $extension[$name][$tableKey]['tablename'],
                     'prefix' => '',
                     'shortNameOnly' => false,
-                    'mvc' => false,
+                    'mvc' => $mvc,
                 ], $renderChildrenClosure, $renderingContext
             );
         }
@@ -96,7 +98,12 @@ class DocumentationRenderUsedInViewHelper extends AbstractViewHelper
                 if (!empty($selected) && !empty($extension['views'][$viewKey])) {
                     // Processes subform fiels. The reference ist set to the root field name
                     if ($field['type'] == 'RelationManyToManyAsSubform') {
-                        self::$subforms[$viewKey][$field['conf_rel_table']] = [
+                        if ($field['conf_rel_table'] == '_CUSTOM') {
+                            $confRelTable = $field['conf_custom_table_name'];
+                        } else {
+                            $confRelTable = $field['conf_rel_table'];
+                        }
+                        self::$subforms[$viewKey][$confRelTable] = [
                             'fieldName' => $fieldName,
                             'tableName' => $tableName
                         ];

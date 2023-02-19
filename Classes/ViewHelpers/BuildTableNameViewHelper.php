@@ -49,6 +49,7 @@ class BuildTableNameViewHelper extends AbstractViewHelper
         $this->registerArgument('prefix', 'string', 'Prefix', false, '');
         $this->registerArgument('shortNameOnly', 'boolean', 'Short name only', false, false);
         $this->registerArgument('mvc', 'boolean', 'Mvc flag', false, false);
+        $this->registerArgument('retrieveOrginalName', 'boolean', 'Retrieve the original table name from mvc', false, false);
     }
 
     /**
@@ -68,12 +69,15 @@ class BuildTableNameViewHelper extends AbstractViewHelper
         $prefix = $arguments['prefix'];
         $shortNameOnly = $arguments['shortNameOnly'];
         $mvc = $arguments['mvc'];
+        $retrieveOrginalName = $arguments['retrieveOrginalName'];
 
         if ($prefix != '') {
             $prefix = $prefix . '_';
         }
         if ($shortNameOnly === true) {
             return $shortName;
+        } elseif ($retrieveOrginalName && $mvc) {
+            return str_replace('_domain_model', '', $shortName);
         } else {
             $domain = ($mvc ? '_domain_model' : '');
             $defaultShortName = ($mvc ? '_default' : '');

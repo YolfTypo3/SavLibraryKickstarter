@@ -57,12 +57,12 @@ Table of Contents
    :glob:
 <sav:function name="removeEmptyLines">   
    Introduction/Index
-   <f:if condition="{extension.newTables}">
-   NewTables/Index
+<sav:includeTableOfContents extensionKey="{extension.general.1.extensionKey}" nbSpace="3"/>   
+   <f:if condition="{extension.documentation.1.AddEntityRelationshipDiagram}">
+   EntityRelationshipDiagram/Index
    </f:if>
-   <f:if condition="{extension.existingTables}">
-   ExistingTables/Index
-   </f:if>   
-   Forms/Index
+   <f:if condition="{extension.documentation.1.AddFormAndTableConfiguration}">
+   SavLibraryConfiguration/Index
+   </f:if>     
    Changelog/Index
 </sav:function>   

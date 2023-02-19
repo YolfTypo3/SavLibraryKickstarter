@@ -1,0 +1,82 @@
+<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+<f:for each="{extension.newTables}" as="table" key="tableKey">
+<f:alias map="{
+  model:'{sav:buildTableName(shortName:table.originalTableName, extensionKey:extension.general.1.extensionKey, mvc:0)}',
+  modelMvc:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:1)}',
+  modelForMM:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
+}">
+# Copies the table {model} into {modelMvc} 
+DROP TABLE IF EXISTS {modelMvc};
+CREATE TABLE {modelMvc} LIKE {model};
+INSERT INTO {modelMvc} SELECT * FROM {model};  
+!
+# Adds the column cruser_id_frontend   
+ALTER TABLE {modelMvc}
+  ADD COLUMN cruser_id_frontend int(11) DEFAULT '0' NOT NULL AFTER cruser_id;
+!
+# Copies the field cruser_id in the field cruser_id_frontend
+UPDATE {modelMvc}
+  SET cruser_id_frontend = cruser_id;
+!
+# Changes sys_file_reference
+UPDATE sys_file_reference
+SET 
+  tablenames = '{modelMvc}'
+WHERE 
+  tablenames = '{model}';
+!
+
+
+<f:for each="{table.fields}" as="field">
+<f:variable name="condition1"><f:if condition="{field.type}=='RelationManyToManyAsSubform'">1</f:if></f:variable>
+<f:variable name="condition2"><f:if condition="{field.type}=='RelationManyToManyAsDoubleSelectorbox' && {field.conf_relations_mm}==1">1</f:if></f:variable>
+<f:if condition="{condition1} || {condition2}">
+    <f:if condition="{field.conf_norelation} == 1"> 
+        <f:then>
+        </f:then>
+        <f:else>
+            <f:variable name="rel_table">{f:if(condition:'{field.conf_rel_table}==\"_CUSTOM\"',then:field.conf_custom_table_name,else:field.conf_rel_table)}</f:variable>
+            <f:variable name="modelMM">{model}_{field.fieldname}_mm</f:variable>
+            <f:variable name="modelMvcMM">{modelForMM}_{field.fieldname}_mm</f:variable>             
+
+            <f:if condition="{modelMM} != {modelMvcMM}">         
+
+# Copies the table {modelMM} into {modelMvcMM} 
+DROP TABLE IF EXISTS {modelMvcMM};
+CREATE TABLE {modelMvcMM} LIKE {modelMM};
+INSERT INTO {modelMvcMM} SELECT * FROM {modelMM};
+! 
+            </f:if>
+        </f:else>
+    </f:if>
+</f:if>
+
+</f:for>
+
+
+
+</f:alias>
+</f:for>
+
+# Changes tt_content
+<f:for each="{extension.forms}" as="form" key="formKey">
+<f:alias map="{
+    pluginSignature:  '{extension.general.1.extensionKey}_pi1',
+    pluginMvcSignature:  '{extension.general.1.extensionKey->sav:upperCamel()->sav:toLower()}_{extension.general.1.pluginName->sav:tolower()}'
+}">
+UPDATE tt_content
+SET
+  list_type = '{pluginMvcSignature}',
+  pi_flexform = IF(
+    (pi_flexform REGEXP 'field index="settings.') = 0, 
+    REPLACE(pi_flexform, 'field index="', 'field index="settings.'),
+    pi_flexform
+    ),
+  pages = IF(pages, pages, pid) 
+WHERE
+  list_type = '{pluginSignature}';
+
+</f:alias>
+</f:for>
+
+</sav:function>

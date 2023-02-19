@@ -15,14 +15,14 @@ Property                                                Data type   Default     
 :ref:`relation_1_n.aliasSelect`                         Field name               Yes  No
 :ref:`relation_1_n.applyFuncToRecords`                  Boolean     0            Yes  No
 :ref:`relation_1_n.groupBySelect`                       String                   Yes  No
-:ref:`relation_1_n.labelSelect`                         Field name               Yes  No
-:ref:`relation_1_n.orderSelect`                         String                   Yes  No
+:ref:`relation_1_n.labelSelect`                         Field name               Yes  Yes
+:ref:`relation_1_n.orderSelect`                         String                   Yes  Yes
 :ref:`relation_1_n.overrideEnableFields`                Boolean     0            Yes  No
 :ref:`relation_1_n.overrideStartingPoint`               Boolean     0            Yes  No
 :ref:`relation_1_n.separator`                           String                   Yes  No
-:ref:`relation_1_n.singleWindow`                        Boolean     0            Yes  No
+:ref:`relation_1_n.singleWindow`                        Boolean     0            Yes  Yes
 :ref:`relation_1_n.specialFields`                       String                   Yes  No
-:ref:`relation_1_n.whereSelect`                         String                   Yes  No
+:ref:`relation_1_n.whereSelect`                         String                   Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
@@ -176,6 +176,12 @@ labelSelect
  
     Description
         Defines the label from the field name for the selector.
+        
+        ..important:
+        
+            This property is mandatory for repositories
+            not designed for SAV Library Mvc, e.g. Extbase 
+            FrontendUserRepository or FrontendUserGroupRepository.
 
 
 

@@ -18,7 +18,7 @@
        </f:then>
        <f:else>
            <f:if condition="{field.conf_relations_mm}">
-    'MM' => '{model}_{field.fieldname}_mm',
+    'MM' => '{modelForMM}_{field.fieldname}_mm',
            </f:if>
        </f:else>
     </f:if>

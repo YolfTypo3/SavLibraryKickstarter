@@ -15,20 +15,22 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\Managers;
 
+use Symfony\Component\Yaml\Yaml;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use YolfTypo3\SavLibraryKickstarter\CodeGenerator;
+use YolfTypo3\SavLibraryKickstarter\CodeGenerator\AbstractCodeGenerator;
 use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
-use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
+use YolfTypo3\SavLibraryKickstarter\Managers\SectionManager;
 
 /**
  * Configuration manager
  *
  * @package Kickstarter
  */
-class ConfigurationManager
+final class ConfigurationManager
 {
 
     /**
@@ -36,7 +38,7 @@ class ConfigurationManager
      */
     const CONFIGURATION_DIRECTORY = 'Configuration/Kickstarter/';
 
-    const CONFIGURATION_FILE_NAME = 'Kickstarter.json';
+    const CONFIGURATION_FILE_NAME = 'Kickstarter';
 
     const LIBRARY_TYPE_FILE_NAME = 'LibraryType.txt';
 
@@ -72,25 +74,25 @@ class ConfigurationManager
 
     /**
      *
+     * @var string
+     */
+    protected static $extensionKey;
+
+    /**
+     *
      * @var KickstarterController
      */
     protected $controller;
 
     /**
      *
-     * @var string
+     * @var SectionManager
      */
-    protected $extensionKey;
+    protected $sectionManager = null;
 
     /**
      *
-     * @var ItemManager
-     */
-    protected $sectionManager;
-
-    /**
-     *
-     * @var \YolfTypo3\SavLibraryKickstarter\CodeGenerator\AbstractCodeGenerator
+     * @var AbstractCodeGenerator
      */
     protected $codeGenerator = null;
 
@@ -111,55 +113,58 @@ class ConfigurationManager
      *
      * @return void
      */
-    public function __construct(string $extensionKey)
+    public function __construct(string $extensionKey, KickstarterController $controller)
     {
-        $this->extensionKey = $extensionKey;
-        $this->sectionManager = GeneralUtility::makeInstance(ItemManager::class);
-    }
-
-    /**
-     * Injects the controller
-     *
-     * @param KickstarterController $controller
-     */
-    public function injectController(KickstarterController $controller)
-    {
+        self::$extensionKey = $extensionKey;
         $this->controller = $controller;
     }
 
     /**
-     * Sets the extension key.
+     * Gets the controller.
      *
-     * @param string $extensionKey
-     *            The extension key
-     * @return void
+     * @return KickstarterController
      */
-    public function setExtensionKey(string $extensionKey)
+    public function getController(): KickstarterController
     {
-        $this->extensionKey = $extensionKey;
+        return $this->controller;
     }
 
     /**
      * Gets the section manager.
      *
-     * @return ItemManager
+     * @ param bool $createSectionManager
+     * @return SectionManager
      */
-    public function getSectionManager(): ItemManager
+    public function getSectionManager($createSectionManager = false): ?SectionManager
     {
+        if ($createSectionManager) {
+            $this->sectionManager = new SectionManager();
+        }
         return $this->sectionManager;
+    }
+
+    /**
+     * Sets the section manager.
+     *
+     * @param array $sections
+     * @return void
+     */
+    public function setSectionManager(array $sections = [])
+    {
+        $this->sectionManager = new SectionManager($sections);
     }
 
     /**
      * Gets the code generator.
      *
-     * @return \YolfTypo3\SavLibraryKickstarter\CodeGenerator
+     * @return CodeGenerator
      */
     public function getCodeGenerator()
     {
         if ($this->codeGenerator === null) {
             $type = 'CodeGeneratorFor' . $this->getCurrentLibraryName();
-            $this->codeGenerator = GeneralUtility::makeInstance(CodeGenerator::class . '\\' . $type, $this->getSectionManager());
-            $this->codeGenerator->injectController($this->controller);
+            $this->codeGenerator = GeneralUtility::makeInstance(CodeGenerator::class . '\\' . $type);
+            $this->codeGenerator->injectConfigurationManager($this);
         }
         return $this->codeGenerator;
     }
@@ -172,7 +177,7 @@ class ConfigurationManager
     public function getExtensionManager(): ExtensionManager
     {
         if ($this->extensionManager === null) {
-            $this->extensionManager = GeneralUtility::makeInstance(ExtensionManager::class, $this->extensionKey);
+            $this->extensionManager = GeneralUtility::makeInstance(ExtensionManager::class, self::$extensionKey);
         }
         return $this->extensionManager;
     }
@@ -281,7 +286,7 @@ class ConfigurationManager
      */
     public function isSavLibraryKickstarterExtension(): bool
     {
-        return file_exists($this->getConfigurationFileName());
+        return file_exists(self::getConfigurationFileName());
     }
 
     /**
@@ -296,7 +301,7 @@ class ConfigurationManager
     public function configurationFileExists(string $extensionKey, string $libraryName): bool
     {
         $extensionDirectory = self::getExtensionDir($extensionKey);
-        $configurationFileName = $extensionDirectory . self::CONFIGURATION_DIRECTORY . $libraryName . '/' . self::CONFIGURATION_FILE_NAME;
+        $configurationFileName = $extensionDirectory . self::CONFIGURATION_DIRECTORY . $libraryName . '/' . self::CONFIGURATION_FILE_NAME . '.json';
 
         return file_exists($configurationFileName);
     }
@@ -311,7 +316,7 @@ class ConfigurationManager
     public function isLoadedExtension(string $extensionKey = null): bool
     {
         if ($extensionKey === null) {
-            $extensionKey = $this->extensionKey;
+            $extensionKey = self::$extensionKey;
         }
         return ExtensionManagementUtility::isLoaded($extensionKey);
     }
@@ -325,22 +330,14 @@ class ConfigurationManager
     {
         // Checks if the file exists
         if ($this->isSavLibraryKickstarterExtension()) {
-            if ($this->getSectionManager()->count() == 0) {
+            if ($this->getSectionManager() === null) {
                 if ($version != '') {
-                    $sections = json_decode(GeneralUtility::getURL($this->getConfigurationFileName($this->extensionKey, $version)), true);
+                    $fileName = self::getConfigurationFileName(self::$extensionKey, $version);
                 } else {
-                    $sections = json_decode(GeneralUtility::getURL($this->getConfigurationFileName()), true);
+                    $fileName = self::getConfigurationFileName();
                 }
-
-                foreach ($sections as $key => $section) {
-                    if (is_array($section)) {
-                        $this->getSectionManager()->addItem([
-                            $key => $section
-                        ]);
-                    } else {
-                        $this->getSectionManager()->addItem($key);
-                    }
-                }
+                $sections = json_decode(GeneralUtility::getURL($fileName), true);
+                $this->sectionManager = new SectionManager($sections);
             }
         }
     }
@@ -403,10 +400,8 @@ class ConfigurationManager
     public function saveConfigurationVersion(string $version = '')
     {
         $configuration = $this->getConfiguration();
-        $extensionVersion = self::getExtensionVersion($this->extensionKey);
-        $jsonContent = json_encode($configuration);
-        $fileName = $this->getConfigurationFileName($this->extensionKey, $version);
-
+        $fileName = self::getConfigurationFileName(self::$extensionKey, $version);
+        $jsonContent = json_encode($configuration, JSON_PRETTY_PRINT);
         GeneralUtility::writeFile($fileName, $jsonContent);
     }
 
@@ -513,24 +508,21 @@ class ConfigurationManager
      *            Version
      * @return string The configuration file name
      */
-    public function getConfigurationFileName(string $extensionKey = null, string $version = ''): string
+    public static function getConfigurationFileName(string $extensionKey = null, string $version = ''): string
     {
         if ($extensionKey === null) {
-            $extensionKey = $this->extensionKey;
+            $extensionKey = self::$extensionKey;
         }
         $extensionDirectory = self::getExtensionDir($extensionKey);
         $libraryName = trim(GeneralUtility::getURL(self::getLibraryTypeFileName($extensionKey)));
-
         // Builds the version if any
         if ($version != '') {
             $version = '_' . str_replace('.', '_', $version);
         }
 
         // Builds the file name
-        $configurationFileNameParts = pathinfo(self::CONFIGURATION_FILE_NAME);
-        $fileName = $configurationFileNameParts['filename'] . $version . '.' . $configurationFileNameParts['extension'];
-
-        return $extensionDirectory . self::CONFIGURATION_DIRECTORY . $libraryName . '/' . $fileName;
+        $fileName = $extensionDirectory . self::CONFIGURATION_DIRECTORY . $libraryName . '/' . self::CONFIGURATION_FILE_NAME. $version;
+        return $fileName . '.json';
     }
 
     /**
@@ -597,7 +589,7 @@ class ConfigurationManager
             }
 
             // Changes the extension version if needed
-            $extensionVersion = $this->getExtensionVersion($this->extensionKey);
+            $extensionVersion = $this->getExtensionVersion(self::$extensionKey);
             if ($this->getSectionManager()
                 ->getItem('emconf')
                 ->getItem(1)
@@ -656,7 +648,8 @@ class ConfigurationManager
             // Executes the upgrade files
             foreach ($upgrades as $upgradeKey => $upgrade) {
                 if ($upgrade === false) {
-                    $upgradeManager = GeneralUtility::makeInstance($upgradeKey, $this->extensionKey);
+                    $upgradeManager = GeneralUtility::makeInstance($upgradeKey, self::$extensionKey);
+                    $upgradeManager->injectConfigurationManager($this);
                     $upgradeManager->preProcessing($this->getSectionManager());
                     $sectionsToDelete = [];
                     foreach ($this->getSectionManager()->getItems() as $sectionName => $section) {
@@ -728,7 +721,7 @@ class ConfigurationManager
                 'libraryVersionMustbeUpgraded' => false
             ]);
 
-            $extensionVersion = self::getExtensionVersion($this->extensionKey);
+            $extensionVersion = self::getExtensionVersion(self::$extensionKey);
             $this->saveConfigurationVersion($extensionVersion);
             $this->saveConfigurationVersion();
         }

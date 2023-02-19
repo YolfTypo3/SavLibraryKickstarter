@@ -166,6 +166,7 @@ class BuildConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
     {
         $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
         if (version_compare($typo3Version->getVersion(), '11.0', '<')) {
+            // @extensionScannerIgnoreLine
             $configurationManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)->get(ConfigurationManagerInterface::class);
         } else {
             $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);

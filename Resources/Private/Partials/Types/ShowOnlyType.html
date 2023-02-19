@@ -6,3 +6,19 @@
 	options="{sav:buildOptionsForRenderTypeSelectorbox()}"
 	value="{field.conf_render_type}" />
 
+<f:if condition="{mvc}">    
+<f:form.textfield class="string" id="conf_custom_model_name"
+    name="{section}[fields][{fieldKey}][conf_custom_model_name]"
+    value="{field.conf_custom_model_name}" />
+<label for="conf_custom_model_name"><f:translate
+        key="kickstarter.field.conf_custom_model_name" /></label>       
+</f:if> 	
+	
+<f:if condition="{section} == 'existingTables'">
+<label class="clearLeft" for="conf_override_type"><f:translate
+        key="kickstarter.field.conf_override_type" /></label>
+<sav:form.checkbox id="conf_override_type" class="checkbox"
+    name="{section}[fields][{fieldKey}][conf_override_type]" value="1"
+    checked="{field.conf_override_type}" />	
+</f:if>
+

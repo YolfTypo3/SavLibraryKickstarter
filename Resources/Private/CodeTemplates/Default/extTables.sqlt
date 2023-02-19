@@ -1,7 +1,8 @@
 <sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
 <f:for each="{extension.newTables}" as="table" key="tableKey">
 <f:alias map="{
-  model:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}'
+  model:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}',
+  modelForMM:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
 }">
 #
 # Table structure for table '{model}'
@@ -55,7 +56,7 @@ CREATE TABLE {model} (
     </sav:removeIfContainsDoNotCreate>
 	</f:for>
     <f:if condition="{sav:CheckIfFieldsForSpecialViewAreRequired(extension:extension, model:model)}">
-    _submitted_data_ blob NOT NULL,
+    _submitted_data_ blob,
     _validated_ tinyint(4) DEFAULT '0' NOT NULL,
     </f:if>
 !
@@ -74,13 +75,15 @@ CREATE TABLE {model} (
 		</f:then>
 		<f:else>
 #
-# Table structure for table '{model}_{field.fieldname}_mm'
+# Table structure for table '{modelForMM}_{field.fieldname}_mm'
 #
-CREATE TABLE {model}_{field.fieldname}_mm (
+CREATE TABLE {modelForMM}_{field.fieldname}_mm (
     uid_local int(11) unsigned DEFAULT '0' NOT NULL,
     uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
     tablenames varchar(30) DEFAULT '' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
+!    
+    PRIMARY KEY (uid_local,uid_foreign),
     KEY uid_local (uid_local),
     KEY uid_foreign (uid_foreign)
 );
@@ -121,6 +124,8 @@ CREATE TABLE {sav:buildTableName(shortName:field.fieldname, extensionKey:extensi
     uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
     tablenames varchar(30) DEFAULT '' NOT NULL,
     sorting int(11) DEFAULT '0' NOT NULL,
+!    
+    PRIMARY KEY (uid_local,uid_foreign),    
     KEY uid_local (uid_local),
     KEY uid_foreign (uid_foreign)
 );

@@ -23,6 +23,8 @@
 namespace {vendorName}\{extensionName}\Controller;
 !
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+use YolfTypo3\SavLibraryPlus\Controller\Controller;
 !
 /**
  * Plugin '{extension.emconf.1.title}' for the '{extension.general.1.extensionKey}' extension.
@@ -30,7 +32,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @author {extension.emconf.1.author} <{extension.emconf.1.author_email}>
  * @package {extension.general.1.extensionKey}
  */
-class {extensionName}Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin 
+class {extensionName}Controller extends AbstractPlugin 
 {
 	/**
 	 * PrefixId
@@ -55,14 +57,14 @@ class {extensionName}Controller extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugi
 	public function main(string $content, array $configuration) : string
 	{
 	  // Creates the SavLibraryPlus controller
-	  $controller = GeneralUtility::makeInstance(\YolfTypo3\SavLibraryPlus\Controller\Controller::class);
+	  $controller = GeneralUtility::makeInstance(Controller::class);
 !
 	  // Gets the extension configuration manager
 	  $extensionConfigurationManager = $controller->getExtensionConfigurationManager();
 !
 	  // Injects the extension in the extension configuration manager
 	  $extensionConfigurationManager->injectExtension($this);
-
+!
 	  // Injects the typoScript configuration in the extension configuration manager
 	  $extensionConfigurationManager->injectTypoScriptConfiguration($configuration);
 !

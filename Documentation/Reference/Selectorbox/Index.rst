@@ -41,7 +41,7 @@ func
              
         - makeEmailLink
              
-        See :ref:`functions` for the associated parameters .
+        See :ref:`functions` for the associated parameters.
  
 
 .. _selectorbox.separator:

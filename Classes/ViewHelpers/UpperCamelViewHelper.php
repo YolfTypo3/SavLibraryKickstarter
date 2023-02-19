@@ -16,7 +16,9 @@
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for transforming a string to UpperCamel case.
@@ -34,7 +36,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class UpperCamelViewHelper extends AbstractViewHelper
 {
-
+    use CompileWithRenderStatic;
     /**
      * Initializes arguments.
      *
@@ -46,20 +48,21 @@ class UpperCamelViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the string in UpperCamel
+     * Renders the item
      *
-     * @return string String in UpperCamel
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return array the options array
      */
-    public function render(): string
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         // Gets the arguments
-        $string = $this->arguments['string'];
+        $string = $arguments['string'];
 
         if ($string === null) {
-            $string = $this->renderChildren();
-        }
-        if ($this->arguments['noAccent']) {
-            $string = $this->replaceAccents($string);
+            $string = $renderChildrenClosure();
         }
 
         return ($string === null ? '' : GeneralUtility::underscoredToUpperCamelCase($string));

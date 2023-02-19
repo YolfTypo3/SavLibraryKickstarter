@@ -1,6 +1,7 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<?php
 <f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
-defined('TYPO3_MODE') or die();
+<f:variable name="tableType" value="new" />
+defined('TYPO3') or die();
 !
 $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
 if (version_compare($typo3Version->getVersion(), '10.0', '<')) {

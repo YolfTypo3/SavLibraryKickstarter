@@ -16,6 +16,7 @@
 namespace YolfTypo3\SavLibraryKickstarter\Controller;
 
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
@@ -41,7 +42,7 @@ class KickstarterController extends ActionController
      *
      * @var string
      */
-    protected $defaultViewObjectName = \TYPO3\CMS\Backend\View\BackendTemplateView::class;
+    protected $defaultViewObjectName = BackendTemplateView::class;
 
     /**
      *
@@ -62,10 +63,10 @@ class KickstarterController extends ActionController
     /**
      * extensionList action for this controller.
      *
-     * @param string $showExtensionVersionSelector
+     * @param string|null $showExtensionVersionSelector
      * @return void|ResponseInterface
      */
-    public function extensionListAction(string $showExtensionVersionSelector = null)
+    public function extensionListAction(?string $showExtensionVersionSelector = null)
     {
         // Checks if the static template is included
         $backendConfigurationManager = GeneralUtility::makeInstance(BackendConfigurationManager::class);
@@ -93,10 +94,10 @@ class KickstarterController extends ActionController
      *
      * @return void
      */
-    public function generateLocalDocumentationWithDockerComposeAction(string $extKey)
+    public function generateLocalDocumentationWithDockerComposeAction(string $extensionKey)
     {
         $out = null;
-        $extensionDirectory = ConfigurationManager::getExtensionDir($extKey);
+        $extensionDirectory = ConfigurationManager::getExtensionDir($extensionKey);
         $yamlFile = $extensionDirectory . 'docker-compose.yml';
         CommandUtility::exec('docker-compose --file="' . $yamlFile . '" run --rm t3docmake', $out);
 
@@ -108,10 +109,10 @@ class KickstarterController extends ActionController
      *
      * @return void
      */
-    public function showLocalDocumentationAction(string $extKey)
+    public function showLocalDocumentationAction(string $extensionKey)
     {
         $out = null;
-        $extensionDirectory = ConfigurationManager::getExtensionDir($extKey);
+        $extensionDirectory = ConfigurationManager::getExtensionDir($extensionKey);
         $yamlFile = $extensionDirectory . 'docker-compose.yml';
         CommandUtility::exec('docker-compose --file="' . $yamlFile . '" run --rm t3docmake', $out);
 
@@ -121,30 +122,29 @@ class KickstarterController extends ActionController
     /**
      * selectExtensionVersion action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      * @return void
      */
-    public function selectExtensionVersionAction(string $extKey)
+    public function selectExtensionVersionAction(string $extensionKey)
     {
         $this->redirect('extensionList', null, null, [
-            'showExtensionVersionSelector' => $extKey
+            'showExtensionVersionSelector' => $extensionKey
         ]);
     }
 
     /**
      * changeExtensionVersion action for this controller.
      *
-     * @param string $extKey
+     * @param string|null $extensionKey
      * @return void
      */
-    public function changeExtensionVersionAction(string $extKey = null)
+    public function changeExtensionVersionAction(?string $extensionKey = null)
     {
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extensionKey'];
+        $extensionKey = $arguments['extensionKey'];
         $version = $arguments['extensionVersion'];
 
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration($version);
         // Saves the working configuration
         $configurationManager->saveConfigurationVersion();
@@ -163,7 +163,7 @@ class KickstarterController extends ActionController
         }
 
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -189,14 +189,14 @@ class KickstarterController extends ActionController
     /**
      * copyExtension action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      * @return void|ResponseInterface
      */
-    public function copyExtensionAction(string $extKey)
+    public function copyExtensionAction(string $extensionKey)
     {
         $this->view->assign('extensionList', $this->getConfigurationList());
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', 1);
 
         // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
@@ -208,13 +208,12 @@ class KickstarterController extends ActionController
     /**
      * editExtension action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      * @return void
      */
-    public function editExtensionAction(string $extKey)
+    public function editExtensionAction(string $extensionKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $section = $configurationManager->getSectionManager()
             ->getItem('general')
@@ -230,7 +229,7 @@ class KickstarterController extends ActionController
             $itemKey = 1;
         }
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -239,13 +238,12 @@ class KickstarterController extends ActionController
     /**
      * installExtension action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      * @return void
      */
-    public function installExtensionAction(string $extKey)
+    public function installExtensionAction(string $extensionKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getExtensionManager()->installExtension();
         $this->redirect('extensionList');
@@ -254,13 +252,12 @@ class KickstarterController extends ActionController
     /**
      * installExtension action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      * @return void
      */
-    public function uninstallExtensionAction(string $extKey)
+    public function uninstallExtensionAction(string $extensionKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getExtensionManager()->uninstallExtension();
         $this->redirect('extensionList');
@@ -269,13 +266,12 @@ class KickstarterController extends ActionController
     /**
      * downloadExtension action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      * @return void
      */
-    public function downloadExtensionAction(string $extKey)
+    public function downloadExtensionAction(string $extensionKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getExtensionManager()->downloadExtension();
         $this->redirect('extensionList');
@@ -284,13 +280,12 @@ class KickstarterController extends ActionController
     /**
      * generateExtension action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      * @return void
      */
-    public function generateExtensionAction(string $extKey)
+    public function generateExtensionAction(string $extensionKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getCodeGenerator()->buildExtension();
         $configurationManager->saveConfiguration();
@@ -300,13 +295,12 @@ class KickstarterController extends ActionController
     /**
      * upgradeExtension action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      * @return void
      */
-    public function upgradeExtensionAction($extKey)
+    public function upgradeExtensionAction($extensionKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->upgradeExtension();
         $configurationManager->getCodeGenerator()->buildExtension();
@@ -316,15 +310,13 @@ class KickstarterController extends ActionController
     /**
      * upgradeExtensions action for this controller.
      *
-     * @param string $extKey
      * @return void
      */
     public function upgradeExtensionsAction()
     {
         $counter = 0;
         foreach (GeneralUtility::get_dirs(Environment::getPublicPath() . '/typo3conf/ext/') as $extensionKey) {
-            $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
-            $configurationManager->injectController($this);
+            $configurationManager = new ConfigurationManager($extensionKey, $this);
 
             if ($configurationManager->isSavLibraryKickstarterExtension()) {
                 // Checks if the extension must be upgradedd
@@ -352,27 +344,28 @@ class KickstarterController extends ActionController
     /**
      * addItem action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
      * @return void
      */
-    public function addItemAction(string $extKey, string $section)
+    public function addItemAction(string $extensionKey, string $section)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $itemKey = $configurationManager->getSectionManager()
             ->addItem($section)
-            ->addItem(null)
+            ->addEmptyItemAndGetKey();
+        $configurationManager->getSectionManager()
+            ->addItem($section)
+            ->addItem($itemKey)
             ->addItem([
-            'title' => LocalizationUtility::translate('kickstarter.new', $this->request->getControllerExtensionKey())
-        ])
-            ->getItemIndex();
+                'title' => LocalizationUtility::translate('kickstarter.new', $this->request->getControllerExtensionKey())
+            ]);
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -381,7 +374,7 @@ class KickstarterController extends ActionController
     /**
      * deleteItem action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -389,10 +382,9 @@ class KickstarterController extends ActionController
      *            The key of the item to delete
      * @return void
      */
-    public function deleteItemAction(string $extKey, string $section, int $itemKey)
+    public function deleteItemAction(string $extensionKey, string $section, int $itemKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -407,14 +399,14 @@ class KickstarterController extends ActionController
             ->deleteItem('itemKey');
         $configurationManager->saveConfiguration();
         $this->redirect('editExtension', null, null, [
-            'extKey' => $extKey
+            'extensionKey' => $extensionKey
         ]);
     }
 
     /**
      * emconfEditSection action for this controller.
      *
-     * @param string $extKey
+     * @param string|null $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -422,17 +414,16 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @return void|ResponseInterface
      */
-    public function emconfEditSectionAction(string $extKey = null, string $section = null, int $itemKey = null)
+    public function emconfEditSectionAction(?string $extensionKey = null, ?string $section = null, int $itemKey = null)
     {
         // Loads the configuration
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
-
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
+
         // Assigns view variables
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configurationManager->getConfiguration());
 
@@ -445,7 +436,7 @@ class KickstarterController extends ActionController
     /**
      * documentationEditSection action for this controller.
      *
-     * @param string $extKey
+     * @param string|null $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -453,17 +444,16 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @return void|ResponseInterface
      */
-    public function documentationEditSectionAction(string $extKey = null, string $section = null, int $itemKey = null)
+    public function documentationEditSectionAction(?string $extensionKey = null, string $section = null, int $itemKey = null)
     {
         // Loads the configuration
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
-
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
+
         // Assigns view variables
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configurationManager->getConfiguration());
 
@@ -476,27 +466,26 @@ class KickstarterController extends ActionController
     /**
      * newTablesEditSection action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @param int $fieldKey
+     * @param int|null $fieldKey
      *            The key of the field to edit
-     * @param int $viewKey
+     * @param int|null $viewKey
      *            The key of the view
-     * @param int $folderKey
+     * @param int|null $folderKey
      *            The key of the folder
      * @param bool $showFieldConfiguration
      *            Displays the field definition if true
      * @return void|ResponseInterface
      */
-    public function newTablesEditSectionAction(string $extKey, string $section, int $itemKey, int $fieldKey = null, int $viewKey = null, int $folderKey = null, bool $showFieldConfiguration = false)
+    public function newTablesEditSectionAction(string $extensionKey, string $section, int $itemKey, ?int $fieldKey = null, ?int $viewKey = null, ?int $folderKey = null, bool $showFieldConfiguration = false)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -509,8 +498,10 @@ class KickstarterController extends ActionController
                         ->addItem('fields')
                         ->addItem($key)
                         ->addItem('order');
-                    if ($sectionManager->getItem('views')->count() > 0) {
-                        foreach ($sectionManager->getItem('views') as $viewKeyLocal => $view) {
+                    $views = $sectionManager->getItem('views');
+                    if ($views->count() > 0) {
+                        $firstViewKey = array_key_first((array) $views);
+                        foreach ($views as $viewKeyLocal => $view) {
                             if (! $item->itemExists(viewKeyLocal)) {
                                 $item->addItem([
                                     viewKeyLocal => $key
@@ -525,7 +516,7 @@ class KickstarterController extends ActionController
                                     ->getItem('fields')
                                     ->getItem($key)
                                     ->addItem([
-                                    'viewKey' => 1
+                                        'viewKey' => $firstViewKey
                                 ]);
                             }
                         }
@@ -544,19 +535,20 @@ class KickstarterController extends ActionController
                         ]);
                     }
                 }
-                if ($sectionManager->getItem('views')->count() == 0) {
+                if ($views->count() == 0) {
                     $sectionManager->getItem($section)
                         ->getItem($tableKey)
                         ->addItem([
-                        'viewKey' => 0
+                            'viewKey' => 0
                     ]);
                 } elseif ($sectionManager->getItem($section)
                     ->getItem($tableKey)
                     ->getItem('viewKey') == 0) {
+                    $firstViewKey = array_key_first((array) $views);
                     $sectionManager->getItem($section)
                         ->getItem($tableKey)
                         ->addItem([
-                        'viewKey' => 1
+                            'viewKey' => $firstViewKey
                     ]);
                 }
             }
@@ -614,7 +606,7 @@ class KickstarterController extends ActionController
 
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('fieldKey', $fieldKey);
         $this->view->assign('extension', $configuration);
@@ -630,27 +622,26 @@ class KickstarterController extends ActionController
     /**
      * existingTablesEditSection action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
-     * @param int $itemKey
+     * @param int|null $itemKey
      *            The key of the item to edit
-     * @param int $fieldKey
+     * @param int|null $fieldKey
      *            The key of the field to edit
-     * @param int $viewKey
+     * @param int|null $viewKey
      *            The key of the view
-     * @param int $folderKey
+     * @param int|null $folderKey
      *            The key of the folder
      * @param bool $showFieldConfiguration
      *            Displays the field definition if true
      * @return void|ResponseInterface
      */
-    public function existingTablesEditSectionAction(string $extKey, string $section, int $itemKey, int $fieldKey = null, int $viewKey = null, int $folderKey = null, bool $showFieldConfiguration = false)
+    public function existingTablesEditSectionAction(string $extensionKey, string $section, ?int $itemKey, ?int $fieldKey = null, ?int $viewKey = null, ?int $folderKey = null, bool $showFieldConfiguration = false)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -769,7 +760,7 @@ class KickstarterController extends ActionController
         $configuration = $configurationManager->getConfiguration();
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('fieldKey', $fieldKey);
         $this->view->assign('extension', $configuration);
@@ -785,7 +776,7 @@ class KickstarterController extends ActionController
     /**
      * existingTablesImportFields action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -793,11 +784,10 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @return void
      */
-    public function existingTablesImportFieldsAction(string $extKey, string $section, int $itemKey)
+    public function existingTablesImportFieldsAction(string $extensionKey, string $section, int $itemKey)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -851,13 +841,13 @@ class KickstarterController extends ActionController
         $configuration = $configurationManager->getConfiguration();
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('fieldKey', $fieldKey);
         $this->view->assign('extension', $configuration);
         $this->view->assign('folderLabels', $folderLabels);
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -866,7 +856,7 @@ class KickstarterController extends ActionController
     /**
      * viewsEditSection action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -874,17 +864,15 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @return void|ResponseInterface
      */
-    public function viewsEditSectionAction(string $extKey, string $section, int $itemKey)
+    public function viewsEditSectionAction(string $extensionKey, string $section, int $itemKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         // Sorts the folders if any
         if ($configurationManager->getSectionManager()
             ->getItem($section)
             ->getItem($itemKey)
-            ->addItem('folders')
-            ->count() > 0) {
+            ->getItem('folders') !== null) {
             $configurationManager->getSectionManager()
                 ->getItem($section)
                 ->getItem($itemKey)
@@ -895,7 +883,7 @@ class KickstarterController extends ActionController
 
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
 
         $viewType = $configurationManager->getSectionManager()
@@ -921,7 +909,7 @@ class KickstarterController extends ActionController
     /**
      * queriesEditSection action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -929,15 +917,14 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @return void|ResponseInterface
      */
-    public function queriesEditSectionAction(string $extKey, string $section, int $itemKey)
+    public function queriesEditSectionAction(string $extensionKey, string $section, int $itemKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configuration = $configurationManager->getConfiguration();
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configuration);
 
@@ -950,7 +937,7 @@ class KickstarterController extends ActionController
     /**
      * formsEditSection action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -958,15 +945,14 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @return void|ResponseInterface
      */
-    public function formsEditSectionAction(string $extKey, string $section, int $itemKey)
+    public function formsEditSectionAction(string $extensionKey, string $section, int $itemKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configuration = $configurationManager->getConfiguration();
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
         $this->view->assign('extensionNotLoaded', ! $configurationManager->isLoadedExtension());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configuration);
 
@@ -1000,7 +986,7 @@ class KickstarterController extends ActionController
     /**
      * changeViewAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -1010,10 +996,9 @@ class KickstarterController extends ActionController
      *            The key of the view to edit
      * @return void
      */
-    public function changeViewAction(string $extKey, string $section, int $itemKey, int $viewKey)
+    public function changeViewAction(string $extensionKey, string $section, int $itemKey, int $viewKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1030,7 +1015,7 @@ class KickstarterController extends ActionController
         ]);
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1039,7 +1024,7 @@ class KickstarterController extends ActionController
     /**
      * changeFolderAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -1051,10 +1036,9 @@ class KickstarterController extends ActionController
      *            The key of the folder to change
      * @return void
      */
-    public function changeFolderAction(string $extKey, string $section, int $itemKey, int $viewKey, int $folderKey)
+    public function changeFolderAction(string $extensionKey, string $section, int $itemKey, int $viewKey, int $folderKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1066,7 +1050,7 @@ class KickstarterController extends ActionController
         ]);
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1075,7 +1059,7 @@ class KickstarterController extends ActionController
     /**
      * changeConfigurationViewAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -1087,10 +1071,9 @@ class KickstarterController extends ActionController
      *            The key of the view to edit
      * @return void
      */
-    public function changeConfigurationViewAction(string $extKey, string $section, int $itemKey, int $fieldKey, int $viewKey)
+    public function changeConfigurationViewAction(string $extensionKey, string $section, int $itemKey, int $fieldKey, int $viewKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1102,7 +1085,7 @@ class KickstarterController extends ActionController
         ]);
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey
@@ -1136,7 +1119,33 @@ class KickstarterController extends ActionController
      */
     protected function overwriteSubmitAction()
     {
-        $this->saveSubmitAction(false);
+        // Gets arguments
+        $arguments = $this->request->getArguments();
+        $extensionKey = $arguments['extensionKey'];
+        $section = $arguments['general']['section'];
+        $itemKey = $arguments['general']['itemKey'];
+
+        // Gets the configuration and the section managers
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
+        $configurationManager->loadConfiguration();
+        $sectionManager = $configurationManager->getSectionManager();
+
+        $sectionManager->getItem('general')
+            ->getItem(1)
+            ->addItem('upgrades')
+            ->addItem([
+                'YolfTypo3\\SavLibraryKickstarter\\Upgrade\\UpgradeToSavLibraryMvc' => false
+            ]);
+
+        // Upgrades et regenerates the extension
+        $configurationManager->upgradeExtension();
+
+        // Redirects to the section action
+        $this->redirect($section . 'EditSection', null, null, [
+            'extensionKey' => $extensionKey,
+            'section' => $section,
+            'itemKey' => $itemKey
+        ]);
     }
 
     /**
@@ -1149,7 +1158,7 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
         $fieldKey = $arguments['general']['fieldKey'];
@@ -1157,8 +1166,7 @@ class KickstarterController extends ActionController
         $libraryType = $arguments['general']['libraryType'];
 
         // Gets the configuration and the section managers
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1192,57 +1200,23 @@ class KickstarterController extends ActionController
             unset($arguments['general']['version']);
         }
 
-        // Gets the current library type
-        $currentLibraryType = $sectionManager->getItem('general')
-            ->addItem(1)
-            ->getItem('libraryType');
 
-        // Checks if the library type has been changed
-        if ($section == 'emconf') {
-            if ($checkLibraryType === true) {
-                if ($currentLibraryType != $libraryType) {
-                    // Builds the new directory if needed
-                    $configurationManager->buildConfigurationDirectory($extKey, $libraryType);
-
-                    // Gets the library name
-                    $libraryName = ConfigurationManager::getLibraryName($libraryType);
-
-                    // Checks if a configuration already exists
-                    if ($configurationManager->configurationFileExists($extKey, $libraryName)) {
-                        // The type is unchanged, overload must be used
-                        $message = LocalizationUtility::translate('kickstarter.overwriteRequired', $this->request->getControllerExtensionKey());
-                        $this->addFlashMessage($message);
-                        unset($arguments['general']['libraryType']);
-                    } else {
-                        // Changes the library type file
-                        $libraryName = ConfigurationManager::getLibraryName($libraryType);
-                        GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extKey), $libraryName);
-                    }
-                }
-            } else {
-                // Builds the new directory if needed
-                $configurationManager->buildConfigurationDirectory($extKey, $libraryType);
-
-                // Changes the library type file
-                $libraryName = ConfigurationManager::getLibraryName($libraryType);
-                GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extKey), $libraryName);
-            }
-        } elseif (! file_exists(ConfigurationManager::getLibraryTypeFileName($extKey))) {
+        if (! file_exists(ConfigurationManager::getLibraryTypeFileName($extensionKey))) {
             // Just a security since the library type file should have been created before
             $libraryType = $sectionManager->getItem('general')
-                ->addItem(1)
+                ->getItem(1)
                 ->getItem('libraryType');
 
             // Builds the new directory if needed
-            $configurationManager->buildConfigurationDirectory($extKey, $libraryType);
+            $configurationManager->buildConfigurationDirectory($extensionKey, $libraryType);
 
             // Changes the library type file
             $libraryName = ConfigurationManager::getLibraryName($libraryType);
-            GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extKey), $libraryName);
+            GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extensionKey), $libraryName);
         }
 
         $sectionManager->getItem('general')
-            ->addItem(1)
+            ->getItem(1)
             ->replace($arguments['general']);
 
         // Processes the subforms
@@ -1265,7 +1239,7 @@ class KickstarterController extends ActionController
 
         // Redirects to the section action
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => ($fieldKey ? $fieldKey : null),
@@ -1282,31 +1256,51 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
         $fieldKey = $arguments['general']['fieldKey'];
         $showFieldConfiguration = $arguments['general']['showFieldConfiguration'];
 
         // Gets the configuration manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
 
         $libraryName = ConfigurationManager::getLibraryName($arguments['general']['libraryType']);
 
         // Checks if a configuration already exists
-        if ($configurationManager->configurationFileExists($extKey, $libraryName)) {
-            // Changes the library type file
-            GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extKey), $libraryName);
+        if ($configurationManager->configurationFileExists($extensionKey, $libraryName)) {
+            // Gets the current library name
+            $currentLibraryName = trim(GeneralUtility::getURL(ConfigurationManager::getLibraryTypeFileName($extensionKey)));
+            if ($currentLibraryName == $libraryName) {
+                // The type is unchanged
+                $message = LocalizationUtility::translate(
+                    'kickstarter.unchangedLibraryType',
+                    $this->request->getControllerExtensionKey(),
+                    [$libraryName]
+                    );
+            } else {
+                // Changes the library type file
+                GeneralUtility::writeFile(ConfigurationManager::getLibraryTypeFileName($extensionKey), $libraryName);
+                // The type is unchanged
+                $message = LocalizationUtility::translate(
+                    'kickstarter.changedLibraryType',
+                    $this->request->getControllerExtensionKey(),
+                    [$libraryName]
+                    );
+            }
         } else {
             // The type is unchanged : no configuration file
-            $message = LocalizationUtility::translate('kickstarter.noConfigurationFile', $this->request->getControllerExtensionKey());
-            $this->addFlashMessage($message);
+            $message = LocalizationUtility::translate(
+                'kickstarter.noConfigurationFile',
+                $this->request->getControllerExtensionKey(),
+                [$libraryName]
+            );
         }
+        $this->addFlashMessage($message);
 
         // Redirects to the section action
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => ($fieldKey ? $fieldKey : null),
@@ -1323,22 +1317,21 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = strtolower($arguments['extKey']);
+        $extensionKey = strtolower($arguments['extensionKey']);
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
 
         // Gets the configuration and the section managers
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
-        $configurationManager->loadConfiguration();
-        $sectionManager = $configurationManager->getSectionManager();
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
+        $sectionManager = $configurationManager->getSectionManager(true);
 
         // Creates all sections
         $sectionManager->addItem('general')
             ->addItem(1)
             ->addItem([
-            'extensionKey' => $extKey
+            'extensionKey' => $extensionKey
         ]);
+
         $sectionManager->addItem('general')
             ->addItem(1)
             ->addItem([
@@ -1361,7 +1354,7 @@ class KickstarterController extends ActionController
         $sectionManager->addItem('forms');
 
         // Creates the configuration directory
-        $configurationManager->createConfigurationDir($extKey);
+        $configurationManager->createConfigurationDir($extensionKey);
 
         // Replaces the section arguments and saves
         $sectionManager->getItem('general')
@@ -1374,7 +1367,7 @@ class KickstarterController extends ActionController
 
         // Redirects to the section
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1389,15 +1382,14 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
         $fieldKey = ($arguments['general']['fieldKey'] ? $arguments['general']['fieldKey'] : null);
         $showFieldConfiguration = $arguments['general']['showFieldConfiguration'];
 
         // Gets the configuration and the section managers
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1437,7 +1429,7 @@ class KickstarterController extends ActionController
 
         // Redirects to the section action
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => ($fieldKey ? $fieldKey : null),
@@ -1454,36 +1446,35 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
 
         // Gets the configuration and the section managers
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
         // Sets the new extension key
-        $newExtKey = $arguments['newExtKey'];
-        $configurationManager->setExtensionKey($newExtKey);
+        $newExtensionKey = $arguments['newExtensionKey'];
+        $configurationManager->setExtensionKey($newExtensionKey);
 
         // Replaces the table name by its new name in all fields
         foreach ($sectionManager->getItems() as $walkSection) {
             $walkSection->walkItem('\\YolfTypo3\\SavLibraryKickstarter\\Controller\\KickstarterController::changeTableNames', [
-                'newExtensionKey' => $newExtKey,
-                'oldExtensionKey' => $extKey
+                'newExtensionKey' => $newExtensionKey,
+                'oldExtensionKey' => $extensionKey
             ]);
         }
 
         // Creates the configuration directory and generates the extension
-        $configurationManager->createConfigurationDir($newExtKey);
+        $configurationManager->createConfigurationDir($newExtensionKey);
         $configurationManager->saveConfiguration();
         $configurationManager->getCodeGenerator()->buildExtension();
 
         // Redirects to the new section action
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $newExtKey,
+            'extensionKey' => $newExtensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1498,13 +1489,12 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
 
         // Gets the configuration manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1514,7 +1504,7 @@ class KickstarterController extends ActionController
         ]);
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1529,13 +1519,12 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
 
         // Gets the configuration manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1545,7 +1534,7 @@ class KickstarterController extends ActionController
         ]);
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1583,13 +1572,12 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
 
         // Gets the configuration and the section managers
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1625,7 +1613,7 @@ class KickstarterController extends ActionController
 
         // Redirects to the section action
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1640,14 +1628,13 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
         $fieldKey = $arguments['general']['fieldKey'];
 
         // Gets the configuration and the section managers
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1680,7 +1667,7 @@ class KickstarterController extends ActionController
 
         // Redirects to the section action
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1695,13 +1682,12 @@ class KickstarterController extends ActionController
     {
         // Gets arguments
         $arguments = $this->request->getArguments();
-        $extKey = $arguments['extKey'];
+        $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
 
         // Gets the configuration and the section managers
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1739,7 +1725,7 @@ class KickstarterController extends ActionController
 
         // Redirects to the section action
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -1748,7 +1734,7 @@ class KickstarterController extends ActionController
     /**
      * editFieldConfiguration action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -1762,10 +1748,9 @@ class KickstarterController extends ActionController
      *            The key of the field to edit
      * @return void
      */
-    public function editFieldConfigurationAction(string $extKey, string $section, int $itemKey, int $viewKey, int $folderKey = 0, int $fieldKey)
+    public function editFieldConfigurationAction(string $extensionKey, string $section, int $itemKey, int $viewKey, int $folderKey = 0, int $fieldKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getSectionManager()
             ->getItem($section)
@@ -1778,7 +1763,7 @@ class KickstarterController extends ActionController
         ]);
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey,
@@ -1791,7 +1776,7 @@ class KickstarterController extends ActionController
     /**
      * moveUpField action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -1803,10 +1788,9 @@ class KickstarterController extends ActionController
      *            The value to move up or downn
      * @return void
      */
-    public function moveUpFieldAction(string $extKey, string $section, int $itemKey, int $fieldKey)
+    public function moveUpFieldAction(string $extensionKey, string $section, int $itemKey, int $fieldKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -1885,7 +1869,7 @@ class KickstarterController extends ActionController
         // Saves and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey
@@ -1895,7 +1879,7 @@ class KickstarterController extends ActionController
     /**
      * moveDownField action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -1905,10 +1889,9 @@ class KickstarterController extends ActionController
      *            The key of the field to edit
      * @return void
      */
-    public function moveDownFieldAction(string $extKey, string $section, int $itemKey, int $fieldKey)
+    public function moveDownFieldAction(string $extensionKey, string $section, int $itemKey, int $fieldKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Gets the item
@@ -1990,7 +1973,7 @@ class KickstarterController extends ActionController
         // Saves and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey
@@ -2000,7 +1983,7 @@ class KickstarterController extends ActionController
     /**
      * addNewField action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2010,25 +1993,27 @@ class KickstarterController extends ActionController
      *            The key of the field to edit
      * @return void
      */
-    public function addNewFieldAction(string $extKey, string $section, int $itemKey, int $fieldKey = null)
+    public function addNewFieldAction(string $extensionKey, string $section, int $itemKey, int $fieldKey = null)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
         // A new field can be added if at least one view is defined
         $views = $sectionManager->getItem('views');
         if ($views->count() == 0) {
+            $firstViewKey = array_key_first((array) $views);
             $message = LocalizationUtility::translate('kickstarter.noViewBeforeAddingField', $this->request->getControllerExtensionKey());
             $this->addFlashMessage($message);
             $this->redirect($section . 'EditSection', null, null, [
-                'extKey' => $extKey,
+                'extensionKey' => $extensionKey,
                 'section' => $section,
                 'itemKey' => $itemKey,
                 'fieldKey' => $fieldKey
             ]);
+        } else {
+            $firstViewKey = array_key_first((array)$views);
         }
 
         // Adds the item at the end if no field key is provided
@@ -2037,8 +2022,7 @@ class KickstarterController extends ActionController
             $fieldKey = $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->addItem('fields')
-                ->addItem($fieldKey)
-                ->getItemIndex();
+                ->addEmptyItemAndGetKey();
             // Sets the default values
             $sectionManager->getItem($section)
                 ->getItem($itemKey)
@@ -2058,7 +2042,7 @@ class KickstarterController extends ActionController
                 $sectionManager->getItem($section)
                     ->getItem($itemKey)
                     ->addItem([
-                    'viewKey' => 1
+                        'viewKey' => $firstViewKey
                 ]);
             }
 
@@ -2079,6 +2063,7 @@ class KickstarterController extends ActionController
                 ->getItem($itemKey)
                 ->getItem('fields')
                 ->count();
+
             foreach ($views as $viewKey => $view) {
                 $sectionManager->getItem($section)
                     ->getItem($itemKey)
@@ -2093,7 +2078,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey,
@@ -2104,21 +2089,20 @@ class KickstarterController extends ActionController
     /**
      * deleteFieldAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
      * @param int $itemKey
      *            The key of the item to delete
-     * @param int $fieldKey
+     * @param int|null $fieldKey
      *            The key of the field to delete
      * @return void
      */
-    public function deleteFieldAction(string $extKey, string $section, int $itemKey, int $fieldKey = null)
+    public function deleteFieldAction(string $extensionKey, string $section, int $itemKey, ?int $fieldKey = null)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -2181,7 +2165,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey
@@ -2191,7 +2175,7 @@ class KickstarterController extends ActionController
     /**
      * addNewViewWithConditionAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2199,15 +2183,14 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @param string $viewType
      *            The type of the view
-     * @param int $viewWithConditionKey
+     * @param int|null $viewWithConditionKey
      *            The key of the view to add
      * @return void
      */
-    public function addNewViewWithConditionAction(string $extKey, string $section, int $itemKey, string $viewType, int $viewWithConditionKey = null)
+    public function addNewViewWithConditionAction(string $extensionKey, string $section, int $itemKey, string $viewType, ?int $viewWithConditionKey = null)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
@@ -2225,7 +2208,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -2234,7 +2217,7 @@ class KickstarterController extends ActionController
     /**
      * deleteViewWithConditionAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2246,11 +2229,10 @@ class KickstarterController extends ActionController
      *            The key of the view to add
      * @return void
      */
-    public function deleteViewWithConditionAction(string $extKey, string $section, int $itemKey, string $viewType, int $viewWithConditionKey)
+    public function deleteViewWithConditionAction(string $extensionKey, string $section, int $itemKey, string $viewType, int $viewWithConditionKey)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Deletes the field
@@ -2263,7 +2245,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -2272,21 +2254,20 @@ class KickstarterController extends ActionController
     /**
      * addNewFolderAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @param int $folderKey
+     * @param int|null $folderKey
      *            The key of the folder to add
      * @return void
      */
-    public function addNewFolderAction(string $extKey, string $section, int $itemKey, int $folderKey = null)
+    public function addNewFolderAction(string $extensionKey, string $section, int $itemKey, ?int $folderKey = null)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
@@ -2304,7 +2285,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -2313,7 +2294,7 @@ class KickstarterController extends ActionController
     /**
      * moveUpFolder action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2323,10 +2304,9 @@ class KickstarterController extends ActionController
      *            The key of the folder to move up
      * @return void
      */
-    public function moveUpFolderAction(string $extKey, string $section, int $itemKey, int $folderKey)
+    public function moveUpFolderAction(string $extensionKey, string $section, int $itemKey, int $folderKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         $fromItem = $sectionManager->getItem($section)
@@ -2362,7 +2342,7 @@ class KickstarterController extends ActionController
         }
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -2371,7 +2351,7 @@ class KickstarterController extends ActionController
     /**
      * moveDownFolder action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2381,10 +2361,9 @@ class KickstarterController extends ActionController
      *            The key of the folder to move down
      * @return void
      */
-    public function moveDownFolderAction(string $extKey, string $section, int $itemKey, int $folderKey)
+    public function moveDownFolderAction(string $extensionKey, string $section, int $itemKey, int $folderKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         $fromItem = $sectionManager->getItem($section)
@@ -2424,7 +2403,7 @@ class KickstarterController extends ActionController
         }
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -2433,7 +2412,7 @@ class KickstarterController extends ActionController
     /**
      * deleteFolderAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2443,11 +2422,10 @@ class KickstarterController extends ActionController
      *            The key of the folder to delete
      * @return void
      */
-    public function deleteFolderAction(string $extKey, string $section, int $itemKey, int $folderKey)
+    public function deleteFolderAction(string $extensionKey, string $section, int $itemKey, int $folderKey)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
 
@@ -2504,7 +2482,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -2513,21 +2491,20 @@ class KickstarterController extends ActionController
     /**
      * addNewWhereTagAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
      * @param int $itemKey
      *            The key of the item to edit
-     * @param int $whereTagKey
+     * @param int|null $whereTagKey
      *            The key of the whereTag to create
      * @return void
      */
-    public function addNewWhereTagAction(string $extKey, string $section, int $itemKey, int $whereTagKey = null)
+    public function addNewWhereTagAction(string $extensionKey, string $section, int $itemKey, ?int $whereTagKey = null)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the folder at the end if no key is provided
@@ -2544,7 +2521,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -2553,7 +2530,7 @@ class KickstarterController extends ActionController
     /**
      * deleteWhereTagAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2563,11 +2540,10 @@ class KickstarterController extends ActionController
      *            The key of the folder to delete
      * @return void
      */
-    public function deleteWhereTagAction(string $extKey, string $section, int $itemKey, int $whereTagKey)
+    public function deleteWhereTagAction(string $extensionKey, string $section, int $itemKey, int $whereTagKey)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Deletes the whereTag
@@ -2578,7 +2554,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
         ]);
@@ -2587,7 +2563,7 @@ class KickstarterController extends ActionController
     /**
      * addNewBoxItemAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2595,25 +2571,27 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @param int $fieldKey
      *            The key of the field to edit
-     * @param int $boxItemKey
+     * @param int|null $boxItemKey
      *            The key of the folder to edit
      * @return void
      */
-    public function addNewBoxItemAction(string $extKey, string $section, int $itemKey, int $fieldKey, int $boxItemKey = null)
+    public function addNewBoxItemAction(string $extensionKey, string $section, int $itemKey, int $fieldKey, ?int $boxItemKey = null)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Adds the boxItem at the end if no key is provided
         if ($boxItemKey === null) {
-            $boxItem = $sectionManager->getItem($section)
+            $boxItems = $sectionManager->getItem($section)
                 ->getItem($itemKey)
                 ->getItem('fields')
                 ->getItem($fieldKey)
                 ->addItem('items');
-            $boxItem->addItem($boxItemKey)->addItem([
+            $boxItemKey = $boxItems
+                ->addEmptyItemAndGetKey();
+
+            $boxItems->getItem($boxItemKey)->addItem([
                 'label' => '',
                 'value' => ''
             ]);
@@ -2621,7 +2599,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey,
@@ -2632,7 +2610,7 @@ class KickstarterController extends ActionController
     /**
      * deleteBoxItemAction action for this controller.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2644,11 +2622,10 @@ class KickstarterController extends ActionController
      *            The key of the folder to delete
      * @return void
      */
-    public function deleteBoxItemAction(string $extKey, string $section, int $itemKey, int $fieldKey, int $boxItemKey)
+    public function deleteBoxItemAction(string $extensionKey, string $section, int $itemKey, int $fieldKey, int $boxItemKey)
     {
         // Loads the configuration and gets the section manager
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         // Deletes the field
@@ -2658,7 +2635,7 @@ class KickstarterController extends ActionController
             ->getItem($fieldKey)
             ->getItem('items')
             ->deleteItem($boxItemKey);
-        // Reindexess the box Items if any
+        // Reindexes the box Items if any
         if ($sectionManager->getItem($section)
             ->getItem($itemKey)
             ->getItem('fields')
@@ -2675,7 +2652,7 @@ class KickstarterController extends ActionController
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
         $this->redirect($section . 'EditSection', null, null, [
-            'extKey' => $extKey,
+            'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
             'fieldKey' => $fieldKey,
@@ -2686,7 +2663,7 @@ class KickstarterController extends ActionController
     /**
      * assignForEditItemAction Assignement for EditItem actions.
      *
-     * @param string $extKey
+     * @param string $extensionKey
      *            The extension key
      * @param string $section
      *            The section name
@@ -2694,10 +2671,9 @@ class KickstarterController extends ActionController
      *            The key of the item to edit
      * @return void|ResponseInterface
      */
-    protected function assignForEditItemAction(string $extKey, string $section, int $itemKey)
+    protected function assignForEditItemAction(string $extensionKey, string $section, int $itemKey)
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extKey);
-        $configurationManager->injectController($this);
+        $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $sectionManager = $configurationManager->getSectionManager();
         $viewKey = $sectionManager->getItem($section)
@@ -2713,7 +2689,7 @@ class KickstarterController extends ActionController
         }
         $configuration = $configurationManager->getConfiguration();
         $this->view->assign('savLibraryKickstarterVersion', ConfigurationManager::getSavLibraryKickstarterVersion());
-        $this->view->assign('extKey', $extKey);
+        $this->view->assign('extensionKey', $extensionKey);
         $this->view->assign('itemKey', $itemKey);
         $this->view->assign('extension', $configuration);
 
@@ -2738,17 +2714,16 @@ class KickstarterController extends ActionController
 
         foreach (GeneralUtility::get_dirs(Environment::getPublicPath() . '/typo3conf/ext/') as $extensionKey) {
 
-            $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class, $extensionKey);
-            $configurationManager->injectController($this);
+            $configurationManager = new ConfigurationManager($extensionKey, $this);
 
             if ($configurationManager->isSavLibraryKickstarterExtension()) {
                 $configurationManager->checkForUpgrade();
-
                 $extensionVersion = $configurationManager->getExtensionVersion($extensionKey);
-                $fileName = $configurationManager->getConfigurationFileName($extensionKey, $extensionVersion);
+                $fileName = ConfigurationManager::getConfigurationFileName($extensionKey, $extensionVersion);
 
                 if (file_exists($fileName)) {
                     $configurationManager->loadConfiguration($extensionVersion);
+
                     // Saves the working configuration
                     $configurationManager->saveConfigurationVersion();
                 } else {
@@ -2768,7 +2743,7 @@ class KickstarterController extends ActionController
                     ->getItem(1)
                     ->getItem('extensionMustbeUpgraded');
 
-                // Checks if the local documentation
+                // Checks if the local documentation exists
                 if ($generateLocalDocumentationWithDockerCompose) {
                     $extensionDirectory = ConfigurationManager::getExtensionDir($extensionKey);
                     $fileName = $extensionDirectory . 'docker-compose.yml';
@@ -2803,6 +2778,7 @@ class KickstarterController extends ActionController
                         ]);
                     }
                 }
+
                 $extensionList[] = $configurationManager->getConfiguration();
             }
         }

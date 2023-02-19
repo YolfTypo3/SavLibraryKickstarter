@@ -25,7 +25,7 @@ Property                                                Data type   Default     
 :ref:`filesAndImages.renderAsLink`                      Boolean     0            Yes  No
 :ref:`filesAndImages.size`                              Integer     None         Yes  No
 :ref:`filesAndImages.tsProperties`                      String      None         Yes  No
-:ref:`filesAndImages.uploadFolder`                      String      None         Yes  No
+:ref:`filesAndImages.uploadFolder`                      String      None         Yes  Yes
 :ref:`filesAndImages.width`                             Integer     None         Yes  Yes
 ======================================================= =========== ============ ==== ====
 
