@@ -432,7 +432,7 @@
 			<trans-unit id="kickstarter.field.validationRules" resname="kickstarter.field.validationRules" xml:space="preserve">
 				<source>Validation rules</source>
 			</trans-unit>
-		   <trans-unit id="kickstarter.fieldConfiguration" resname="kickstarter.fieldConfiguration"xml:space="preserve">
+		   <trans-unit id="kickstarter.fieldConfiguration" resname="kickstarter.fieldConfiguration" xml:space="preserve">
 				<source>Field configuration</source>
 			</trans-unit>
 			<trans-unit id="kickstarter.fieldsOverview" resname="kickstarter.fieldsOverview" xml:space="preserve">
