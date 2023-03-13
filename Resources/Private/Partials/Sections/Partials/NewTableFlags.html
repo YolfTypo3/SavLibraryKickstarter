@@ -5,14 +5,14 @@
 		<f:comment>Add deleted field</f:comment>
 		<sav:form.checkbox id="add_deleted" class="checkbox"
 			name="{section}[add_deleted]" value="1"
-			checked="{sav:function(name:'setTrueIfNull', arguments:sectionItem.add_deleted)}" />
+			checked="{sectionItem.add_deleted->sav:utility.setTrueIfNull()}" />
 		<label class="clearNone" for="add_deleted"><f:translate
 				key="kickstarter.{section}Item.add_deleted" /></label>
 
 		<f:comment>Add hidden field </f:comment>
 		<sav:form.checkbox id="add_hidden" class="checkbox"
 			name="{section}[add_hidden]" value="1"
-			checked="{sav:function(name:'setTrueIfNull', arguments:sectionItem.add_hidden)}" />
+			checked="{sectionItem.add_hidden->sav:utility.setTrueIfNull()}" />
 		<label class="clearNone" for="add_hidden"><f:translate
 				key="kickstarter.{section}Item.add_hidden" /></label>
 
@@ -70,7 +70,7 @@
 		<f:comment>Add Allowed on pages flag</f:comment>
 		<sav:form.checkbox id="allow_on_pages" class="checkbox"
 			name="{section}[allow_on_pages]" value="1"
-			checked="{sav:function(name:'setTrueIfNull', arguments:sectionItem.allow_on_pages)}" />
+			checked="{sectionItem.allow_on_pages->sav:utility.setTrueIfNull()}" />
 		<label class="clearNone" for="allow_on_pages"><f:translate
 				key="kickstarter.{section}Item.allow_on_pages" /></label>
 
@@ -95,14 +95,14 @@
 	<div class="col4">
 		<f:comment>Icon</f:comment>
 		<f:form.select id="defIcon" name="{section}[defIcon]"
-			options="{sav:buildOptionsForFileIconSelectorbox()}"
+			options="{sav:builder.options.forFileIconSelectorbox()}"
 			value="{sectionItem.defIcon}" />
 		<label class="defIcon clearNone" for="defIcon"><f:translate
 				key="kickstarter.{section}Item.defIcon" /></label>
 
 		<f:comment>Field Label</f:comment>
 		<f:form.select id="header_field" name="{section}[header_field]"
-			options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields, options:'{0:\"
+			options="{sav:builder.options.forFieldSelectorbox(fields:sectionItem.fields, options:'{0:\"
 			\"}')}" value="{sectionItem.header_field}" />
 			
 		<f:comment>Label User Function</f:comment>			
@@ -111,7 +111,7 @@
 
 		<f:comment>Field type</f:comment>
 		<f:form.select id="type_field" name="{section}[type_field]"
-			options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields, options:'{0:\"
+			options="{sav:builder.options.forFieldSelectorbox(fields:sectionItem.fields, options:'{0:\"
 			\"}')}" value="{sectionItem.type_field}" />
 
 		<f:comment>Field for ordering </f:comment>
@@ -119,7 +119,7 @@
 			<label class="" for="sorting_field"><f:translate
 					key="kickstarter.{section}Item.sorting_field" /></label>
 			<f:form.select id="sorting_field" name="{section}[sorting_field]"
-				options="{sav:buildOptionsForFieldSelectorbox(fields:sectionItem.fields, 
+				options="{sav:builder.options.forFieldSelectorbox(fields:sectionItem.fields, 
 				options:'{crdate:\"
 				[crdate]\", uid:\"[uid]\", cruser_id:\"[cruser_id]\", tstamp:\"[tstamp]\"}')}"
                 value="{sectionItem.sorting_field}" />

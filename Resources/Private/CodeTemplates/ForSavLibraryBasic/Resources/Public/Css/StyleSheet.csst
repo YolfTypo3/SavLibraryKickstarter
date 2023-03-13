@@ -1,8 +1,8 @@
-<f:comment>Create Resources/Public/Css/ExtensionName.css</f:comment>
-<sav:function name="copyFile" arguments="{
-  source:'Resources/Private/CodeTemplates/ForSavLibraryBasic/Resources/Public/Css/Default.css',
-  destinationExtension:extension.general.1.extensionKey,
-  destination:'Resources/Public/Css/{extension.general.1.extensionKey->sav:upperCamel()}.css',
-  keepFile:1
-}" />
+<f:comment>Creates Resources/Public/Css/ExtensionName.css</f:comment>
+<sav:file.copyFile
+    source="Resources/Private/CodeTemplates/ForSavLibraryBasic/Resources/Public/Css/Default.css"
+    destinationExtension="{extension.general.1.extensionKey}"
+    destination="Resources/Public/Css/{extension.general.1.extensionKey->sav:format.upperCamel()}.css"
+    doNotCopyIfDestinationExists="1"
+/>
 

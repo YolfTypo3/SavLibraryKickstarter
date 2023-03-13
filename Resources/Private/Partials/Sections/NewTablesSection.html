@@ -3,7 +3,7 @@
 <f:variable name="section" value="newTables" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:getItem(
+<f:variable name="mvc" value="{sav:utility.getItem(
     value:{
         0:0,
         1:0,
@@ -12,9 +12,9 @@
     },
     key:extension.general.1.libraryType)}" />
 <f:variable name="sectionItemViewKey" value="{sectionItem.viewKey}" />   
-<f:variable name="tempFolderKey" value="{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}" />   
+<f:variable name="tempFolderKey" value="{sectionItem.folderKeys->sav:utility.getItem(key:sectionItemViewKey)}" />   
 <f:variable name="selectedFolderKey" value="{f:if(condition:tempFolderKey, then:tempFolderKey, else:0)}" />   
-<f:variable name="selectedFieldKey" value="{sectionItem.activeFields->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:selectedFolderKey)}" />   
+<f:variable name="selectedFieldKey" value="{sectionItem.activeFields->sav:utility.getItem(key:sectionItemViewKey)->sav:utility.getItem(key:selectedFolderKey)}" />   
 
 <div id="{section}Section">
 	<f:form method="post" action="save" name="{section}"
@@ -34,7 +34,7 @@
 					<f:comment>Table Name</f:comment>
 					<label for="tablename"><f:translate
 							key="kickstarter.{section}Item.tablename" /> <span
-						class="extensionKey">{sav:buildTableName(shortName:'
+						class="extensionKey">{sav:builder.tableName(shortName:'
 							', extensionKey:extensionKey, mvc:mvc)}</span></label>
 					<f:form.textfield id="tablename" name="newTables[tablename]"
 						value="{sectionItem.tablename}" />

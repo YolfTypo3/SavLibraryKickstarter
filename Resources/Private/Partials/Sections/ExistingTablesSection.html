@@ -3,7 +3,7 @@
 <f:variable name="section" value="existingTables" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:getItem(
+<f:variable name="mvc" value="{sav:utility.getItem(
     value:{
         0:0,
         1:0,
@@ -12,9 +12,9 @@
     },
     key:extension.general.1.libraryType)}" />
 <f:variable name="sectionItemViewKey" value="{sectionItem.viewKey}" />   
-<f:variable name="tempFolderKey" value="{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}" />   
+<f:variable name="tempFolderKey" value="{sectionItem.folderKeys->sav:utility.getItem(key:sectionItemViewKey)}" />   
 <f:variable name="selectedFolderKey" value="{f:if(condition:tempFolderKey, then:tempFolderKey, else:0)}" />   
-<f:variable name="selectedFieldKey" value="{sectionItem.activeFields->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:selectedFolderKey)}" />   
+<f:variable name="selectedFieldKey" value="{sectionItem.activeFields->sav:utility.getItem(key:sectionItemViewKey)->sav:utility.getItem(key:selectedFolderKey)}" />   
 
 <div id="{section}Section">
 	<f:form method="post" action="save" name="{section}"
@@ -36,7 +36,7 @@
 							key="kickstarter.{section}Item.tablename" /></label>
 					<f:form.select id="tablename" name="{section}[tablename]"
 						value="{sectionItem.tablename}"
-						options="{sav:buildOptionsForExistingTablesSelectorbox()}" />
+						options="{sav:builder.options.forExistingTablesSelectorbox()}" />
 				</div>
 
 				<f:comment>Override the localization</f:comment>
@@ -54,7 +54,7 @@
 					<f:link.action action="{section}ImportFields"
 						arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
 						<f:image class="importFields"
-							src="{sav:getIcon(identifier:'actions-database-import')}"
+							src="{sav:be.getIcon(identifier:'actions-database-import')}"
 							alt="{f:translate(key:'kickstarter.importFields')}"
 							title="{f:translate(key:'kickstarter.importFields')}" />
 					</f:link.action>

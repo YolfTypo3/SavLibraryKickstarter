@@ -1,7 +1,9 @@
+<sav:utility.removeEmptyLines keepLine="!">
 
-<sav:function name="removeEmptyLines"><f:alias map="{
-    extensionName:  '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}'
+<f:alias map="{
+    extensionName:  '{extension.general.1.extensionKey->sav:format.removeUnderscore()}'
 }">
+
 plugin.tx_{extensionName} {
     view {
         templateRootPaths.10 = <![CDATA[{]]>$plugin.tx_{extensionName}.view.templateRootPath}
@@ -13,4 +15,4 @@ plugin.tx_{extensionName} {
     }
 }
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

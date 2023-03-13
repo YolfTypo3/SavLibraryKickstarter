@@ -1,7 +1,7 @@
-<f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!',htmlentitiesDecode:1}"> 
+<f:format.raw><sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
 .. include:: ../../../../Includes.txt
 !
-<f:variable name="formTitle">specialView.{form.title->sav:function(name:'md5int')}</f:variable>
+<f:variable name="formTitle">specialView.{form.title->sav:format.crypt()}</f:variable>
 .. _{formTitle}:
 .. role:: red
 !
@@ -18,7 +18,7 @@ Title Bar
 !
 ::
 !
-   <sav:indent count="3">{extension.views.{viewId}.viewTitleBar}</sav:indent>
+   <sav:utility.indent count="3">{extension.views.{viewId}.viewTitleBar}</sav:utility.indent>
 </f:if>
 !
 Item Template
@@ -26,7 +26,7 @@ Item Template
 !
 ::
 !
-   <sav:indent count="3">{extension.views.{viewId}.itemTemplate}</sav:indent>
+   <sav:utility.indent count="3">{extension.views.{viewId}.itemTemplate}</sav:utility.indent>
 !
 Selected Fields
 ===============
@@ -35,12 +35,11 @@ Selected Fields
 !
 <f:variable name="folderLabel">{folder.configuration.label}</f:variable>
 <f:variable name="folderTitle">Folder: ``{folder.configuration.label}``</f:variable>
-{folderTitle}
-<f:format.padding padLength="{folderTitle->sav:function(name:'strlen')}" padString="-">-</f:format.padding>
+{folderTitle>sav:builder.documentation.renderSectionTitle(level:2)}
 	</f:if>	
 !
-<f:variable name="viewReference">specialView.{form.title->sav:function(name:'md5int')}.{extension.views.{viewId}.title->sav:function(name:'md5int')}</f:variable>
-<f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{viewReference:viewReference, source:folder, formTitle:'{formTitle}.{folderLabel->sav:function(name:\'md5int\')}'}" /> 
+<f:variable name="viewReference">specialView.{form.title->sav:format.crypt()}.{extension.views.{viewId}.title->sav:format.crypt()}</f:variable>
+<f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{viewReference:viewReference, source:folder, formTitle:'{formTitle}.{folderLabel->sav:format.crypt()}'}" /> 
 </f:for>
 !
-</sav:function></f:format.raw>
+</sav:utility.removeEmptyLines></f:format.raw>

@@ -1,7 +1,7 @@
-<f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!',htmlentitiesDecode:1}"> 
+<f:format.raw><sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
 .. include:: ../../../../Includes.txt
 !
-<f:variable name="formTitle">editView.{form.title->sav:function(name:'md5int')}</f:variable>
+<f:variable name="formTitle">editView.{form.title->sav:format.crypt()}</f:variable>
 <f:variable name="initialViewId" value = "{viewId}" />
 .. _{formTitle}:
 .. role:: red
@@ -14,7 +14,7 @@ Edit view
 The view ``{extension.views.{viewId}.title}`` contains also the following views with condition.
 <f:for each="{form.viewsWithCondition.editView}" as="viewWithCondition">
 <f:variable name="viewWithConditionId" value="{viewWithCondition.key}" />
-<f:variable name="viewReference">editView.{form.title->sav:function(name:'md5int')}.{extension.views.{viewWithConditionId}.title->sav:function(name:'md5int')}</f:variable>
+<f:variable name="viewReference">editView.{form.title->sav:format.crypt()}.{extension.views.{viewWithConditionId}.title->sav:format.crypt()}</f:variable>
 !
 **View:** :ref:`{extension.views.{viewWithConditionId}.title} <{viewReference}>`
 !
@@ -27,7 +27,7 @@ The view ``{extension.views.{viewId}.title}`` contains also the following views 
 </f:for>
 </f:if>
 !
-<f:variable name="viewReference">editView.{form.title->sav:function(name:'md5int')}.{extension.views.{viewId}.title->sav:function(name:'md5int')}</f:variable>
+<f:variable name="viewReference">editView.{form.title->sav:format.crypt()}.{extension.views.{viewId}.title->sav:format.crypt()}</f:variable>
 <f:render partial="Partials/Documentation/ViewGeneration.rstt" arguments="{_all}" />
 !
 <f:if condition="{form.viewsWithCondition.editView}">
@@ -35,11 +35,11 @@ The view ``{extension.views.{viewId}.title}`` contains also the following views 
 !
 <f:if condition="{viewWithCondition.key} != {initialViewId}">
 <f:variable name="viewId" value="{viewWithCondition.key}" />
-<f:variable name="viewReference">editView.{form.title->sav:function(name:'md5int')}.{extension.views.{viewId}.title->sav:function(name:'md5int')}</f:variable>
+<f:variable name="viewReference">editView.{form.title->sav:format.crypt()}.{extension.views.{viewId}.title->sav:format.crypt()}</f:variable>
 <f:render partial="Partials/Documentation/ViewGeneration.rstt" arguments="{_all}" />
 </f:if>
 </f:for>
 !
 </f:if>
 !
-</sav:function></f:format.raw>
+</sav:utility.removeEmptyLines></f:format.raw>

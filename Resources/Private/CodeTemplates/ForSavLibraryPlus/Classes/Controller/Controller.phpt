@@ -1,12 +1,13 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}',
-    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:format.removeUnderscore()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
-
+!
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -78,4 +79,4 @@ class {extensionName}Controller extends AbstractPlugin
 	}
 }
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

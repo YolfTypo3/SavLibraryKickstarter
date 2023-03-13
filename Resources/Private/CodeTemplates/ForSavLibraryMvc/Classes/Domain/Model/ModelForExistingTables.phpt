@@ -1,10 +1,12 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><f:alias map="{
+!
+<f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    tableName:      '{extension.existingTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')}',
-    modelName:      '{extension.existingTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')->sav:upperCamel()}',
-    fields:         '{extension.existingTables->sav:getItem(key:itemKey)->sav:getItem(key:\'fields\')}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    tableName:      '{extension.existingTables->sav:utility.getItem(key:itemKey)->sav:utility.getItem(key:\'tablename\')}',
+    modelName:      '{extension.existingTables->sav:utility.getItem(key:itemKey)->sav:utility.getItem(key:\'tablename\')->sav:format.upperCamel()}',
+    fields:         '{extension.existingTables->sav:utility.getItem(key:itemKey)->sav:utility.getItem(key:\'fields\')}'
 }">
 
 <f:variable name="extends"><f:switch expression="{tableName}">
@@ -44,8 +46,8 @@ class {modelName} extends {extends}
     <f:for each="{fields}" as="field">
     <f:if condition="{field.type} != 'ShowOnly' || {field.conf_override_type}">
 
-    <f:variable name="type"><f:spaceless><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Types/{field.type}.t', default:'Partials/Model/Types/Default.t')}" arguments="{_all}" /></f:spaceless></f:variable>  
-    <f:variable name="lowerCamelFieldName">{field.fieldname->sav:lowerCamel()}</f:variable>  
+    <f:variable name="type"><f:spaceless><f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/Types/{field.type}.t', default:'Partials/Model/Types/Default.t')}" arguments="{_all}" /></f:spaceless></f:variable>  
+    <f:variable name="lowerCamelFieldName">{field.fieldname->sav:format.lowerCamel()}</f:variable>  
 
     /**
      * The <{lowerCamelFieldName}> variable.
@@ -56,7 +58,7 @@ class {modelName} extends {extends}
      * @Extbase\Validate({field.validationRules})
         </f:then>
         <f:else>
-     * <sav:function name="removeLineFeed" arguments="{replacement:'\n     * '}"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/ValidationRules/PhpDoc/{field.type}.t', default:'Partials/Model/ValidationRules/PhpDoc/Default.t')}" arguments="{_all}" /></sav:function>
+     * <f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/ValidationRules/PhpDoc/{field.type}.t', default:'Partials/Model/ValidationRules/PhpDoc/Default.t')}" arguments="{_all}" />
         </f:else>
         </f:if>
      */
@@ -72,7 +74,7 @@ class {modelName} extends {extends}
     {
     <f:for each="{fields}" as="field">
     <f:if condition="{field.type} != 'ShowOnly' || {field.conf_override_type}">
-        <sav:indent count="8"><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Constructor/{field.type}.phpt', default:'Partials/Model/Constructor/Default.phpt')}" arguments="{_all}" /></sav:indent>
+        <sav:utility.indent count="8"><f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/Constructor/{field.type}.phpt', default:'Partials/Model/Constructor/Default.phpt')}" arguments="{_all}" /></sav:utility.indent>
     </f:if>
     </f:for>
     }
@@ -80,14 +82,14 @@ class {modelName} extends {extends}
     <f:for each="{fields}" as="field">
     <f:if condition="{field.type} != 'ShowOnly' || {field.conf_override_type}">
 
-    <f:variable name="type"><f:spaceless><f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Types/{field.type}.t', default:'Partials/Model/Types/Default.t')}" arguments="{_all}" /></f:spaceless></f:variable>  
-    <f:variable name="lowerCamelFieldName">{field.fieldname->sav:lowerCamel()}</f:variable>  
-    <f:variable name="upperCamelFieldName">{field.fieldname->sav:upperCamel()}</f:variable>  
+    <f:variable name="type"><f:spaceless><f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/Types/{field.type}.t', default:'Partials/Model/Types/Default.t')}" arguments="{_all}" /></f:spaceless></f:variable>  
+    <f:variable name="lowerCamelFieldName">{field.fieldname->sav:format.lowerCamel()}</f:variable>  
+    <f:variable name="upperCamelFieldName">{field.fieldname->sav:format.upperCamel()}</f:variable>  
 
-    <f:render partial="{sav:useDefault(path:'{codeTemplatesPath}', fileName:'Partials/Model/Methods/{field.type}.phpt', default:'Partials/Model/Methods/Default.phpt')}" arguments="{_all}" /> 
+    <f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/Methods/{field.type}.phpt', default:'Partials/Model/Methods/Default.phpt')}" arguments="{_all}" /> 
     </f:if>
     </f:for>
 	
 }
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

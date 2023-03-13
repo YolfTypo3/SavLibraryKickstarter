@@ -1,1 +1,1 @@
-@validate (datetime or empty)
+@TYPO3\CMS\Extbase\Annotation\Validate("DateTime")

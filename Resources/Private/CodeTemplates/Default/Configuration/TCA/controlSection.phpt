@@ -1,5 +1,4 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
-<f:format.raw><sav:function name="removeEmptyLines">
+<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 
 'ctrl' => [
     'title' => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}',
@@ -60,9 +59,9 @@
     
     <f:comment>Generates an EXT if the librarytype is sav_Library_mvc</f:comment>
     <f:if condition="{extension.general.1.libraryType} == 2">
-    <sav:indent count="4"><f:render partial="Configuration/TCA/extSection.phpt" arguments="{_all}" /></sav:indent>
+    <sav:utility.indent count="4"><f:render partial="Configuration/TCA/extSection.phpt" arguments="{_all}" /></sav:utility.indent>
     </f:if>
     
 ],
 
-</sav:function></f:format.raw>
+</sav:utility.removeEmptyLines></f:format.raw>

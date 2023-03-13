@@ -1,7 +1,11 @@
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><f:alias map="{
+<sav:utility.removeEmptyLines keepLine="!">
+
+<f:alias map="{
     vendorName:       '{extension.general.1.vendorName}',
-    extensionName:    '{extension.general.1.extensionKey->sav:upperCamel()}'
-}">services:
+    extensionName:    '{extension.general.1.extensionKey->sav:format.upperCamel()}'
+}">
+
+services:
   _defaults:
     autowire: true
     autoconfigure: true

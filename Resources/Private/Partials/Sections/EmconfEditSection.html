@@ -3,7 +3,7 @@
 <f:variable name="section" value="emconf" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:getItem(
+<f:variable name="mvc" value="{sav:utility.getItem(
     value:{
         0:0,
         1:0,
@@ -11,7 +11,7 @@
         3:1
     },
     key:extension.general.1.libraryType)}" />
-<f:variable name="libraryType" value="{sav:getItem(
+<f:variable name="libraryType" value="{sav:utility.getItem(
     value:{
         0:'',
         1:'sav_library_plus',
@@ -19,7 +19,7 @@
         3:''
     },
     key:extension.general.1.libraryType)}" />
-<f:variable name="defaultPluginName" value="{sav:getItem(
+<f:variable name="defaultPluginName" value="{sav:utility.getItem(
     value:{
         0:'',
         1:'Pi1',
@@ -66,7 +66,7 @@
 						key="kickstarter.{section}Item.description" /></label>
 				<f:form.textarea id="description" name="{section}[description]"
 					value="{sectionItem.description}"
-					rows="{sav:function(name:'countLines', arguments:sectionItem.description)}"
+					rows="{sectionItem.description->sav:utility.countLines()}"
 					cols="80" />
 
 				<f:comment>State</f:comment>
@@ -120,7 +120,7 @@
 				<f:form.button class="libraryType" name="submitAction[load]"
 					value="{f:translate(key:'kickstarter.load')}">
 					<f:image 
-						src="{sav:getIcon(identifier:'actions-swap')}"
+						src="{sav:be.getIcon(identifier:'actions-swap')}"
 						alt="{f:translate(key:'kickstarter.load')}"
 						title="{f:translate(key:'kickstarter.load')}" />
 				</f:form.button>
@@ -130,7 +130,7 @@
 				<f:form.button class="libraryType" name="submitAction[overwrite]"
 					value="{f:translate(key:'kickstarter.overwrite')}">
 					<f:image 
-						src="{sav:getIcon(identifier:'actions-replace')}"
+						src="{sav:be.getIcon(identifier:'actions-replace')}"
 						alt="{f:translate(key:'kickstarter.overwrite')}"
 						title="{f:translate(key:'kickstarter.overwrite')}" />
 				</f:form.button>
@@ -141,7 +141,7 @@
 						key="kickstarter.generalItem.compatibility" /></label>
 				<f:form.hidden name="general[compatibility]" value="0" />
 				<f:form.select id="compatibility" name="general[compatibility]"
-					options="{sav:buildOptionsForCompatibilitySelectorbox(libraryType:extension.general.1.libraryType)}"
+					options="{sav:builder.options.forCompatibilitySelectorbox(libraryType:extension.general.1.libraryType)}"
 					value="{extension.general.1.compatibility}" />
 
 				<f:comment>Add TypoScript configuration</f:comment>
@@ -154,7 +154,7 @@
 				<f:comment>Add wizard plugin icon</f:comment>
 				<label for="addWizardPluginIcon"><f:translate
 						key="kickstarter.generalItem.addWizardPluginIcon"
-						arguments="{0:'icon_{extensionKey->sav:function(name:\'removeUnderscore\')}.png'}" /></label>
+						arguments="{0:'icon_{extensionKey->sav:format.removeUnderscore()}.png'}" /></label>
 				<sav:form.checkbox class="checkbox" id="addWizardPluginIcon"
 					name="general[addWizardPluginIcon]" value="1"
 					checked="{extension.general.1.addWizardPluginIcon}" />

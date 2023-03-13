@@ -76,7 +76,7 @@
 				<f:form.textarea id="interSphinxMapping"
 					name="{section}[interSphinxMapping]"
 					value="{defautIntersphinxMapping}"
-					rows="{sav:function(name:'countLines', arguments:sectionItem.interSphinxMapping)}"
+					rows="{sectionItem.interSphinxMapping->sav:utility.countLines()}"
 					cols="80" />
 
 				<f:comment>Extensions</f:comment>
@@ -84,7 +84,7 @@
 						key="kickstarter.{section}Item.extensions" /></label>
 				<f:form.textarea id="extensions" name="{section}[extensions]"
 					value="{sectionItem.extensions}"
-					rows="{sav:function(name:'countLines', arguments:sectionItem.extensions)}"
+					rows="{sectionItem.extensions->sav:utility.countLines()}"
 					cols="80" />
 
 				<f:comment>Keep Settings.cfg File</f:comment>

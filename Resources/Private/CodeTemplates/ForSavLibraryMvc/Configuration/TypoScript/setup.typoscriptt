@@ -1,29 +1,32 @@
-<sav:function name="removeEmptyLines"><f:alias map="{
-    extensionName:  '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}'
-}">
-plugin.tx_{extensionName} {
-    view {
-        templateRootPaths.10 = {$plugin.tx_{extensionName}.view.templateRootPath}
-        partialRootPaths.10 = {$plugin.tx_{extensionName}.view.partialRootPath}
-        layoutRootPaths.10 = {$plugin.tx_{extensionName}.view.layoutRootPath}
-    }
-    persistence {
-        storagePid = {$plugin.tx_{extensionName}.persistence.storagePid}
-    }
-}
+<sav:utility.removeEmptyLines keepLine="!">
 
-config.tx_extbase.persistence.classes {
-<f:for each="{extension.newTables}" as="table" key="tableKey">
-    {sav:mvc.buildModelName(tableName:model, extension:extension, removeFirstBackslash:1)} {
-        mapping {
-            tableName = <f:format.raw>{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}</f:format.raw>
-            columns {
-                crdate.mapOnProperty = crdate
-                cruser_id.mapOnProperty = cruserId 
-            }   
-        }        
-    }
-</f:for>
-}
+<f:alias map="{
+    extensionName:  '{extension.general.1.extensionKey->sav:format.removeUnderscore()}',
+    openBrace:      '{',
+    closeBrace:     '}'     
+}">
+
+plugin.tx_{extensionName} {openBrace}
+    view {openBrace}
+        templateRootPaths {openBrace}
+            0 = EXT:sav_library_mvc/Resources/Private/Templates/
+            1 = {$plugin.tx_{extensionName}.view.templateRootPath}
+        {closeBrace}
+
+        partialRootPaths {openBrace}
+            0 = EXT:sav_library_mvc/Resources/Private/Partials/
+            1 = {$plugin.tx_{extensionName}.view.partialRootPath}
+        {closeBrace}
+
+        layoutRootPaths {openBrace}
+            0 = EXT:sav_library_mvc/Resources/Private/Layouts/
+            1 = {$plugin.tx_{extensionName}.view.layoutRootPath}
+        {closeBrace}
+    {closeBrace}
+    persistence {openBrace}
+        storagePid = {$plugin.tx_{extensionName}.persistence.storagePid}
+    {closeBrace}
+{closeBrace}
+
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

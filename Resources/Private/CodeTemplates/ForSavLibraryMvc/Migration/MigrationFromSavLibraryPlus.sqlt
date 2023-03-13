@@ -1,9 +1,9 @@
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+<sav:utility.removeEmptyLines keepLine="!">
 <f:for each="{extension.newTables}" as="table" key="tableKey">
 <f:alias map="{
-  model:'{sav:buildTableName(shortName:table.originalTableName, extensionKey:extension.general.1.extensionKey, mvc:0)}',
-  modelMvc:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:1)}',
-  modelForMM:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
+  model:'{sav:builder.tableName(shortName:table.originalTableName, extensionKey:extension.general.1.extensionKey, mvc:0)}',
+  modelMvc:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:1)}',
+  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
 }">
 # Copies the table {model} into {modelMvc} 
 DROP TABLE IF EXISTS {modelMvc};
@@ -62,7 +62,7 @@ INSERT INTO {modelMvcMM} SELECT * FROM {modelMM};
 <f:for each="{extension.forms}" as="form" key="formKey">
 <f:alias map="{
     pluginSignature:  '{extension.general.1.extensionKey}_pi1',
-    pluginMvcSignature:  '{extension.general.1.extensionKey->sav:upperCamel()->sav:toLower()}_{extension.general.1.pluginName->sav:tolower()}'
+    pluginMvcSignature:  '{extension.general.1.extensionKey->sav:format.upperCamel()->sav:format.toLower()}_{extension.general.1.pluginName->sav:format.toLower()}'
 }">
 UPDATE tt_content
 SET
@@ -79,4 +79,4 @@ WHERE
 </f:alias>
 </f:for>
 
-</sav:function>
+</sav:utility.removeEmptyLines>

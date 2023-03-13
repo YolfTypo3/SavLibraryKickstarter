@@ -1,9 +1,11 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><f:alias map="{
+!
+<f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    modelName:      '{extension.existingTables->sav:getItem(key:itemKey)->sav:getItem(key:\'tablename\')->sav:upperCamel()}',
-    fields:         '{extension.existingTables->sav:getItem(key:itemKey)->sav:getItem(key:\'fields\')}'    
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    modelName:      '{extension.existingTables->sav:utility.getItem(key:itemKey)->sav:utility.getItem(key:\'tablename\')->sav:format.upperCamel()}',
+    fields:         '{extension.existingTables->sav:utility.getItem(key:itemKey)->sav:utility.getItem(key:\'fields\')}'    
 }">
 <f:alias map="{model:'Tx_{extensionName}_Domain_Model_{modelName}'}">
 /*
@@ -33,7 +35,7 @@ class {modelName}Repository extends \YolfTypo3\SavLibraryMvc\Domain\Repository\D
 
 <f:for each="{extension.queries}" as="query" key="queryKey">
 
-    <f:if condition="{query.mainTable} == {model->sav:toLower()} || {query.mainTable->sav:function(name:'removeUnderscore')} == {modelName->sav:toLower()}">   
+    <f:if condition="{query.mainTable} == {model->sav:format.toLower()} || {query.mainTable->sav:format.removeUnderscore()} == {modelName->sav:format.toLower()}">   
 
     <f:if condition="{query.whereClause}">
 !    
@@ -45,9 +47,9 @@ class {modelName}Repository extends \YolfTypo3\SavLibraryMvc\Domain\Repository\D
      */
     protected function whereClause{queryKey}(QueryInterface $query): ConstraintInterface
     {
-        <sav:indent count="8">$whereClauseConstraints = <sav:Mvc.buildWhereClause clause="{query.whereClause}" />;
+        <sav:utility.indent count="8">$whereClauseConstraints = <sav:builder.mvc.whereClause clause="{query.whereClause}" />;
 return $whereClauseConstraints;
-        </sav:indent>
+        </sav:utility.indent>
     }
     </f:if>
 
@@ -61,7 +63,7 @@ return $whereClauseConstraints;
      */
     protected function orderByClause{queryKey}(QueryInterface $query)
     {
-        <sav:indent count="8"><sav:Mvc.buildOrderByClause clause="{query.orderByClause}" /></sav:indent>
+        <sav:utility.indent count="8"><sav:builder.mvc.orderByClause clause="{query.orderByClause}" /></sav:utility.indent>
     }
     </f:if>
 
@@ -75,7 +77,7 @@ return $whereClauseConstraints;
      */
     protected function orderByClauseForWhereTag{whereTagKey}(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query)
     {
-        <sav:indent count="8"><sav:Mvc.buildOrderByClause clause="{whereTag.orderByClause}" /></sav:indent>
+        <sav:utility.indent count="8"><sav:builder.mvc.orderByClause clause="{whereTag.orderByClause}" /></sav:utility.indent>
     }
     </f:for>
 
@@ -91,7 +93,7 @@ return $whereClauseConstraints;
     {
         $whereTags = [
         <f:for each="{query.whereTags}" as="whereTag" key="whereTagKey">
-            '{whereTag.title->sav:function(name:'addslashes')}' => {whereTagKey},
+            '{whereTag.title->sav:format.addSlashes()}' => {whereTagKey},
         </f:for>
         ];
         return $whereTags[$title];
@@ -103,4 +105,4 @@ return $whereClauseConstraints;
 }
 </f:alias>
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

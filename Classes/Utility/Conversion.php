@@ -34,6 +34,7 @@ class Conversion
     {
         $string = str_replace(' ', '_', $string);
         $parts = explode('_', $string);
+        $output = '';
         foreach ($parts as $part) {
             $output .= ucfirst(strtolower($part));
         }

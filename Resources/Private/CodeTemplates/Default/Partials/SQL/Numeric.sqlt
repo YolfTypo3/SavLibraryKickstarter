@@ -1,11 +1,13 @@
+<sav:utility.removeEmptyLines>
 <f:if condition="{field.conf_numeric_type} == 1">
-decimal({field.conf_numeric_type_M}, {field.conf_numeric_type_D}) DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
+{fieldName} decimal({field.conf_numeric_type_M}, {field.conf_numeric_type_D}) DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
 </f:if>
 
 <f:if condition="{field.conf_numeric_type} == 2">
-float DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
+{fieldName} float DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
 </f:if>
 
 <f:if condition="{field.conf_numeric_type} == 3">
-int(11) DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
+{fieldName} int(11) DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
 </f:if>
+</sav:utility.removeEmptyLines>

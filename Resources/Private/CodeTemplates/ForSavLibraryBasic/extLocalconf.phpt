@@ -1,5 +1,5 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
 defined('TYPO3') or die();
 !
 (function () {
@@ -15,10 +15,10 @@ defined('TYPO3') or die();
         <f:comment>For TYPO3 lower than 10</f:comment>
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             '{extension.general.1.vendorName}.{extension.general.1.extensionKey}',
-            '{extension.forms->sav:getItem()->sav:getItem(key:'title')}',
+            '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:'title')}',
             // Cachable controller actions    	
             [
-                '{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}' => '{extension.views->sav:getItem()->sav:getItem(key:'title')->sav:lowerCamel()}',
+                '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:'title')->sav:format.upperCamel()}' => '{extension.views->sav:utility.getItem()->sav:utility.getItem(key:'title')->sav:format.lowerCamel()}',
             ],
             // Non-cachable controller actions
             []
@@ -26,11 +26,11 @@ defined('TYPO3') or die();
     } else {
         <f:comment>For TYPO3 10 and greater</f:comment>
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            '{extension.general.1.extensionKey->sav:upperCamel()}',
-            '{extension.forms->sav:getItem()->sav:getItem(key:'title')}',
+            '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+            '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:'title')}',
             // Cachable controller actions    	
             [
-                \{extension.general.1.vendorName}\{extension.general.1.extensionKey->sav:upperCamel()}\Controller\{extension.forms->sav:getItem()->sav:getItem(key:'title')->sav:upperCamel()}Controller::class => '{extension.views->sav:getItem()->sav:getItem(key:'title')->sav:lowerCamel()}',
+                \{extension.general.1.vendorName}\{extension.general.1.extensionKey->sav:format.upperCamel()}\Controller\{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:'title')->sav:format.upperCamel()}Controller::class => '{extension.views->sav:utility.getItem()->sav:utility.getItem(key:'title')->sav:format.lowerCamel()}',
             ],
             // Non-cachable controller actions
             []
@@ -41,15 +41,15 @@ defined('TYPO3') or die();
 !
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
     // Registers the icon
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
         \TYPO3\CMS\Core\Imaging\IconRegistry::class
     );
     $iconRegistry->registerIcon(
-        'ext-{extensionName->sav:toLower()}-wizard',
+        'ext-{extensionName->sav:format.toLower()}-wizard',
         \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
         ['source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg']
     );
@@ -61,4 +61,4 @@ defined('TYPO3') or die();
 </f:alias>
 </f:if>
 })();
-</sav:function>
+</sav:utility.removeEmptyLines>

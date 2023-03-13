@@ -1,10 +1,11 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<?php
+<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+<?php
 defined('TYPO3') or die();
-<f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+!
 <f:alias map="{
-    pluginSignature:  '{extension.general.1.extensionKey->sav:upperCamel()->sav:toLower()}_{extension.general.1.pluginName->sav:upperCamel()->sav:toLower()}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+    pluginSignature:  '{extension.general.1.extensionKey->sav:format.upperCamel()->sav:format.toLower()}_{extension.general.1.pluginName->sav:format.upperCamel()->sav:format.toLower()}',
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['{pluginSignature}'] = 'layout,select_key';
 
@@ -28,11 +29,11 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['{pluginSigna
 // Adds addToInsertRecords() if any
 <f:for each="{extension.newTables}" as="table">
 <f:alias map="{
-  model: '{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc: true)}'
+  model: '{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc: true)}'
 }">
 <f:if condition="{table.allow_ce_insert_records}">
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToInsertRecords('{model}');
 </f:if>
 </f:alias>
 </f:for>
-</sav:function></f:format.raw>
+</sav:utility.removeEmptyLines></f:format.raw>

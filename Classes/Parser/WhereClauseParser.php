@@ -91,7 +91,7 @@ class WhereClauseParser
         $matchesWhere = [];
         preg_match_all(self::WHERE_PATTERN, $clause, $matchesWhere);
 
-//        debug($matchesWhere, '$matchesWhere');
+//         debug($matchesWhere, '$matchesWhere');
 
         $operands = [];
         foreach ($matchesWhere[0] as $matchKey => $match) {
@@ -103,7 +103,7 @@ class WhereClauseParser
                 $methodParameter = $this->markers[$matchesSpecialExpression['marker']];
                 $methodName = $matchesSpecialExpression['method'];
                 $clause = $matchesSpecialExpression['clause'];
-                $specialOperand = '($this->' . $methodName . '(' . $methodParameter . ') ? ' . $clause . ': null)';
+                $specialOperand = '($this->' . $methodName . '(\'' . $methodParameter . '\') ? ' . $this->analyzeWhereClause($clause) . ': null)';
                  array_push($operands, $specialOperand);
             } else {
                 // Splits the expression from the allowed operators
@@ -207,7 +207,7 @@ class WhereClauseParser
             // Adds the logical not if needed
             if (! empty($matchesWhere['negation'][$matchKey])) {
                 $rightHandSideLogicalOperand = array_pop($operands);
-                array_push($operands, '$query->logicalNot($query->equals(' . $rightHandSideLogicalOperand . ', 1))');
+                array_push($operands, '$query->logicalNot(' . $rightHandSideLogicalOperand . ')');
             }
 
             if ($matchKey > 0) {
@@ -247,19 +247,9 @@ class WhereClauseParser
             $rightHandSideOperand = str_replace($match[0], '(' . $marker . ')', $rightHandSideOperand);
         }
 
-        $localQuery = $this->repository->createQuery();
         $alias = GeneralUtility::underscoredToUpperCamelCase($propertyName);
         if (strpos($alias, '.') === false) {
-            $localGetter = 'get' . $alias;
-            if (method_exists($this->repository->getObjectType(), $localGetter)) {
-                $rightHandSideOperand = '$this->createQuery()->statement(\'SELECT ' . $rightHandSideOperand . ' AS _localParam_\')->execute(true)[0][\'_localParam_\']';
-            } else {
-                throw new \Exception(sprintf(
-                    'Property "%s" is not defined in the repository.',
-                    $propertyName
-                    )
-                    );
-            }
+            $rightHandSideOperand = '$this->createQuery()->statement(\'SELECT ' . $rightHandSideOperand . ' AS _localParam_\')->execute(true)[0][\'_localParam_\']';
         }
         return $rightHandSideOperand;
     }

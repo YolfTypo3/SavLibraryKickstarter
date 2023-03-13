@@ -1,13 +1,14 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+!
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}',
-    actionName:     '{extension.views->sav:getItem()->sav:getItem(key:\'title\')->sav:lowerCamel()}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}',
+    actionName:     '{extension.views->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.lowerCamel()}',
+    openBrace:      '{',
+    closeBrace:     '}'        
 }">   
-namespace {vendorName}\{extensionName}\Controller;
-!
 /**
  * This file is part of the TYPO3 CMS project.
  *
@@ -38,7 +39,8 @@ use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
  */
 !
 class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-<sav:function name="leftBrace"/> 
+{
+! 
 	/**
      * Css path
      *
@@ -52,7 +54,7 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @return void
      */
     protected function initializeAction() 
-	<sav:function name="leftBrace"/>
+	{openBrace} 
         // Gets the extension key
         $extensionKey = $this->request->getControllerExtensionKey();
 !         
@@ -61,15 +63,15 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
         $frontendConfigurationManager = GeneralUtility::makeInstance(FrontendConfigurationManager::class);
         $typoScriptSetup = $frontendConfigurationManager->getTypoScriptSetup();
         $pluginSetupName = 'tx_' . strtolower($this->request->getControllerExtensionName()) . '.';       
-        if (!@is_array($typoScriptSetup['plugin.'][$pluginSetupName]['view.'])) {
-            throw new \Exception('Fatal error: You have to include the static template of the extension ' . $extensionKey . '.');
-        }
+        if (! is_array($typoScriptSetup['plugin.'][$pluginSetupName]['view.'] ?? null)) {openBrace} 
+            throw new \RuntimeException('You have to include the static template of the extension ' . $extensionKey . '.');
+        {closeBrace}
 !         
         // Adds the css file
         $extensionWebPath = self::getExtensionWebPath($extensionKey);
         $cssFile = $extensionWebPath . self::$cssPath;
         $this->addCascadingStyleSheet($cssFile);    
-	<sav:function name="rightBrace"/>
+	{closeBrace}
 ! 
 <f:comment>Do not remove</f:comment>
     /**
@@ -78,16 +80,16 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @return void|ResponseInterface
      */
     public function {actionName}Action()
-	<sav:function name="leftBrace"/>  
+	{openBrace}   
         $this->view->assign('extension', $this->request->getControllerExtensionKey());         
         $this->view->assign('controller', $this->request->getControllerName());  
         $this->view->assign('action', $this->request->getControllerActionName());    
 !        
         // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
-        if (method_exists($this, 'htmlResponse')) {
+        if (method_exists($this, 'htmlResponse')) {openBrace}
             return $this->htmlResponse($this->view->render());
-        }                          
-	<sav:function name="rightBrace"/>
+        {closeBrace}                          
+	{closeBrace}
 !    
     /**
      * Adds a cascading style Sheet
@@ -97,10 +99,10 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @return void
      */
     protected function addCascadingStyleSheet($cascadingStyleSheet)
-	<sav:function name="leftBrace"/>
+	{openBrace} 
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->addCssFile($cascadingStyleSheet);
-	<sav:function name="rightBrace"/>    
+	{closeBrace}    
 !    
     /**
      * Gets the relative web path of a given extension.
@@ -111,14 +113,14 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @return string The relative web path
      */
     protected static function getExtensionWebPath(string $extension): string
-	<sav:function name="leftBrace"/>
+	{openBrace} 
         $extensionWebPath = PathUtility::getAbsoluteWebPath(ExtensionManagementUtility::extPath($extension));
-        if ($extensionWebPath[0] === '/') {
+        if ($extensionWebPath[0] === '/') {openBrace}
             // Makes the path relative
             $extensionWebPath = substr($extensionWebPath, 1);
-        }
+        {closeBrace}
         return $extensionWebPath;
-	<sav:function name="rightBrace"/>    
-<sav:function name="rightBrace"/>  
+	{closeBrace}     
+}  
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

@@ -103,7 +103,7 @@ final class SectionManager extends \ArrayObject
      */
     public function getItem($itemKey)
     {
-        return $this[$itemKey];
+        return $this[$itemKey] ?? null;
     }
 
     /**

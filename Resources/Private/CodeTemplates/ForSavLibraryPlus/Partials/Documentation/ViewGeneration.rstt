@@ -1,7 +1,7 @@
 .. _{viewReference}:
 !
-View ``{extension.views.{viewId}.title}``
-<f:format.padding padLength="{sav:function(name:'strlen', arguments:'View ``{extension.views.{viewId}.title}``')}" padString="=">=</f:format.padding>
+<f:variable name="viewTitle">View ``{extension.views.{viewId}.title}``</f:variable>
+{viewTitle->sav:builder.documentation.renderSectionTitle(level:1)}
 
 !
 This view contains the following configuration.
@@ -12,7 +12,7 @@ Title Bar
 !
 ::
 !
-   <f:format.raw><sav:indent count="3">{extension.views.{viewId}.viewTitleBar}</sav:indent></f:format.raw>
+   <f:format.raw><sav:utility.indent count="3">{extension.views.{viewId}.viewTitleBar}</sav:utility.indent></f:format.raw>
 </f:if>
 !
 Selected Fields
@@ -22,10 +22,9 @@ Selected Fields
 !
 <f:variable name="folderLabel">{folder.configuration.label}</f:variable>
 <f:variable name="folderTitle">Folder: ``{folder.configuration.label}``</f:variable>
-{folderTitle}
-<f:format.padding padLength="{folderTitle->sav:function(name:'strlen')}" padString="-">-</f:format.padding>
+{folderTitle->sav:builder.documentation.renderSectionTitle(level:2)}
 	</f:if>	
 !
-<f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{viewReference:viewReference, source:folder, formTitle:'{formTitle}.{folderLabel->sav:function(name:\'md5int\')}'}" /> 
+<f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{viewReference:viewReference, source:folder, formTitle:'{formTitle}.{folderLabel->sav:format.crypt()}'}" /> 
 </f:for>
 !

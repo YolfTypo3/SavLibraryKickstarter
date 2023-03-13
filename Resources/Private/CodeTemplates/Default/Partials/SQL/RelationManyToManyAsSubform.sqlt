@@ -1,11 +1,10 @@
-<f:if condition="{field.conf_norelation} == 1">
-DO NOT CREATE
-</f:if>
+<sav:utility.removeEmptyLines>
 <f:if condition="{field.conf_relations_mm}">
   <f:then>
-int(11) DEFAULT '0' NOT NULL,
+{fieldName} int(11) DEFAULT '0' NOT NULL,
   </f:then>
   <f:else>
-text,
+{fieldName} text,
   </f:else>
 </f:if>
+</sav:utility.removeEmptyLines>

@@ -1,4 +1,5 @@
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><T3DataStructure>
+<sav:utility.removeEmptyLines keepLine="!">
+<T3DataStructure>
     <meta>
         <langDisable>1</langDisable>
     </meta>
@@ -376,4 +377,4 @@
         </sHelpPages>              		                  		
     </sheets>
 </T3DataStructure>
-</sav:function>
+</sav:utility.removeEmptyLines>

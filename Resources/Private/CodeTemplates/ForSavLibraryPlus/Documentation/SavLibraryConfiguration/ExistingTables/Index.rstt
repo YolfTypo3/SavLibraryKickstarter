@@ -1,5 +1,6 @@
+<sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
 .. include:: ../../Includes.txt
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!',htmlentitiesDecode:1}"> 
+!
 .. _existingTables:
 .. role:: red
 !
@@ -9,18 +10,17 @@ Existing Tables
 !
 This extension modifies the following existing tables.
 <f:for each="{extension.existingTables}" as="table" key="tableKey">
-<f:variable name="tableName">{sav:buildTableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename,shortNameOnly:1)}</f:variable>
+<f:variable name="tableName">{sav:builder.tableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename,shortNameOnly:1)}</f:variable>
 !
 - :ref:`{tableName} <{tableName}>` 
 </f:for>
 !
 <f:for each="{extension.existingTables}" as="table" key="tableKey">
-<f:variable name="tableName">{sav:buildTableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename,shortNameOnly:1)}</f:variable>
+<f:variable name="tableName">{sav:builder.tableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename,shortNameOnly:1)}</f:variable>
 .. _{tableName}:
 !
 <f:variable name="title">Table: ``{tableName}``</f:variable>
-{title}
-<f:format.padding padLength="{title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
+{title->sav:builder.documentation.renderSectionTitle(level:1)}
 !
 **Label:** ``{table.title}``
 !
@@ -32,9 +32,9 @@ Fields
 !
 **Label:** {field.title} 
 !
-**Type:** :ref:`{field.type} <savlibrarykickstarter:{sav:documentationRenderType(string:field.type)}>` 
+**Type:** :ref:`{field.type} <savlibrarykickstarter:{field.type->sav:builder.documentation.renderType()}>` 
 !
-<f:variable name="usedIn">{sav:documentationRenderUsedIn(extension:extension, name:'existingTables', tableKey:tableKey, fieldKey:fieldKey)}</f:variable>
+<f:variable name="usedIn">{sav:builder.documentation.renderUsedIn(extension:extension, name:'existingTables', tableKey:tableKey, fieldKey:fieldKey)}</f:variable>
 <f:if condition="{usedIn}">
 <f:then>
 **Used in:** 
@@ -51,4 +51,4 @@ Fields
 !
 </f:for>
 !
-</sav:function>
+</sav:utility.removeEmptyLines>

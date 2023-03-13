@@ -1,10 +1,11 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
 defined('TYPO3') or die();
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+!
 (function () {
 <f:for each="{extension.newTables}" as="table" key="tableKey">
 <f:alias map="{
-    model: '{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:1)}'
+    model: '{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:1)}'
 }">
 
 <f:if condition="{table.allow_on_pages}">
@@ -14,4 +15,4 @@ defined('TYPO3') or die();
 </f:alias>
 </f:for>
 })();
-</sav:function>
+</sav:utility.removeEmptyLines>

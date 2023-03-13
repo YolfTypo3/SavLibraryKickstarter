@@ -1,17 +1,18 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+!
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}',
-    actionName:     '{extension.views->sav:getItem()->sav:getItem(key:\'title\')->sav:lowerCamel()}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}',
+    actionName:     '{extension.views->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.lowerCamel()}'
 }">
 mod.wizards <f:format.raw value="{" />
     newContentElement.wizardItems <f:format.raw value="{" />
         plugins <f:format.raw value="{" />
             elements <f:format.raw value="{" />
                 {extension.general.1.extensionKey} <f:format.raw value="{" />
-                    iconIdentifier = ext-{extensionName->sav:toLower()}-wizard
+                    iconIdentifier = ext-{extensionName->sav:format.toLower()}-wizard
                     title = {extension.emconf.1.title}
                     description = {extension.emconf.1.description}
                     tt_content_defValues <f:format.raw value="{" />
@@ -24,4 +25,4 @@ mod.wizards <f:format.raw value="{" />
     <f:format.raw value="}" />
 <f:format.raw value="}" />
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

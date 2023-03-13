@@ -1,4 +1,3 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw> 
 !    
     /**
@@ -35,7 +34,7 @@
         $this->{lowerCamelFieldName} = ${lowerCamelFieldName};
     }
 <f:if condition="{field.conf_relations_mm}">
-<f:variable name="typeForAddRemove">{type->sav:function(name:"regexp",arguments:"{pattern:'/^.*?\<(.*?)\>$/', replacement:'$1'}")}</f:variable>
+<f:variable name="typeForAddRemove">{type->sav:format.regexp(pattern:'/^.*?\<(.*?)\>$/', replacement:'$1')}</f:variable>
 !
     /**
      * Adds a <{lowerCamelFieldName}>.
@@ -51,7 +50,7 @@
     /**
      * Removes a <{lowerCamelFieldName}>.
      * 
-     * @param {typeForAddRemove} ${field.fieldname->sav:lowerCamel()}
+     * @param {typeForAddRemove} ${field.fieldname->sav:format.lowerCamel()}
      * @return void
      */
     public function remove{upperCamelFieldName}({typeForAddRemove} ${lowerCamelFieldName})

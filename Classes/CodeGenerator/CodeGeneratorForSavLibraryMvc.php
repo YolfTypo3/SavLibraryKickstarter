@@ -262,7 +262,6 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
         GeneralUtility::writeFile($fileDirectory . 'Default.yaml', $fileContents);
     }
 
-
     /**
      * Builds the migration SQL file.
      *

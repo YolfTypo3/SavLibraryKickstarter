@@ -1,14 +1,15 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+!
 <f:alias map="{
-    queryIndex:     '{extension->sav:getItem(key:\'forms\')->sav:getItem(key:itemKey)->sav:getItem(key:\'query\')}'
+    queryIndex:     '{extension->sav:utility.getItem(key:\'forms\')->sav:utility.getItem(key:itemKey)->sav:utility.getItem(key:\'query\')}'
 }">
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    controllerName: '{extension.forms->sav:getItem(key:itemKey)->sav:getItem(key:\'title\')->sav:upperCamel()}',
-    mainTable:      '{extension.queries->sav:getItem(key:queryIndex)->sav:getItem(key:\'mainTable\')}',    
-    controller:     '{extension.forms->sav:getItem(key:itemKey)}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    controllerName: '{extension.forms->sav:utility.getItem(key:itemKey)->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}',
+    mainTable:      '{extension.queries->sav:utility.getItem(key:queryIndex)->sav:utility.getItem(key:\'mainTable\')}',    
+    controller:     '{extension.forms->sav:utility.getItem(key:itemKey)}'
 }">
 
 /*
@@ -26,8 +27,8 @@
 ! 
 namespace {vendorName}\{extensionName}\Controller;
 !
-use {mainTable->sav:Mvc.buildModelName(extension:extension, removeFirstBackslash:1)};
-use {mainTable->sav:Mvc.buildRepositoryName(extension:extension, removeFirstBackslash:1)};
+use {mainTable->sav:builder.mvc.modelName(extension:extension, removeFirstBackslash:1)};
+use {mainTable->sav:builder.mvc.repositoryName(extension:extension, removeFirstBackslash:1)};
 !
 /**
  * Controller for the form {controllerName}
@@ -39,7 +40,7 @@ final class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controll
     /**
      * Main repository
      * 
-     * @var <f:format.raw>{mainTable->sav:Mvc.buildRepositoryName(extension:extension, shortName:1)}</f:format.raw>
+     * @var <f:format.raw>{mainTable->sav:builder.mvc.repositoryName(extension:extension, shortName:1)}</f:format.raw>
      */
     protected $mainRepository = null;
 !   
@@ -48,7 +49,7 @@ final class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controll
      *
      * @return void
      */
-    public function __construct({mainTable->sav:Mvc.buildRepositoryName(extension:extension, shortName:1)} $repository)
+    public function __construct({mainTable->sav:builder.mvc.repositoryName(extension:extension, shortName:1)} $repository)
     {
         $this->mainRepository = $repository;
     }   
@@ -59,7 +60,7 @@ final class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controll
      * @var array
      */
     protected $subforms = [
-        <f:for each="{sav:Mvc.SubformIndexManager(action:'getSubforms')}" as="subform">
+        <f:for each="{sav:builder.mvc.subformIndexManager(action:'getSubforms')}" as="subform">
         [
             'repository' => \{vendorName}\{extensionName}\Domain\Repository\{subform.tableName}Repository::class,
             'fieldName' => '{subform.fieldName}',
@@ -71,14 +72,14 @@ final class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controll
     /**
      * Save action for this controller
      *
-     * @param {mainTable->sav:Mvc.buildModelName(extension:extension, shortName:1)} $data
+     * @param {mainTable->sav:builder.mvc.modelName(extension:extension, shortName:1)} $data
      * @return void
      */
-    public function saveAction({mainTable->sav:Mvc.buildModelName(extension:extension, shortName:1)} $data)
+    public function saveAction({mainTable->sav:builder.mvc.modelName(extension:extension, shortName:1)} $data)
     {
         $this->save($data);
     }
 }
 </f:alias>
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

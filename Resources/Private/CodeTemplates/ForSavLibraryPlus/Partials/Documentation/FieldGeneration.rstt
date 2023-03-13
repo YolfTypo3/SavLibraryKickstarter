@@ -1,14 +1,14 @@
 <f:format.raw>
 <f:for each="{source.fields}" as="field">
 <f:if condition="{subform}!=1">
-.. _{viewReference}.{source.configuration.label->sav:function(name:'md5int')}.{field.configuration.tableName}.{field.configuration.fieldName}:
+.. _{viewReference}.{source.configuration.label->sav:format.crypt()}.{field.configuration.tableName}.{field.configuration.fieldName}:
 </f:if>
 !
 <f:variable name="fieldTitle">**Field**: ``{field.configuration.fieldName}``</f:variable> 
 {fieldTitle}  
 !
-**Type:** :ref:`{field.configuration.fieldType} <savlibrarykickstarter:{sav:documentationRenderType(string:field.configuration.fieldType)}>`
-<f:variable name="fieldConfiguration">{sav:documentationProcessFieldConfiguration(configuration:field.configuration)}</f:variable>
+**Type:** :ref:`{field.configuration.fieldType} <savlibrarykickstarter:{field.configuration.fieldType->sav:builder.documentation.renderType()}>`
+<f:variable name="fieldConfiguration">{sav:builder.documentation.processFieldConfiguration(configuration:field.configuration)}</f:variable>
 	<f:if condition="{fieldConfiguration}"> 
 !
 <f:if condition="{field.configuration.fieldType}=='RelationManyToManyAsSubform'">
@@ -32,11 +32,11 @@
 !				
 **Subform Content**
 !
-   <sav:indent count="3" ><f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{source:field,formTitle:'{formTitle}.subform',subform:1}" /></sav:indent>  
+   <sav:utility.indent count="3" ><f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{source:field,formTitle:'{formTitle}.subform',subform:1}" /></sav:utility.indent>  
 !
 				</f:then>
 				<f:else>				
-  - {fieldKey} = <sav:indent count="5" >{field}</sav:indent> 
+  - {fieldKey} = <sav:utility.indent count="5" excludeFirstLine="1">{field}</sav:utility.indent> 
 				</f:else>
 			</f:if>
 		</f:for>

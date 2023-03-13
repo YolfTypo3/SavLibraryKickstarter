@@ -1,10 +1,11 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<?php
+<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+<?php
 defined('TYPO3') or die();
-<f:format.raw><sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+!
 <f:alias map="{
-    pluginSignature:  '{extension.general.1.extensionKey->sav:upperCamel()->sav:toLower()}_{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()->sav:toLower()}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+    pluginSignature:  '{extension.general.1.extensionKey->sav:format.upperCamel()->sav:format.toLower()}_{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()->sav:format.toLower()}',
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
 $GLOBALS['TCA']['tx_savlibrarymvc_domain_model_configuration']['ctrl']['EXT']['{extension.general.1.extensionKey}'] = [
     'controllers' => [   
@@ -12,10 +13,10 @@ $GLOBALS['TCA']['tx_savlibrarymvc_domain_model_configuration']['ctrl']['EXT']['{
         <f:alias map="{
             queryIndex:     '{form.query}',
             vendorName:     '{extension.general.1.vendorName}',
-            extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}'           
+            extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}'           
         }">          
             {formKey} => [
-                'name' => '{form.title->sav:upperCamel()}',
+                'name' => '{form.title->sav:format.upperCamel()}',
                 'viewIdentifiers' => [
                     'listView' => {form.listView},
                     'singleView' => {form.singleView},
@@ -27,7 +28,7 @@ $GLOBALS['TCA']['tx_savlibrarymvc_domain_model_configuration']['ctrl']['EXT']['{
                             <f:for each="{viewsWithCondition}" as="viewWithCondition">
                             {viewWithCondition.key} => [
                                 'config' => [
-                                    <f:for each="{viewWithCondition.condition->sav:Mvc.buildConfiguration()}" as="attribute" key="attributeKey" >
+                                    <f:for each="{viewWithCondition.condition->sav:builder.mvc.configuration()}" as="attribute" key="attributeKey" >
                                     '{attributeKey}' => '{attribute}',
                                     </f:for>
                                 ],
@@ -39,25 +40,25 @@ $GLOBALS['TCA']['tx_savlibrarymvc_domain_model_configuration']['ctrl']['EXT']['{
                 ],
                 'viewTitleBars' => [
                     <f:for each="{extension.views}" as="view" key="viewKey">
-                        {viewKey} => '{view->sav:getItem(key:'viewTitleBar')->sav:function(name:'addSlashes')}',
+                        {viewKey} => '{view->sav:utility.getItem(key:'viewTitleBar')->sav:format.addSlashes()}',
                     </f:for>
                 ],
                 'viewItemTemplates' => [
                     <f:if condition="{form.listView}">
-                    {form.listView} => '{extension.views->sav:getItem(key:form.listView)->sav:getItem(key:'itemTemplate')}',
+                    {form.listView} => '{extension.views->sav:utility.getItem(key:form.listView)->sav:utility.getItem(key:'itemTemplate')}',
                     </f:if>
                     <f:if condition="{form.specialView}">                    
-                    {form.specialView} => '{extension.views->sav:getItem(key:form.specialView)->sav:getItem(key:'itemTemplate')}',
+                    {form.specialView} => '{extension.views->sav:utility.getItem(key:form.specialView)->sav:utility.getItem(key:'itemTemplate')}',
                     </f:if>
                 ],
                 'folders' => [
                     <f:for each="{extension.views}" as="view" key="viewKey">
                     {viewKey} => [
-                        <f:for each="{view->sav:getItem(key:'folders')}" as="folder" key="folderKey">
+                        <f:for each="{view->sav:utility.getItem(key:'folders')}" as="folder" key="folderKey">
                         {folderKey} => [
                             'label' => '{folder.label}',
                             'configuration' => [
-                                <f:for each="{folder.configuration->sav:Mvc.buildConfiguration()}" as="attribute" key="attributeKey" >
+                                <f:for each="{folder.configuration->sav:builder.mvc.configuration()}" as="attribute" key="attributeKey" >
                                 '{attributeKey}' => '{attribute}',
                                 </f:for>
                             ],
@@ -77,4 +78,4 @@ $GLOBALS['TCA']['tx_savlibrarymvc_domain_model_configuration']['ctrl']['EXT']['{
     ],    
 ];
 </f:alias>
-</sav:function></f:format.raw>
+</sav:utility.removeEmptyLines></f:format.raw>

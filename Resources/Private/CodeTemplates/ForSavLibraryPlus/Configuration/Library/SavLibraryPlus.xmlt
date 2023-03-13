@@ -1,6 +1,6 @@
+<f:format.raw><sav:utility.removeEmptyLines>
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<f:format.raw><sav:function name="removeEmptyLines">
-<f:alias map="{extensionName: '{sav:function(name:\'removeUnderscore\', arguments:\'{extension.extensionKey}\')}'}">
+<f:alias map="{extensionName: '{extension.extensionKey->sav:format.removeUnderscore()}'}">
 <SavLibraryPlus>
     <general type="array">
         <version>{extension.general.version}</version>
@@ -86,12 +86,12 @@
                     <{fieldKey} type="array">
                         <config type="array">
                         <f:for each="{field.configuration}" as="configuration" key="configurationKey">
-                        <f:if condition="{configuration->sav:function(name:'isArray')}">
+                        <f:if condition="{configuration->sav:utility.isArray()}">
                         <f:then> 
-                            <sav:indent count="28"><f:render partial="Configuration/Library/SavLibraryPlusSubform.xmlt" arguments="{configurationKey:configurationKey,configuration:configuration}" /></sav:indent>
+                            <sav:utility.indent count="28"><f:render partial="Configuration/Library/SavLibraryPlusSubform.xmlt" arguments="{configurationKey:configurationKey,configuration:configuration}" /></sav:utility.indent>
                         </f:then>
                         <f:else>
-                            <{configurationKey}{f:if(condition:'{configuration->sav:function(name:"isInteger")}', then:' type="integer"')}>{configuration->f:format.raw()}</{configurationKey}>
+                            <{configurationKey}{f:if(condition:'{configuration->sav:utility.isInteger()}', then:' type="integer"')}>{configuration->f:format.raw()}</{configurationKey}>
                         </f:else>
                         </f:if>
                         </f:for>
@@ -142,5 +142,5 @@
 		</f:for>
 	</queries>
 </f:alias>
-</sav:function></f:format.raw>
 </SavLibraryPlus>
+</sav:utility.removeEmptyLines></f:format.raw>

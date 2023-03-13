@@ -1,6 +1,4 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
-
-<f:format.raw><sav:function name="removeEmptyLines">
+<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 <subform type="array">
     <{configurationKey} type="array">
         <fields type="array">
@@ -8,9 +6,9 @@
             <{subformFieldKey} type="array">
                 <config type="array">
                 <f:for each="{subformField.configuration}" as="subformConfiguration" key="subformConfigurationKey">
-                <f:if condition="{subformConfiguration->sav:function(name:'isArray')}">
+                <f:if condition="{subformConfiguration->sav:utility.isArray()}">
                     <f:then>
-                    <sav:indent count="20"><f:render partial="Configuration/Library/SavLibraryPlusSubform.xmlt" arguments="{configurationKey:subformConfigurationKey,configuration:subformConfiguration}" /></sav:indent>
+                    <sav:utility.indent count="20"><f:render partial="Configuration/Library/SavLibraryPlusSubform.xmlt" arguments="{configurationKey:subformConfigurationKey,configuration:subformConfiguration}" /></sav:utility.indent>
                     </f:then>                      
                     <f:else>
                     <{subformConfigurationKey}>{subformConfiguration}</{subformConfigurationKey}>
@@ -23,5 +21,5 @@
         </fields>
     </{configurationKey}>
 </subform>                  
-</sav:function></f:format.raw>
+</sav:utility.removeEmptyLines></f:format.raw>
 

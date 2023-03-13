@@ -8,7 +8,7 @@
 		<f:alias map="{libraryLabel:'{libraryRootLabel}{libraryType}'}">
 			<f:alias
 				map="{
-			libraryName:'{sav:upperCamel(string:\'{f:translate(key:libraryLabel)}\')}',
+			libraryName:'{f:translate(key:libraryLabel)->sav:format.upperCamel()}',
 			isAllowed:'{f:if(condition:\'{libraryType} == 3\', then:0, else:1)}'
 			}">
 				<f:be.pageRenderer
@@ -36,7 +36,7 @@
 						</div>
 						<f:flashMessages />
 						<f:format.raw>
-							<sav:link.empty key="kickstarterTop" />
+							<sav:link.anchor key="kickstarterTop" />
 						</f:format.raw>
 
 						<f:comment>Render the menu section</f:comment>

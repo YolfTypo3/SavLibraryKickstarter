@@ -1,4 +1,5 @@
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><T3DataStructure>
+<sav:utility.removeEmptyLines keepLine="!">
+<T3DataStructure>
     <meta>
         <langDisable>1</langDisable>
     </meta>
@@ -29,15 +30,15 @@
                             <config>
                                 <type>select</type>
                                 <renderType>selectSingle</renderType>                                
-                                <items  type="array">
-                                    <numIndex  index="0"  type="array">
-                                        <numIndex  index="0"></numIndex>
-                                        <numIndex  index="1"></numIndex>
+                                <items type="array">
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0"></numIndex>
+                                        <numIndex index="1"></numIndex>
                                     </numIndex>
-                                    <f:for  each="{extension.forms}"  as="form"  key="formKey">
-                                    <numIndex  index="{formKey}"  type="array">
-                                        <numIndex  index="0">{form.title}</numIndex>
-                                        <numIndex  index="1">{formKey}</numIndex>
+                                    <f:for each="{extension.forms}" as="form" key="formKey">
+                                    <numIndex  index="{formKey}" type="array">
+                                        <numIndex index="0">{form.title}</numIndex>
+                                        <numIndex index="1">{formKey}</numIndex>
                                     </numIndex>
                                     </f:for>
                                 </items>
@@ -63,17 +64,17 @@
                                 <type>select</type>
                                 <renderType>selectSingle</renderType>                                
                                 <items  type="array">
-                                    <numIndex  index="0"  type="array">
-                                        <numIndex  index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.showNoAvailableInformation.I.0</numIndex>
-                                        <numIndex  index="1">0</numIndex>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.showNoAvailableInformation.I.0</numIndex>
+                                        <numIndex index="1">0</numIndex>
                                     </numIndex>
-                                    <numIndex  index="1"  type="array">
-                                        <numIndex  index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.showNoAvailableInformation.I.1</numIndex>
-                                        <numIndex  index="1">1</numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.showNoAvailableInformation.I.1</numIndex>
+                                        <numIndex index="1">1</numIndex>
                                     </numIndex>
-                                    <numIndex  index="2"  type="array">
-                                        <numIndex  index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.showNoAvailableInformation.I.2</numIndex>
-                                        <numIndex  index="1">2</numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.showNoAvailableInformation.I.2</numIndex>
+                                        <numIndex index="1">2</numIndex>
                                     </numIndex>
                                 </items>
                                 <maxitems>1</maxitems>
@@ -232,21 +233,21 @@
                                 <type>select</type>
                                 <renderType>selectSingle</renderType>                                
                                 <items  type="array">
-                                    <numIndex  index="0"  type="array">
-                                        <numIndex  index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.inputApplyLimit.I.0</numIndex>
-                                        <numIndex  index="1"></numIndex>
+                                    <numIndex index="0" type="array">
+                                        <numIndex index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.inputApplyLimit.I.0</numIndex>
+                                        <numIndex index="1"></numIndex>
                                     </numIndex>
-                                    <numIndex  index="1"  type="array">
-                                        <numIndex  index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.inputApplyLimit.I.1</numIndex>
-                                        <numIndex  index="1">1</numIndex>
+                                    <numIndex index="1" type="array">
+                                        <numIndex index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.inputApplyLimit.I.1</numIndex>
+                                        <numIndex index="1">1</numIndex>
                                     </numIndex>
-                                    <numIndex  index="2"  type="array">
-                                        <numIndex  index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.inputApplyLimit.I.2</numIndex>
-                                        <numIndex  index="1">2</numIndex>
+                                    <numIndex index="2" type="array">
+                                        <numIndex index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.inputApplyLimit.I.2</numIndex>
+                                        <numIndex index="1">2</numIndex>
                                     </numIndex>
-                                    <numIndex  index="3"  type="array">
-                                        <numIndex  index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.inputApplyLimit.I.3</numIndex>
-                                        <numIndex  index="1">3</numIndex>
+                                    <numIndex  index="3" type="array">
+                                        <numIndex index="0">LLL:EXT:sav_library_mvc/Resources/Private/Language/locallang.xlf:extensionFlexform.inputApplyLimit.I.3</numIndex>
+                                        <numIndex index="1">3</numIndex>
                                     </numIndex>
                                 </items>
                                 <maxitems>1</maxitems>
@@ -321,4 +322,4 @@
         </sAdvanced>              		
     </sheets>
 </T3DataStructure>
-</sav:function>
+</sav:utility.removeEmptyLines>

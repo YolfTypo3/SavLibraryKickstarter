@@ -3,7 +3,7 @@
 <f:variable name="section" value="forms" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:getItem(
+<f:variable name="mvc" value="{sav:utility.getItem(
     value:{
         0:0,
         1:0,
@@ -52,7 +52,7 @@
 						<f:link.action action="addNewViewWithCondition"
 							arguments="{extensionKey:extensionKey, section:section, viewType:'singleView', itemKey:itemKey}">
 							<f:image class="addNewViewWithCondition"
-								src="{sav:getIcon(identifier:'actions-add')}"
+								src="{sav:be.getIcon(identifier:'actions-add')}"
 								alt="{f:translate(key:'kickstarter.addNewViewWithCondition')}"
 								title="{f:translate(key:'kickstarter.addNewViewWithCondition')}" />
 						</f:link.action>
@@ -81,7 +81,7 @@
 							<f:link.action action="deleteViewWithCondition"
 								arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewType:'singleView', viewWithConditionKey:viewWithConditionKey}">
 								<f:image class="deleteViewWithCondition"
-									src="{sav:getIcon(identifier:'actions-delete')}"
+									src="{sav:be.getIcon(identifier:'actions-delete')}"
 									alt="{f:translate(key:'kickstarter.delete')}"
 									title="{f:translate(key:'kickstarter.delete')}" />
 							</f:link.action>
@@ -95,7 +95,7 @@
 						<f:link.action action="addNewViewWithCondition"
 							arguments="{extensionKey:extensionKey, section:section, viewType:'editView', itemKey:itemKey}">
 							<f:image class="addNewViewWithCondition"
-								src="{sav:getIcon(identifier:'actions-add')}"
+								src="{sav:be.getIcon(identifier:'actions-add')}"
 								alt="{f:translate(key:'kickstarter.addNewViewWithCondition')}"
 								title="{f:translate(key:'kickstarter.addNewViewWithCondition')}" />
 						</f:link.action>
@@ -116,7 +116,7 @@
 							<f:link.action action="deleteViewWithCondition"
 								arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewType:'editView', viewWithConditionKey:viewWithConditionKey}">
 								<f:image class="deleteViewWithCondition"
-									src="{sav:getIcon(identifier:'actions-delete')}"
+									src="{sav:be.getIcon(identifier:'actions-delete')}"
 									alt="{f:translate(key:'kickstarter.delete')}"
 									title="{f:translate(key:'kickstarter.delete')}" />
 							</f:link.action>

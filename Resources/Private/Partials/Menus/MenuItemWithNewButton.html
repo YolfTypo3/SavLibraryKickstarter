@@ -4,7 +4,7 @@
 		<f:link.action action="addItem"
 			arguments="{extensionKey:extensionKey, section:section}">
 			<f:image
-				src="{sav:getIcon(identifier:'actions-add')}"
+				src="{sav:be.getIcon(identifier:'actions-add')}"
 				alt="{f:translate(key:'kickstarter.new')}"
 				title="{f:translate(key:'kickstarter.new')}" />
 		</f:link.action>
@@ -21,7 +21,7 @@
 						<f:link.action action="deleteItem"
 							arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
 							<f:image
-								src="{sav:getIcon(identifier:'actions-delete')}"
+								src="{sav:be.getIcon(identifier:'actions-delete')}"
 								alt="{f:translate(key:'kickstarter.delete')}"
 								title="{f:translate(key:'kickstarter.delete')}" />
 						</f:link.action>

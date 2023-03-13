@@ -1,7 +1,10 @@
-<sav:function name="removeEmptyLines"><f:alias map="{
+<sav:utility.removeEmptyLines keepLine="!">
+
+<f:alias map="{
     extensionKey:  '{extension.general.1.extensionKey}',
-    extensionName:  '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.removeUnderscore()}'
 }">
+
 plugin.tx_{extensionName} {
     view {
         # cat=plugin.tx_{extensionName}/file; type=string; label=Path to template root (FE)
@@ -17,4 +20,4 @@ plugin.tx_{extensionName} {
     }
 }
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

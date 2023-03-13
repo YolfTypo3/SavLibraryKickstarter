@@ -10,7 +10,7 @@
 			<f:comment>Add new field button</f:comment>
 			<f:link.action action="addNewField"
 				arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
-				<f:image src="{sav:getIcon(identifier:'actions-add')}"
+				<f:image src="{sav:be.getIcon(identifier:'actions-add')}"
 					alt="{f:translate(key:'kickstarter.addNewField')}"
 					title="{f:translate(key:'kickstarter.addNewField')}" />
 			</f:link.action>
@@ -19,7 +19,7 @@
 			<f:form.button class="submit" name="submitAction[save]"
 				data="{toggle:'popover',content:'{f:translate(key:\'kickstarter.saving\')}'}"
 				value="{f:translate(key:'kickstarter.save')}">
-				<f:image src="{sav:getIcon(identifier:'actions-save')}"
+				<f:image src="{sav:be.getIcon(identifier:'actions-save')}"
 					alt="{f:translate(key:'kickstarter.save')}"
 					title="{f:translate(key:'kickstarter.save')}" />
 			</f:form.button>
@@ -34,7 +34,7 @@
                 }"
 				value="{f:translate(key:'kickstarter.generate')}">
 				<f:image class="installExtension"
-					src="{sav:getIcon(identifier:'actions-system-refresh')}"
+					src="{sav:be.getIcon(identifier:'actions-system-refresh')}"
 					alt="{f:translate(key:'kickstarter.generateExtension')}"
 					title="{f:translate(key:'kickstarter.generateExtension')}" />
 			</f:form.button>
@@ -45,14 +45,14 @@
 			</div>
 			<sav:form.select id="viewSelectorbox"
 				name="{section}[viewSelectorbox]" value=""
-				options="{sav:buildOptionsForViewSelectorbox(views:extension.views)}" />
+				options="{sav:builder.options.forViewSelectorbox(views:extension.views)}" />
 				
 				
 			<f:comment>Sort button</f:comment>	
 			<f:form.button class="submit" name="submitAction[sortFields]"
 				value="{f:translate(key:'kickstarter.sort')}">
 				<f:image class="installExtension"
-					src="{sav:getIcon(identifier:'actions-sort-amount-down')}"
+					src="{sav:be.getIcon(identifier:'actions-sort-amount-down')}"
 					alt="{f:translate(key:'kickstarter.sort')}"
 					title="{f:translate(key:'kickstarter.sort')}" />
 			</f:form.button>
@@ -61,7 +61,7 @@
 			<f:form.button class="submit" name="submitAction[copyFieldConfiguration]"
 				value="{f:translate(key:'kickstarter.copyField')}">
 				<f:image class="installExtension"
-					src="{sav:getIcon(identifier:'actions-duplicate')}"
+					src="{sav:be.getIcon(identifier:'actions-duplicate')}"
 					alt="{f:translate(key:'kickstarter.copyField')}"
 					title="{f:translate(key:'kickstarter.copyField')}" />
 			</f:form.button>
@@ -70,7 +70,7 @@
 			<f:form.button class="submit" name="submitAction[copyFieldsConfiguration]"
 				value="{f:translate(key:'kickstarter.copyFields')}">
 				<f:image class="installExtension"
-					src="{sav:getIcon(identifier:'actions-duplicates')}"
+					src="{sav:be.getIcon(identifier:'actions-duplicates')}"
 					alt="{f:translate(key:'kickstarter.copyFields')}"
 					title="{f:translate(key:'kickstarter.copyFields')}" />
 			</f:form.button>
@@ -94,17 +94,17 @@
 			</li>
 			<f:for each="{sectionItem.fields}" key="key" as="field">
 				<f:if
-					condition="{sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)} == {field.folders->sav:getItem(key:sectionItemViewKey)}">
+					condition="{sectionItem.folderKeys->sav:utility.getItem(key:sectionItemViewKey)} == {field.folders->sav:utility.getItem(key:sectionItemViewKey)}">
 					<li
 						class="field {f:if(condition:'{selectedFieldKey} == {key}', then:'selected')}">
 						<f:alias
-							map="{selected:'{field.selected->sav:getItem(key:sectionItemViewKey)}', order:'{field.order->sav:getItem(key:sectionItemViewKey)}', class:'{extension.views->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:\'type\')}'}">
+							map="{selected:'{field.selected->sav:utility.getItem(key:sectionItemViewKey)}', order:'{field.order->sav:utility.getItem(key:sectionItemViewKey)}', class:'{extension.views->sav:utility.getItem(key:sectionItemViewKey)->sav:utility.getItem(key:\'type\')}'}">
 							<div class="fieldName">
 								<f:link.action
 									class="{f:if(condition:'{selected}', then:'{class} bold')}"
 									action="editFieldConfiguration"
 									arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewKey:sectionItem.viewKey, folderKey:selectedFolderKey, fieldKey:key}"
-									section="{sav:function(name:'md5int',arguments:field.fieldname)}">
+									section="{field.fieldname->sav:format.crypt()}">
                                     {field.fieldname}
                                 </f:link.action>
 							</div>
@@ -129,7 +129,7 @@
 								<f:link.action action="editFieldConfiguration"
 									arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:key}">
 									<f:image class="editFieldConfiguration"
-										src="{sav:getIcon(identifier:'actions-document')}"
+										src="{sav:be.getIcon(identifier:'actions-document')}"
 										alt="{f:translate(key:'kickstarter.edit')}"
 										title="{f:translate(key:'kickstarter.edit')}" />
 								</f:link.action>
@@ -138,7 +138,7 @@
 								<f:link.action action="moveDownField"
 									arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, fieldKey:key}">
 									<f:image class="moveDownField"
-										src="{sav:getIcon(identifier:'actions-move-down')}"
+										src="{sav:be.getIcon(identifier:'actions-move-down')}"
 										alt="{f:translate(key:'kickstarter.moveDown')}"
 										title="{f:translate(key:'kickstarter.moveDown')}" />
 								</f:link.action>
@@ -147,7 +147,7 @@
 								<f:link.action action="moveUpField"
 									arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, fieldKey:key}">
 									<f:image class="moveUpField"
-										src="{sav:getIcon(identifier:'actions-move-up')}"
+										src="{sav:be.getIcon(identifier:'actions-move-up')}"
 										alt="{f:translate(key:'kickstarter.moveUp')}"
 										title="{f:translate(key:'kickstarter.moveUp')}" />
 								</f:link.action>
@@ -156,7 +156,7 @@
 								<f:link.action action="deleteField"
 									arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, fieldKey:key}">
 									<f:image class="deleteField"
-										src="{sav:getIcon(identifier:'actions-delete')}"
+										src="{sav:be.getIcon(identifier:'actions-delete')}"
 										alt="{f:translate(key:'kickstarter.delete')}"
 										title="{f:translate(key:'kickstarter.delete')}" />
 								</f:link.action>

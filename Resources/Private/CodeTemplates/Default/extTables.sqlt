@@ -1,8 +1,8 @@
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+<sav:utility.removeEmptyLines keepLine="!">
 <f:for each="{extension.newTables}" as="table" key="tableKey">
 <f:alias map="{
-  model:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}',
-  modelForMM:'{sav:buildTableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
+  model:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}',
+  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
 }">
 #
 # Table structure for table '{model}'
@@ -51,11 +51,10 @@ CREATE TABLE {model} (
     cruser_id_frontend int(11) DEFAULT '0' NOT NULL, 
     </f:if>
     <f:for each="{table.fields}" as="field">
-    <sav:removeIfContainsDoNotCreate>
-    {field.fieldname} <sav:function name="removeLineFeed"><f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" /></sav:function>
-    </sav:removeIfContainsDoNotCreate>
+    <f:variable name="fieldName">{field.fieldname}</f:variable>
+    <f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" />
 	</f:for>
-    <f:if condition="{sav:CheckIfFieldsForSpecialViewAreRequired(extension:extension, model:model)}">
+    <f:if condition="{sav:builder.checkIfFieldsForSpecialViewAreRequired(extension:extension, model:model)}">
     _submitted_data_ blob,
     _validated_ tinyint(4) DEFAULT '0' NOT NULL,
     </f:if>
@@ -101,15 +100,14 @@ CREATE TABLE {modelForMM}_{field.fieldname}_mm (
 <f:alias map="{
   model:'{table.tablename}'
 }">
-<f:if condition="{sav:checkIfNewFieldsAreCreatedInExistingTable(existingTable:table)}">
+<f:if condition="{sav:builder.checkIfNewFieldsAreCreatedInExistingTable(existingTable:table)}">
 #
 # Table structure for table '{model}'
 #
 CREATE TABLE {table.tablename} (
     <f:for each="{table.fields}" as="field">   
-    <sav:removeIfContainsDoNotCreate>
-    {sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)} <sav:function name="removeLineFeed"><f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" /></sav:function>
-    </sav:removeIfContainsDoNotCreate>  
+    <f:variable name="fieldName">{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}</f:variable>
+    <f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" /> 
     </f:for>
 );
 </f:if>
@@ -117,9 +115,9 @@ CREATE TABLE {table.tablename} (
 <f:for each="{table.fields}" as="field">
 <f:if condition="{field.conf_relations_mm}">
 #
-# Table structure for table '{sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model)}_mm'
+# Table structure for table '{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model)}_mm'
 #
-CREATE TABLE {sav:buildTableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model)}_mm (
+CREATE TABLE {sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model)}_mm (
     uid_local int(11) unsigned DEFAULT '0' NOT NULL,
     uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
     tablenames varchar(30) DEFAULT '' NOT NULL,
@@ -136,4 +134,4 @@ CREATE TABLE {sav:buildTableName(shortName:field.fieldname, extensionKey:extensi
 </f:alias>
 </f:for>
 
-</sav:function>
+</sav:utility.removeEmptyLines>

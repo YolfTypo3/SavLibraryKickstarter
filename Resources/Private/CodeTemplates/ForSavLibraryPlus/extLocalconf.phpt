@@ -1,17 +1,19 @@
+<sav:utility.removeEmptyLines keepLine="!">
 <?php
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}">
+
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}',
-    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:format.removeUnderscore()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
+
 defined('TYPO3') or die();
 !
 (function () {
 <f:for each="{extension.newTables}" as="newTable">
 <f:alias map="{
-    model: '{sav:buildTableName(shortName:newTable.tablename, extensionKey:extension.general.1.extensionKey)}'
+    model: '{sav:builder.tableName(shortName:newTable.tablename, extensionKey:extension.general.1.extensionKey)}'
 }">
 <f:if condition="{newTable.save_and_new}">
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig('
@@ -37,15 +39,15 @@ defined('TYPO3') or die();
 !
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
-    controllerName: '{extension.forms->sav:getItem()->sav:getItem(key:\'title\')->sav:upperCamel()}'
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
 	// Registers the icon
 	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
    		\TYPO3\CMS\Core\Imaging\IconRegistry::class
 	);
 	$iconRegistry->registerIcon(
-   		'ext-{extensionName->sav:toLower()}-wizard',
+   		'ext-{extensionName->sav:format.toLower()}-wizard',
 		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
 		['source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg']
 	);
@@ -58,4 +60,4 @@ defined('TYPO3') or die();
 </f:if>
 })();
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

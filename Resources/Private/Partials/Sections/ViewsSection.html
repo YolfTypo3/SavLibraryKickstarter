@@ -3,7 +3,7 @@
 <f:variable name="section" value="views" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:getItem(
+<f:variable name="mvc" value="{sav:utility.getItem(
     value:{
         0:0,
         1:0,
@@ -45,7 +45,7 @@
 
 					<f:comment>Subtype of the view if needed</f:comment>
 					<f:if
-						condition="{sav:function(name:'in_array', arguments:'{needle:sectionItem.type, haystack:\"special\"}')}">
+						condition="{sav:utility.inList(key:sectionItem.type, list:'special')}">
 						<label class="{sectionItem.type}" for="viewTemplate"><f:translate
 								key="kickstarter.{section}Item.subtype" /></label>
 						<f:form.select id="subtype" name="{section}[subtype]"
@@ -60,7 +60,7 @@
 
 					<f:comment>Option for printView</f:comment>
 					<f:if
-						condition="{sav:function(name:'in_array', arguments:'{needle:sectionItem.subtype, haystack:\"print\"}')}">
+						condition="{sav:utility.inList(key:sectionItem.subtype, list:'print')}">
 						<label class="{sectionItem.type}" for="itemsBeforePageBreak"><f:translate
 								key="kickstarter.{section}Item.subtype.print.itemsBeforePageBreak" /></label>
 						<f:form.textfield id="itemsBeforePageBreak" class="integer"
@@ -80,7 +80,7 @@
 					<f:form.textarea id="viewTitleBar"
 						name="{section}[viewTitleBar]"
 						value="{sectionItem.viewTitleBar}"
-						rows="{sav:function(name:'countLines', arguments:sectionItem.viewTitleBar)}"
+						rows="{sectionItem.viewTitleBar->sav:utility.countLines()}"
 						cols="50" />
 
 					<f:comment>Folders</f:comment>
@@ -91,7 +91,7 @@
 							<f:link.action action="addNewFolder"
 								arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
 								<f:image class="addNewFolder"
-									src="{sav:getIcon(identifier:'actions-add')}"
+									src="{sav:be.getIcon(identifier:'actions-add')}"
 									alt="{f:translate(key:'kickstarter.addNewFolder')}"
 									title="{f:translate(key:'kickstarter.addNewFolder')}" />
 							</f:link.action>
@@ -105,21 +105,21 @@
 								<f:link.action action="moveDownFolder"
 									arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, folderKey:folderKey}">
 									<f:image class="moveDownFolder"
-										src="{sav:getIcon(identifier:'actions-move-down')}"
+										src="{sav:be.getIcon(identifier:'actions-move-down')}"
 										alt="{f:translate(key:'kickstarter.moveDown')}"
 										title="{f:translate(key:'kickstarter.moveDown')}" />
 								</f:link.action>
 								<f:link.action action="moveUpFolder"
 									arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, folderKey:folderKey}">
 									<f:image class="moveUpFolder"
-										src="{sav:getIcon(identifier:'actions-move-up')}"
+										src="{sav:be.getIcon(identifier:'actions-move-up')}"
 										alt="{f:translate(key:'kickstarter.moveUp')}"
 										title="{f:translate(key:'kickstarter.moveUp')}" />
 								</f:link.action>
 								<f:link.action action="deleteFolder"
 									arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, folderKey:folderKey}">
 									<f:image class="deleteFolder"
-										src="{sav:getIcon(identifier:'actions-delete')}"
+										src="{sav:be.getIcon(identifier:'actions-delete')}"
 										alt="{f:translate(key:'kickstarter.delete')}"
 										title="{f:translate(key:'kickstarter.delete')}" />
 								</f:link.action>
@@ -128,7 +128,7 @@
 								<f:form.textarea class="folder"
 									name="{section}[folders][{folderKey}][configuration]"
 									value="{folder.configuration}"
-									rows="{sav:function(name:'countLines', arguments:folder.configuration)}"
+									rows="{folder.configuration->sav:utility.countLines()}"
 									cols="50" />
 							</f:for>
 						</div>
@@ -136,19 +136,19 @@
 
 					<f:comment>Item Template</f:comment>
 					<f:if
-						condition="{sav:function(name:'in_array', arguments:'{needle:sectionItem.type, haystack:\"list,special\"}')}">
+						condition="{sav:utility.inList(key:sectionItem.type, list:'list,special')}">
 						<label class="{sectionItem.type}" for="itemTemplate"><f:translate
 								key="kickstarter.{section}Item.itemTemplate" /></label>
 						<f:form.textarea id="itemTemplate"
 							name="{section}[itemTemplate]"
 							value="{sectionItem.itemTemplate}"
-							rows="{sav:function(name:'countLines', arguments:sectionItem.itemTemplate)}"
+							rows="{sectionItem.itemTemplate->sav:utility.countLines()}"
 							cols="50" />
 					</f:if>
 
 					<f:comment>View template if not mvc</f:comment>
 					<f:if
-						condition="{sav:function(name:'in_array', arguments:'{needle:sectionItem.type, haystack:\"list\"}')}">
+						condition="{sav:utility.inList(key:sectionItem.type, list:'list')}">
 						<f:if condition="{extension.general.1.libraryType} == 0">
 							<label class="{sectionItem.type}" for="viewTemplate"><f:translate
 									key="kickstarter.{section}Item.viewTemplate" /></label>
@@ -161,7 +161,7 @@
                     <f:if condition="{mvc} == 0">
 						<f:comment>printIcon</f:comment>
 						<f:if
-							condition="{sav:function(name:'in_array', arguments:'{needle:sectionItem.type, haystack:\"list,single\"}')}">
+							condition="{sav:utility.inList(key:sectionItem.type, list:'list,single')}">
 							<label class="{sectionItem.type}" for="addPrintIcon"><f:translate
 									key="kickstarter.{section}Item.addPrintIcon" /></label>
 							<sav:form.checkbox id="addPrintIcon" class="checkbox"
@@ -176,7 +176,7 @@
 							<sav:form.select class="clearNone" id="viewForPrintIcon"
 								name="{section}[viewForPrintIcon]"
 								value="{sectionItem.viewForPrintIcon}"
-								options="{sav:buildOptionsForViewSelectorbox(views:extension.views)}" />
+								options="{sav:builder.options.forViewSelectorbox(views:extension.views)}" />
 						</f:if>
 					</f:if>
 				</f:if>

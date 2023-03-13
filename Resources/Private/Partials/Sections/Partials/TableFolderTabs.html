@@ -4,10 +4,10 @@
 <div class="folderTabs">
 	<ul class="folderTabs">
 		<f:alias
-			map="{view:'{extension.views->sav:getItem(key:sectionItemViewKey)}'}">
+			map="{view:'{extension.views->sav:utility.getItem(key:sectionItemViewKey)}'}">
 			<f:for each="{view.folders}" as="folder" key="folderKey">
 				<li
-					class="{f:if(condition:'{folderKey} == {sectionItem.folderKeys->sav:getItem(key:sectionItemViewKey)}', then:'currentTab')}">
+					class="{f:if(condition:'{folderKey} == {sectionItem.folderKeys->sav:utility.getItem(key:sectionItemViewKey)}', then:'currentTab')}">
 					<f:link.action action="changeFolder"
 						arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, viewKey:sectionItem.viewKey, folderKey:folderKey}">
 						<span class="">{folder.label}</span>

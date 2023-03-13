@@ -1,5 +1,4 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
-<f:format.raw><sav:function name="removeEmptyLines">
+<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 'columns' => [
     <f:if condition="{table.localization}">
     'sys_language_uid' => [
@@ -119,11 +118,11 @@
     '{field.fieldname}' => [
         'exclude' => 1,
         'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{field.fieldname}',
-        <sav:indent count="8"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{_all}" /></sav:indent>
+        <sav:utility.indent count="8"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{_all}" /></sav:utility.indent>
         <f:if condition="{field.displayCondition}">
-        <sav:indent count="8">'displayCond' => '{field.displayCondition}',</sav:indent>
+        <sav:utility.indent count="8">'displayCond' => '{field.displayCondition}',</sav:utility.indent>
         </f:if>      
     ],
     </f:for>
 ],
-</sav:function></f:format.raw>
+</sav:utility.removeEmptyLines></f:format.raw>

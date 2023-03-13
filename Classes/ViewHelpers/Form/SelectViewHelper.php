@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -35,6 +37,7 @@ class SelectViewHelper extends \TYPO3\CMS\Fluid\ViewHelpers\Form\SelectViewHelpe
     protected function renderOptionTag($value, $label, $isSelected)
     {
         $class = '';
+        $value = (string) ($value ?? '');
         $match = [];
         if (preg_match('/###class=([\w]+)###/', $label, $match)) {
             $label = str_replace($match[0], '', $label);

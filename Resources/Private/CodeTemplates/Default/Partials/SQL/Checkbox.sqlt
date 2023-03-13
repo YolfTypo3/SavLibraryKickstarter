@@ -1,1 +1,1 @@
-tinyint(3) DEFAULT '0' NOT NULL,
+{fieldName} tinyint(3) DEFAULT '0' NOT NULL,

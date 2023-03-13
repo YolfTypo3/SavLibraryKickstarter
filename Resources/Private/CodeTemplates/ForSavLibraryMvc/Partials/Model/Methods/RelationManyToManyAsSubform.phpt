@@ -1,4 +1,3 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw>
 !    
     /**
@@ -23,7 +22,7 @@
         $this->{lowerCamelFieldName}->_memorizeCleanState();
     }
 !
-<f:variable name="typeForAddRemove">{type->sav:function(name:"regexp",arguments:"{pattern:'/^.*?\<(.*?)\>$/', replacement:'$1'}")}</f:variable>
+<f:variable name="typeForAddRemove">{type->sav:format.regexp(pattern:'/^.*?\<(.*?)\>$/', replacement:'$1')}</f:variable>
 
     /**
      * Adds a <{lowerCamelFieldName}>.

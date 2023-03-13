@@ -1,3 +1,1 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
-
-return $this->{field.fieldname->sav:lowerCamel()};
+return $this->{field.fieldname->sav:format.lowerCamel()};

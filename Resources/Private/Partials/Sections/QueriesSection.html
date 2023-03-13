@@ -3,7 +3,7 @@
 <f:variable name="section" value="queries" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:getItem(
+<f:variable name="mvc" value="{sav:utility.getItem(
     value:{
         0:0,
         1:0,
@@ -31,9 +31,9 @@
 				<label for="mainTable"><f:translate
 						key="kickstarter.{section}Item.mainTable" /></label>
 				<f:alias
-					map="{firtNewTable:'{extension.newTables->sav:function(name:\"current\")}'}">
+					map="{firtNewTable:'{extension.newTables->sav:utility.current()}'}">
 					<f:alias
-						map="{defaultTableName:'{sav:BuildTableName(shortName:firtNewTable.tablename, extensionKey:extensionKey, mvc:mvc)}'}">
+						map="{defaultTableName:'{sav:builder.tableName(shortName:firtNewTable.tablename, extensionKey:extensionKey, mvc:mvc)}'}">
 						<f:form.textfield id="mainTable" name="{section}[mainTable]"
 							value="{f:if(condition:sectionItem.mainTable, then:sectionItem.mainTable, else:defaultTableName)}" />
 					</f:alias>
@@ -46,7 +46,7 @@
 					<f:form.textarea id="foreignTables"
 						name="{section}[foreignTables]"
 						value="{sectionItem.foreignTables}"
-						rows="{sav:function(name:'countLines', arguments:sectionItem.foreignTables)}"
+						rows="{sectionItem.foreignTables->sav:utility.countLines()}"
 						cols="80" />
 
 					<f:comment>Aliases</f:comment>
@@ -54,7 +54,7 @@
 							key="kickstarter.{section}Item.aliases" /></label>
 					<f:form.textarea id="aliases" name="{section}[aliases]"
 						value="{sectionItem.aliases}"
-						rows="{sav:function(name:'countLines', arguments:sectionItem.aliases)}"
+						rows="{sectionItem.aliases->sav:utility.countLines()}"
 						cols="80" />
                 </f:if>
 
@@ -63,7 +63,7 @@
 						key="kickstarter.{section}Item.whereClause" /></label>
 				<f:form.textarea id="whereClause" name="{section}[whereClause]"
 					value="{sectionItem.whereClause}"
-					rows="{sav:function(name:'countLines', arguments:sectionItem.whereClause)}"
+					rows="{sectionItem.whereClause->sav:utility.countLines()}"
 					cols="80" />
 
 				<f:comment>Order By Clause</f:comment>
@@ -72,7 +72,7 @@
 				<f:form.textarea id="orderByClause"
 					name="{section}[orderByClause]"
 					value="{sectionItem.orderByClause}"
-					rows="{sav:function(name:'countLines', arguments:sectionItem.orderByClause)}"
+					rows="{sectionItem.orderByClause->sav:utility.countLines()}"
 					cols="80" />
 
                 <f:if condition="{mvc} == 0">
@@ -82,7 +82,7 @@
 					<f:form.textarea id="groupByClause"
 						name="{section}[groupByClause]"
 						value="{sectionItem.groupByClause}"
-						rows="{sav:function(name:'countLines', arguments:sectionItem.groupByClause)}"
+						rows="{sectionItem.groupByClause->sav:utility.countLines())}"
 						cols="80" />
                 </f:if>
                 
@@ -93,7 +93,7 @@
 					<f:link.action action="addNewWhereTag"
 						arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
 						<f:image class="addNewWhereTag"
-							src="{sav:getIcon(identifier:'actions-add')}"
+							src="{sav:be.getIcon(identifier:'actions-add')}"
 							alt="{f:translate(key:'kickstarter.addNewWhereTag')}"
 							title="{f:translate(key:'kickstarter.addNewWhereTag')}" />
 					</f:link.action>
@@ -107,7 +107,7 @@
 						<f:link.action action="deleteWhereTag"
 							arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, whereTagKey:whereTagKey}">
 							<f:image class="whereTagDelete"
-								src="{sav:getIcon(identifier:'actions-delete')}"
+								src="{sav:be.getIcon(identifier:'actions-delete')}"
 								alt="{f:translate(key:'kickstarter.delete')}"
 								title="{f:translate(key:'kickstarter.delete')}" />
 						</f:link.action>
@@ -116,14 +116,14 @@
 						<f:form.textarea class="whereTag"
 							name="{section}[whereTags][{whereTagKey}][whereClause]"
 							value="{whereTag.whereClause}"
-							rows="{sav:function(name:'countLines', arguments:whereTag.whereClause)}"
+							rows="{whereTag.whereClause->sav:utility.countLines()}"
 							cols="50" />
 						<label class="whereTag"><f:translate
 								key="kickstarter.{section}Item.whereTags.orderByClause" /></label>
 						<f:form.textarea class="whereTagLast"
 							name="{section}[whereTags][{whereTagKey}][orderByClause]"
 							value="{whereTag.orderByClause}"
-							rows="{sav:function(name:'countLines', arguments:whereTag.orderByClause)}"
+							rows="{whereTag.orderByClause->sav:utility.countLines()}"
 							cols="50" />
 					</f:for>
 				</div>

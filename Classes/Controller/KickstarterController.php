@@ -101,7 +101,7 @@ class KickstarterController extends ActionController
         $yamlFile = $extensionDirectory . 'docker-compose.yml';
         CommandUtility::exec('docker-compose --file="' . $yamlFile . '" run --rm t3docmake', $out);
 
-        $this->redirect('extensionList');
+        $this->forward('extensionList');
     }
 
     /**
@@ -116,7 +116,7 @@ class KickstarterController extends ActionController
         $yamlFile = $extensionDirectory . 'docker-compose.yml';
         CommandUtility::exec('docker-compose --file="' . $yamlFile . '" run --rm t3docmake', $out);
 
-        $this->redirect('extensionList');
+        $this->forward('extensionList');
     }
 
     /**
@@ -127,7 +127,7 @@ class KickstarterController extends ActionController
      */
     public function selectExtensionVersionAction(string $extensionKey)
     {
-        $this->redirect('extensionList', null, null, [
+        $this->forward('extensionList', null, null, [
             'showExtensionVersionSelector' => $extensionKey
         ]);
     }
@@ -162,7 +162,7 @@ class KickstarterController extends ActionController
             $itemKey = 1;
         }
 
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -228,7 +228,7 @@ class KickstarterController extends ActionController
             $section = 'emconf';
             $itemKey = 1;
         }
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -246,7 +246,7 @@ class KickstarterController extends ActionController
         $configurationManager = new ConfigurationManager($extensionKey, $this);
         $configurationManager->loadConfiguration();
         $configurationManager->getExtensionManager()->installExtension();
-        $this->redirect('extensionList');
+        $this->forward('extensionList');
     }
 
     /**
@@ -1014,7 +1014,7 @@ class KickstarterController extends ActionController
             'viewKey' => $viewKey
         ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -1049,7 +1049,7 @@ class KickstarterController extends ActionController
             ]
         ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -1084,7 +1084,7 @@ class KickstarterController extends ActionController
             'viewKey' => $viewKey
         ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -1238,7 +1238,7 @@ class KickstarterController extends ActionController
         $configurationManager->saveConfiguration();
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -1385,8 +1385,8 @@ class KickstarterController extends ActionController
         $extensionKey = $arguments['extensionKey'];
         $section = $arguments['general']['section'];
         $itemKey = $arguments['general']['itemKey'];
-        $fieldKey = ($arguments['general']['fieldKey'] ? $arguments['general']['fieldKey'] : null);
-        $showFieldConfiguration = $arguments['general']['showFieldConfiguration'];
+        $fieldKey = $arguments['general']['fieldKey'] ?? null;
+        $showFieldConfiguration = $arguments['general']['showFieldConfiguration'] ?? false;
 
         // Gets the configuration and the section managers
         $configurationManager = new ConfigurationManager($extensionKey, $this);
@@ -1428,7 +1428,7 @@ class KickstarterController extends ActionController
         $cacheManager->flushCachesInGroup('system');
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -1666,7 +1666,7 @@ class KickstarterController extends ActionController
         $configurationManager->saveConfiguration();
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -1724,7 +1724,7 @@ class KickstarterController extends ActionController
         $configurationManager->saveConfiguration();
 
         // Redirects to the section action
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -1762,7 +1762,7 @@ class KickstarterController extends ActionController
             ]
         ]);
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -1868,7 +1868,7 @@ class KickstarterController extends ActionController
 
         // Saves and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -1972,7 +1972,7 @@ class KickstarterController extends ActionController
 
         // Saves and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -2006,7 +2006,7 @@ class KickstarterController extends ActionController
             $firstViewKey = array_key_first((array) $views);
             $message = LocalizationUtility::translate('kickstarter.noViewBeforeAddingField', $this->request->getControllerExtensionKey());
             $this->addFlashMessage($message);
-            $this->redirect($section . 'EditSection', null, null, [
+            $this->forward($section . 'EditSection', null, null, [
                 'extensionKey' => $extensionKey,
                 'section' => $section,
                 'itemKey' => $itemKey,
@@ -2077,7 +2077,7 @@ class KickstarterController extends ActionController
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -2164,7 +2164,7 @@ class KickstarterController extends ActionController
 
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -2207,7 +2207,7 @@ class KickstarterController extends ActionController
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -2244,7 +2244,7 @@ class KickstarterController extends ActionController
 
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -2284,7 +2284,7 @@ class KickstarterController extends ActionController
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -2341,7 +2341,7 @@ class KickstarterController extends ActionController
             }
         }
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -2402,7 +2402,7 @@ class KickstarterController extends ActionController
             }
         }
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -2481,7 +2481,7 @@ class KickstarterController extends ActionController
 
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -2520,7 +2520,7 @@ class KickstarterController extends ActionController
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -2553,7 +2553,7 @@ class KickstarterController extends ActionController
             ->deleteItem($whereTagKey);
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey
@@ -2598,7 +2598,7 @@ class KickstarterController extends ActionController
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,
@@ -2651,7 +2651,7 @@ class KickstarterController extends ActionController
         }
         // Saves the configuration and redirects to the section
         $configurationManager->saveConfiguration();
-        $this->redirect($section . 'EditSection', null, null, [
+        $this->forward($section . 'EditSection', null, null, [
             'extensionKey' => $extensionKey,
             'section' => $section,
             'itemKey' => $itemKey,

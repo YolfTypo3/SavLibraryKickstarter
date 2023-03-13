@@ -1,39 +1,43 @@
-<sav:function name="removeEmptyLines" arguments="{keepLine:'!'}"><f:alias map="{
+<sav:utility.removeEmptyLines keepLine="!">
+
+<f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
     pluginName:     '{extension.general.1.pluginName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:upperCamel()}',
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
     ocb: '{',
     ccb: '}'
-}">routeEnhancers:
+}">
+
+routeEnhancers:
   {extensionName}:
     type: Extbase
     extension: {extensionName}
     plugin: {pluginName}
     routes:
 <f:for each="{extension.forms}" as="form">
-<f:variable name="controlerName" value="{form->sav:getItem(key:'title')->sav:upperCamel()}" />
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}' 
+<f:variable name="controlerName" value="{form->sav:utility.getItem(key:'title')->sav:format.upperCamel()}" />
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}' 
         _controller: '{controlerName}::list'
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/{ocb}special{ccb}' 
         _controller: '{controlerName}::list'
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/single/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/single/{ocb}special{ccb}' 
         _controller: '{controlerName}::single' 
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/edit/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/edit/{ocb}special{ccb}' 
         _controller: '{controlerName}::edit'                       
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/delete/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/delete/{ocb}special{ccb}' 
         _controller: '{controlerName}::delete'  
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/subform/delete/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/subform/delete/{ocb}special{ccb}' 
         _controller: '{controlerName}::deleteInSubform' 
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/subform/up/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/subform/up/{ocb}special{ccb}' 
         _controller: '{controlerName}::upInSubform' 
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/subform/down/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/subform/down/{ocb}special{ccb}' 
         _controller: '{controlerName}::downInSubform' 
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/file/delete/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/file/delete/{ocb}special{ccb}' 
         _controller: '{controlerName}::deleteFile' 
-      - routePath: '/{extensionName->sav:tolower()}/{controlerName->sav:tolower()}/export/{ocb}special{ccb}' 
+      - routePath: '/{extensionName->sav:format.toLower()}/{controlerName->sav:format.toLower()}/export/{ocb}special{ccb}' 
         _controller: '{controlerName}::export'                
 </f:for> 
     requirements:
       special: '[a-z0-9\-]+' 
 </f:alias>
-</sav:function>     
+</sav:utility.removeEmptyLines>     

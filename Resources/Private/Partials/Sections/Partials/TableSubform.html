@@ -6,28 +6,28 @@
 			
 <f:if condition="{0:field.type} == {0:'RelationManyToManyAsSubform'}">
 	<f:alias
-		map="{relationTableKey:'{sav:GetRelationTableKeyForSubform(arguments:extension, tableName:rel_table)}'}">
+		map="{relationTableKey:'{sav:builder.getRelationTableKeyForSubform(arguments:extension, tableName:rel_table)}'}">
 
 		<f:if
-			condition="{extension->sav:getItem(key:relationTableKey.section)->sav:getItem(key:relationTableKey.key)->sav:getItem(key:'fields')}">
+			condition="{extension->sav:utility.getItem(key:relationTableKey.section)->sav:utility.getItem(key:relationTableKey.key)->sav:utility.getItem(key:'fields')}">
 			<f:then>
 				<f:if condition="{selectedFieldKey} == {key}">
 					<li>
 						<div class="subform">
 							<ul>
 								<f:for
-									each="{extension->sav:getItem(key:relationTableKey.section)->sav:getItem(key:relationTableKey.key)->sav:getItem(key:'fields')}"
+									each="{extension->sav:utility.getItem(key:relationTableKey.section)->sav:utility.getItem(key:relationTableKey.key)->sav:utility.getItem(key:'fields')}"
 									key="subformFieldKey" as="subformField">
 									<li
 										class="field {f:if(condition:'{selectedFieldKey} == {subformFieldKey}', then:'selected')}">
 										<f:alias
-											map="{selected:'{subformField.selected->sav:getItem(key:sectionItemViewKey)}', order:'{subformField.order->sav:getItem(key:sectionItemViewKey)}', class:'{extension.views->sav:getItem(key:sectionItemViewKey)->sav:getItem(key:\'type\')}'}">
+											map="{selected:'{subformField.selected->sav:utility.getItem(key:sectionItemViewKey)}', order:'{subformField.order->sav:utility.getItem(key:sectionItemViewKey)}', class:'{extension.views->sav:utility.getItem(key:sectionItemViewKey)->sav:utility.getItem(key:\'type\')}'}">
 											<div class="fieldName">
 												<f:link.action
 													class="{f:if(condition:'{selected}', then:'{class} bold')}"
 													action="editFieldConfiguration"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}"
-													section="{sav:function(name:'md5int', arguments:subformField.fieldname)}">
+													section="{subformField.fieldname->sav:format.crypt()}">
                                                     {subformField.fieldname}
                                                 </f:link.action>
 											</div>
@@ -47,28 +47,28 @@
 												<f:link.action action="editFieldConfiguration"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}">
 													<f:image class="editFieldConfiguration"
-														src="{sav:getIcon(identifier:'actions-document')}"
+														src="{sav:be.getIcon(identifier:'actions-document')}"
 														alt="{f:translate(key:'kickstarter.edit')}"
 														title="{f:translate(key:'kickstarter.edit')}" />
 												</f:link.action>
 												<f:link.action action="moveDownField"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="moveDownField"
-														src="{sav:getIcon(identifier:'actions-move-down')}"
+														src="{sav:be.getIcon(identifier:'actions-move-down')}"
 														alt="{f:translate(key:'kickstarter.moveDown')}"
 														title="{f:translate(key:'kickstarter.moveDown')}" />
 												</f:link.action>
 												<f:link.action action="moveUpField"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="moveUpField"
-														src="{sav:getIcon(identifier:'actions-move-up')}"
+														src="{sav:be.getIcon(identifier:'actions-move-up')}"
 														alt="{f:translate(key:'kickstarter.moveUp')}"
 														title="{f:translate(key:'kickstarter.moveUp')}" />
 												</f:link.action>
 												<f:link.action action="deleteField"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
 													<f:image class="deleteField"
-														src="{sav:getIcon(identifier:'actions-delete')}"
+														src="{sav:be.getIcon(identifier:'actions-delete')}"
 														alt="{f:translate(key:'kickstarter.delete')}"
 														title="{f:translate(key:'kickstarter.delete')}" />
 												</f:link.action>
@@ -84,7 +84,7 @@
 			<f:else>
 				<f:comment>Adds a message If the field is selected and there are no fields in the subform</f:comment>
 				<f:if
-					condition="{field.selected->sav:getItem(key:sectionItemViewKey)}">
+					condition="{field.selected->sav:utility.getItem(key:sectionItemViewKey)}">
 					<li>
 						<div class="subform">
 							<ul class="errorMessage">

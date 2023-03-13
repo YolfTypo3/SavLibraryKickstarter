@@ -13,7 +13,7 @@
 <f:link.action action="addNewBoxItem"
 	arguments="{extensionKey:extension.general.1.extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
 	<f:image class="addNewBoxItem"
-		src="{sav:getIcon(identifier:'actions-add')}"
+		src="{sav:be.getIcon(identifier:'actions-add')}"
 		alt="{f:translate(key:'kickstarter.addNewBoxItem')}"
 		title="{f:translate(key:'kickstarter.addNewBoxItem')}" />
 </f:link.action>
@@ -27,7 +27,7 @@
 	<f:link.action action="deleteBoxItem"
 		arguments="{extensionKey:extension.general.1.extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey, boxItemKey:key}">
 		<f:image class="deleteBoxItem"
-			src="{sav:getIcon(identifier:'actions-delete')}"
+			src="{sav:be.getIcon(identifier:'actions-delete')}"
 			alt="{f:translate(key:'kickstarter.delete')}"
 			title="{f:translate(key:'kickstarter.delete')}" />
 	</f:link.action>

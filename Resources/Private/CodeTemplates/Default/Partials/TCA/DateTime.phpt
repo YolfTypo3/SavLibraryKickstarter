@@ -1,5 +1,3 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
-
 'config' => [
     'type' => 'input',
     

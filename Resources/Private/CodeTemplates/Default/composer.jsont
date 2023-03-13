@@ -1,26 +1,35 @@
-<f:format.raw value="{" />
-    "name": "{extension.general.1.vendorName->sav:toLower()}/{extension.general.1.extensionKey->sav:function(name:'strReplace',arguments:{search:'_', replace:'-'})}",
+<sav:utility.removeEmptyLines keepLine="!">
+
+<f:alias map="{
+    openBrace:  '{',
+    closeBrace: '}' 
+}">
+
+{openBrace}
+    "name": "{extension.general.1.vendorName->sav:format.toLower()}/{extension.general.1.extensionKey->sav:format.regexp(pattern:'/_/', replacement:'-')}",
     "description": "{extension.emconf.1.description}",
     "type": "typo3-cms-extension",
     "license": "GPL-2.0+",
     "authors": [
-        <f:format.raw value="{" />
+        {openBrace}
         "name": "{extension.emconf.1.author}",
         "email": "{extension.emconf.1.author_email}",
         "role": "Developer"
-        <f:format.raw value="}" />
+        {closeBrace}
     ],
-    "extra": {
-        "typo3/cms": <f:format.raw value="{" />
+    "extra": {openBrace}
+        "typo3/cms": {openBrace}
             "extension-key": "{extension.general.1.extensionKey}"
-        <f:format.raw value="}" />
-    },    
-    "require": {
-        <sav:indent count="8">{sav:buildConstraintsForExtensionManager(extension:extension, type:'composer')}</sav:indent>
-    },
-    "autoload": {
-        "psr-4": <f:format.raw value="{" />
-            "{extension.general.1.vendorName}\\{extension.general.1.extensionKey->sav:upperCamel()}\\": "Classes/"
-        <f:format.raw value="}" />
-    }
-<f:format.raw value="}" />
+        {closeBrace}
+    {closeBrace},    
+    "require": {openBrace}
+        <sav:utility.indent count="8">{sav:builder.constraintsForExtensionManager(extension:extension, type:'composer')}</sav:utility.indent>
+    {closeBrace},
+    "autoload": {openBrace}
+        "psr-4": {openBrace}
+            "{extension.general.1.vendorName}\\{extension.general.1.extensionKey->sav:format.upperCamel()}\\": "Classes/"
+        {closeBrace}
+    {closeBrace}
+{closeBrace}
+</f:alias>
+</sav:utility.removeEmptyLines>

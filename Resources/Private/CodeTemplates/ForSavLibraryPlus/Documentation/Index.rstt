@@ -1,63 +1,62 @@
+<sav:utility.removeEmptyLines keepLine="!">
 .. include:: Includes.txt
-
+!
 .. _start:
+!
 <f:if condition="{extension.documentation.1.title}">
 <f:then>
-<f:format.padding padLength="{extension.documentation.1.title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
-{extension.documentation.1.title}
-<f:format.padding padLength="{extension.documentation.1.title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
+{extension.documentation.1.title->sav:builder.documentation.renderSectionTitle()}
 </f:then>
 <f:else>
-<f:format.padding padLength="{extension.emconf.1.title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
-{extension.emconf.1.title}
-<f:format.padding padLength="{extension.emconf.1.title->sav:function(name:'strlen')}" padString="=">=</f:format.padding>
+{extension.emconf.1.title->sav:builder.documentation.renderSectionTitle()}
 </f:else>
 </f:if>
+!
 :Extension key:
    {extension.general.1.extensionKey}
-
+!
 :Version:
    |release|
-
+!
 :Language:
    en
-
+!
 :Description:
    {extension.emconf.1.description}
-
+!
 :Keywords:
    {extension.general.1.extensionKey}    
-
+!
 :Copyright:
    <f:format.date format="Y">now</f:format.date>
-
+!
 :Author:
    {extension.emconf.1.author}
-
+!
 :Email:
    {extension.emconf.1.author_email}
-
+!
 :License:
    This document is published under the Open Content License
    available from `www.opencontent.org/openpub <https://www.opencontent.org/openpub/>`_.
-
+!
 :Rendered:
    |today|
-
+!
 The content of this document is related to TYPO3,
 a GNU/GPL CMS/Framework available from `www.typo3.org <https://www.typo3.org/>`_.
-
-
+!
+!
 Table of Contents
 =================
-
+!
 .. toctree::
    :maxdepth: 5
    :titlesonly:
    :glob:
-<sav:function name="removeEmptyLines">   
+!   
    Introduction/Index
-<sav:includeTableOfContents extensionKey="{extension.general.1.extensionKey}" nbSpace="3"/>   
+<sav:builder.documentation.includeTableOfContents extensionKey="{extension.general.1.extensionKey}" nbSpace="3"/>   
    <f:if condition="{extension.documentation.1.AddEntityRelationshipDiagram}">
    EntityRelationshipDiagram/Index
    </f:if>
@@ -65,4 +64,4 @@ Table of Contents
    SavLibraryConfiguration/Index
    </f:if>     
    Changelog/Index
-</sav:function>   
+</sav:utility.removeEmptyLines>   

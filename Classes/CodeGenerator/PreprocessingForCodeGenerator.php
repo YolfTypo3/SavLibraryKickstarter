@@ -130,7 +130,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
 
                 // Processes folders
                 $sortedFolders = [];
-                if ($view['folders']) {
+                if (! empty($view['folders'] ?? null)) {
                     $opt_showFolders = [
                         0 => [
                             'label' => '0'
@@ -149,7 +149,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                 // Gets the list of the fields organized by folders
                 $showFolders = [];
                 $showFields = [];
-                $newTables = $extension['newTables'];
+                $newTables = $extension['newTables'] ?? null;
                 if (is_array($newTables)) {
                     $title[$viewKey]['configuration']['field'] = $view['viewTitleBar'];
                     foreach ($newTables as $tableKey => $table) {
@@ -165,7 +165,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                         $fields = $table['fields'];
                         if (is_array($fields)) {
                             foreach ($fields as $fieldKey => $field) {
-                                if ($field['selected'][$viewKey]) {
+                                if (isset($field['selected'][$viewKey])) {
                                     $orderedFields[$field['order'][$viewKey]] = $fieldKey;
                                 }
                             }
@@ -178,8 +178,8 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                                 $table['fields'][$field] = $fields[$field];
                             }
                             foreach ($table['fields'] as $fieldKey => $field) {
-                                if ($field['folders'][$viewKey]) {
-                                    if ($view['folders']) {
+                                if (isset($field['folders'][$viewKey])) {
+                                    if (isset($view['folders'])) {
                                         $showFolders[$field['folders'][$viewKey]][] = [
                                             'table' => $tableKey,
                                             'field' => $fieldKey,
@@ -208,7 +208,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                     }
                 }
 
-                $existingTables = $extension['existingTables'];
+                $existingTables = $extension['existingTables'] ?? null;
                 if (is_array($existingTables)) {
                     if (! $title[$viewKey]['configuration']['field']) {
                         $title[$viewKey]['configuration']['field'] = $view['viewTitleBar'];
@@ -300,7 +300,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                         $cryptedFolderName = $this->cryptTag($folderName);
 
                         // Gets the folder config parameter
-                        $this->arrayForCodeGenerator['views'][$viewKey][$cryptedFolderName]['configuration'] = $this->getConfig($opt_showFolders[$folderKey]['configuration'], $mvc) + [
+                        $this->arrayForCodeGenerator['views'][$viewKey][$cryptedFolderName]['configuration'] = $this->getConfig($opt_showFolders[$folderKey]['configuration'] ?? null, $mvc) + [
                             'label' => $folderName
                         ];
 
@@ -312,9 +312,9 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                         $this->arrayForCodeGenerator['views'][$viewKey][$cryptedFolderName]['title'] = $title[$viewKey];
 
                         // Generates the addPrintIcon information
-                        if ($view['addPrintIcon']) {
+                        if (isset($view['addPrintIcon'])) {
                             $this->arrayForCodeGenerator['views'][$viewKey][$cryptedFolderName]['addPrintIcon'] = $view['addPrintIcon'];
-                            if ($view['viewForPrintIcon']) {
+                            if (isset($view['viewForPrintIcon'])) {
                                 $this->arrayForCodeGenerator['views'][$viewKey][$cryptedFolderName]['viewForPrintIcon'] = $view['viewForPrintIcon'];
                             }
                         }
@@ -360,18 +360,18 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                                     }
 
                                     // Checks if its a subform field
-                                    if (is_array($relationTable[$viewKey]) && array_key_exists($tableName, $relationTable[$viewKey])) {
+                                    if (is_array($relationTable[$viewKey] ?? null) && array_key_exists($tableName, $relationTable[$viewKey])) {
                                         $relationTableKey = $relationTable[$viewKey][$tableName];
-                                        $subformConfiguration[$viewKey][$relationTableKey] = array_merge((array) $subformConfiguration[$viewKey][$relationTableKey], [
+                                        $subformConfiguration[$viewKey][$relationTableKey] = array_merge($subformConfiguration[$viewKey][$relationTableKey] ?? [], [
                                             $cryptedFullFieldName => [
-                                                'configuration' => $this->getConfig($field['configuration'][$viewKey], $mvc) + $config + [
+                                                'configuration' => $this->getConfig($field['configuration'][$viewKey] ?? null, $mvc) + $config + [
                                                     'subformItem' => 1
                                                 ]
                                             ]
                                         ]);
                                     } else {
                                         $fieldConfiguration[$cryptedFullFieldName] = [
-                                            'configuration' => $this->getConfig($field['configuration'][$viewKey], $mvc) + $config
+                                            'configuration' => $this->getConfig($field['configuration'][$viewKey] ?? null, $mvc) + $config
                                         ];
                                     }
                                 }
@@ -387,7 +387,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
             $views = $extension['views'];
             if (is_array($views)) {
                 foreach ($views as $viewKey => $view) {
-                    if (is_array($subformConfiguration[$viewKey])) {
+                    if (is_array($subformConfiguration[$viewKey] ?? null)) {
                         $arrayToAdd = [];
                         foreach ($subformConfiguration[$viewKey] as $subformKey => $subform) {
                             $arrayToAdd['configuration'][$this->cryptTag('0')]['fields'] = $subform;

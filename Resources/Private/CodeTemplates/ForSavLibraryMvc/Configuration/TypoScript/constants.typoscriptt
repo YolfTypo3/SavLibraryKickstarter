@@ -1,20 +1,22 @@
-<sav:function name="removeEmptyLines"><f:alias map="{
-    extensionKey:  '{extension.general.1.extensionKey}',
-    extensionName:  '{extension.general.1.extensionKey->sav:function(name:\'removeUnderscore\')}'
+<sav:utility.removeEmptyLines keepLine="!"><f:alias map="{
+    extensionKey:   '{extension.general.1.extensionKey}',
+    extensionName:  '{extension.general.1.extensionKey->sav:format.removeUnderscore()}',
+    openBrace:      '{',
+    closeBrace:     '}'    
 }">
-plugin.tx_{extensionName} {
-    view {
+plugin.tx_{extensionName} {openBrace}
+    view {openBrace}
         # cat=plugin.tx_{extensionName}/file; type=string; label=Path to template root (FE)
-        templateRootPath = EXT:sav_library_mvc/Resources/Private/Templates
+        templateRootPath = EXT:{extensionKey}/Resources/Private/Templates/
         # cat=plugin.tx_{extensionName}/file; type=string; label=Path to template partials (FE)
-        partialRootPath = EXT:sav_library_mvc/Resources/Private/Partials
+        partialRootPath = EXT:{extensionKey}/Resources/Private/Partials/
         # cat=plugin.tx_{extensionName}/file; type=string; label=Path to template layouts (FE)
-        layoutRootPath = EXT:sav_library_mvc/Resources/Private/Layouts
-    }
-    persistence {
+        layoutRootPath = EXT:{extensionKey}/Resources/Private/Layouts/
+    {closeBrace}
+    persistence {openBrace}
         # cat=plugin.tx_{extensionName}//a; type=string; label=Default storage PID
         storagePid =
-    }
-}
+    {closeBrace}
+{closeBrace}
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>

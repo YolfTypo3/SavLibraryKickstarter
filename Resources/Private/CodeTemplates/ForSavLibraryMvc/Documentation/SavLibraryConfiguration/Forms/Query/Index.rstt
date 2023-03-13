@@ -1,63 +1,65 @@
+<sav:utility.removeEmptyLines keepLine="!">
 .. include:: ../../../../Includes.txt
-
-.. _query<sav:upperCamel>{form.title}:</sav:upperCamel>
+!
+.. _query{form.title->sav:format.upperCamel()}:
 .. role:: red
-
+!
 =====
 Query
 =====
-
+!
 The query ``{extension.queries.{queryId}.title}`` contains the following configuration.
-
+!
 <f:if condition="{extension.queries.{queryId}.mainTable}"> 
 Main Table
 ==========
-
+!
 ::
-
+!
    {extension.queries.{queryId}.mainTable}
 </f:if>
-
-
+!
 <f:if condition="{extension.queries.{queryId}.whereClause}"> 
 WHERE Clause
 ============
-
+!
 ::
-
-   <sav:indent count="3">{extension.queries.{queryId}.whereClause}</sav:indent>
+!
+   <sav:utility.indent count="3">{extension.queries.{queryId}.whereClause}</sav:utility.indent>
 </f:if>
-
+!
 <f:if condition="{extension.queries.{queryId}.orderByClause}"> 
 ORDER BY Clause
 ===============
-
+!
 ::
-
-   <sav:indent count="3">{extension.queries.{queryId}.orderByClause}</sav:indent>
+!
+   <sav:utility.indent count="3">{extension.queries.{queryId}.orderByClause}</sav:utility.indent>
 </f:if>
-
-
+!
 <f:if condition="{extension.queries.{queryId}.whereTags}"> 
 WHERE Tags
 ==========
-
+!
 <f:for each="{extension.queries.{queryId}.whereTags}" as="whereTag">
 **Name:** ``{whereTag.title}``
 <f:if condition="{whereTag.whereClause}">
 **WHERE Clause:**
-
+!
 ::
-
-   <sav:indent count="3">{whereTag.whereClause}</sav:indent>
+!
+   <sav:utility.indent count="3">{whereTag.whereClause}</sav:utility.indent>
+!   
 </f:if>
-<f:if condition="{whereTag.orderByClause}">   
+<f:if condition="{whereTag.orderByClause}"> 
+!  
 **ORDER BY Clause:**
-
+!
 ::
-
-   <sav:indent count="3">{whereTag.orderByClause}</sav:indent>  
+!
+   <sav:utility.indent count="3">{whereTag.orderByClause}</sav:utility.indent>  
+!
 </f:if>    
 </f:for>
 </f:if>
-
+</sav:utility.removeEmptyLines>
