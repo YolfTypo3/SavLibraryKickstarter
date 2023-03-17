@@ -139,7 +139,8 @@ digraph {extension.general.1.extensionKey} {
 <f:for each="{extension.existingTables}" as="table">
 <f:alias map="{
   model:'{table.tablename}',
-  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}' 
+  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}', 
+  prefix:'tx_{extension.general.1.extensionKey->sav:format.regexp(pattern:\'/_/\', replacement:\'\')}'
 }">  
 
     "{model}" [
@@ -154,7 +155,7 @@ digraph {extension.general.1.extensionKey} {
       fieldName:'{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}'
     }">     
         <f:if condition="{field.type} != 'ShowOnly'">
-        <TR><TD BGCOLOR="lightblue" PORT="{fieldName}">{fieldName}</TD></TR>
+                <TR><TD BGCOLOR="lightblue" PORT="{fieldName}">{fieldName}</TD></TR>
         </f:if> 
     </f:alias>      
     </f:for>
@@ -190,7 +191,7 @@ digraph {extension.general.1.extensionKey} {
             rel_table:'{f:if(condition:\'{field.conf_rel_table}==\"_CUSTOM\"\',then:field.conf_custom_table_name,else:field.conf_rel_table)}',
             arrowtail:'{f:if(condition:\'{field.conf_rel_dummyitem}\',then:\'noneteeodot\',else:\'noneteenonetee\')}'
         }">    
-    {rel_table}:uid -> {model}:{fieldName} [dir="both", arrowhead="crowodot", arrowtail="{arrowtail}", color="darkblue"];
+    {rel_table}:uid -> {model}:{prefix}_{field.fieldname} [dir="both", arrowhead="crowodot", arrowtail="{arrowtail}", color="darkblue"];
     </f:alias>
     </f:if>  
     </f:for>

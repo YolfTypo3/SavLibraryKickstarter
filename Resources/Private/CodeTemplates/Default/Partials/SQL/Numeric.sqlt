@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines>
+<f:format.raw><sav:utility.removeEmptyLines>
 <f:if condition="{field.conf_numeric_type} == 1">
 {fieldName} decimal({field.conf_numeric_type_M}, {field.conf_numeric_type_D}) DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
 </f:if>
@@ -10,4 +10,4 @@
 <f:if condition="{field.conf_numeric_type} == 3">
 {fieldName} int(11) DEFAULT '<f:if condition="{field.conf_default}"><f:then>{field.conf_default}</f:then><f:else>0</f:else></f:if>' NOT NULL,
 </f:if>
-</sav:utility.removeEmptyLines>
+</sav:utility.removeEmptyLines></f:format.raw>

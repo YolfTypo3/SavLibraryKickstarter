@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines>
+<f:format.raw><sav:utility.removeEmptyLines>
 <f:if condition="{field.items->sav:utility.isArrayOfInteger(index:'value')}">
 <f:then>
 {fieldName} int(11) DEFAULT '0' NOT NULL,
@@ -7,4 +7,4 @@
 {fieldName} varchar(255) DEFAULT '' NOT NULL,
 </f:else>
 </f:if>
-</sav:utility.removeEmptyLines>
+</sav:utility.removeEmptyLines></f:format.raw>
