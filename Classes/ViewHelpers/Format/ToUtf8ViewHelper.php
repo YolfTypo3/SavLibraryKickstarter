@@ -59,6 +59,6 @@ class ToUtf8ViewHelper extends AbstractViewHelper
             $value = $renderChildrenClosure();
         }
 
-        return ($value === null ? '' : Conversion::stringToUtf8($value));
+        return ($value === null ? '' : Conversion::stringToUtf8((string) $value));
     }
 }

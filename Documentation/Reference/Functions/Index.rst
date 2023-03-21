@@ -13,14 +13,14 @@ should be added to the function name and the optional attributes (**Not yet impl
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`functions.makeDateFormat`                         None                     Yes  Yes
+:ref:`functions.makeDateFormat`                         None                     Yes  No
 :ref:`functions.makeEmailLink`                          None                     Yes  Yes
 :ref:`functions.makeExtLink`                            None                     Yes  No
 :ref:`functions.makeImage`                              None                     Yes  No
 :ref:`functions.makeItemLink`                           None                     Yes  Yes
 :ref:`functions.makeLink`                               None                     Yes  No
 :ref:`functions.makeNewWindowLink`                      None                     Yes  No
-:ref:`functions.makeUrlLink`                            None                     Yes  No
+:ref:`functions.makeUrlLink`                            None                     Yes  Yes
 :ref:`functions.makeXmlLabel`                           None                     Yes  No
 ======================================================= =========== ============ ==== ====
 

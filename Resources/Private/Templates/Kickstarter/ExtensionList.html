@@ -33,6 +33,15 @@
 
 			<div class="body">
 				<f:for each="{extensionList}" as="extension">
+					<f:variable name="mvc" value="{sav:utility.getItem(
+					    value:{
+					        0:0,
+					        1:0,
+					        2:1,
+					        3:1
+					    },
+					    key:extension.general.1.libraryType)}" />				
+								
 					<ul>
 						<li class="extensionName"><f:link.action
 								action="editExtension"
@@ -70,7 +79,7 @@
 									<li>
 										<div class="formName">{form.title}</div>
 										<div class="cache">
-											<f:if condition="{form.userPlugin} == 1">
+											<f:if condition="{form.userPlugin} == 1 && {mvc} == 0">
 												<f:image class="cacheChecked"
 													src="{sav:be.getIcon(identifier:'actions-check')}"
 													alt="{f:translate(key:'kickstarter.checked')}"

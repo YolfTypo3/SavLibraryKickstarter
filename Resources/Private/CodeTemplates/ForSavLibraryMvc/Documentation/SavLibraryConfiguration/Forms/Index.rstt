@@ -18,12 +18,12 @@ This extension contains the following forms:
 <f:for each="{extension.forms}" as="form">
    {form.title}/Index
 
-    <sav:file.saveContentToFile
+   <sav:file.saveContentToFile
         content='<f:render partial="Documentation/SavLibraryConfiguration/Forms/FormItem.rstt" arguments="{_all}" />'
         extensionKey="{extension.general.1.extensionKey}"
         fileName="Index.rst"
         directory="Documentation/SavLibraryConfiguration/Forms/{form.title}"
-    />
+   />
 
 </f:for>
 </sav:utility.removeEmptyLines>

@@ -13,7 +13,7 @@ This form contains the following items:
    :titlesonly:
    :glob:
 !
-! 
+
 <f:if condition="{form.listView} != 0">  
    ListView/Index
 
@@ -48,7 +48,7 @@ This form contains the following items:
         content='<f:render partial="Documentation/SavLibraryConfiguration/Forms/EditView/Index.rstt" arguments="{_all}" />'
         extensionKey="{extension.general.1.extensionKey}"
         fileName="Index.rst"
-        directory="Documentation/SavLibraryConfiguration/Forms/{form.title}/EditView
+        directory="Documentation/SavLibraryConfiguration/Forms/{form.title}/EditView"
     />      
        
 </f:if>

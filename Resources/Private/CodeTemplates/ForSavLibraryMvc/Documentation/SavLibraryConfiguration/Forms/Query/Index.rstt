@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!">
+<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 .. include:: ../../../../Includes.txt
 !
 .. _query{form.title->sav:format.upperCamel()}:
@@ -62,4 +62,4 @@ WHERE Tags
 </f:if>    
 </f:for>
 </f:if>
-</sav:utility.removeEmptyLines>
+</sav:utility.removeEmptyLines></f:format.raw>

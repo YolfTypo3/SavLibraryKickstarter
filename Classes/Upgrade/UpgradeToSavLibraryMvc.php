@@ -43,6 +43,9 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
         'adddelete'=> [
             'replaceBy' => 'addDelete',
         ],
+        'addsave'=> [
+            'replaceBy' => 'addSave',
+        ],
         'addtouploadfolder'=> [
             'replaceBy' => '',
         ],
@@ -90,7 +93,7 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
         ],
         'func' => [
             'replaceBy' => 'func',
-            'arguments' => ['makeItemLink', 'makeDateFormat', 'makeEmailLink'],
+            'arguments' => ['makeItemLink', 'makeDateFormat', 'makeEmailLink', 'makeUrlLink'],
         ],
         'fusion' => [
             'replaceBy' => 'fusion',
@@ -108,6 +111,12 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
                 'Date' => 'noDefault',
                 'DateTime' => 'noDefault',
             ],
+        ],
+        'nofirstlast' => [
+            'replaceBy' => 'noFirstLast',
+        ],
+        'orderlinkintitle' => [
+            'replaceBy' => 'orderLinkInTitle',
         ],
         'orderselect' => [
             'replaceBy' => 'orderSelect',
