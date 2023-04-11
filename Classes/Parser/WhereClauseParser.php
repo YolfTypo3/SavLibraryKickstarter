@@ -131,6 +131,8 @@ class WhereClauseParser
                         // Processes the right hand side operand
                         if ($rightHandSideOperand == '###user###') {
                             $rightHandSideOperand = '$this->getUserId()';
+                        } elseif ($rightHandSideOperand == '###userGroupIds###') {
+                            $rightHandSideOperand = '$this->getUserGroupIds()';
                         } elseif (strtolower($operator) == 'between') {
                             $betweenOperand[0] = $this->processRightHandSideOperand($leftHandSideOperand, $matchesExpression['leftBetweenOperand'][0]);
                             $betweenOperand[1] = $this->processRightHandSideOperand($leftHandSideOperand, $matchesExpression['rightBetweenOperand'][0]);
@@ -164,7 +166,10 @@ class WhereClauseParser
                             break;
                         case 'in':
                         case 'IN':
-                            array_push($operands, '$query->in(\'' . $leftHandSideOperand . '\', [' . $rightHandSideOperand . '])');
+                            if ($rightHandSideOperand != '$this->getUserGroupIds()') {
+                                $rightHandSideOperand = '[' . $rightHandSideOperand . ']';
+                            }
+                            array_push($operands, '$query->in(\'' . $leftHandSideOperand . '\', ' . $rightHandSideOperand . ')');
                             break;
                         case 'contains':
                         case 'CONTAINS':
@@ -172,7 +177,7 @@ class WhereClauseParser
                             break;
                         case 'between':
                         case 'BETWEEN':
-                            array_push($operands, $query->between($leftHandSideOperand, $betweenOperand[0], $betweenOperand[1]));
+                            array_push($operands, '$query->between(\'' . $leftHandSideOperand . '\', ' . $betweenOperand[0] . ', ' . $betweenOperand[1]. ')');
                             break;
                         case '@':
                             // Marker is found, call recursively with the pattern

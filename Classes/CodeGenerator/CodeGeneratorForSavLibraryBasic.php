@@ -136,16 +136,16 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
     {
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/TypoScript/');
 
-        // Generates constants.txt file if it does not exist
-        if (! file_exists($this->extensionDirectory . 'Configuration/TypoScript/constants.txt')) {
+        // Generates constants.typoscript file if it does not exist
+        if (! file_exists($this->extensionDirectory . 'Configuration/TypoScript/constants.typoscript')) {
             $fileContents = $this->generateFile('Configuration/TypoScript/constants.txtt');
-            GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/TypoScript/constants.txt', $fileContents);
+            GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/TypoScript/constants.typoscript', $fileContents);
         }
 
-        // Generates setup.txt file if it does not exist
-        if (! file_exists($this->extensionDirectory . 'Configuration/TypoScript/setup.txt')) {
+        // Generates setup.typoscript file if it does not exist
+        if (! file_exists($this->extensionDirectory . 'Configuration/TypoScript/setup.typoscript')) {
             $fileContents = $this->generateFile('Configuration/TypoScript/setup.txtt');
-            GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/TypoScript/setup.txt', $fileContents);
+            GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/TypoScript/setup.typoscript', $fileContents);
         }
     }
 

@@ -64,7 +64,7 @@ class LocallangDbTransUnitIdViewHelper extends AbstractViewHelper
         $existingTable = $arguments['isExistingTable'];
 
         if (! $existingTable) {
-            $domain = ($mvc ? '_domain_model_' : $tableName ? '_' : '');
+            $domain = ($mvc ? '_domain_model_' : ($tableName ? '_' : ''));
             $prefix = 'tx_'. str_replace('_', '', $extensionKey);
             $fieldName = ($fieldName ? '.' . $fieldName : '');
             $result = $prefix . $domain . $tableName . $fieldName;

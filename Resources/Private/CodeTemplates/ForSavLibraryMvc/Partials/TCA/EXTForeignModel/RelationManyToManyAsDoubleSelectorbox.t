@@ -12,11 +12,11 @@
         </f:if>
     </f:then>
     <f:else>
-{field.conf_rel_table->sav:builder.mvc.modelName(extension:extension)}
+{field.conf_rel_table->sav:builder.mvc.modelName(extension:extension, tableType:tableType)}
     </f:else>
     </f:if>
 </f:then>
 <f:else>
-{field.conf_rel_table->sav:builder.mvc.modelName(extension:extension)}
+{field.conf_rel_table->sav:builder.mvc.modelName(extension:extension, tableType:tableType)}
 </f:else>
 </f:if>

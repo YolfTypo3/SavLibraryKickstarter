@@ -15,7 +15,6 @@
 
 namespace YolfTypo3\SavLibraryKickstarter\Managers;
 
-use Symfony\Component\Yaml\Yaml;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

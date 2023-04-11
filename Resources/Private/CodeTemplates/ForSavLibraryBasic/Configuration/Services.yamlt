@@ -15,4 +15,4 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/Domain/Model/*'
 </f:alias>
-</sav:function>
+</sav:utility.removeEmptyLines>
