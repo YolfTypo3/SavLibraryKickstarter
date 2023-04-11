@@ -2,6 +2,7 @@
 .. include:: Includes.txt
 !
 .. _start:
+!
 <f:if condition="{extension.documentation.1.title}">
 <f:then>
 {extension.documentation.1.title->sav:builder.documentation.renderSectionTitle()}
@@ -10,6 +11,7 @@
 {extension.emconf.1.title->sav:builder.documentation.renderSectionTitle()}
 </f:else>
 </f:if>
+!
 :Extension key:
    {extension.general.1.extensionKey}
 !
