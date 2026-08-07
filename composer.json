@@ -4,8 +4,9 @@
 	"keywords": [
 		"TYPO3 CMS",
 		"Kickstarter",
-		"SAV Library",
-		"Extension generator"
+		"Basic Extension Builder",
+		"Extension Builder for SAV Library Plus",
+		"Extension Builder for SAV Library MVC"
 	],
 	"homepage": "https://github.com/YolfTypo3/SavLibraryKickstarter",
 	"support": {
