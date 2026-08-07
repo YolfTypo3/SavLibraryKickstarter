@@ -18,8 +18,6 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for building the locallang_db.xlf id.
@@ -27,44 +25,39 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class LocallangDbTransUnitIdViewHelper extends AbstractViewHelper
+final class LocallangDbTransUnitIdViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('extensionKey', 'string', 'Extension key', true);
         $this->registerArgument('tableName', 'string', 'Short table name', true);
         $this->registerArgument('fieldName', 'string', 'field name', false, '');
-        $this->registerArgument('mvc', 'boolean', 'Mvc flag', false, false);
+        $this->registerArgument('isMvc', 'boolean', 'Mvc flag', false, false);
         $this->registerArgument('isExistingTable', 'boolean', 'If true the table is an existing table', false, false);
     }
 
     /**
-     * Renders the table name
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return string the table name
+     * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $extensionKey = $arguments['extensionKey'];
-        $tableName = $arguments['tableName'];
-        $fieldName = $arguments['fieldName'];
-        $mvc = $arguments['mvc'];
-        $existingTable = $arguments['isExistingTable'];
+        $extensionKey = $this->arguments['extensionKey'];
+        $tableName = $this->arguments['tableName'];
+        $fieldName = $this->arguments['fieldName'];
+        $isMvc = $this->arguments['isMvc'];
+        $existingTable = $this->arguments['isExistingTable'];
 
         if (! $existingTable) {
-            $domain = ($mvc ? '_domain_model_' : ($tableName ? '_' : ''));
+            $domain = ($isMvc ? '_domain_model_' : ($tableName ? '_' : ''));
             $prefix = 'tx_'. str_replace('_', '', $extensionKey);
             $fieldName = ($fieldName ? '.' . $fieldName : '');
             $result = $prefix . $domain . $tableName . $fieldName;

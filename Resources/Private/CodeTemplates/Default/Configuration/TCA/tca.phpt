@@ -1,9 +1,9 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 
 <f:for each="{extension.newTables}" as="table">
 	<f:alias map="{
-        model:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}',
-        modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
+        model:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:isMvc)}',
+        modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:false)}'
 	}">
         <sav:file.saveContentToFile 
             content='<f:render partial="Configuration/TCA/newTable.phpt" arguments="{_all}"  />'
@@ -28,13 +28,13 @@
 
 <f:comment>Creates TCA/Overrides/tt_content.php</f:comment>
 <sav:file.saveContentToFile
-    content='<f:render partial="Configuration/TCA/Overrides/tt_content.phpt" arguments="{extension:extension}" />'
+    content='<f:render partial="{sav:file.getTemplateFile(templateFilePath:\'Configuration/TCA/Overrides/tt_content.phpt\', extension:extension)}" arguments="{extension:extension}" />'
     extensionKey="{extension.general.1.extensionKey}"
     fileName="tt_content.php"
     directory="Configuration/TCA/Overrides"
 />
      
-<f:if condition="{mvc}">  
+<f:if condition="{isMvc}">  
 <f:comment>Creates TCA/Overrides/sys_template.php if needed</f:comment>   
 <sav:file.saveContentToFile
     content='<f:render partial="Configuration/TCA/Overrides/sys_template.phpt" arguments="{extension:extension}" />'

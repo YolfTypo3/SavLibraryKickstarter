@@ -9,7 +9,7 @@ Show Only
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`showOnly.renderAs`                                String                   No  Yes
+:ref:`showOnly.renderAs`                                String                   No   Yes
 :ref:`showOnly.updateShowOnlyField`                     Boolean     0            Yes  Yes
 ======================================================= =========== ============ ==== ====
 
@@ -47,8 +47,8 @@ updateShowOnlyField
   Description
     ShowOnly field are not created nor can be updated. In some cases this default behavior must be
     overridden, for example when the field comes from an existing table. Settin this property to 1
-    makes it possible to update a show only field (See :ref:`Example 8 <savlibraryplus:tutorial8>` or 
-    :ref:`Example 10 <savlibraryplus:tutorial10>` in the tutorial section of SAV Library Plus).
+    makes it possible to update a show only field (See :ref:`Example 8 <yolftypo3/sav-library-plus:tutorial8>` or 
+    :ref:`Example 10 <yolftypo3/sav-library-plus:tutorial10>` in the tutorial section of SAV Library Plus).
    
   Default
     0

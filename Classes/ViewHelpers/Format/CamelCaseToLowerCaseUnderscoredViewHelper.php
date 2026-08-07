@@ -18,9 +18,7 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Format;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for transforming a camel case string to lower case underscored.
@@ -28,35 +26,31 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class CamelCaseToLowerCaseUnderscoredViewHelper extends AbstractViewHelper
+final class CamelCaseToLowerCaseUnderscoredViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+    
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('value', 'string', 'Value to convert', false, null);
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $value = $arguments['value'];
+        $value = $this->arguments['value'];
 
         if ($value === null) {
-            $value = $renderChildrenClosure();
+            $value = $this->renderChildren();
         }
 
         return ($value === null ? '' : GeneralUtility::camelCaseToLowerCaseUnderscored($value));

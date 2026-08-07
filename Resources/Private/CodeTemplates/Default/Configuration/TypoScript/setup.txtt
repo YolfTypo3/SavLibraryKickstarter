@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 
 <f:alias map="{
     extensionName:  '{extension.general.1.extensionKey->sav:format.removeUnderscore()}'
@@ -6,12 +6,12 @@
 
 plugin.tx_{extensionName} {
     view {
-        templateRootPaths.10 = <![CDATA[{]]>$plugin.tx_{extensionName}.view.templateRootPath}
-        partialRootPaths.10 = <![CDATA[{]]>$plugin.tx_{extensionName}.view.partialRootPath}
-        layoutRootPaths.10 = <![CDATA[{]]>$plugin.tx_{extensionName}.view.layoutRootPath}
+        templateRootPaths.10 = <f:format.raw>{</f:format.raw>$plugin.tx_{extensionName}.view.templateRootPath<f:format.raw>}</f:format.raw>
+        partialRootPaths.10 = <f:format.raw>{</f:format.raw>$plugin.tx_{extensionName}.view.partialRootPath<f:format.raw>}</f:format.raw>
+        layoutRootPaths.10 = <f:format.raw>{</f:format.raw>$plugin.tx_{extensionName}.view.layoutRootPath<f:format.raw>}</f:format.raw>
     }
     persistence {
-        storagePid = {$plugin.tx_{extensionName}.persistence.storagePid}
+        storagePid = <f:format.raw>{</f:format.raw>$plugin.tx_{extensionName}.persistence.storagePid<f:format.raw>}</f:format.raw>
     }
 }
 </f:alias>

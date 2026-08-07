@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines>
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines>
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <f:alias map="{extensionName: '{extension.extensionKey->sav:format.removeUnderscore()}'}">
 <SavLibraryPlus>

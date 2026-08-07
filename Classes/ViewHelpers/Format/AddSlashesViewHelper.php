@@ -17,10 +17,7 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Format;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
-use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
 
 /**
  * A view helper for quoting a string with slashes.
@@ -28,35 +25,31 @@ use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
  *
  * @package SavLibraryKickstarter
  */
-class AddSlashesViewHelper extends AbstractViewHelper
+final class AddSlashesViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+    
     /**
      * Initializes arguments.
      *
      * return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('value', 'string', 'Value to convert', false, null);
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $value = $arguments['value'];
+        $value = $this->arguments['value'];
 
         if ($value === null) {
-            $value = $renderChildrenClosure();
+            $value = $this->renderChildren();
         }
 
         return ($value === null ? '' : addslashes($value));

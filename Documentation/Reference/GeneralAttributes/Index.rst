@@ -49,6 +49,7 @@ Property                                                Data type   Default     
 :ref:`general.renderReqValue`                           Boolean     0            Yes  No
 :ref:`general.reqValue`                                 SQL SELECT               Yes  No
                                                         statement
+:ref:`general.saveIfRequired`                           Boolean     0            Yes  No
 :ref:`general.showIf`                                   String                   Yes  Yes
 :ref:`general.setExtendLink`                            Table name               Yes  No
 :ref:`general.stdWrapItem`                              stdWrap                  Yes  No
@@ -324,8 +325,8 @@ cut
 
 .. _general.cutIf:
 
-cutIf (showIf, requiredIf, queryIf, reqValueIf, editIf, valueIf)
-================================================================
+cutIf (showIf, mailfIf, requiredIf, queryIf, reqValueIf, editIf, valueIf)
+=========================================================================
 
 .. container:: table-row
 
@@ -354,7 +355,7 @@ cutIf (showIf, requiredIf, queryIf, reqValueIf, editIf, valueIf)
           
         - ###filter != filterName_contentId### The field is cut if the filter with attribut name ``filterName``
           and content id ``contentId`` is used, e.g. ###filter != searchValue_3490###.           
-             
+                          
         - ###usergroup =g roup_name### The field is cut or shown if the group
           ``group_name`` is a valid group for the current user.
              
@@ -368,6 +369,10 @@ cutIf (showIf, requiredIf, queryIf, reqValueIf, editIf, valueIf)
         - ###group != group_name### The field is cut or shown if the group
           ``group_name`` is not a valid group for the current record. It checks
           the usergroup field in the local table if any.
+          
+        - requiredFieldIsEmpty = 0 The condition is true is all required fields are
+          not empty. This condition is generally used when required fields include
+          also the attribute ``saveIfRequired = 1;``
              
         Logical connectors &, \|, and, or can be used between expressions.
   
@@ -1082,9 +1087,28 @@ reqValue
             WHERE uid=(SELECT cruser_id FROM tx_mytable WHERE uid=###uid###);
    
 
-   
+.. _general.saveIfRequired:
 
-  
+saveIfRequired
+==============
+
+.. container:: table-row
+       
+    Property  
+        saveIfRequired
+           
+    Data type
+        Boolean 
+            
+    Description
+        If set and if required flag is also set, the field will be saved. This
+        feature makes it possible to save required fields when an Edit view is partially 
+        filled. For example, it can be used with the condition: 
+        
+        ::
+        
+        	editIf = requiredFieldIsEmpty = 0;.  
+
 
 .. _general.setExtendLink:
 

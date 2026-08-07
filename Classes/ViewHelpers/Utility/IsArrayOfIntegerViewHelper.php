@@ -19,8 +19,6 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Utility;
 
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for checking if the type of a value is array of integer.
@@ -28,38 +26,33 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class IsArrayOfIntegerViewHelper extends AbstractViewHelper
+final class IsArrayOfIntegerViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('value', 'array', 'Array to check', false, null);
         $this->registerArgument('index', 'mixed', 'Index in the array', true);
     }
 
     /**
-     * Renders the options
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return bool
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): bool
     {
         // Gets the arguments
-        $value = $arguments['value'];
-        $index = $arguments['index'];
+        $value = $this->arguments['value'];
+        $index = $this->arguments['index'];
 
         if ($value === null) {
-            $value = $renderChildrenClosure();
+            $value = $this->renderChildren();
         }
 
         $isInteger = true;

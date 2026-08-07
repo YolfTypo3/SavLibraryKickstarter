@@ -1,9 +1,9 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <f:for each="{extension.newTables}" as="table" key="tableKey">
 <f:alias map="{
-  model:'{sav:builder.tableName(shortName:table.originalTableName, extensionKey:extension.general.1.extensionKey, mvc:0)}',
-  modelMvc:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:1)}',
-  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
+  model:'{sav:builder.tableName(shortName:table.originalTableName, extensionKey:extension.general.1.extensionKey, isMvc:false)}',
+  modelMvc:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:true)}',
+  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:false)}'
 }">
 # Copies the table {model} into {modelMvc} 
 DROP TABLE IF EXISTS {modelMvc};

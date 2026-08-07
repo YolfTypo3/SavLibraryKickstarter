@@ -1,0 +1,18 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
+
+<f:alias map="{
+    vendorName:       '{extension.general.1.vendorName}',
+    extensionName:    '{extension.general.1.extensionKey->sav:format.upperCamel()}'
+}">
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+!
+  {vendorName}\{extensionName}\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+</f:alias>
+</sav:utility.removeEmptyLines>

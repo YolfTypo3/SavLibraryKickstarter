@@ -4,20 +4,18 @@
 </div>
 <f:link.action action="addNewBoxItem"
 	arguments="{extensionKey:extension.general.1.extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
-	<f:image class="addNewBoxItem"
-		src="{sav:be.getIcon(identifier:'actions-add')}"
-		alt="{f:translate(key:'kickstarter.addNewBoxItem')}"
+	<core:icon
+		identifier="actions-add"
 		title="{f:translate(key:'kickstarter.addNewBoxItem')}" />
 </f:link.action>
 <f:for each="{field.items}" as="item" key="key">
 	<f:form.textfield class="itemLabel"
-		name="{section}[fields][{fieldKey}][items][{key}][label]"
+		name="{section}[fields][{selectedFieldKey}][items][{key}][label]"
 		value="{item.label}" />
 	<f:link.action action="deleteBoxItem"
 		arguments="{extensionKey:extension.general.1.extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey, boxItemKey:key}">
-		<f:image class="deleteBoxItem"
-			src="{sav:be.getIcon(identifier:'actions-delete')}"
-			alt="{f:translate(key:'kickstarter.delete')}"
+		<core:icon
+			identifier="actions-delete"
 			title="{f:translate(key:'kickstarter.delete')}" />
 	</f:link.action>
 </f:for>

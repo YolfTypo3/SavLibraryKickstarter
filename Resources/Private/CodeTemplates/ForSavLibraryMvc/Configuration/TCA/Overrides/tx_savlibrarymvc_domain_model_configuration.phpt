@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 <?php
 defined('TYPO3') or die();
 !

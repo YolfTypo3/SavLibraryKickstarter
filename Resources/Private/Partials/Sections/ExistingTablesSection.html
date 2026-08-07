@@ -3,14 +3,6 @@
 <f:variable name="section" value="existingTables" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:utility.getItem(
-    value:{
-        0:0,
-        1:0,
-        2:1,
-        3:1
-    },
-    key:extension.general.1.libraryType)}" />
 <f:variable name="sectionItemViewKey" value="{sectionItem.viewKey}" />   
 <f:variable name="tempFolderKey" value="{sectionItem.folderKeys->sav:utility.getItem(key:sectionItemViewKey)}" />   
 <f:variable name="selectedFolderKey" value="{f:if(condition:tempFolderKey, then:tempFolderKey, else:0)}" />   
@@ -42,7 +34,7 @@
 				<f:comment>Override the localization</f:comment>
 				<label for="overrideLocalization"><f:translate
 						key="kickstarter.{section}Item.overrideLocalization" /></label>
-				<sav:form.checkbox id="overrideLocalization"
+				<f:form.checkbox id="overrideLocalization"
 					class="checkbox clearNone"
 					name="{section}[overrideLocalization]" value="1"
 					checked="{sectionItem.overrideLocalization}" />
@@ -53,9 +45,8 @@
 							key="kickstarter.{section}Item.importFields" /></label>
 					<f:link.action action="{section}ImportFields"
 						arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
-						<f:image class="importFields"
-							src="{sav:be.getIcon(identifier:'actions-database-import')}"
-							alt="{f:translate(key:'kickstarter.importFields')}"
+						<core:icon 
+							identifier = "actions-database-import"
 							title="{f:translate(key:'kickstarter.importFields')}" />
 					</f:link.action>
 				</f:if>

@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <?php
 !
 <f:alias map="{
@@ -29,13 +29,18 @@ namespace {vendorName}\{extensionName}\Domain\Model;
  * {modelName} model for the extension {extensionName}
  *
  */
-
-use YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel;
+    <f:for each="{fields}" as="field">
+    <f:variable name="use"><f:spaceless><f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/Use/{field.type}.t', default:'Partials/Model/Use/Default.t')}" arguments="{_all}" /></f:spaceless></f:variable>  
+	<sav:builder.mvc.useStatements action="add" use="{use}" />
+	</f:for>
+	<sav:builder.mvc.useStatements action="add">use YolfTypo3\SavLibraryMvc\Domain\Model\DefaultModel;</sav:builder.mvc.useStatements>
+	<sav:builder.mvc.useStatements action="add">use {vendorName}\{extensionName}\Domain\Repository\{modelName}Repository;</sav:builder.mvc.useStatements>
+<sav:builder.mvc.useStatements action="render" />
 !
 class {modelName} extends DefaultModel
 {
     /**
-     * @var \{vendorName}\{extensionName}\Domain\Repository\{modelName}Repository
+     * @var {modelName}Repository
      */
     protected $repository = null;
 !
@@ -44,19 +49,20 @@ class {modelName} extends DefaultModel
     
     <f:variable name="type"><f:spaceless><f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/Types/{field.type}.t', default:'Partials/Model/Types/Default.t')}" arguments="{_all}" /></f:spaceless></f:variable>  
     <f:variable name="lowerCamelFieldName">{field.fieldname->sav:format.lowerCamel()}</f:variable>  
-    
+
+    <f:if condition="{field.validationRules}">
+    	<f:then>
+<sav:utility.indent count="4">{field.validationRules}</sav:utility.indent>
+		</f:then>
+		<f:else>
+<sav:utility.indent count="4"><f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/ValidationRules/PhpDoc/{field.type}.t', default:'Partials/Model/ValidationRules/PhpDoc/Default.t')}" arguments="{_all}" /></sav:utility.indent>
+        </f:else>
+    </f:if>
+
     /**
      * The <{lowerCamelFieldName}> variable.
      *
      * @var {type}
-        <f:if condition="{field.validationRules}">
-        <f:then>
-     * @Extbase\Validate({field.validationRules})
-        </f:then>
-        <f:else>
-     * <f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/ValidationRules/PhpDoc/{field.type}.t', default:'Partials/Model/ValidationRules/PhpDoc/Default.t')}" arguments="{_all}" />
-        </f:else>
-        </f:if>
      */
     protected ${lowerCamelFieldName};
 !
@@ -68,12 +74,20 @@ class {modelName} extends DefaultModel
      */
     public function __construct()
     {
+        $this->initializeObject();
+    }
+!    
+    /**
+     * Object initializer.
+     */
+    public function initializeObject(): void
+    {
     <f:for each="{fields}" as="field">
     <f:if condition="{field.type} != 'ShowOnly'">    
         <sav:utility.indent count="8"><f:render partial="{sav:utility.useDefault(fileName:'Partials/Model/Constructor/{field.type}.phpt', default:'Partials/Model/Constructor/Default.phpt')}" arguments="{_all}" /></sav:utility.indent>
     </f:if>
     </f:for>
-    }
+    }         
 !
     <f:for each="{fields}" as="field">
     <f:if condition="{field.type} != 'ShowOnly'">

@@ -18,43 +18,37 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Documentation;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for processing the field configuration.
  *
  * @package SavLibraryKickstarter
  */
-class ProcessFieldConfigurationViewHelper extends AbstractViewHelper
+final class ProcessFieldConfigurationViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('configuration', 'array', 'Field configuration', false, null);
     }
 
     /**
-     * Renders the table name
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return string the table name
+     * @return array the configuration
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): array
     {
         // Gets the arguments
-        $configuration = $arguments['configuration'];
+        $configuration = $this->arguments['configuration'];
 
         if ($configuration === null) {
-            $configuration = $renderChildrenClosure();
+            $configuration = $this->renderChildren();
         }
 
         unset($configuration['tableName']);

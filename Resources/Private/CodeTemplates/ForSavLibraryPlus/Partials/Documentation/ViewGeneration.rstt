@@ -1,4 +1,4 @@
-.. _{viewReference}:
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}.. _{viewReference}:
 !
 <f:variable name="viewTitle">View ``{extension.views.{viewId}.title}``</f:variable>
 {viewTitle->sav:builder.documentation.renderSectionTitle(level:1)}
@@ -17,6 +17,7 @@ Title Bar
 !
 Selected Fields
 ---------------
+
 <f:for each="{extension.viewsFields.{viewId}}" as="folder">
 	<f:if condition="{folder.configuration.label}"> 
 !
@@ -25,6 +26,7 @@ Selected Fields
 {folderTitle->sav:builder.documentation.renderSectionTitle(level:2)}
 	</f:if>	
 !
-<f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{viewReference:viewReference, source:folder, formTitle:'{formTitle}.{folderLabel->sav:format.crypt()}'}" /> 
+   
+<f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{viewReference:viewReference, source:folder, formTitle:'{formTitle}.{folderLabel->sav:format.crypt()}'}" />
 </f:for>
 !

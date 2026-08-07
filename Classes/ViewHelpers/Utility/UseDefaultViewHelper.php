@@ -18,8 +18,6 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Utility;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper which returns a file if its exists in the SAV Library Kickstarter
@@ -27,38 +25,33 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class UseDefaultViewHelper extends AbstractViewHelper
+final class UseDefaultViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('fileName', 'string', 'File name to check', true);
         $this->registerArgument('default', 'string', 'Default file', true);
     }
 
     /**
-     * Renders the viewhelper
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
+     * Renders the view helper
      *
      * @return string Either the fileName if the file exits in the SAV Library Kickstarter or the defaut
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $fileName = $arguments['fileName'];
-        $default = $arguments['default'];
+        $fileName = $this->arguments['fileName'];
+        $default = $this->arguments['default'];
 
         // Gets the path for the code templates
-        $codeTemplatesPath = $renderingContext->getVariableProvider()->get('codeTemplatesPath');
+        $codeTemplatesPath = $this->renderingContext->getVariableProvider()->get('codeTemplatesPath');
 
         if (file_exists($codeTemplatesPath . $fileName)) {
             return $fileName;

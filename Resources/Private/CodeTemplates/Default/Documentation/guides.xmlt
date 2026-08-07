@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guides xmlns="https://www.phpdoc.org/guides" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.phpdoc.org/guides ../vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd" links-are-relative="true">
+  <extension class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension" project-home="{extension.documentation.1.projectHome}" project-issues="{extension.documentation.1.projectIssues}" edit-on-github-branch="{extension.documentation.1.gitHubBranch}/{extension.general.1.extensionKey}" edit-on-github="{extension.documentation.1.gitHubRepository}" typo3-core-preferred="stable"/>
+  <project title="{extension.documentation.1.title}" release="{extension.emconf.1.version}" copyright="since 1999 by the {extension.emconf.1.author}"/>
+</guides>

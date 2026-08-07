@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
 .. include:: ../../../../Includes.txt
 !
 <f:variable name="formTitle">specialView.{form.title->sav:format.crypt()}</f:variable>
@@ -35,7 +35,7 @@ Selected Fields
 !
 <f:variable name="folderLabel">{folder.configuration.label}</f:variable>
 <f:variable name="folderTitle">Folder: ``{folder.configuration.label}``</f:variable>
-{folderTitle>sav:builder.documentation.renderSectionTitle(level:2)}
+{folderTitle->sav:builder.documentation.renderSectionTitle(level:2)}
 	</f:if>	
 !
 <f:variable name="viewReference">specialView.{form.title->sav:format.crypt()}.{extension.views.{viewId}.title->sav:format.crypt()}</f:variable>

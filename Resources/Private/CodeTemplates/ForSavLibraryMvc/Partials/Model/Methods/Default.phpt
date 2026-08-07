@@ -15,7 +15,7 @@
      * @param {type} ${lowerCamelFieldName}
      * @return void
      */
-    public function set{upperCamelFieldName}(${lowerCamelFieldName})
+    public function set{upperCamelFieldName}(${lowerCamelFieldName}): void
     {
         $this->{lowerCamelFieldName} = ${lowerCamelFieldName};
     }

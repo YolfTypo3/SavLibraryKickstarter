@@ -1,3 +1,4 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw> 
 !    
     /**
@@ -11,7 +12,7 @@
      * @return string
 </f:else>
 </f:if>     */
-    public function get{upperCamelFieldName}(): {f:if(condition:field.conf_relations_mm, then:'?\TYPO3\CMS\Extbase\Persistence\ObjectStorage', else:'?string')}
+    public function get{upperCamelFieldName}(): {f:if(condition:field.conf_relations_mm, then:'?ObjectStorage', else:'?string')}
     {
         return $this->{lowerCamelFieldName};
     }
@@ -29,7 +30,7 @@
 </f:if>
      * @return void
      */
-    public function set{upperCamelFieldName}({f:if(condition:field.conf_relations_mm, then:'\TYPO3\CMS\Extbase\Persistence\ObjectStorage', else:'string')} ${lowerCamelFieldName})
+    public function set{upperCamelFieldName}({f:if(condition:field.conf_relations_mm, then:'ObjectStorage', else:'string')} ${lowerCamelFieldName}): void
     {
         $this->{lowerCamelFieldName} = ${lowerCamelFieldName};
     }
@@ -57,15 +58,6 @@
     {
         $this->{lowerCamelFieldName}->detach(${lowerCamelFieldName});
     }
-!
-    /**
-     * Unsets a <{lowerCamelFieldName}>.
-     * 
-     * @return void
-     */
-    public function unset{upperCamelFieldName}()
-    {
-        unset($this->{lowerCamelFieldName});
-    }  
+
 </f:if>
 </f:format.raw> 

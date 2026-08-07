@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <?php
 
 <f:alias map="{
@@ -7,56 +7,50 @@
     extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:format.removeUnderscore()}',
     controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
-
+!
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+!
 defined('TYPO3') or die();
 !
 (function () {
-<f:for each="{extension.newTables}" as="newTable">
-<f:alias map="{
-    model: '{sav:builder.tableName(shortName:newTable.tablename, extensionKey:extension.general.1.extensionKey)}'
-}">
-<f:if condition="{newTable.save_and_new}">
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig('
-    	options.saveDocNew.{model}=1
-	');
-</f:if>
-</f:alias>
-</f:for>
+<sav:file.saveContentToFile
+    content='<f:render partial="{sav:file.getTemplateFile(templateFilePath:\'Configuration/user.tsconfigt\', extension:extension)}" arguments="{extension:extension}" />'
+    extensionKey="{extension.general.1.extensionKey}"
+    fileName="user.tsconfig"
+    directory="Configuration"
+    doNotCreateIfFileExists="{true}"
+/>
 !
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPItoST43(
-    	'{extension.general.1.extensionKey}',
-    	'Classes/Controller/{extensionName}Controller.php',
-    	'_pi1',
-    	'list_type',
-    	1
+	ExtensionManagementUtility::addTypoScript(
+	    '{extension.general.1.extensionKey}',
+	    'setup',
+	    'plugin.tx_{extensionNameWithoutUnderscore}_pi1 = USER_INT
+         plugin.tx_{extensionNameWithoutUnderscore}_pi1.userFunc = {vendorName}\{extensionName}\Controller\{extensionName}Controller->main'
 	);
-!
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
-		'plugin.tx_{extensionNameWithoutUnderscore}_pi1.userFunc = {vendorName}\{extensionName}\Controller\{extensionName}Controller->main'
-	);
+!	    
+	ExtensionManagementUtility::addTypoScriptSetup(
+		'tt_content.{extension.general.1.extensionKey}_pi1 < plugin.tx_{extensionNameWithoutUnderscore}_pi1'
+	);	    
 
 <f:if condition="{extension.general.1.addWizardPluginIcon}">
 !
-<f:alias map="{
-    vendorName:     '{extension.general.1.vendorName}',
-    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
-    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
-}">
 	// Registers the icon
-	$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-   		\TYPO3\CMS\Core\Imaging\IconRegistry::class
+	$iconRegistry = GeneralUtility::makeInstance(
+   		IconRegistry::class
 	);
 	$iconRegistry->registerIcon(
    		'ext-{extensionName->sav:format.toLower()}-wizard',
-		\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		SvgIconProvider::class,
 		['source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg']
 	);
 !
 	// Adds the page TSConfig for the Wizard Icon
-	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+	ExtensionUtility::addPageTSConfig(
     	'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:{extension.general.1.extensionKey}/Configuration/TsConfig/Page/Mod/Wizards/NewContentElement.tsconfig">'
 	);	
-</f:alias>
 </f:if>
 })();
 </f:alias>

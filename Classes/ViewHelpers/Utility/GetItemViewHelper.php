@@ -17,9 +17,7 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Utility;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Returns an item in an array
@@ -27,37 +25,33 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  * @package SavLibraryKickstarter
  *
  */
-class GetItemViewHelper extends AbstractViewHelper
+final class GetItemViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+    
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('value', 'array', 'Value of the parameter to change', false, null);
         $this->registerArgument('key', 'string', 'Key of the parameter to change', false, null);
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return mixed
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): mixed
     {
         // Gets the arguments
-        $value = $arguments['value'];
-        $key = $arguments['key'];
+        $value = $this->arguments['value'];
+        $key = $this->arguments['key'];
 
         if ($value === null) {
-            $value = $renderChildrenClosure();
+            $value = $this->renderChildren();
         }
 
         if ($value === null) {

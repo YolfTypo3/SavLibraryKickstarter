@@ -18,8 +18,6 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Utility;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for checking if a given key is in a comma-separated list of value.
@@ -27,38 +25,33 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class InListViewHelper extends AbstractViewHelper
+final class InListViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('list', 'string', 'Comma-separated list of value', false, null);
         $this->registerArgument('key', 'string', 'The key to search', true);
     }
 
     /**
-     * Renders the options
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return bool
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): bool
     {
         // Gets the arguments
-        $list = $arguments['list'];
-        $key = $arguments['key'];
+        $list = $this->arguments['list'];
+        $key = $this->arguments['key'];
 
         if ($list === null) {
-            $list = $renderChildrenClosure();
+            $list = $this->renderChildren();
         }
 
         $haystack = explode(',', $list ?? '');

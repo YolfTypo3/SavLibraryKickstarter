@@ -1,27 +1,27 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:if condition="{field.conf_varchar}">
  <f:form.textfield id="conf_default" class="integer"
-	name="{section}[fields][{fieldKey}][conf_default]"
+	name="{section}[fields][{selectedFieldKey}][conf_default]"
 	value="{field.conf_default}" />
 <label for="conf_default"><f:translate
 		key="kickstarter.field.conf_default" /></label>
 </f:if>
 <f:form.textfield id="conf_size" class="integer"
-	name="{section}[fields][{fieldKey}][conf_size]"
+	name="{section}[fields][{selectedFieldKey}][conf_size]"
 	value="{field.conf_size}" />
 <label for="conf_size"><f:translate
 		key="kickstarter.field.conf_size" /></label>
 <f:form.textfield id="conf_max" class="integer"
-	name="{section}[fields][{fieldKey}][conf_max]" value="{field.conf_max}" />
+	name="{section}[fields][{selectedFieldKey}][conf_max]" value="{field.conf_max}" />
 <label for="conf_max"><f:translate
 		key="kickstarter.field.conf_max" /></label>
-<sav:form.checkbox id="conf_required" class="checkbox"
-	name="{section}[fields][{fieldKey}][conf_required]" value="1"
+<f:form.checkbox id="conf_required" class="checkbox"
+	name="{section}[fields][{selectedFieldKey}][conf_required]" value="1"
 	checked="{field.conf_required}" />
 <label for="conf_required"><f:translate
 		key="kickstarter.field.conf_required" /></label>
-<sav:form.checkbox id="conf_varchar" class="checkbox"
-	name="{section}[fields][{fieldKey}][conf_varchar]" value="1"
+<f:form.checkbox id="conf_varchar" class="checkbox"
+	name="{section}[fields][{selectedFieldKey}][conf_varchar]" value="1"
 	checked="{field.conf_varchar}" />
 <label for="conf_varchar"><f:translate
 		key="kickstarter.field.conf_varchar" /></label>

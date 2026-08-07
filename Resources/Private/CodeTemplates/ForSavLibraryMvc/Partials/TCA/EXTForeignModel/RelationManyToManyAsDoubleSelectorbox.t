@@ -1,3 +1,4 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:if condition="{field.conf_relations_mm}">
 <f:then>
     <f:if condition="{field.conf_rel_table} == '_CUSTOM'">

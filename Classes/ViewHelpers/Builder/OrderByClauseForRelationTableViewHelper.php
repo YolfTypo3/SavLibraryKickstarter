@@ -18,8 +18,6 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for building the ORDER BY clause of a relation table.
@@ -27,46 +25,41 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class OrderByClauseForRelationTableViewHelper extends AbstractViewHelper
+final class OrderByClauseForRelationTableViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('arguments', 'array', 'Arguments', true);
         $this->registerArgument('tableName', 'string', 'Table name', true);
-        $this->registerArgument('mvc', 'boolean', 'Mvc flag', false, false);
+        $this->registerArgument('isMvc', 'boolean', 'Mvc flag', false, false);
     }
 
     /**
      * Renders the viewhelper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
      * @return string The order clause
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $argumentsOption = $arguments['arguments'];
-        $tableName = $arguments['tableName'];
-        $mvc = $arguments['mvc'];
+        $argumentsOption = $this->arguments['arguments'];
+        $tableName = $this->arguments['tableName'];
+        $isMvc = $this->arguments['isMvc'];
 
         // Searches the table name in new tables
         $newTables = $argumentsOption['newTables'];
 
-        $domain = ($mvc ? '_domain_model_' : '_');
+        $domain = ($isMvc ? '_domain_model_' : '_');
         if (is_array($newTables)) {
             foreach ($newTables as $tableKey => $table) {
                 $realTableName = 'tx_' . str_replace('_', '', $argumentsOption['general'][1]['extensionKey']) . $domain . $table['tablename'];
-
+                $orderByClause = '';
                 if ($realTableName == $tableName) {
                     // Checks if manual ordering is not set
                     if (empty($table['sorting'])) {

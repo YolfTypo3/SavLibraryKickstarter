@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -34,14 +36,14 @@ abstract class AbstractUpgradeManager implements LoggerAwareInterface
      *
      * @var string
      */
-    protected $extensionKey;
+    protected string $extensionKey;
 
     /**
      * The configuration manager
      *
      * @var ConfigurationManager
      */
-    protected $configurationManager;
+    protected ConfigurationManager $configurationManager;
 
     /**
      * Constructor.
@@ -56,13 +58,13 @@ abstract class AbstractUpgradeManager implements LoggerAwareInterface
     }
 
     /**
-     * Injects the configuration manager
+     * Sets the configuration manager
      *
      * @param ConfigurationManager $configurationManager
      *            The configuration manager
      * @return void
      */
-    public function injectConfigurationManager(ConfigurationManager $configurationManager)
+    public function setConfigurationManager(ConfigurationManager $configurationManager)
     {
         $this->configurationManager = $configurationManager;
     }

@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!" >
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!" >  
 .. include:: ../Includes.txt
 !
 .. _savLibraryConfiguration:
@@ -7,7 +7,7 @@
 SAV Library Configuration
 =========================
 !
-This section details the configuration for the SAV Library MVC.
+This section details the configuration for the SAV Library Plus.
 !
 Table of Contents
 =================
@@ -16,7 +16,7 @@ Table of Contents
    :maxdepth: 5
    :titlesonly:
    :glob:
-!  
+ !
    <f:if condition="{extension.newTables}">
    NewTables/Index
    </f:if>

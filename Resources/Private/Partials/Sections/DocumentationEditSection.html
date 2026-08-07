@@ -3,13 +3,8 @@
 <f:variable name="section" value="documentation" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="defautIntersphinxMapping"><f:spaceless>
-	<f:if condition="{sectionItem.interSphinxMapping}">
-	<f:then>{sectionItem.interSphinxMapping}</f:then>
-	<f:else><f:translate key="kickstarter.defaultIntersphinxMapping" /></f:else>
-	</f:if>
-</f:spaceless></f:variable>
 
+<f:comment>Render the section</f:comment> 
 <div id="{section}Section">
 	<f:form method="post" action="save" name="{section}"
 		arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
@@ -70,48 +65,17 @@
 					name="{section}[projectRepository]"
 					value="{sectionItem.projectRepository}" />
 
-				<f:comment>InterSphinx Mapping</f:comment>
-				<label for="interSphinxMapping"><f:translate
-						key="kickstarter.{section}Item.interSphinxMapping" /></label>
-				<f:form.textarea id="interSphinxMapping"
-					name="{section}[interSphinxMapping]"
-					value="{defautIntersphinxMapping}"
-					rows="{sectionItem.interSphinxMapping->sav:utility.countLines()}"
-					cols="80" />
-
-				<f:comment>Extensions</f:comment>
-				<label for="extensions"><f:translate
-						key="kickstarter.{section}Item.extensions" /></label>
-				<f:form.textarea id="extensions" name="{section}[extensions]"
-					value="{sectionItem.extensions}"
-					rows="{sectionItem.extensions->sav:utility.countLines()}"
-					cols="80" />
-
-				<f:comment>Keep Settings.cfg File</f:comment>
-				<label for="keepSettingsCfg"><f:translate
-						key="kickstarter.{section}Item.keepSettingsCfg" /></label>
-				<sav:form.checkbox class="checkbox" id="keepSettingsCfg"
-					name="{section}[keepSettingsCfg]" value="1"
-					checked="{sectionItem.keepSettingsCfg}" />
-
-				<f:comment>Add docker-compose.yml</f:comment>
-				<label for="AddDockerCompose"><f:translate
-						key="kickstarter.{section}Item.AddDockerCompose" /></label>
-				<sav:form.checkbox class="checkbox" id="AddDockerCompose"
-					name="{section}[AddDockerCompose]" value="1"
-					checked="{sectionItem.AddDockerCompose}" />
-
 				<f:comment>Add Entity Relationship Diagram</f:comment>
 				<label for="AddEntityRelationshipDiagram"><f:translate
 						key="kickstarter.{section}Item.AddEntityRelationshipDiagram" /></label>
-				<sav:form.checkbox class="checkbox" id="AddEntityRelationshipDiagram"
+				<f:form.checkbox class="checkbox" id="AddEntityRelationshipDiagram"
 					name="{section}[AddEntityRelationshipDiagram]" value="1"
 					checked="{sectionItem.AddEntityRelationshipDiagram}" />
 
 				<f:comment>Add Form and Table Configuration</f:comment>
 				<label for="AddFormAndTableConfiguration"><f:translate
 						key="kickstarter.{section}Item.AddFormAndTableConfiguration" /></label>
-				<sav:form.checkbox class="checkbox" id="AddFormAndTableConfiguration"
+				<f:form.checkbox class="checkbox" id="AddFormAndTableConfiguration"
 					name="{section}[AddFormAndTableConfiguration]" value="1"
 					checked="{sectionItem.AddFormAndTableConfiguration}" />
 

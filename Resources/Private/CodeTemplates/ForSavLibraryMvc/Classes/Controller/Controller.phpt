@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <?php
 !
 <f:alias map="{
@@ -27,6 +27,7 @@
 ! 
 namespace {vendorName}\{extensionName}\Controller;
 !
+use Psr\Http\Message\ResponseInterface;
 use {mainTable->sav:builder.mvc.modelName(extension:extension, removeFirstBackslash:1)};
 use {mainTable->sav:builder.mvc.repositoryName(extension:extension, removeFirstBackslash:1)};
 !
@@ -73,11 +74,11 @@ final class {controllerName}Controller extends \YolfTypo3\SavLibraryMvc\Controll
      * Save action for this controller
      *
      * @param {mainTable->sav:builder.mvc.modelName(extension:extension, shortName:1)} $data
-     * @return void
+     * @return ResponseInterface
      */
-    public function saveAction({mainTable->sav:builder.mvc.modelName(extension:extension, shortName:1)} $data)
+    public function saveAction({mainTable->sav:builder.mvc.modelName(extension:extension, shortName:1)} $data): ResponseInterface
     {
-        $this->save($data);
+        return $this->save($data);
     }
 }
 </f:alias>

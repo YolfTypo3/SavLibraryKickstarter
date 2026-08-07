@@ -1,5 +1,6 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 
+@startdot
 digraph {extension.general.1.extensionKey} {
     fontname="Helvetica,Arial,sans-serif"
     node [fontname="Helvetica,Arial,sans-serif"]
@@ -8,7 +9,7 @@ digraph {extension.general.1.extensionKey} {
         rankdir = "LR"
     ];
     node [
-        fontsize = "16"
+        fontsize = "12"
     ];
     edge [
     ];
@@ -16,14 +17,14 @@ digraph {extension.general.1.extensionKey} {
 <f:comment>Generates the node for new tables</f:comment>
 <f:for each="{extension.newTables}" as="table" key="tableKey" >
 <f:alias map="{
-  model:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}',
-  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}' 
+  model:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:isMvc)}',
+  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:false)}' 
 }">
 
     "{model}" [
         label = 
             <<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
-                <TR><TD PORT="table"><FONT POINT-SIZE="18"><B>{model}</B></FONT></TD></TR>
+                <TR><TD PORT="table"><FONT POINT-SIZE="14"><B>{model}</B></FONT></TD></TR>
                 <TR><TD BGCOLOR="orange" PORT="uid">uid</TD></TR>
                 <TR><TD PORT="pid">pid</TD></TR>
                 <TR><TD PORT="tstamp">tstamp</TD></TR>
@@ -110,7 +111,7 @@ digraph {extension.general.1.extensionKey} {
     "{rel_table}" [
         label = 
             <<TABLE COLOR="darkgreen" BORDER="2" CELLBORDER="1" CELLSPACING="0">
-                <TR><TD PORT="table"><FONT POINT-SIZE="18"><B>{rel_table}</B></FONT></TD></TR>
+                <TR><TD PORT="table"><FONT POINT-SIZE="14"><B>{rel_table}</B></FONT></TD></TR>
                 <TR><TD BGCOLOR="orange" PORT="uid">uid</TD></TR>
                 <TR><TD PORT="pid">pid</TD></TR>
             </TABLE>>    
@@ -139,20 +140,20 @@ digraph {extension.general.1.extensionKey} {
 <f:for each="{extension.existingTables}" as="table">
 <f:alias map="{
   model:'{table.tablename}',
-  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}', 
+  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:false)}', 
   prefix:'tx_{extension.general.1.extensionKey->sav:format.regexp(pattern:\'/_/\', replacement:\'\')}'
 }">  
 
     "{model}" [
         label = 
             <<TABLE BORDER="1" COLOR="darkgreen" CELLBORDER="1" CELLSPACING="0">
-                <TR><TD PORT="table"><FONT POINT-SIZE="18"><B>{model}</B></FONT></TD></TR>
+                <TR><TD PORT="table"><FONT POINT-SIZE="14"><B>{model}</B></FONT></TD></TR>
                 <TR><TD BGCOLOR="orange" PORT="uid">uid</TD></TR>
                 <TR><TD PORT="pid">pid</TD></TR>
 <f:if condition="{sav:builder.checkIfNewFieldsAreCreatedInExistingTable(existingTable:table)}">
     <f:for each="{table.fields}" as="field">  
     <f:alias map="{  
-      fieldName:'{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}'
+      fieldName:'{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey,isMvc:false)}'
     }">     
         <f:if condition="{field.type} != 'ShowOnly'">
                 <TR><TD BGCOLOR="lightblue" PORT="{fieldName}">{fieldName}</TD></TR>
@@ -199,4 +200,5 @@ digraph {extension.general.1.extensionKey} {
 </f:alias>
 </f:for>
 }
+@enddot
 </sav:utility.removeEmptyLines></f:format.raw>

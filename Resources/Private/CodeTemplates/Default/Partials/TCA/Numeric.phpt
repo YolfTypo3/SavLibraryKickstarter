@@ -1,8 +1,6 @@
 'config' => [
-    'type'  => 'input',
-    'size'  => '6',
-    'max' => '10',
-    'eval'  => 'double2',
-    'checkbox'  => '0',
-    'default' => 0
+    'type' => 'number',
+    'format' => 'decimal',
+    'size'  => 6,
+    'default' => 0    
 ],

@@ -17,9 +17,7 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\File;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
@@ -28,15 +26,15 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  *
  * @package SavLibraryKickstarter
  */
-class CopyFileViewHelper extends AbstractViewHelper
+final class CopyFileViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+    
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('source', 'string', 'Source file', true);
         $this->registerArgument('sourceExtension', 'string', 'Extension for the source file', false, null);
@@ -46,22 +44,18 @@ class CopyFileViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return void
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): void
     {
         // Gets the arguments
-        $source = $arguments['source'];
-        $sourceExtension = $arguments['sourceExtension'];
-        $destination = $arguments['destination'];
-        $destinationExtension = $arguments['destinationExtension'];
-        $doNotCopyIfDestinationExists = $arguments['doNotCopyIfDestinationExists'];
+        $source = $this->arguments['source'];
+        $sourceExtension = $this->arguments['sourceExtension'];
+        $destination = $this->arguments['destination'];
+        $destinationExtension = $this->arguments['destinationExtension'];
+        $doNotCopyIfDestinationExists = $this->arguments['doNotCopyIfDestinationExists'];
 
         if ($sourceExtension === null) {
             $sourceExtensionDirectory = ConfigurationManager::getExtensionDir('sav_library_kickstarter');
@@ -71,7 +65,7 @@ class CopyFileViewHelper extends AbstractViewHelper
         if ($destinationExtension === null) {
             $destinationExtensionDirectory = ConfigurationManager::getExtensionDir('sav_library_kickstarter');
         } else {
-            $destinationExtensionDirectory = ConfigurationManager::getExtensionDir($arguments['destinationExtension']);
+            $destinationExtensionDirectory = ConfigurationManager::getExtensionDir($this->arguments['destinationExtension']);
         }
         if (! $doNotCopyIfDestinationExists || ($doNotCopyIfDestinationExists && ! file_exists($destinationExtensionDirectory . $destination))) {
             if (! @copy($sourceExtensionDirectory . $source, $destinationExtensionDirectory . $destination)) {

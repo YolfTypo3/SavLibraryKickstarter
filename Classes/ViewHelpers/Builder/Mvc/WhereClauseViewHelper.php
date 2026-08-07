@@ -18,43 +18,37 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Mvc;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use YolfTypo3\SavLibraryKickstarter\Parser\WhereClauseParser;
 
 /**
- * A view helper for building the where clause for the where tags..
+ * A view helper for building the where clause for the where tags.
  *
  *
  * @package SavLibraryKickstarter
  */
-class WhereClauseViewHelper extends AbstractViewHelper
+final class WhereClauseViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+    
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('clause', 'string', 'Clause', true);
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $clause = $arguments['clause'];
+        $clause = $this->arguments['clause'];
 
         // Replaces the contents between parentheses by markers
         $whereClauseParser = GeneralUtility::makeInstance(WhereClauseParser::class);

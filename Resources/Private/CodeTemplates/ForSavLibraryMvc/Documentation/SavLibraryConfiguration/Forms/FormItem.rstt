@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!"> 
 .. include:: ../../../Includes.txt
 !
 .. _{form.title->sav:format.lowerCamel()}:
@@ -13,69 +13,69 @@ This form contains the following items:
    :titlesonly:
    :glob:
 !
- 
+
 <f:if condition="{form.listView} != 0">  
    ListView/Index
 
-    <f:variable name="viewId">{form.listView}</f:variable>   
+	<f:variable name="viewId">{form.listView}</f:variable>
     <sav:file.saveContentToFile
         content='<f:render partial="Documentation/SavLibraryConfiguration/Forms/ListView/Index.rstt" arguments="{_all}" />'
         extensionKey="{extension.general.1.extensionKey}"
         fileName="Index.rst"
         directory="Documentation/SavLibraryConfiguration/Forms/{form.title}/ListView"
-    />   
-		
+    /> 	
+			
 </f:if>
 
 <f:if condition="{form.singleView} != 0">   
    SingleView/Index
-   
-    <f:variable name="viewId">{form.singleView}</f:variable>   
+
+    <f:variable name="viewId">{form.singleView}</f:variable>
     <sav:file.saveContentToFile
         content='<f:render partial="Documentation/SavLibraryConfiguration/Forms/SingleView/Index.rstt" arguments="{_all}" />'
         extensionKey="{extension.general.1.extensionKey}"
         fileName="Index.rst"
         directory="Documentation/SavLibraryConfiguration/Forms/{form.title}/SingleView"
-    />   
-         
+    />      
+       
 </f:if>
 
 <f:if condition="{form.editView} != 0">   
    EditView/Index
 
-    <f:variable name="viewId">{form.editView}</f:variable>
+    <f:variable name="viewId">{form.editView}</f:variable>   
     <sav:file.saveContentToFile
         content='<f:render partial="Documentation/SavLibraryConfiguration/Forms/EditView/Index.rstt" arguments="{_all}" />'
         extensionKey="{extension.general.1.extensionKey}"
         fileName="Index.rst"
         directory="Documentation/SavLibraryConfiguration/Forms/{form.title}/EditView"
     />      
-       	   
+       
 </f:if>
 
 <f:if condition="{form.specialView} != 0">   
    SpecialView/Index
-   
-    <f:variable name="viewId">{form.specialView}</f:variable>   
+
+    <f:variable name="viewId">{form.specialView}</f:variable>
     <sav:file.saveContentToFile
         content='<f:render partial="Documentation/SavLibraryConfiguration/Forms/SpecialView/Index.rstt" arguments="{_all}" />'
         extensionKey="{extension.general.1.extensionKey}"
         fileName="Index.rst"
         directory="Documentation/SavLibraryConfiguration/Forms/{form.title}/SpecialView"
-    />   
-    	  
+    />      
+      
 </f:if>
 
 <f:if condition="{form.query} != 0">   
    Query/Index
-   
-    <f:variable name="queryId">{form.query}</f:variable>   
+
+    <f:variable name="queryId">{form.query}</f:variable>
     <sav:file.saveContentToFile
         content='<f:render partial="Documentation/SavLibraryConfiguration/Forms/Query/Index.rstt" arguments="{_all}" />'
         extensionKey="{extension.general.1.extensionKey}"
         fileName="Index.rst"
         directory="Documentation/SavLibraryConfiguration/Forms/{form.title}/Query"
-    />  
- 
+    />      
+      
 </f:if>
 </sav:utility.removeEmptyLines>

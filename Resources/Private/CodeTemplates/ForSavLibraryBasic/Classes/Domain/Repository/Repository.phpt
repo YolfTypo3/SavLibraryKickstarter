@@ -1,5 +1,7 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <?php
+!
+declare(strict_types=1);
 !
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',

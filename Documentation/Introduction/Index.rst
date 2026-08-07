@@ -10,7 +10,8 @@ What Does it Do?
 ================
 
 The SAV Library Kickstarter is a code generator, developed with 
-extbase and fluid, to produce Frontend plugins.
+extbase and fluid, to produce Frontend plugins. 
+
 
 Basic Code Generation
 ---------------------
@@ -69,7 +70,7 @@ development of the SAV Library which fully relies on the MVC approach
 with extbase and fluid. The configuration parameters to develop extension **without any
 PHP coding** are the same as in SAV Library Plus.
 
-This library is in beta state because it does not implement yet all the features available with SAV Library Plus. 
+This library does not implement yet all the features available with SAV Library Plus. 
 However available features are enough for most extensions.
 
 Latest Developments
@@ -111,23 +112,12 @@ Extensions Generated for SAV Library Plus
 - SAV Library Example8
 - SAV Library Example9 - this extension depends on `sav_charts <https://extensions.typo3.org/extension/sav_charts>`_.
 - SAV Library Example10 - this extension depends on `map2 <https://extensions.typo3.org/extension/map2>`_.
-- SAV Download
-- SAV Meetings
     
-Filters for SAV Library Plus
-----------------------------
+Filters for SAV Library Plus or SAV Library Mvc
+-----------------------------------------------
 
 - SAV Filters
 
-Extensions Generated for SAV Library Mvc
-----------------------------------------
-
-- SAV Calendar Mvc
-
-Filters for SAV Library Mvc
-----------------------------    
-    
-- SAV Filters
 
 Extensions Generated as Basic Extensions
 ----------------------------------------
@@ -135,12 +125,7 @@ Extensions Generated as Basic Extensions
 The following extensions have been kickstarted with the basic type.
 
 - SAV Charts
-- SAV Networks
     
-.. warning::
-
-   - Do not forget to include the ``SAV Library Kickstarter static template`` which is now required.    
-
 Screenshots
 ===========
 

@@ -1,0 +1,11 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
+<f:alias map="{
+    vendorName:     '{extension.general.1.vendorName}',
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
+}">
+
+name: {extension.general.1.vendorName->sav:format.toLower()}/{extension.general.1.extensionKey->sav:format.regexp(pattern:'/_/', replacement:'-')}
+label: '{extensionName} - {controllerName}'
+</f:alias>
+</sav:utility.removeEmptyLines>

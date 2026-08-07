@@ -1,0 +1,3 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
+@import 'EXT:{extension.general.1.extensionKey}/Configuration/TypoScript/constants.typoscript'
+</sav:utility.removeEmptyLines>

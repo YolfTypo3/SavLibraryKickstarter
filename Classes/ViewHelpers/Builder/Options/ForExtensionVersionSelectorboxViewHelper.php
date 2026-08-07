@@ -17,10 +17,7 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Options;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
@@ -29,33 +26,28 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  *
  * @package SavLibraryKickstarter
  */
-class ForExtensionVersionSelectorboxViewHelper extends AbstractViewHelper
+final class ForExtensionVersionSelectorboxViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('extensionKey', 'string', 'Extension key', true);
     }
 
     /**
-     * Renders the viewhelper
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array The options
+     * @return array
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): array
     {
         // Gets the arguments
-        $extensionKey = $arguments['extensionKey'];
+        $extensionKey = $this->arguments['extensionKey'];
 
         return self::renderOptions($extensionKey);
     }
@@ -68,19 +60,14 @@ class ForExtensionVersionSelectorboxViewHelper extends AbstractViewHelper
      */
     public static function renderOptions($extensionKey): array
     {
-        $extensionDirectory = ConfigurationManager::getExtensionDir($extensionKey);
-        $libraryName = trim(GeneralUtility::getURL(ConfigurationManager::getLibraryTypeFileName($extensionKey)));
-
-        $configurationDirectory = $extensionDirectory . ConfigurationManager::CONFIGURATION_DIRECTORY . $libraryName;
-
-        $configurationFilename = pathinfo(ConfigurationManager::getConfigurationFileName($extensionKey));
-
+        $configurationFilename = ConfigurationManager::getConfigurationFileName($extensionKey);
+        $pathInfo = pathinfo($configurationFilename);
         $options = [];
-        if ($handle = opendir($configurationDirectory)) {
+        if ($handle = opendir($pathInfo['dirname'])) {
 
             while (false !== ($file = readdir($handle))) {
                 $match = [];
-                if ($file != '.' && $file != '..' && preg_match('/^' . $configurationFilename['filename'] . '(\w*)\.' . $configurationFilename['extension'] . '$/', $file, $match)) {
+                if ($file != '.' && $file != '..' && preg_match('/^' . $pathInfo['filename'] . '(\w*)\.' . $pathInfo['extension'] . '$/', $file, $match)) {
                     if ($match[1]) {
                         $value = substr(str_replace('_', '.', $match[1]), 1);
                         $options[$value] = $value;
@@ -89,12 +76,12 @@ class ForExtensionVersionSelectorboxViewHelper extends AbstractViewHelper
             }
         }
 
-        uasort($options, 'self::versionCompareDescendingOrder');
+        uasort($options, self::class . '::versionCompareDescendingOrder');
 
         return $options;
     }
 
-    protected static function versionCompareDescendingOrder($a, $b)
+    protected static function versionCompareDescendingOrder($a, $b): int
     {
         return version_compare($b, $a);
     }

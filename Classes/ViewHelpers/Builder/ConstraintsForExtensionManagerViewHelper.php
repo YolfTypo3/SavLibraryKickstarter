@@ -16,12 +16,9 @@ declare(strict_types=1);
  */
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder;
 
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
@@ -38,48 +35,40 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  *
  * @package SavLibraryKickstarter
  */
-class ConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
+final class ConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('extension', 'array', 'Extension', true);
         $this->registerArgument('type', 'string', 'Type', true);
     }
 
     /**
-     * Renders the dependencies
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return string the dependencies array
+     * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $extension = $arguments['extension'];
-        $type = $arguments['type'];
-
-        // Gets the configuration manager
-        $configurationManager = self::getConfigurationManager();
+        $extension = $this->arguments['extension'];
+        $type = $this->arguments['type'];
 
         // Gets the settings
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
 
-        $dependenciesResult = [];
-
         // Processes the dependency for the core
+        $dependenciesResult = [];
         $compatibility = $extension['general'][1]['compatibility'];
-        $dependenciesResult['emconf']['typo3'] = $settings['dependency']['emconf'][$compatibility];
-        $dependenciesResult['composer']['typo3/cms-core'] = $settings['dependency']['composer'][$compatibility];
+        $dependenciesResult['emconf']['typo3'] = $settings['versions'][$compatibility]['dependencies']['emconf']['typo3'] ?? '';
+        $dependenciesResult['composer']['typo3/cms-core'] = $settings['versions'][$compatibility]['dependencies']['composer']['typo3'] ?? '';
 
         // Processes the library dependancy
         switch ($extension['general'][1]['libraryType']) {
@@ -135,11 +124,11 @@ class ConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
         // Adds the default library dependencies if not provided
         if ($libraryDependency != '') {
             if (! array_key_exists($libraryDependency, $dependenciesResult['emconf'])) {
-                $dependenciesResult['emconf'][$libraryDependency] = $settings['dependency']['emconf'][$libraryDependency]['default'];
+                $dependenciesResult['emconf'][$libraryDependency] = $settings['versions'][$compatibility]['dependencies']['emconf'][$libraryDependency] ?? '';
             }
             $dependenciesComposerKeys = array_keys($dependenciesResult['composer']);
             if (! in_array(str_replace('_', '-', $libraryDependency), $dependenciesComposerKeys)) {
-                $dependenciesResult['composer']['yolftypo3/' . str_replace('_', '-', $libraryDependency)] = $settings['dependency']['composer'][$libraryDependency]['default'];
+                $dependenciesResult['composer']['yolftypo3/' . str_replace('_', '-', $libraryDependency)] = $settings['versions'][$compatibility]['dependencies']['composer'][$libraryDependency] ?? '';
             }
         }
 
@@ -159,20 +148,4 @@ class ConstraintsForExtensionManagerViewHelper extends AbstractViewHelper
         return $constraints;
     }
 
-    /**
-     * Gets the configuration manager
-     *
-     * @return ConfigurationManagerInterface
-     */
-    protected static function getConfigurationManager(): ConfigurationManagerInterface
-    {
-        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
-        if (version_compare($typo3Version->getVersion(), '11.0', '<')) {
-            // @extensionScannerIgnoreLine
-            $configurationManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)->get(ConfigurationManagerInterface::class);
-        } else {
-            $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
-        }
-        return $configurationManager;
-    }
 }

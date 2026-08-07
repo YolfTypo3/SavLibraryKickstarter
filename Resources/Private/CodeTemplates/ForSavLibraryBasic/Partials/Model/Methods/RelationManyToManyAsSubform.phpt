@@ -1,21 +1,59 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
+<f:format.raw>
+!    
     /**
-     * Adds a {field.fieldname->sav:format.lowerCamel()}
-     * 
-     * @param {field.conf_rel_table->sav:builder.mvc.modelName(extension:extension)} ${field.fieldname->sav:format.lowerCamel()}
-     * @return void
+     * Getter for property <{lowerCamelFieldName}>.
+     *
+     * @return {type}
      */
-    public function add{field.fieldname->sav:format.upperCamel()}({field.conf_rel_table->sav:builder.mvc.modelName(extension:extension)} ${field.fieldname->sav:format.lowerCamel()})
+    public function get{upperCamelFieldName}(): ?\TYPO3\CMS\Extbase\Persistence\ObjectStorage
     {
-        $this->{field.fieldname->sav:format.lowerCamel()}->attach(${field.fieldname->sav:format.lowerCamel()});
+        return $this->{lowerCamelFieldName};
     }
 !
     /**
-     * Removes a {field.fieldname->sav:format.lowerCamel()}
-     * 
-     * @param {field.conf_rel_table->sav:builder.mvc.modelName(extension:extension)} ${field.fieldname->sav:format.lowerCamel()}
+     * Setter for property <{lowerCamelFieldName}>.
+     *
+     * @param  {type} ${lowerCamelFieldName}
      * @return void
      */
-    public function remove{field.fieldname->sav:format.upperCamel()}({field.conf_rel_table->sav:builder.mvc.modelName(extension:extension)} ${field.fieldname->sav:format.lowerCamel()})
+    public function set{upperCamelFieldName}(\TYPO3\CMS\Extbase\Persistence\ObjectStorage ${lowerCamelFieldName})
     {
-        $this->{field.fieldname->sav:format.lowerCamel()}->detach(${field.fieldname->sav:format.lowerCamel()});
+        $this->{lowerCamelFieldName} = ${lowerCamelFieldName};
+        $this->{lowerCamelFieldName}->_memorizeCleanState();
     }
+!
+<f:variable name="typeForAddRemove">{type->sav:format.regexp(pattern:'/^.*?\<(.*?)\>$/', replacement:'$1')}</f:variable>
+
+    /**
+     * Adds a <{lowerCamelFieldName}>.
+     * 
+     * @param {typeForAddRemove} ${lowerCamelFieldName}
+     * @return void
+     */
+    public function add{upperCamelFieldName}({typeForAddRemove} ${lowerCamelFieldName})
+    {
+        $this->{lowerCamelFieldName}->attach(${lowerCamelFieldName});
+    }
+!
+    /**
+     * Removes a <{lowerCamelFieldName}>.
+     * 
+     * @param {typeForAddRemove} ${lowerCamelFieldName}
+     * @return void
+     */
+    public function remove{upperCamelFieldName}({typeForAddRemove} ${lowerCamelFieldName})
+    {
+        $this->{lowerCamelFieldName}->detach(${lowerCamelFieldName});
+    }
+!
+    /**
+     * Unsets a <{lowerCamelFieldName}>.
+     * 
+     * @return void
+     */
+    public function unset{upperCamelFieldName}()
+    {
+        unset($this->{lowerCamelFieldName});
+    }   
+</f:format.raw>   

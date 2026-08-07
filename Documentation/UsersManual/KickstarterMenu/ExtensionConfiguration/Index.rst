@@ -49,56 +49,31 @@ This item opens the form for the configuration of the extension.
   
   .. code::
      
-     maps2(emconf:5.2.3-0.0.0), jweiland/maps2(composer:^5.2.3)
+     maps2(emconf:13.0.0-0.0.0), jweiland/maps2(composer:^13.0)
      
   The dependency to ``maps2`` will be added to ``ext_emconf.php`` with the 
-  constraint ``5.2.3-0.0.0``.
+  constraint ``13.0.0-0.0.0``.
   
   .. code::
   
-     'depends' => [
-        'typo3' => '8.7.0-9.5.99',
-        'maps2' => '5.2.3-0.0.0',
-        'sav_library_plus' => '9.5.0-0.0.0'
-     ],     
+        'depends' => [
+            'typo3' => '13.4.0-14.3.99',
+            'maps2' => '13.0.0-0.0.0',
+            'sav_library_plus' => '14.3.0-14.3.99'
+        ],   
   
   The extension ``maps2`` has a composer support ``jweiland/maps2``. In 
   such case, you must enter directly the dependency, i.e. ``jweiland/maps2``,
   instead of the extension name. The dependency 
-  is added to ``composer.json`` with the constraint ``^5.2.3``.
+  is added to ``composer.json`` with the constraint ``^13.0``.
   
   .. code::
   
-     "require": {
-        "typo3/cms-core": ">=8.7,<10.0",
-        "jweiland/maps2": "^5.2.3",
-        "typo3-ter/sav-library-plus": ">=9.5.0"
-     },  
-  
-  .. note::
-  
-    When the extension name is used ``typo3-ter/`` will be prepended 
-    to the extension name to build the dependency in ``composer.json``.  
-    
-    For example, the following
-    dependencies are used for the extension `sav_library_example9 
-    <https://extensions.typo3.org/extension/sav_library_example9>`_ which 
-    depends on the extension `sav_charts 
-    <https://extensions.typo3.org/extension/sav_charts>`_.
-    
-    .. code::
-    
-       sav_charts(emconf:9.5.0-0.0.0)(composer:^9.5.0) 
-       
-    It generates the following ``require`` part in ``composer.json``. 
-    
-    .. code::
-       
-        "require": {
-           "typo3/cms-core": ">=8.7,<10.0",
-           "typo3-ter/sav-charts": "^9.5.0",
-           "typo3-ter/sav-library-plus": ">=9.5.0"
-        },
+    "require": {
+        "typo3/cms-core": "^13.4|^14.3",
+        "jweiland/maps2": "^13.0",
+        "yolftypo3/sav-library-plus": "^13.4|^14.3"
+    },
   
 - **Author**: use this field to set the extension's author.   
 
@@ -117,7 +92,7 @@ This item opens the form for the configuration of the extension.
 
 - **Add TypoScript configuration**: if selected, TypoScript configuration files are
   added (only for ``Plus`` type. For ``Basic`` and ``Mvc`` TypoScript configuration files are
-  always added.
+  always added).
 
 - **Add a wizard plugin icon**: if selected, a wizard icon will be added to the plugin.
   The wizard icon file must be named ``ExtensionWizard.svg`` and 

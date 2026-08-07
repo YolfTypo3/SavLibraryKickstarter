@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
 .. include:: ../../Includes.txt
 !
 .. _newTables:
@@ -10,51 +10,45 @@ New Tables
 !
 This extension contains the following new tables:
 <f:for each="{extension.newTables}" as="table" key="tableKey">
-<f:variable name="tableName">{sav:builder.tableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename)}</f:variable>
+<f:variable name="tableName">{sav:builder.tableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename,isMvc:false)}</f:variable>
 !
 - :ref:`{tableName} <{tableName}>` 
 </f:for>
 !
 <f:for each="{extension.newTables}" as="table" key="tableKey">
-<f:variable name="tableName">{sav:builder.tableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename)}</f:variable>
+<f:variable name="tableName">{sav:builder.tableName(extensionKey:extension.general.1.extensionKey,shortName:table.tablename,isMvc:false)}</f:variable>
 .. _{tableName}:
 !
 <f:variable name="title">Table: ``{tableName}``</f:variable>
 {title->sav:builder.documentation.renderSectionTitle(level:1)}
 !
-**Label:** ``{table.title}``
+:Label: {table.title}
 !
 Fields
 ------
 	<f:for each="{table.fields}" as="field" key="fieldKey">
 !	
-..  container:: row m-0 p-0
+.. card::
+   :class: mb-md-2
 !
-    .. container:: card px-0 h-100
-!
-        ..  rst-class:: card-header
-!
-            ..  rubric:: ``{field.fieldname}``
-!    
-        .. container:: card-body
-!    
-            :Label: {field.title} 
-            :Type: :ref:`{field.type} <savlibrarykickstarter:{field.type->sav:builder.documentation.renderType()}>` 
-<f:variable name="usedIn">{sav:builder.documentation.renderUsedIn(extension:extension, name:'newTables', tableKey:tableKey, fieldKey:fieldKey)}</f:variable>
+  .. card-header:: **{field.fieldname}**
+!  
+  :Label: {field.title} 
+  :Type: :ref:`{field.type} <yolftypo3/sav-library-kickstarter:{field.type->sav:builder.documentation.renderType()}>` 
+<f:variable name="usedIn">{sav:builder.documentation.renderUsedIn(extension:extension, name:'newTables', tableKey:tableKey, fieldKey:fieldKey,isMvc:false)}</f:variable>
 <f:if condition="{usedIn}">
 <f:then>
-            :Used in: 
+  :Used in: 
 !
-<sav:utility.indent count="12">
+<sav:utility.indent count="2">
 {usedIn}
 </sav:utility.indent>
 </f:then>
 <f:else>
-            :Used in: 
-!            
-                .. warning::
-
-	               Field not used in views.
+  :Used in: 
+!
+  .. warning::
+     Field not used in views.
 </f:else>
 </f:if>
 	</f:for>

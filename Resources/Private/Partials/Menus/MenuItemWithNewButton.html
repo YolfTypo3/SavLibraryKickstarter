@@ -3,9 +3,8 @@
 	<div class="icon">
 		<f:link.action action="addItem"
 			arguments="{extensionKey:extensionKey, section:section}">
-			<f:image
-				src="{sav:be.getIcon(identifier:'actions-add')}"
-				alt="{f:translate(key:'kickstarter.new')}"
+			<core:icon
+				identifier = "actions-add"
 				title="{f:translate(key:'kickstarter.new')}" />
 		</f:link.action>
 	</div>
@@ -20,9 +19,8 @@
 					<div class="icon">
 						<f:link.action action="deleteItem"
 							arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
-							<f:image
-								src="{sav:be.getIcon(identifier:'actions-delete')}"
-								alt="{f:translate(key:'kickstarter.delete')}"
+							<core:icon
+								identifier = "actions-delete"
 								title="{f:translate(key:'kickstarter.delete')}" />
 						</f:link.action>
 					</div>

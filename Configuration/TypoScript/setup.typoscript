@@ -1,0 +1,63 @@
+
+module.tx_savlibrarykickstarter {
+    view {
+        templateRootPaths.10 = {$module.tx_savlibrarykickstarter.view.templateRootPath}
+        partialRootPaths.10 = {$module.tx_savlibrarykickstarter.view.partialRootPath}
+        layoutRootPaths.10 = {$module.tx_savlibrarykickstarter.view.layoutRootPath}
+    }
+    persistence {
+        storagePid = {$module.tx_savlibrarykickstarter.persistence.storagePid}
+    }
+    settings {
+        packagesDirectory = {$module.tx_savlibrarykickstarter.settings.packagesDirectory}
+        documentationDirectory = {$module.tx_savlibrarykickstarter.settings.documentationDirectory} 
+        versions { 
+        	13x {
+        		compatibility = {$module.tx_savlibrarykickstarter.settings.versions.13x.compatibility}
+        		dependencies {
+        			emconf {
+        				typo3 = {$module.tx_savlibrarykickstarter.settings.versions.13x.dependencies.emconf.typo3}
+        				sav_library_plus = {$module.tx_savlibrarykickstarter.settings.versions.13x.dependencies.emconf.sav_library_plus}
+        				sav_library_mvc = {$module.tx_savlibrarykickstarter.settings.versions.13x.dependencies.emconf.sav_library_mvc}
+        			}
+        			composer {
+        				typo3 = {$module.tx_savlibrarykickstarter.settings.versions.13x.dependencies.composer.typo3}
+        				sav_library_plus = {$module.tx_savlibrarykickstarter.settings.versions.13x.dependencies.composer.sav_library_plus}
+        				sav_library_mvc = {$module.tx_savlibrarykickstarter.settings.versions.13x.dependencies.composer.sav_library_mvc}
+        			}
+        		}	
+        	} 
+        	13x-14x {
+        		compatibility = {$module.tx_savlibrarykickstarter.settings.versions.13x-14x.compatibility}
+        		dependencies {
+        			emconf {
+        				typo3 = {$module.tx_savlibrarykickstarter.settings.versions.13x-14x.dependencies.emconf.typo3}
+        				sav_library_plus = {$module.tx_savlibrarykickstarter.settings.versions.13x-14x.dependencies.emconf.sav_library_plus}
+        				sav_library_mvc = {$module.tx_savlibrarykickstarter.settings.versions.13x-14x.dependencies.emconf.sav_library_mvc}
+        			}
+        			composer {
+        				typo3 = {$module.tx_savlibrarykickstarter.settings.versions.13x-14x.dependencies.composer.typo3}
+        				sav_library_plus = {$module.tx_savlibrarykickstarter.settings.versions.13x-14x.dependencies.composer.sav_library_plus}
+        				sav_library_mvc = {$module.tx_savlibrarykickstarter.settings.versions.13x-14x.dependencies.composer.sav_library_mvc}
+        			}
+        		}	
+        	} 
+        	14x {
+        		compatibility = {$module.tx_savlibrarykickstarter.settings.versions.14x.compatibility}
+        		dependencies {
+        			emconf {
+        				typo3 = {$module.tx_savlibrarykickstarter.settings.versions.14x.dependencies.emconf.typo3}
+        				sav_library_plus = {$module.tx_savlibrarykickstarter.settings.versions.14x.dependencies.emconf.sav_library_plus}
+        				sav_library_mvc = {$module.tx_savlibrarykickstarter.settings.versions.14x.dependencies.emconf.sav_library_mvc}
+        			}
+        			composer {
+        				typo3 = {$module.tx_savlibrarykickstarter.settings.versions.14x.dependencies.composer.typo3}
+        				sav_library_plus = {$module.tx_savlibrarykickstarter.settings.versions.14x.dependencies.composer.sav_library_plus}
+        				sav_library_mvc = {$module.tx_savlibrarykickstarter.settings.versions.14x.dependencies.composer.sav_library_mvc}
+        			}
+        		}	
+        	}                                   
+        }
+    }   
+}
+

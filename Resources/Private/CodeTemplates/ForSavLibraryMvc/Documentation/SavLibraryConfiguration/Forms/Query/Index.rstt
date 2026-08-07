@@ -1,7 +1,7 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 .. include:: ../../../../Includes.txt
 !
-.. _query{form.title->sav:format.upperCamel()}:
+.. _query<{form.title->sav:format.upperCamel()}:
 .. role:: red
 !
 =====
@@ -17,6 +17,24 @@ Main Table
 ::
 !
    {extension.queries.{queryId}.mainTable}
+</f:if>
+!
+<f:if condition="{extension.queries.{queryId}.foreignTables}"> 
+Foreign Tables
+==============
+!
+::
+!
+   <sav:utility.indent count="3">{extension.queries.{queryId}.foreignTables}</sav:utility.indent>
+</f:if>
+!
+<f:if condition="{extension.queries.{queryId}.aliases}">
+Aliases
+=======
+!
+::
+!
+   <sav:utility.indent count="3">{extension.queries.{queryId}.aliases}</sav:utility.indent>
 </f:if>
 !
 <f:if condition="{extension.queries.{queryId}.whereClause}"> 
@@ -37,23 +55,31 @@ ORDER BY Clause
    <sav:utility.indent count="3">{extension.queries.{queryId}.orderByClause}</sav:utility.indent>
 </f:if>
 !
+<f:if condition="{extension.queries.{queryId}.groupByClause}"> 
+GROUP BY Clause
+===============
+!
+::
+!
+   <sav:utility.indent count="3">{extension.queries.{queryId}.groupByClause}</sav:utility.indent>
+</f:if>
+!
 <f:if condition="{extension.queries.{queryId}.whereTags}"> 
 WHERE Tags
 ==========
 !
 <f:for each="{extension.queries.{queryId}.whereTags}" as="whereTag">
-**Name:** ``{whereTag.title}``
+:Name: ``{whereTag.title}``
 <f:if condition="{whereTag.whereClause}">
-**WHERE Clause:**
+:WHERE Clause:
 !
 ::
 !
    <sav:utility.indent count="3">{whereTag.whereClause}</sav:utility.indent>
-!   
+!
 </f:if>
-<f:if condition="{whereTag.orderByClause}"> 
-!  
-**ORDER BY Clause:**
+<f:if condition="{whereTag.orderByClause}">   
+:ORDER BY Clause:
 !
 ::
 !
@@ -62,4 +88,4 @@ WHERE Tags
 </f:if>    
 </f:for>
 </f:if>
-</sav:utility.removeEmptyLines></f:format.raw>
+</sav:utility.removeEmptyLines>

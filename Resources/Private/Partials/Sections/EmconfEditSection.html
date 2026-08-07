@@ -3,22 +3,22 @@
 <f:variable name="section" value="emconf" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:utility.getItem(
+<f:variable name="libraryType" value="{sav:utility.getItem(
     value:{
-        0:0,
-        1:0,
-        2:1,
-        3:1
+        0:'',
+        1:'sav_library_plus',
+        2:'sav_library_mvc',
+        3:'sav_library_basic'
     },
     key:extension.general.1.libraryType)}" />
-<f:variable name="libraryType" value="{sav:utility.getItem(
+<f:variable name="libraryDependency" value="{sav:utility.getItem(
     value:{
         0:'',
         1:'sav_library_plus',
         2:'sav_library_mvc',
         3:''
     },
-    key:extension.general.1.libraryType)}" />
+    key:extension.general.1.libraryType)}" />    
 <f:variable name="defaultPluginName" value="{sav:utility.getItem(
     value:{
         0:'',
@@ -27,7 +27,8 @@
         3:'Default'
      },
      key:extension.general.1.libraryType)}" />
-                
+
+<f:comment>Render the section</f:comment>                
 <div id="{section}Section">
 	<f:form method="post" action="save" name="{section}"
 		arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
@@ -87,7 +88,7 @@
 						key="kickstarter.{section}Item.dependencies" /></label>
 				<f:form.textfield id="dependencies"
 					name="{section}[dependencies]"
-					value="{f:if(condition:sectionItem.dependencies, then:sectionItem.dependencies, else:libraryType)}" />
+					value="{f:if(condition:sectionItem.dependencies, then:sectionItem.dependencies, else:libraryDependency)}" />
 
 				<f:comment>Author</f:comment>
 				<label for="author"><f:translate
@@ -119,9 +120,8 @@
 				<f:comment>Load button</f:comment>
 				<f:form.button class="libraryType" name="submitAction[load]"
 					value="{f:translate(key:'kickstarter.load')}">
-					<f:image 
-						src="{sav:be.getIcon(identifier:'actions-swap')}"
-						alt="{f:translate(key:'kickstarter.load')}"
+					<core:icon 
+						identifier = "actions-swap"
 						title="{f:translate(key:'kickstarter.load')}" />
 				</f:form.button>
 
@@ -129,9 +129,8 @@
 				<f:if condition="{extension.general.1.libraryType} == 1">
 				<f:form.button class="libraryType" name="submitAction[overwrite]"
 					value="{f:translate(key:'kickstarter.overwrite')}">
-					<f:image 
-						src="{sav:be.getIcon(identifier:'actions-replace')}"
-						alt="{f:translate(key:'kickstarter.overwrite')}"
+					<core:icon 
+						identifier = "actions-replace"
 						title="{f:translate(key:'kickstarter.overwrite')}" />
 				</f:form.button>
 				</f:if>
@@ -147,7 +146,7 @@
 				<f:comment>Add TypoScript configuration</f:comment>
 				<label for="addTypoScriptConfiguration"><f:translate
 						key="kickstarter.generalItem.addTypoScriptConfiguration" /></label>
-				<sav:form.checkbox class="checkbox" id="addTypoScriptConfiguration"
+				<f:form.checkbox class="checkbox" id="addTypoScriptConfiguration"
 					name="general[addTypoScriptConfiguration]" value="1"
 					checked="{extension.general.1.addTypoScriptConfiguration}" />
 
@@ -155,14 +154,14 @@
 				<label for="addWizardPluginIcon"><f:translate
 						key="kickstarter.generalItem.addWizardPluginIcon"
 						arguments="{0:'icon_{extensionKey->sav:format.removeUnderscore()}.png'}" /></label>
-				<sav:form.checkbox class="checkbox" id="addWizardPluginIcon"
+				<f:form.checkbox class="checkbox" id="addWizardPluginIcon"
 					name="general[addWizardPluginIcon]" value="1"
 					checked="{extension.general.1.addWizardPluginIcon}" />
 
 				<f:comment>keepExtLocalConf flag</f:comment>
 				<label for="keepExtLocalConf"><f:translate
 						key="kickstarter.generalItem.keepExtLocalConf" /></label>
-				<sav:form.checkbox class="checkbox" id="keepExtLocalConf"
+				<f:form.checkbox class="checkbox" id="keepExtLocalConf"
 					name="general[keepExtLocalConf]" value="1"
 					checked="{extension.general.1.keepExtLocalConf}" />
 

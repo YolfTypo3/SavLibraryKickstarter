@@ -25,7 +25,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * @package SavLibraryKickstarter
  */
-class OrderByClauseViewHelper extends AbstractViewHelper
+final class OrderByClauseViewHelper extends AbstractViewHelper
 {
 
     const ORDER_BY_PATTERN = '/
@@ -45,13 +45,13 @@ class OrderByClauseViewHelper extends AbstractViewHelper
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('clause', 'string', 'Clause', true);
     }
 
     /**
-     * Renders the order by clause
+     * Renders the view helper
      *
      * @return string the processed order by clause
      */

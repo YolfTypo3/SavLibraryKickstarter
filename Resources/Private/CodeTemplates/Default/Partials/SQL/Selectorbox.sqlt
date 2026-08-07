@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines>
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines>
 <f:if condition="{field.items->sav:utility.isArrayOfInteger(index:'value')}">
 <f:then>
 {fieldName} int(11) DEFAULT '0' NOT NULL,

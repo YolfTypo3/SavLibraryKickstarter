@@ -39,7 +39,7 @@ extension.
 
   .. important::
   
-     The SAV Library Kickstarter always prepend to the field ``tx_yourextensioname`` 
+     The SAV Library Kickstarter always prepends to the field ``tx_yourextensioname`` 
      for ``Plus`` type and ``tx_yourextensioname_domain_model`` for ``Basic`` and ``Mvc``
      types.
      

@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 <subform type="array">
     <{configurationKey} type="array">
         <fields type="array">

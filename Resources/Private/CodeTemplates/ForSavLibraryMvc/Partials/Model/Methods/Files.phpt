@@ -2,9 +2,9 @@
     /**
      * Getter for property <{lowerCamelFieldName}>.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage
      */
-    public function get{upperCamelFieldName}(): ?\TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function get{upperCamelFieldName}(): ?ObjectStorage
     {
         return $this->{lowerCamelFieldName};
     }
@@ -12,14 +12,12 @@
     /**
      * Setter for property <{lowerCamelFieldName}>.
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage ${lowerCamelFieldName}
+     * @param ObjectStorage ${lowerCamelFieldName}
      * @return void
      */
-    public function set{upperCamelFieldName}(\TYPO3\CMS\Extbase\Persistence\ObjectStorage ${lowerCamelFieldName})
+    public function set{upperCamelFieldName}(ObjectStorage ${lowerCamelFieldName}): void
     {
-        $this->repository ??= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\{vendorName}\{extensionName}\Domain\Repository\{modelName}Repository::class);
-        $fieldConfiguration = $this->repository->getDataMapFactory()->getSavLibraryMvcFieldConfiguration('{field.fieldname}');
-        $this->{lowerCamelFieldName} = $this->updateFileStorage($this->{lowerCamelFieldName}, ${lowerCamelFieldName}, $fieldConfiguration);
-    }
+        $this->{lowerCamelFieldName} = ${lowerCamelFieldName};
+    }   
 !
 </f:format.raw>  

@@ -1,12 +1,12 @@
 <f:form.textfield id="conf_default" class="integer"
-	name="{section}[fields][{fieldKey}][conf_default]"
+	name="{section}[fields][{selectedFieldKey}][conf_default]"
 	value="{field.conf_default}" />
 <label for="conf_default"><f:translate
 		key="kickstarter.field.conf_default" /></label>
 
 <f:comment>Selector for numeric type</f:comment>
 <f:form.select id="conf_numeric_type"
-	name="{section}[fields][{fieldKey}][conf_numeric_type]"
+	name="{section}[fields][{selectedFieldKey}][conf_numeric_type]"
 	options="{
 		1:'{f:translate(key:\'kickstarter.field.conf_numeric_type.decimal\')}',
 		2:'{f:translate(key:\'kickstarter.field.conf_numeric_type.float\')}',
@@ -18,12 +18,12 @@
 
 <f:if condition="{field.conf_numeric_type} == 1">
 	<f:form.textfield id="conf_numeric_type_M" class="integer"
-		name="{section}[fields][{fieldKey}][conf_numeric_type_M]"
+		name="{section}[fields][{selectedFieldKey}][conf_numeric_type_M]"
 		value="{field.conf_numeric_type_M}" />
 	<label for="conf_numeric_type_M"><f:translate
 			key="kickstarter.field.conf_numeric_type_M" /></label>	
 	<f:form.textfield id="conf_numeric_type_D" class="integer"
-		name="{section}[fields][{fieldKey}][conf_numeric_type_D]"
+		name="{section}[fields][{selectedFieldKey}][conf_numeric_type_D]"
 		value="{field.conf_numeric_type_D}" />
 	<label for="conf_numeric_type_D"><f:translate
 			key="kickstarter.field.conf_numeric_type_D" /></label>			

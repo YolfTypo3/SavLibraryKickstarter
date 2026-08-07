@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!"><f:alias map="{
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!"><f:alias map="{
     extensionKey:   '{extension.general.1.extensionKey}',
     extensionName:  '{extension.general.1.extensionKey->sav:format.removeUnderscore()}',
     openBrace:      '{',

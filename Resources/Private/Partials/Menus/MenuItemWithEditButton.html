@@ -5,9 +5,8 @@
 			class="icon {f:if(condition:'{selectedItem} == {currentItem}',then:'selected')}">
 			<f:link.action action="{section}EditSection"
 				arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, fieldKey:fieldKey}">
-				<f:image
-					src="{sav:be.getIcon(identifier:'actions-document')}"
-					alt="{f:translate(key:'kickstarter.edit')}"
+				<core:icon
+					identifier = "actions-document"
 					title="{f:translate(key:'kickstarter.edit')}"/>
 			</f:link.action>
 		</div>

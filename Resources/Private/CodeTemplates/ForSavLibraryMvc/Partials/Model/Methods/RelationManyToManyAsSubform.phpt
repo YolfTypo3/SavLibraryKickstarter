@@ -1,3 +1,4 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:format.raw>
 !    
     /**
@@ -5,7 +6,7 @@
      *
      * @return {type}
      */
-    public function get{upperCamelFieldName}(): ?\TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function get{upperCamelFieldName}(): ?ObjectStorage
     {
         return $this->{lowerCamelFieldName};
     }
@@ -16,10 +17,9 @@
      * @param  {type} ${lowerCamelFieldName}
      * @return void
      */
-    public function set{upperCamelFieldName}(\TYPO3\CMS\Extbase\Persistence\ObjectStorage ${lowerCamelFieldName})
+    public function set{upperCamelFieldName}(ObjectStorage ${lowerCamelFieldName}): void
     {
         $this->{lowerCamelFieldName} = ${lowerCamelFieldName};
-        $this->{lowerCamelFieldName}->_memorizeCleanState();
     }
 !
 <f:variable name="typeForAddRemove">{type->sav:format.regexp(pattern:'/^.*?\<(.*?)\>$/', replacement:'$1')}</f:variable>
@@ -45,14 +45,5 @@
     {
         $this->{lowerCamelFieldName}->detach(${lowerCamelFieldName});
     }
-!
-    /**
-     * Unsets a <{lowerCamelFieldName}>.
-     * 
-     * @return void
-     */
-    public function unset{upperCamelFieldName}()
-    {
-        unset($this->{lowerCamelFieldName});
-    }   
+ 
 </f:format.raw>   

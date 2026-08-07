@@ -17,12 +17,9 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Options;
 
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
@@ -31,80 +28,53 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  *
  * @package SavLibraryKickstarter
  */
-class ForCompatibilitySelectorboxViewHelper extends AbstractViewHelper
+final class ForCompatibilitySelectorboxViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('libraryType', 'string', 'Library type', true);
     }
 
     /**
-     * Renders the option for the compatibility
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options
+     * @return array
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): array
     {
         // Gets the arguments
-        $libraryType = $arguments['libraryType'];
-
-        // Gets the configuration manager
-        $configurationManager = self::getConfigurationManager();
+        $libraryType = $this->arguments['libraryType'];
 
         // Gets the settings
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
-
-        switch ($libraryType) {
-            case ConfigurationManager::TYPE_SAV_LIBRARY_BASIC:
-                $options = [
-                    ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
-                    ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x],
-                    ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
-                ];
-                break;
-            case ConfigurationManager::TYPE_SAV_LIBRARY_MVC:
-                $options = [
-                    ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
-                    ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x],
-                    ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
-                ];
-                break;
-            case ConfigurationManager::TYPE_SAV_LIBRARY_PLUS:
-                $options = [
-                    ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT],
-                    ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_8x_9x],
-                    ConfigurationManager::COMPATIBILITY_TYPO3_7x => $settings['compatibility'][ConfigurationManager::COMPATIBILITY_TYPO3_7x]
-                ];
-                break;
+        $options = [];
+        foreach (array_reverse($settings['versions']) as $versionKey => $version) {           
+            switch ($libraryType) {
+                case ConfigurationManager::TYPE_SAV_LIBRARY_BASIC:
+                    $options[$versionKey] = $version['compatibility'];
+                    break;
+                case ConfigurationManager::TYPE_SAV_LIBRARY_MVC:
+                    if ($version['dependencies']['composer']['sav_library_mvc'] ?? false){
+                        $options[$versionKey] = $version['compatibility'];
+                    }
+                    break;
+                case ConfigurationManager::TYPE_SAV_LIBRARY_PLUS:
+                    if ($version['dependencies']['composer']['sav_library_plus'] ?? false){
+                        $options[$versionKey] = $version['compatibility'];
+                    }
+                    break;
+            }
         }
+        uksort($options, 'strnatcasecmp');
+
         return $options;
     }
 
-    /**
-     * Gets the configuration manager
-     *
-     * @return ConfigurationManagerInterface
-     */
-    protected static function getConfigurationManager(): ConfigurationManagerInterface
-    {
-        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
-        if (version_compare($typo3Version->getVersion(), '11.0', '<')) {
-            // @extensionScannerIgnoreLine
-            $configurationManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)->get(ConfigurationManagerInterface::class);
-        } else {
-            $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
-        }
-        return $configurationManager;
-    }
 }

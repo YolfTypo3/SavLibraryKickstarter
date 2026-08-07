@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
 .. include:: ../../../../Includes.txt
 !
 <f:variable name="formTitle">specialView.{form.title->sav:format.crypt()}</f:variable>

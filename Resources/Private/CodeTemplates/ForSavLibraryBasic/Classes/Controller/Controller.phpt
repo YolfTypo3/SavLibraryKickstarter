@@ -1,5 +1,7 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <?php
+!
+declare(strict_types=1);
 !
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
@@ -30,6 +32,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 !
 /**
  * {controllerName} Controller
@@ -38,7 +41,7 @@ use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
  * @package {extension.general.1.extensionKey}
  */
 !
-class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+final class {controllerName}Controller extends ActionController
 {
 ! 
 	/**
@@ -49,26 +52,32 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
     protected static $cssPath = 'Resources/Public/Css/{extensionName}.css';
 !    
     /**
+     * Constructor
+     */
+    public function __construct(
+        private readonly FrontendConfigurationManager $frontendConfigurationManager,
+        ) {openBrace}
+    {closeBrace}    
+!    
+    /**
      * Initializes the controller before invoking an action method.
      *
      * @return void
      */
-    protected function initializeAction() 
+    protected function initializeAction(): void 
 	{openBrace} 
         // Gets the extension key
         $extensionKey = $this->request->getControllerExtensionKey();
 !         
-        // Checks if the static extension template is included
-        /** @var FrontendConfigurationManager $frontendConfigurationManager */
-        $frontendConfigurationManager = GeneralUtility::makeInstance(FrontendConfigurationManager::class);
-        $typoScriptSetup = $frontendConfigurationManager->getTypoScriptSetup();
-        $pluginSetupName = 'tx_' . strtolower($this->request->getControllerExtensionName()) . '.';       
-        if (! is_array($typoScriptSetup['plugin.'][$pluginSetupName]['view.'] ?? null)) {openBrace} 
-            throw new \RuntimeException('You have to include the static template of the extension ' . $extensionKey . '.');
+        // Checks if the extension is included in the site configuration
+        $lowerCamelExtensionKey = GeneralUtility::underscoredToLowerCamelCase($extensionKey);
+        $siteSettings = $this->request->getAttribute('site')->getSettings();
+        if (! $siteSettings->has($lowerCamelExtensionKey)) {
+            throw new \RuntimeException('You have to include the extension ' . $extensionKey . ' in the site setup.');
         {closeBrace}
 !         
         // Adds the css file
-        $extensionWebPath = self::getExtensionWebPath($extensionKey);
+        $extensionWebPath = 'EXT:' . $extensionKey . '/';
         $cssFile = $extensionWebPath . self::$cssPath;
         $this->addCascadingStyleSheet($cssFile);    
 	{closeBrace}
@@ -77,18 +86,15 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
     /**
      * {actionName} action
      *
-     * @return void|ResponseInterface
+     * @return ResponseInterface
      */
-    public function {actionName}Action()
+    public function {actionName}Action(): ResponseInterface
 	{openBrace}   
         $this->view->assign('extension', $this->request->getControllerExtensionKey());         
         $this->view->assign('controller', $this->request->getControllerName());  
         $this->view->assign('action', $this->request->getControllerActionName());    
 !        
-        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
-        if (method_exists($this, 'htmlResponse')) {openBrace}
-            return $this->htmlResponse($this->view->render());
-        {closeBrace}                          
+        return $this->htmlResponse($this->view->render());                         
 	{closeBrace}
 !    
     /**
@@ -98,29 +104,11 @@ class {controllerName}Controller extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      *
      * @return void
      */
-    protected function addCascadingStyleSheet($cascadingStyleSheet)
+    protected function addCascadingStyleSheet($cascadingStyleSheet): void
 	{openBrace} 
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->addCssFile($cascadingStyleSheet);
-	{closeBrace}    
-!    
-    /**
-     * Gets the relative web path of a given extension.
-     *
-     * @param string $extension
-     *            The extension
-     *
-     * @return string The relative web path
-     */
-    protected static function getExtensionWebPath(string $extension): string
-	{openBrace} 
-        $extensionWebPath = PathUtility::getAbsoluteWebPath(ExtensionManagementUtility::extPath($extension));
-        if ($extensionWebPath[0] === '/') {openBrace}
-            // Makes the path relative
-            $extensionWebPath = substr($extensionWebPath, 1);
-        {closeBrace}
-        return $extensionWebPath;
-	{closeBrace}     
+	{closeBrace}        
 }  
 </f:alias>
 </sav:utility.removeEmptyLines>

@@ -3,15 +3,7 @@
 <f:variable name="section" value="queries" />
 <f:variable name="sectionItems" value="{extension.{section}}" />
 <f:variable name="sectionItem" value="{sectionItems.{itemKey}}" />
-<f:variable name="mvc" value="{sav:utility.getItem(
-    value:{
-        0:0,
-        1:0,
-        2:1,
-        3:1
-    },
-    key:extension.general.1.libraryType)}" />
-    
+ 
 <div id="{section}Section">
 	<f:form method="post" action="save" name="{section}"
 		arguments="{extensionKey:extensionKey, section:'queries', itemKey:itemKey}">
@@ -33,13 +25,13 @@
 				<f:alias
 					map="{firtNewTable:'{extension.newTables->sav:utility.current()}'}">
 					<f:alias
-						map="{defaultTableName:'{sav:builder.tableName(shortName:firtNewTable.tablename, extensionKey:extensionKey, mvc:mvc)}'}">
+						map="{defaultTableName:'{sav:builder.tableName(shortName:firtNewTable.tablename, extensionKey:extensionKey, isMvc:isMvc)}'}">
 						<f:form.textfield id="mainTable" name="{section}[mainTable]"
 							value="{f:if(condition:sectionItem.mainTable, then:sectionItem.mainTable, else:defaultTableName)}" />
 					</f:alias>
 				</f:alias>
 
-                <f:if condition="{mvc} == 0">
+                <f:if condition="{isMvc} == false">
 					<f:comment>Foreign Tables</f:comment>
 					<label for="foreignTables"><f:translate
 							key="kickstarter.{section}Item.foreignTables" /></label>
@@ -75,7 +67,7 @@
 					rows="{sectionItem.orderByClause->sav:utility.countLines()}"
 					cols="80" />
 
-                <f:if condition="{mvc} == 0">
+                <f:if condition="{isMvc} == false">
 					<f:comment>Group By Clause</f:comment>
 					<label for="groupByClause"><f:translate
 							key="kickstarter.{section}Item.groupByClause" /></label>
@@ -92,9 +84,8 @@
 							key="kickstarter.{section}Item.whereTags" /></label>
 					<f:link.action action="addNewWhereTag"
 						arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey}">
-						<f:image class="addNewWhereTag"
-							src="{sav:be.getIcon(identifier:'actions-add')}"
-							alt="{f:translate(key:'kickstarter.addNewWhereTag')}"
+						<core:icon
+							identifier="actions-add"
 							title="{f:translate(key:'kickstarter.addNewWhereTag')}" />
 					</f:link.action>
 					<f:for each="{sectionItem.whereTags}" as="whereTag"
@@ -106,9 +97,8 @@
 							value="{whereTag.title}" />
 						<f:link.action action="deleteWhereTag"
 							arguments="{extensionKey:extensionKey, section:section, itemKey:itemKey, whereTagKey:whereTagKey}">
-							<f:image class="whereTagDelete"
-								src="{sav:be.getIcon(identifier:'actions-delete')}"
-								alt="{f:translate(key:'kickstarter.delete')}"
+							<core:icon
+								identifier="actions-delete"
 								title="{f:translate(key:'kickstarter.delete')}" />
 						</f:link.action>
 						<label class="whereTag"><f:translate

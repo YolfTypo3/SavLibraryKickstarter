@@ -1,0 +1,31 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
+
+<f:alias map="{
+    openBrace:  '{',
+    closeBrace: '}' ,
+	extensionName:		'{extension.general.1.extensionKey->sav:format.lowerCamel()}',
+    extensionNameForTx: '{extension.general.1.extensionKey->sav:format.removeUnderscore()}'
+}">
+@import 'EXT:{extension.general.1.extensionKey}/Configuration/TypoScript/setup.typoscript'
+!
+plugin.tx_{extensionNameForTx} {
+  view {
+    templateRootPaths {
+      1 = {openBrace}${extensionName}.templateRootPath{closeBrace}
+    }
+!
+    partialRootPaths {
+      1 = {openBrace}${extensionName}.partialRootPath{closeBrace}
+    }
+!
+    layoutRootPaths {
+      1 = {openBrace}${extensionName}.layoutRootPath{closeBrace}
+    }
+  }
+!
+  persistence {
+    storagePid = {openBrace}${extensionName}.storagePid{closeBrace}
+  }
+}
+</f:alias>
+</sav:utility.removeEmptyLines>

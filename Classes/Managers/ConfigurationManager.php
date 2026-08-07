@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -19,10 +21,10 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 use YolfTypo3\SavLibraryKickstarter\CodeGenerator\AbstractCodeGenerator;
 use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
-use YolfTypo3\SavLibraryKickstarter\Managers\SectionManager;
 
 /**
  * Configuration manager
@@ -45,15 +47,11 @@ final class ConfigurationManager
 
     const UPGRADE_ROOT_CLASS_NAME = 'YolfTypo3\\SavLibraryKickstarter\\Upgrade\\';
 
-    const LOCAL_DOCUMENTATION_DIRECTORY = 'typo3conf/Documentation/';
-
     const LOCAL_DOCUMENTATION_INDEX_FILE = 'Result/project/0.0.0/Index.html';
 
     const LOCAL_DOCUMENTATION_ERROR_FILE = 'Result/project/0.0.0/_buildinfo/warnings.txt';
 
     // Library types
-    const TYPE_SAV_LIBRARY = 0;
-
     const TYPE_SAV_LIBRARY_PLUS = 1;
 
     const TYPE_SAV_LIBRARY_MVC = 2;
@@ -61,77 +59,86 @@ final class ConfigurationManager
     const TYPE_SAV_LIBRARY_BASIC = 3;
 
     // Compatibility
-    const COMPATIBILITY_TYPO3_DEFAULT = 0;
-
-    const COMPATIBILITY_TYPO3_6x = 1;
-
-    const COMPATIBILITY_TYPO3_6x_7x = 2;
-
-    const COMPATIBILITY_TYPO3_7x = 3;
-
-    const COMPATIBILITY_TYPO3_8x_9x = 4;
+    const COMPATIBILITY_TYPO3_13x_14x = '13x-14x';
+    const COMPATIBILITY_TYPO3_13x = '13x';
+    const COMPATIBILITY_TYPO3_12x_13x = '12x-13x';
+    const COMPATIBILITY_TYPO3_12x = '12x';
+    const COMPATIBILITY_TYPO3_11x = '11x';
 
     /**
      *
      * @var string
      */
-    protected static $extensionKey;
+    protected static string $extensionKey;
 
     /**
      *
      * @var KickstarterController
      */
-    protected $controller;
+    protected KickstarterController $kickstarterController;
 
     /**
      *
      * @var SectionManager
      */
-    protected $sectionManager = null;
+    protected ?SectionManager $sectionManager = null;
 
     /**
      *
      * @var AbstractCodeGenerator
      */
-    protected $codeGenerator = null;
+    protected ?AbstractCodeGenerator $codeGenerator = null;
 
     /**
      *
      * @var ExtensionManager
      */
-    protected $extensionManager = null;
+    protected ?ExtensionManager $extensionManager = null;
 
     /**
      *
      * @var array
      */
-    protected $upgradeFiles = null;
+    protected ?array $upgradeFiles = null;
 
     /**
      * Constructor.
      *
      * @return void
      */
-    public function __construct(string $extensionKey, KickstarterController $controller)
+    public function __construct(string $extensionKey, KickstarterController $kickstarterController)
     {
         self::$extensionKey = $extensionKey;
-        $this->controller = $controller;
+        $this->kickstarterController = $kickstarterController;
     }
 
+    /**
+     * changes the extension key.
+     *
+     * @param string $extensionKey
+     *
+     * @return void
+     */
+    public function changeExtensionKey(string $extensionKey): void
+    {
+        self::$extensionKey = $extensionKey;
+    }
+    
     /**
      * Gets the controller.
      *
      * @return KickstarterController
      */
-    public function getController(): KickstarterController
+    public function getKickstarterController(): KickstarterController
     {
-        return $this->controller;
+        return $this->kickstarterController;
     }
 
     /**
      * Gets the section manager.
      *
      * @ param bool $createSectionManager
+     *
      * @return SectionManager
      */
     public function getSectionManager($createSectionManager = false): ?SectionManager
@@ -146,9 +153,10 @@ final class ConfigurationManager
      * Sets the section manager.
      *
      * @param array $sections
+     *
      * @return void
      */
-    public function setSectionManager(array $sections = [])
+    public function setSectionManager(array $sections = []): void
     {
         $this->sectionManager = new SectionManager($sections);
     }
@@ -156,14 +164,14 @@ final class ConfigurationManager
     /**
      * Gets the code generator.
      *
-     * @return CodeGenerator
+     * @return AbstractCodeGenerator
      */
-    public function getCodeGenerator()
+    public function getCodeGenerator(): AbstractCodeGenerator
     {
         if ($this->codeGenerator === null) {
             $type = 'CodeGeneratorFor' . $this->getCurrentLibraryName();
             $this->codeGenerator = GeneralUtility::makeInstance(CodeGenerator::class . '\\' . $type);
-            $this->codeGenerator->injectConfigurationManager($this);
+            $this->codeGenerator->setConfigurationManager($this);
         }
         return $this->codeGenerator;
     }
@@ -226,12 +234,25 @@ final class ConfigurationManager
      *
      * @param string $extensionKey
      *            The extension key
+     *
      * @return string The directory
      */
     public static function getExtensionDir(string $extensionKey): string
     {
-        // Gets the path, including when the extension is not loaded
-        return Environment::getPublicPath() . '/typo3conf/ext/' . $extensionKey . '/';
+        if (ExtensionManagementUtility::isLoaded($extensionKey)) {
+            $fileName =  'EXT:' . $extensionKey . '/ext_localconf.php' ;
+            $absFileName = GeneralUtility::getFileAbsFileName($fileName);
+            
+            return dirname($absFileName) . '/';
+        } else {
+            // Gets the settings
+            $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+            $settings = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS);
+            $packagesDirectory = Environment::getProjectPath() . '/' . $settings['packagesDirectory'];
+
+            return $packagesDirectory . '/' . $extensionKey . '/';
+        }
+
     }
 
     /**
@@ -239,6 +260,7 @@ final class ConfigurationManager
      *
      * @param string $extensionKey
      *            The extension key
+     *
      * @return string The version
      */
     public static function getExtensionVersion(string $extensionKey): string
@@ -246,7 +268,7 @@ final class ConfigurationManager
         if (empty($extensionKey)) {
             return '';
         } else {
-            if (ExtensionManagementUtility::isLoaded($extensionKey)) {
+            if (ExtensionManagementUtility::isLoaded($extensionKey) && ! self::isSavLibraryKickstarterExtension()) {
                 return ExtensionManagementUtility::getExtensionVersion($extensionKey);
             } else {
                 // Tries a default name
@@ -268,9 +290,10 @@ final class ConfigurationManager
      *
      * @param string $extensionKey
      *            The extension key
+     *
      * @return void
      */
-    public static function createConfigurationDir(string $extensionKey)
+    public static function createConfigurationDir(string $extensionKey): void
     {
         $configurationDirectory = self::getExtensionDir($extensionKey) . self::CONFIGURATION_DIRECTORY;
         if (! is_dir($configurationDirectory)) {
@@ -283,9 +306,14 @@ final class ConfigurationManager
      *
      * @return bool
      */
-    public function isSavLibraryKickstarterExtension(): bool
+    public static function isSavLibraryKickstarterExtension(): bool
     {
-        return file_exists(self::getConfigurationFileName());
+        $configurationFileName = self::getConfigurationFileName();
+        if ($configurationFileName === null) {
+            return false;
+        }
+
+        return file_exists($configurationFileName);
     }
 
     /**
@@ -295,12 +323,12 @@ final class ConfigurationManager
      *            The extension key
      * @param string $libraryName
      *            The library name
+     *
      * @return bool
      */
     public function configurationFileExists(string $extensionKey, string $libraryName): bool
     {
-        $extensionDirectory = self::getExtensionDir($extensionKey);
-        $configurationFileName = $extensionDirectory . self::CONFIGURATION_DIRECTORY . $libraryName . '/' . self::CONFIGURATION_FILE_NAME . '.json';
+        $configurationFileName = self::getExtensionDir($extensionKey) . self::CONFIGURATION_DIRECTORY . $libraryName . '/' . self::CONFIGURATION_FILE_NAME . '.json';
 
         return file_exists($configurationFileName);
     }
@@ -310,9 +338,10 @@ final class ConfigurationManager
      *
      * @param string $extensionKey
      *            The extension key
+     *
      * @return bool
      */
-    public function isLoadedExtension(string $extensionKey = null): bool
+    public function isLoadedExtension(?string $extensionKey = null): bool
     {
         if ($extensionKey === null) {
             $extensionKey = self::$extensionKey;
@@ -325,10 +354,10 @@ final class ConfigurationManager
      *
      * @return void
      */
-    public function loadConfiguration(string $version = '')
+    public function loadConfiguration(string $version = ''): void
     {
         // Checks if the file exists
-        if ($this->isSavLibraryKickstarterExtension()) {
+        if (self::isSavLibraryKickstarterExtension()) {
             if ($this->getSectionManager() === null) {
                 if ($version != '') {
                     $fileName = self::getConfigurationFileName(self::$extensionKey, $version);
@@ -346,7 +375,7 @@ final class ConfigurationManager
      *
      * @return void
      */
-    public function saveConfiguration()
+    public function saveConfiguration(): void
     {
         $version = $this->getSectionManager()
             ->getItem('emconf')
@@ -359,36 +388,6 @@ final class ConfigurationManager
     }
 
     /**
-     * Method called by array_walk_recursive to encode fields in utf8 (required by json_encode).
-     *
-     * @param mixed $item
-     *            The item
-     * @return string The rendered view
-     */
-    public static function utf8_encode(&$item)
-    {
-        if (is_string($item)) {
-            $item = utf8_encode($item);
-        }
-        return $item;
-    }
-
-    /**
-     * Method called by array_walk_recursive to encode fields in utf8 (required by json_encode).
-     *
-     * @param mixed $item
-     *            The item
-     * @return string The rendered view
-     */
-    public static function utf8_decode(&$item)
-    {
-        if (is_string($item)) {
-            $item = utf8_decode($item);
-        }
-        return $item;
-    }
-
-    /**
      * Saves the configuration.
      *
      * @param string $version
@@ -396,11 +395,11 @@ final class ConfigurationManager
      *
      * @return void
      */
-    public function saveConfigurationVersion(string $version = '')
+    public function saveConfigurationVersion(string $version = ''): void
     {
         $configuration = $this->getConfiguration();
-        $fileName = self::getConfigurationFileName(self::$extensionKey, $version);
         $jsonContent = json_encode($configuration, JSON_PRETTY_PRINT);
+        $fileName = self::getConfigurationFileName(self::$extensionKey, $version);
         GeneralUtility::writeFile($fileName, $jsonContent);
     }
 
@@ -417,8 +416,6 @@ final class ConfigurationManager
             ->getItem('libraryType');
 
         switch ($libraryType) {
-            case self::TYPE_SAV_LIBRARY:
-                return '';
             case self::TYPE_SAV_LIBRARY_PLUS:
                 return self::getSavLibraryPlusVersion();
             case self::TYPE_SAV_LIBRARY_MVC:
@@ -437,10 +434,11 @@ final class ConfigurationManager
      */
     public function getCurrentLibraryName(): string
     {
-        $libraryType = $this->getSectionManager()
+        $libraryType = (int) $this->getSectionManager()
             ->getItem('general')
             ->getItem(1)
             ->getItem('libraryType');
+
         return self::getLibraryName($libraryType);
     }
 
@@ -448,6 +446,7 @@ final class ConfigurationManager
      * Gets the library name depending on the library type.
      *
      * @param int $libraryType
+     *
      * @return string The library name
      */
     public static function getLibraryName(int $libraryType): string
@@ -473,8 +472,7 @@ final class ConfigurationManager
      */
     public static function getLibraryTypeFileName(string $extensionKey): string
     {
-        $extensionDirectory = self::getExtensionDir($extensionKey);
-        return $extensionDirectory . self::CONFIGURATION_DIRECTORY . self::LIBRARY_TYPE_FILE_NAME;
+        return self::getExtensionDir($extensionKey) . self::CONFIGURATION_DIRECTORY . self::LIBRARY_TYPE_FILE_NAME;
     }
 
     /**
@@ -484,9 +482,10 @@ final class ConfigurationManager
      *            The extension key
      * @param int $libraryType
      *            The library type
+     *
      * @return void
      */
-    public function buildConfigurationDirectory(string $extensionKey, int $libraryType)
+    public function buildConfigurationDirectory(string $extensionKey, int $libraryType): void
     {
         // Builds the new configuration directory
         $extensionDirectory = self::getExtensionDir($extensionKey);
@@ -505,23 +504,32 @@ final class ConfigurationManager
      *            The extension key
      * @param string $version
      *            Version
-     * @return string The configuration file name
+     *
+     * @return string|null The configuration file name
      */
-    public static function getConfigurationFileName(string $extensionKey = null, string $version = ''): string
+    public static function getConfigurationFileName(?string $extensionKey = null, string $version = ''): ?string
     {
         if ($extensionKey === null) {
             $extensionKey = self::$extensionKey;
         }
-        $extensionDirectory = self::getExtensionDir($extensionKey);
-        $libraryName = trim(GeneralUtility::getURL(self::getLibraryTypeFileName($extensionKey)));
+        $libraryTypeFileName = self::getLibraryTypeFileName($extensionKey);
+        if (! file_exists($libraryTypeFileName)) {
+            return null;
+        }
+
+        $libraryName = trim(GeneralUtility::getURL($libraryTypeFileName));
+
         // Builds the version if any
         if ($version != '') {
             $version = '_' . str_replace('.', '_', $version);
         }
 
         // Builds the file name
-        $fileName = $extensionDirectory . self::CONFIGURATION_DIRECTORY . $libraryName . '/' . self::CONFIGURATION_FILE_NAME. $version;
-        return $fileName . '.json';
+        $fileName = self::getExtensionDir($extensionKey) .
+            self::CONFIGURATION_DIRECTORY . $libraryName . '/' .
+            self::CONFIGURATION_FILE_NAME . $version . '.json';
+
+        return $fileName;
     }
 
     /**
@@ -529,7 +537,7 @@ final class ConfigurationManager
      *
      * @return void
      */
-    public function checkForUpgrade()
+    public function checkForUpgrade(): void
     {
         $this->loadConfiguration();
         $upgrades = $this->getSectionManager()
@@ -537,7 +545,7 @@ final class ConfigurationManager
             ->getItem(1)
             ->addItem('upgrades')
             ->getItemsAsArray();
-        if ($this->isSavLibraryKickstarterExtension()) {
+        if (self::isSavLibraryKickstarterExtension()) {
             // Checks if upgrade files must be applied
             $files = GeneralUtility::getFilesInDir(self::getExtensionDir('sav_library_kickstarter') . self::UGRADE_DIRECTORY);
             foreach ($files as $file) {
@@ -550,7 +558,7 @@ final class ConfigurationManager
                     $currentVersionNumber = VersionNumberUtility::convertVersionNumberToInteger(str_replace('_', '.', $currentVersion));
                     $className = self::UPGRADE_ROOT_CLASS_NAME . basename($file, '.php');
 
-                    if ($newVersionNumber >= $currentVersionNumber && $upgrades[$className] !== true) {
+                    if ($newVersionNumber >= $currentVersionNumber && ($upgrades[$className] ?? false) !== true) {
                         $upgrades[$className] = false;
                         // Sets extensionMustbeUpgraded to true
                         $this->getSectionManager()
@@ -614,10 +622,8 @@ final class ConfigurationManager
                     'extensionMustbeUpgraded' => true
                 ]);
             }
-            $wrongCompatibility = ! in_array($compatibility, [
-                ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT,
-                ConfigurationManager::COMPATIBILITY_TYPO3_7x
-            ]);
+                   
+            $wrongCompatibility = ! in_array($compatibility, $this->kickstarterController->getCompatibilityKeys());
             $this->getSectionManager()
                 ->getItem('general')
                 ->getItem(1)
@@ -634,9 +640,9 @@ final class ConfigurationManager
      *
      * @return void
      */
-    public function upgradeExtension()
+    public function upgradeExtension(): void
     {
-        if ($this->isSavLibraryKickstarterExtension()) {
+        if (self::isSavLibraryKickstarterExtension()) {
             $this->loadConfiguration();
             $upgrades = $this->getSectionManager()
                 ->getItem('general')
@@ -648,7 +654,7 @@ final class ConfigurationManager
             foreach ($upgrades as $upgradeKey => $upgrade) {
                 if ($upgrade === false) {
                     $upgradeManager = GeneralUtility::makeInstance($upgradeKey, self::$extensionKey);
-                    $upgradeManager->injectConfigurationManager($this);
+                    $upgradeManager->setConfigurationManager($this);
                     $upgradeManager->preProcessing($this->getSectionManager());
                     $sectionsToDelete = [];
                     foreach ($this->getSectionManager()->getItems() as $sectionName => $section) {
@@ -657,12 +663,12 @@ final class ConfigurationManager
                             $upgradedSection = $upgradeManager->$method($section);
 
                             // Processes the section
-                            if ($upgradedSection['deleteSection'] === true) {
+                            if (($upgradedSection['deleteSection'] ?? false) === true) {
                                 $sectionsToDelete[] = $sectionName;
                             } else {
 
                                 // Defines the replacement method
-                                if ($upgradedSection['replacementMethod']) {
+                                if ($upgradedSection['replacementMethod'] ?? false) {
                                     $replacementMethod = $upgradedSection['replacementMethod'];
                                     unset($upgradedSection['replacementMethod']);
                                 } else {

@@ -1,28 +1,31 @@
-<f:format.raw>
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw>
 <f:for each="{source.fields}" as="field">
 <f:if condition="{subform}!=1">
 .. _{viewReference}.{source.configuration.label->sav:format.crypt()}.{field.configuration.tableName}.{field.configuration.fieldName}:
 </f:if>
 !
-<f:variable name="fieldTitle">**Field**: ``{field.configuration.fieldName}``</f:variable> 
-{fieldTitle}  
+<f:variable name="fieldTitle">:Field: {field.configuration.fieldName}</f:variable> 
+.. card:: 
+   :class: mb-md-2
 !
-**Type:** :ref:`{field.configuration.fieldType} <savlibrarykickstarter:{field.configuration.fieldType->sav:builder.documentation.renderType()}>`
+  {fieldTitle}  
+!
+  :Type: :ref:`{field.configuration.fieldType} <yolftypo3/sav-library-kickstarter:{field.configuration.fieldType->sav:builder.documentation.renderType()}>`
 <f:variable name="fieldConfiguration">{sav:builder.documentation.processFieldConfiguration(configuration:field.configuration)}</f:variable>
 	<f:if condition="{fieldConfiguration}"> 
 !
 <f:if condition="{field.configuration.fieldType}=='RelationManyToManyAsSubform'">
 <f:then>
 <f:if condition="{fieldConfiguration-> f:count()}>1">
-**Configuration:**
+  :Configuration:
 !
-::
+  ::
 </f:if>
 </f:then>
 <f:else>
-**Configuration:**
+  :Configuration:
 !
-::
+  ::
 </f:else>
 </f:if>
 ! 
@@ -30,13 +33,13 @@
 			<f:if condition="{fieldKey}=='a217895432'"> 
 				<f:then>
 !				
-**Subform Content**
+  .. card:: Subform Content
 !
    <sav:utility.indent count="3" ><f:render partial="Partials/Documentation/FieldGeneration.rstt" arguments="{source:field,formTitle:'{formTitle}.subform',subform:1}" /></sav:utility.indent>  
 !
 				</f:then>
 				<f:else>				
-  - {fieldKey} = <sav:utility.indent count="5" excludeFirstLine="1">{field}</sav:utility.indent> 
+    - {fieldKey} = <sav:utility.indent count="5" excludeFirstLine="1">{field}</sav:utility.indent> 
 				</f:else>
 			</f:if>
 		</f:for>

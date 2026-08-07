@@ -6,13 +6,20 @@
     libraryType:'{extension.general.1.libraryType}'
     }">
 		<f:alias map="{libraryLabel:'{libraryRootLabel}{libraryType}'}">
-			<f:alias
-				map="{
-			libraryName:'{f:translate(key:libraryLabel)->sav:format.upperCamel()}',
-			isAllowed:'{f:if(condition:\'{libraryType} == 3\', then:0, else:1)}'
-			}">
-				<f:be.pageRenderer
-					includeCssFiles="{0:'{f:uri.resource(path:\'Css/backend.css\')}'}" />
+			<f:variable name="libraryName">{f:translate(key:libraryLabel)->sav:format.upperCamel()}</f:variable>
+			<f:variable name="isAllowed">{f:if(condition:'{libraryType} == 3', then:0, else:1)}</f:variable>
+			<f:variable name="isMvc">{sav:utility.getItem(
+			    value:{
+			        0:0,
+			        1:0,
+			        2:1,
+			        3:1
+			    },
+	    			key:extension.general.1.libraryType)}</f:variable>
+
+			<f:be.pageRenderer
+				includeCssFiles="{0: 'EXT:sav_library_kickstarter/Resources/Public/Css/Module.css'}" />
+            <div class="module">
 				<div id="savLibraryKickstarter" class="typo3-fullDoc">
 					<div id="typo3-docbody">
 						<div id="header">
@@ -40,13 +47,13 @@
 						</f:format.raw>
 
 						<f:comment>Render the menu section</f:comment>
-						<f:render section="menu" arguments="{isAllowed:isAllowed}" />
+						<f:render section="menu" arguments="{_all}" />
 
 						<f:comment>Render the content section</f:comment>
-						<f:render section="content" arguments="{isAllowed:isAllowed}" />
+						<f:render section="content" arguments="{_all}" />
 					</div>
 				</div>
-			</f:alias>
+			</div>
 		</f:alias>
 	</f:alias>
 </f:spaceless>

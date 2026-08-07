@@ -150,22 +150,12 @@ associated with this view.
 .. figure:: ../../Images/TutorialKickstarterEditViewFieldsConfiguration.png
 
 The final step is to generate the extension by clicking on the
-``Generate`` button. After the processing, the SQL statement to create
-the table is displayed. Click on ``Make updates`` to complete the
-generation of the extension.
-
-.. figure:: ../../Images/TutorialKickstarterSQL.png
+``Generate`` button.
 
 Installing the Extension
 ========================
 
-Click on the ``SAV Kickstarter`` item in the ``Admin tools`` menu to
-display the extension list and click on the ``Install`` icon as shown
-below to install it.
-
-.. figure:: ../../Images/TutorialKickstarterInstallingTheExtension.png
-
-Create a page and insert a plugin content element and select ``SAV
+Install the extension, create a page and insert a plugin content element and select ``SAV
 Library Example0`` in the plugin selector.
 
 The configuration of the plugin is performed by means of a flexform

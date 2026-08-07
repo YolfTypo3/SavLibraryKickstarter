@@ -19,10 +19,11 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Be\Buttons;
 
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Imaging\IconSize;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /**
  * ViewHelper which returns CSH (context sensitive help) button with icon
@@ -45,7 +46,7 @@ use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
  *
  * Generates a link to the section whose key is myKey of the documentation
  */
-class HelpViewHelper extends AbstractBackendViewHelper
+final class HelpViewHelper extends AbstractBackendViewHelper
 {
 
     /**
@@ -60,14 +61,14 @@ class HelpViewHelper extends AbstractBackendViewHelper
      *
      * @var string
      */
-    protected static $documentationRootUrl = 'https://docs.typo3.org/p/yolftypo3/sav-library-kickstarter/master/en-us/';
+    protected static string $documentationRootUrl = 'https://docs.typo3.org/p/yolftypo3/sav-library-kickstarter/master/en-us/';
 
     /**
      * Key to section array
      *
      * @var array
      */
-    protected static $keyToSection = [
+    protected static array $keyToSection = [
         'Checkbox' => 'Reference/Checkbox',
         'Checkboxes' => 'Reference/Checkboxes',
         'Currency' => '',
@@ -100,9 +101,9 @@ class HelpViewHelper extends AbstractBackendViewHelper
     /**
      * Initialize arguments.
      *
-     * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
+     * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('key', 'string', 'key to the section of the documentation', true);
@@ -110,37 +111,34 @@ class HelpViewHelper extends AbstractBackendViewHelper
     }
 
     /**
-     * Render the help button
+     * Render the view helper
      *
      * @return string the help icon
      */
-    public function render()
+    public function render(): string
     {
-        return static::renderStatic($this->arguments, $this->buildRenderChildrenClosure(), $this->renderingContext);
-    }
-
-    /**
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
-     */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
-    {
-        $key = $arguments['key'];
-        $tag = ($arguments['tag'] ? '#' . $arguments['tag'] : '');
-        $section = self::$keyToSection[$key];
+        $key = $this->arguments['key'];
+        $tag = ($this->arguments['tag'] ? '#' . $this->arguments['tag'] : '');
+        $section = self::$keyToSection[$key] ?? '';
         if (! empty($section)) {
             $documentationUrl = self::$documentationRootUrl . $section . '/Index.html' . $tag;
             $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-            $icon = $iconFactory->getIcon('actions-system-help-open', Icon::SIZE_SMALL)->render();
+            $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
+            
+            if ($typo3Version->getMajorVersion() < 13) {
+                // @extensionScannerIgnoreLine
+                $icon = $iconFactory->getIcon('actions-system-help-open', Icon::SIZE_SMALL)->render();
+            } else {
+
+                $icon = $iconFactory->getIcon('actions-system-help-open', IconSize::SMALL)->render();                
+            }
             $title = LocalizationUtility::translate('kickstarter.help', 'sav_library_kickstarter');
             $result = '<div class="docheader-csh" title="' . $title . '" ><a target="_blank" href="' . $documentationUrl . '">' . $icon . '</a></div>';
         } else {
             $result = '';
         }
-
+        
         return $result;
     }
+
 }

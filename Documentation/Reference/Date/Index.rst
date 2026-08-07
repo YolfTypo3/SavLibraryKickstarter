@@ -10,20 +10,20 @@ Date
 ======================================================= =========== ============ ==== ====
 Property                                                Data type   Default      Plus Mvc
 ======================================================= =========== ============ ==== ====
-:ref:`date.format`                                      Date format %d/%m/%Y     Yes  Yes
+:ref:`date.dateFormat`                                  Date format %d/%m/%Y     Yes  Yes
 :ref:`date.noDefault`                                   Boolean     0            Yes  Yes
 ======================================================= =========== ============ ==== ====
 
 
-.. _date.format:
+.. _date.dateFormat:
 
-format
-======
+dateFormat
+==========
 
 .. container:: table-row
 
     Property
-        format
+        dateFormat
 
     Data type
         Date format
@@ -31,12 +31,16 @@ format
     Description
         Sets a format to display the date. The format is the same as in
         strftime php function.
+        
+        .. important::
+        
+        	It replaces the attribute `format` deprecated in SAV Library Kickstarter v12.        
 
         Example: full weekday and month names plus year
 
         ::
 
-            format = %A %B %Y;
+            dateFormat = %A %B %Y;
 
     Default
         %d/%m/%Y

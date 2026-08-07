@@ -1,0 +1,16 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines>
+<f:alias map="{
+    openBrace:  '{',
+    closeBrace: '}' 
+}">
+routeEnhancers:
+  {extension.general.1.extensionKey->sav:format.upperCamel()}:
+    type: SavLibraryPlusPlugin
+    namespace: 'tx_{extension.general.1.extensionKey->sav:format.removeUnderscore()}_pi1'
+    routePath: '/{extension.general.1.extensionKey->sav:format.lowerCamel()}/{openBrace}controller{closeBrace}/{openBrace}action{closeBrace}/{openBrace}sav_library_plus{closeBrace}'  
+    requirements:
+      controller: 'Default'
+      action: '[a-zA-Z]+'
+      sav_library_plus: '[0-9a-f]+'       
+</f:alias>
+</sav:utility.removeEmptyLines></f:format.raw>

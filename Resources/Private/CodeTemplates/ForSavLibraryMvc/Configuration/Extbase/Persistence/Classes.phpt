@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <?php
 !
 declare(strict_types=1);
@@ -12,7 +12,7 @@ return [
     ],
 <f:for each="{extension.newTables}" as="table">
     {table.tablename->sav:builder.mvc.modelName(extension:extension)}::class => [
-        'tableName' => '{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:1)}',
+        'tableName' => '{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:true)}',
     ],
 </f:for>         
 <f:for each="{extension.existingTables}" as="table">

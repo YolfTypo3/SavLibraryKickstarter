@@ -17,9 +17,10 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Mvc;
 
-use TYPO3\CMS\Core\Package\PackageManager;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
 
 /**
  * A view helper for building the options for the field type selector.
@@ -35,21 +36,15 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * @package SavLibraryKickstarter
  */
-class ModelNameViewHelper extends AbstractViewHelper
+final class ModelNameViewHelper extends AbstractViewHelper
 {
-
-    /**
-     *
-     * @var array
-     */
-    protected static $extensionKeyMap;
-
+    
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('tableName', 'string', 'Table name', false, null);
         $this->registerArgument('extension', 'array', 'Extension', false, null);
@@ -59,9 +54,9 @@ class ModelNameViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the model name
+     * Renders the view helper
      *
-     * @return string the model name
+     * @return string
      */
     public function render(): string
     {
@@ -85,8 +80,13 @@ class ModelNameViewHelper extends AbstractViewHelper
             $modelName = \YolfTypo3\SavLibraryMvc\Domain\Model\FrontendUser::class;
             $shortModelName = 'FeUsers';
         } elseif (preg_match('/^tx_(?P<extensionName>\w+)_domain_model_(?P<shortModelName>\w+)$/', $tableName, $match)) {
-            // Gets the extension key from the prefix
-            $extensionKey = self::getExtensionKeyByPrefix('tx_' . $match['extensionName']);
+            if ($match['extensionName'] == str_replace('_', '', $extension['general'][1]['extensionKey'])) {
+                // The model is in the extension
+                $extensionKey = $extension['general'][1]['extensionKey'];
+            } else {
+                // Gets the extension key from the prefix
+                $extensionKey = KickstarterController::getExtensionKeyByPrefix('tx_' . $match['extensionName']);
+            }
             $shortModelName = GeneralUtility::underscoredToUpperCamelCase($match['shortModelName']);
         } else {
             // The model is in the extension
@@ -110,33 +110,5 @@ class ModelNameViewHelper extends AbstractViewHelper
             $modelName = '\\' . $modelName;
         }
         return $modelName;
-    }
-
-    /**
-     * Returns the real extension key like 'tt_news' from an extension prefix like 'tx_ttnews'.
-     *
-     * @param string $prefix
-     *            The extension prefix (e.g. 'tx_ttnews')
-     * @return mixed Real extension key (string)or FALSE (bool) if something went wrong
-     */
-    protected static function getExtensionKeyByPrefix($prefix)
-    {
-        $result = false;
-        // Build map of short keys referencing to real keys:
-
-        if (! isset(self::$extensionKeyMap)) {
-            $packageManager = GeneralUtility::makeInstance(PackageManager::class);
-            self::$extensionKeyMap = [];
-            foreach ($packageManager->getAvailablePackages() as $package) {
-                $shortKey = str_replace('_', '', $package->getPackageKey());
-                self::$extensionKeyMap[$shortKey] = $package->getPackageKey();
-            }
-        }
-        // Lookup by the given short key:
-        $parts = explode('_', $prefix);
-        if (isset(self::$extensionKeyMap[$parts[1]])) {
-            $result = self::$extensionKeyMap[$parts[1]];
-        }
-        return $result;
     }
 }

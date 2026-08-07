@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 
 'ctrl' => [
     'title' => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}',
@@ -10,7 +10,9 @@
     
     'tstamp' => 'tstamp',
     'crdate' => 'crdate',
+    <f:if condition="{extension.general.1.compatibility} == '11x'">
     'cruser_id' => 'cruser_id',
+    </f:if>
     
     <f:if condition="{table.type_field}">
     'type' => '{table.type_field}',
@@ -40,6 +42,14 @@
     'delete' => 'deleted',
     </f:if>
     
+    <f:if condition ="{extension.general.1.compatibility} >= '12x'">
+    <f:if condition="{table.allow_on_pages}">
+    'security' => [
+        'ignorePageTypeRestriction' => true,
+    ],
+    </f:if>
+    </f:if>
+        
     'enablecolumns' => [
     <f:if condition="{table.add_hidden}">
         'disabled' => 'hidden',

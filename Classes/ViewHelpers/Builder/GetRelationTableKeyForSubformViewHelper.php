@@ -18,8 +18,6 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
@@ -29,16 +27,15 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  * @package SavLibraryKickstarter
  *
  */
-class GetRelationTableKeyForSubformViewHelper extends AbstractViewHelper
+final class GetRelationTableKeyForSubformViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('arguments', 'array', 'Arguments', true);
         $this->registerArgument('tableName', 'string', 'Table name', true);
@@ -47,17 +44,13 @@ class GetRelationTableKeyForSubformViewHelper extends AbstractViewHelper
     /**
      * Renders the table key
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return int The table key
+     * @return array
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): array
     {
         // Gets the arguments
-        $argumentsOption = $arguments['arguments'];
-        $tableName = $arguments['tableName'];
+        $argumentsOption = $this->arguments['arguments'];
+        $tableName = $this->arguments['tableName'];
 
         $extensionKey = $argumentsOption['general'][1]['extensionKey'];
         $libraryType = $argumentsOption['general'][1]['libraryType'];

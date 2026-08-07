@@ -1,27 +1,13 @@
-{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
-<f:layout name="KickstarterSectionLayout.html" />
+<f:layout name="KickstarterSectionLayout" />
 
 <f:section name="menu">
 	<f:render partial="Menus/Menu"
-		arguments="{
-            extensionKey:extensionKey, 
-            extension:extension,
-            selectedItem:'newTables_{itemKey}',
-            isAllowed:isAllowed
-        }" />
+		arguments="{_all}" />
 </f:section>
 
 <f:section name="content">
 	<f:render partial="Sections/NewTablesSection"
-		arguments="{
-            extensionKey:extensionKey, 
-            extension:extension, 
-            itemKey:itemKey, 
-            fieldKey:fieldKey, 
-            showFieldConfiguration:showFieldConfiguration, 
-            folderLabels:folderLabels,
-            isAllowed:isAllowed
-        }" />
+		arguments="{_all}" />
 </f:section>
 
 

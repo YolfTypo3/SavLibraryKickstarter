@@ -19,8 +19,6 @@ namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Options;
 
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
@@ -29,33 +27,28 @@ use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
  *
  * @package SavLibraryMvc
  */
-class ForRelationTableSelectorboxViewHelper extends AbstractViewHelper
+final class ForRelationTableSelectorboxViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('arguments', 'array', 'Arguments', true);
     }
 
     /**
-     * Renders the options
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return array
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): array
     {
         // Gets the arguments
-        $arguments = $arguments['arguments'];
+        $arguments = $this->arguments['arguments'];
 
         $options = [
             'pages' => LocalizationUtility::translate('kickstarter.field.conf_rel_table.pages', 'sav_library_kickstarter'),
@@ -68,7 +61,6 @@ class ForRelationTableSelectorboxViewHelper extends AbstractViewHelper
         if (is_array($newTables)) {
             foreach ($newTables as $table) {
                 switch ($arguments['general'][1]['libraryType']) {
-                    case ConfigurationManager::TYPE_SAV_LIBRARY:
                     case ConfigurationManager::TYPE_SAV_LIBRARY_PLUS:
                         $tableName = 'tx_' . str_replace('_', '', $arguments['general'][1]['extensionKey']) . ($table['tablename'] ? '_' . $table['tablename'] : '');
                         break;

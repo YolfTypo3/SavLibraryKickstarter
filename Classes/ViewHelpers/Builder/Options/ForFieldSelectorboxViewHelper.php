@@ -17,8 +17,6 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Options;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -27,16 +25,15 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * @package SavLibraryKickstarter
  */
-class ForFieldSelectorboxViewHelper extends AbstractViewHelper
+final class ForFieldSelectorboxViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('fields', 'array', 'Fields', true);
         $this->registerArgument('options', 'array', 'Intitial option values', false, []);
@@ -44,20 +41,16 @@ class ForFieldSelectorboxViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the options
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return array
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): array
     {
         // Gets the arguments
-        $fields = $arguments['fields'];
-        $options = $arguments['options'];
-        $keyAsValue = $arguments['keyAsValue'];
+        $fields = $this->arguments['fields'];
+        $options = $this->arguments['options'];
+        $keyAsValue = $this->arguments['keyAsValue'];
 
         if (is_array($fields)) {
 

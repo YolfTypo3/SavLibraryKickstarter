@@ -26,15 +26,15 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * @package SavLibraryKickstarter
  */
-class ForExistingTablesSelectorboxViewHelper extends AbstractViewHelper
+final class ForExistingTablesSelectorboxViewHelper extends AbstractViewHelper
 {
-
+    
     /**
-     * Renders the viewhelper
+     * Renders the view helper
      *
-     * @return array the options array
+     * @return array
      */
-    public static function render()
+    public function render(): array
     {
         $options = [
             '' => '',
@@ -47,8 +47,8 @@ class ForExistingTablesSelectorboxViewHelper extends AbstractViewHelper
         ];
 
         foreach ($GLOBALS['TCA'] as $tableKey => $table) {
-            if (! $options[$tableKey]) {
-                $options[$tableKey] = $tableKey . ' (' . $GLOBALS['LANG']->sL($table['ctrl']['title']) . ')';
+            if (! isset($options[$tableKey])) {
+                $options[$tableKey] = $tableKey . ' (' . $GLOBALS['LANG']->sL($table['ctrl']['title'] ?? '') . ')';
             }
         }
         asort($options);

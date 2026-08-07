@@ -1,4 +1,4 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 .. include:: Includes.txt
 !
 .. _start:
@@ -61,4 +61,14 @@ Table of Contents
    EntityRelationshipDiagram/Index
    </f:if>   
    Changelog/Index
+!
+.. Meta Menu
+!
+.. toctree::
+   :hidden:
+!
+   Sitemap
+<f:if condition="{sav:file.fileExists(extensionKey:'{extension.general.1.extensionKey}', fileName:'Documentation/genindex.rst')}">   
+   genindex  
+</f:if>
 </sav:utility.removeEmptyLines>    

@@ -19,7 +19,7 @@ namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
-use YolfTypo3\SavLibraryKickstarter\Utility\ItemManager;
+
 
 class PreprocessingForCodeGenerator extends AbstractCodeGenerator
 {
@@ -29,23 +29,31 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
      *
      * @var array
      */
-    protected $arrayForCodeGenerator = [];
+    protected array $arrayForCodeGenerator = [];
+
+    /**
+     * The compatibility
+     *
+     * @var string
+     */
+    protected string $compatibility;
 
     /**
      * Builds the array to be used for generating the code generator.
      *
-     * @param int $mvc
+     * @param int $isMvc
+     *
      * @return void
      */
-    protected function buildArrayForCodeGenerator(int $mvc=0)
+    protected function buildArrayForCodeGenerator(int $isMvc=0): void
     {
         $extension = $this->sectionManager->getItemsAsArray();
 
         // Checks if compatiblity if required
-        $this->compatibility = $extension['general'][1]['compatibility'];
+        $this->compatibility = strval($extension['general'][1]['compatibility'] ?? '');
 
         // Converts special characters
-        array_walk_recursive($extension, 'self::htmlspecialchars');
+        array_walk_recursive($extension, self::class . '::htmlspecialchars');
 
         // Generates the version
         $this->arrayForCodeGenerator['general'] = [];
@@ -62,12 +70,12 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
 
             // Processes the viewsWithCondition field
             foreach ($this->arrayForCodeGenerator['forms'] as $formKey => $form) {
-                if (is_array($form['viewsWithCondition'])) {
+                if (is_array($form['viewsWithCondition'] ?? null)) {
                     foreach ($form['viewsWithCondition'] as $viewsWithConditionKey => $viewsWithCondition) {
                         // Processes each view
                         foreach ($viewsWithCondition as $viewWithConditionKey => $viewWithCondition) {
                             $this->arrayForCodeGenerator['forms'][$formKey]['viewsWithCondition'][$viewsWithConditionKey][$viewWithConditionKey] += [
-                                'config' => $this->getConfig($viewWithCondition['condition'], $mvc)
+                                'config' => $this->getConfig($viewWithCondition['condition'], $isMvc)
                             ];
                         }
                     }
@@ -80,7 +88,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
         if (is_array($queries)) {
             foreach ($queries as $queryKey => $query) {
                 $this->arrayForCodeGenerator['queries'][$queryKey] = $query;
-                if ($query['whereTags']) {
+                if ($query['whereTags'] ?? false) {
                     foreach ($query['whereTags'] as $whereTagKey => $whereTag) {
                         $this->arrayForCodeGenerator['queries'][$queryKey]['whereTags'][$whereTagKey]['title'] = $this->cryptTag($whereTag['title']);
                     }
@@ -101,17 +109,17 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                     if ($view['itemTemplate']) {
                         $this->arrayForCodeGenerator['templates'][$viewKey]['itemTemplate'] = $view['itemTemplate'];
                     }
-                    if ($view['viewTemplate']) {
+                    if ($view['viewTemplate'] ?? false) {
                         $this->arrayForCodeGenerator['templates'][$viewKey]['viewTemplate'] = $view['viewTemplate'];
                     }
                 }
 
                 // Checks if it's a print view
                 if ($view['type'] == 'special' && $view['subtype'] == 'print') {
-                    if ($view['itemsBeforePageBreak']) {
+                    if ($view['itemsBeforePageBreak'] ?? false) {
                         $this->arrayForCodeGenerator['templates'][$viewKey]['itemsBeforePageBreak'] = $view['itemsBeforePageBreak'];
                     }
-                    if ($view['itemsBeforeFirstPageBreak']) {
+                    if ($view['itemsBeforeFirstPageBreak'] ?? false) {
                         $this->arrayForCodeGenerator['templates'][$viewKey]['itemsBeforeFirstPageBreak'] = $view['itemsBeforeFirstPageBreak'];
                     }
                 }
@@ -154,7 +162,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                     $title[$viewKey]['configuration']['field'] = $view['viewTitleBar'];
                     foreach ($newTables as $tableKey => $table) {
                         $tableRootName = 'tx_' . str_replace('_', '', $this->extensionKey);
-                        $tableName = $tableRootName . ($mvc ? '_domain_model' : '') . ($table['tablename'] ? '_' . $table['tablename'] : '');
+                        $tableName = $tableRootName . ($isMvc ? '_domain_model' : '') . ($table['tablename'] ? '_' . $table['tablename'] : '');
 
                         // Adds save and new in the general configuration
                         if ($table['save_and_new']) {
@@ -217,7 +225,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                         $tableName = $table['tablename'];
 
                         // Checks if the localization must be overrided
-                        if ($table['overrideLocalization']) {
+                        if ($table['overrideLocalization'] ?? false) {
                             $this->arrayForCodeGenerator['general']['overridedTablesForLocalization'][$tableName] = true;
                         }
 
@@ -234,20 +242,20 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                                     $column['fieldname'] = $prefix . $field['fieldname'];
                                     $columns[$prefix . $field['fieldname']] = $column;
                                 }
-                                if ($field['selected'][$viewKey]) {
+                                if ($field['selected'][$viewKey] ?? false) {
                                     $orderedFields[$field['order'][$viewKey]] = $fieldKey;
                                 }
                             }
                         }
 
-                        if (is_array($orderedFields)) {
+                        if (is_array($orderedFields ?? null)) {
                             ksort($orderedFields);
                             unset($table['fields']);
                             foreach ($orderedFields as $fieldKey => $field) {
                                 $table['fields'][$field] = $fields[$field];
                             }
                             foreach ($table['fields'] as $fieldKey => $field) {
-                                if ($field['folders'][$viewKey]) {
+                                if ($field['folders'][$viewKey] ?? false) {
                                     if ($view['folders']) {
                                         $showFolders[$field['folders'][$viewKey]][] = [
                                             'table' => $tableKey,
@@ -300,7 +308,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                         $cryptedFolderName = $this->cryptTag($folderName);
 
                         // Gets the folder config parameter
-                        $this->arrayForCodeGenerator['views'][$viewKey][$cryptedFolderName]['configuration'] = $this->getConfig($opt_showFolders[$folderKey]['configuration'] ?? null, $mvc) + [
+                        $this->arrayForCodeGenerator['views'][$viewKey][$cryptedFolderName]['configuration'] = $this->getConfig($opt_showFolders[$folderKey]['configuration'] ?? null, $isMvc) + [
                             'label' => $folderName
                         ];
 
@@ -346,7 +354,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
 
                                     // Checks if the type is showOnly
                                     if ($field['type'] == 'ShowOnly') {
-                                        $config['renderType'] = ($field['conf_render_type'] ? $field['conf_render_type'] : 'String');
+                                        $config['renderType'] = (($field['conf_render_type'] ?? false) ? $field['conf_render_type'] : 'String');
                                     }
 
                                     // Checks if it is a subform
@@ -364,14 +372,14 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                                         $relationTableKey = $relationTable[$viewKey][$tableName];
                                         $subformConfiguration[$viewKey][$relationTableKey] = array_merge($subformConfiguration[$viewKey][$relationTableKey] ?? [], [
                                             $cryptedFullFieldName => [
-                                                'configuration' => $this->getConfig($field['configuration'][$viewKey] ?? null, $mvc) + $config + [
+                                                'configuration' => $this->getConfig($field['configuration'][$viewKey] ?? null, $isMvc) + $config + [
                                                     'subformItem' => 1
                                                 ]
                                             ]
                                         ]);
                                     } else {
                                         $fieldConfiguration[$cryptedFullFieldName] = [
-                                            'configuration' => $this->getConfig($field['configuration'][$viewKey] ?? null, $mvc) + $config
+                                            'configuration' => $this->getConfig($field['configuration'][$viewKey] ?? null, $isMvc) + $config
                                         ];
                                     }
                                 }
@@ -405,9 +413,10 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
      * @param string|null $fieldConf
      *            The field.
      * @param int mvc Mvc flag for SAV Library MVC
+     *
      * @return array The configuration
      */
-    protected function getConfig(?string $fieldConf = null, int $mvc = 0): array
+    protected function getConfig(?string $fieldConf = null, int $isMvc = 0): array
     {
         $config = [];
         if (empty($fieldConf)) {
@@ -432,7 +441,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
                 if ($pos === false) {
                     throw new \RuntimeException('Missing equal sign in ' . $param);
                 } else {
-                    if ($mvc) {
+                    if ($isMvc) {
                         $exp = trim(substr($param, 0, $pos));
                     } else {
                         $exp = strtolower(trim(substr($param, 0, $pos)));
@@ -454,6 +463,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
      *
      * @param string $tag
      *            The tag to crypt.
+     *
      * @return string The crypted tag
      */
     protected function cryptTag(string $tag): string
@@ -483,9 +493,10 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
      *
      * @param array $arrayToSearchIn
      * @param string $key
+     *
      * @return array|false
      */
-    public function searchConfiguration(array $arrayToSearchIn, string $key): array
+    public function searchConfiguration(array $arrayToSearchIn, string $key): array|false
     {
         foreach ($arrayToSearchIn as $itemKey => $item) {
             if ($itemKey == $key) {
@@ -506,6 +517,7 @@ class PreprocessingForCodeGenerator extends AbstractCodeGenerator
      * @param array $arrayToSearchIn
      * @param string $key
      * @param array $arrayToAdd
+     *
      * @return bool
      */
     public function addConfiguration(array &$arrayToSearchIn, string $key, array $arrayToAdd): bool

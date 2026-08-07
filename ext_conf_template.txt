@@ -1,3 +1,0 @@
-# cat=basic; type=boolean; label=Generate local documentation with docker-compose
-generateLocalDocumentationWithDockerCompose = 0
-

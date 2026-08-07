@@ -37,54 +37,51 @@ use YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\TableNameViewHelper;
  *
  * @package SavLibraryKickstarter
  */
-class RenderUsedInViewHelper extends AbstractViewHelper
+final class RenderUsedInViewHelper extends AbstractViewHelper
 {
-    use CompileWithContentArgumentAndRenderStatic;
 
-    protected static $subforms = [];
+    protected static array $subforms = [];
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('extension', 'array', 'Array to process', true);
         $this->registerArgument('name', 'string', 'newTables or existingTables', false, 'newTables');
         $this->registerArgument('tableKey', 'integer', 'Table key', true);
         $this->registerArgument('fieldKey', 'integer', 'Field key', true);
-        $this->registerArgument('mvc', 'boolean', 'MVC flag', false, false);
+        $this->registerArgument('isMvc', 'boolean', 'MVC flag', true);
     }
+    
     /**
      * Renders the viewhelper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
      * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
-        $extension = $arguments['extension'];
-        $name = $arguments['name'];
-        $tableKey = $arguments['tableKey'];
-        $fieldKey = $arguments['fieldKey'];
-        $mvc = $arguments['mvc'];
+        $extension = $this->arguments['extension'];
+        $name = $this->arguments['name'];
+        $tableKey = $this->arguments['tableKey'];
+        $fieldKey = $this->arguments['fieldKey'];
+        $isMvc = $this->arguments['isMvc'];
 
         // Builds the table full name
         $extensionKey = $extension['general'][1]['extensionKey'];
         if ($name == 'existingTables') {
             $tableName = $extension[$name][$tableKey]['tablename'];
         } else {
-            $tableName = TableNameViewHelper::renderStatic(
+            $tableName = TableNameViewHelper::renderTableName(
                 [
                     'extensionKey' => $extensionKey,
                     'shortName' => $extension[$name][$tableKey]['tablename'],
                     'prefix' => '',
                     'shortNameOnly' => false,
-                    'mvc' => $mvc,
-                ], $renderChildrenClosure, $renderingContext
+                    'isMvc' => $isMvc,
+                ]
             );
         }
         $field = $extension[$name][$tableKey]['fields'][$fieldKey];
@@ -179,9 +176,11 @@ class RenderUsedInViewHelper extends AbstractViewHelper
      *
      * @param string $tableName
      * @param array $data
+     *
      * @return string|null the key
      */
-    protected static function searchForTableName($data, $tableName) {
+    protected static function searchForTableName($data, $tableName): ?string
+    {
         foreach ($data as $subformKey => $subform) {
             if ($subform['tableName'] === $tableName) {
                 return $subformKey;

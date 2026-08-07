@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!" htmlentitiesDecode="1"> 
 .. include:: ../../../../Includes.txt
 !
 <f:variable name="formTitle">editView.{form.title->sav:format.crypt()}</f:variable>
@@ -16,9 +16,9 @@ The view ``{extension.views.{viewId}.title}`` contains also the following views 
 <f:variable name="viewWithConditionId" value="{viewWithCondition.key}" />
 <f:variable name="viewReference">editView.{form.title->sav:format.crypt()}.{extension.views.{viewWithConditionId}.title->sav:format.crypt()}</f:variable>
 !
-**View:** :ref:`{extension.views.{viewWithConditionId}.title} <{viewReference}>`
+:View: :ref:`{extension.views.{viewWithConditionId}.title} <{viewReference}>`
 !
-**Condition:**
+:Condition:
 !
 ::
 !

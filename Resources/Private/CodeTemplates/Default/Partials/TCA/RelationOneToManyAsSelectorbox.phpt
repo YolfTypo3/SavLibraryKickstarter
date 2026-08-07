@@ -1,3 +1,4 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 'config' => [
     <f:alias map="{where:{
     all: 'AND 1',
@@ -9,7 +10,10 @@
     'renderType' => 'selectSingle',      
     <f:if condition="{field.conf_rel_dummyitem}">
     'items' => [
-        ['LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{field.fieldname}.I.0', 0],
+        [
+            'label' => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{field.fieldname}.I.0', 
+            'value'  => 0
+        ],
     ],
     </f:if>
     <f:if condition="{field.conf_rel_table} == {custom}">

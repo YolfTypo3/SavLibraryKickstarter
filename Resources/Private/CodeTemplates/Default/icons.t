@@ -1,4 +1,4 @@
-<f:comment>Creates Extension.svg</f:comment>
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:comment>Creates Extension.svg</f:comment>
 <f:alias map="{
     iconName:'{sav:utility.getItem(
         value:{
@@ -22,7 +22,7 @@
     <sav:file.copyFile
         source="Resources/Private/CodeTemplates/Default/Resources/Icons/{table.defIcon}.gif"
         destinationExtension="{extension.general.1.extensionKey}"
-        destination="Resources/Public/Icons/icon_{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}.gif"
+        destination="Resources/Public/Icons/icon_{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:isMvc)}.gif"
     />
 </f:for>
 

@@ -55,7 +55,7 @@
 				<source>Display the local documentation</source>
 			</trans-unit>
 			<trans-unit id="kickstarter.documentationItem.AddDockerCompose" resname="kickstarter.documentationItem.AddDockerCompose" xml:space="preserve">
-				<source>Add docker-compose.yml file:</source>
+				<source>Add docker-compose.yaml file:</source>
 			</trans-unit>
 			<trans-unit id="kickstarter.documentationItem.AddEntityRelationshipDiagram" resname="kickstarter.documentationItem.AddEntityRelationshipDiagram" xml:space="preserve">
 				<source>Add Entity Relationship Diagram:</source>
@@ -246,15 +246,21 @@
 			<trans-unit id="kickstarter.field.conf_files_type" resname="kickstarter.field.conf_files_type" xml:space="preserve">
 				<source>File type</source>
 			</trans-unit>
-			<trans-unit id="kickstarter.field.conf_files_type.all" resname="kickstarter.field.conf_files_type.all" xml:space="preserve">
-				<source>All files, except php/php3 extensions</source>
+			<trans-unit id="kickstarter.field.conf_files_type.textfile" resname="kickstarter.field.conf_files_type.textfile" xml:space="preserve">
+				<source>Text file</source>
 			</trans-unit>
-			<trans-unit id="kickstarter.field.conf_files_type.images" resname="kickstarter.field.conf_files_type.images" xml:space="preserve">
-				<source>Imagefiles</source>
+			<trans-unit id="kickstarter.field.conf_files_type.imagefile" resname="kickstarter.field.conf_files_type.imagefile" xml:space="preserve">
+				<source>Image file</source>
 			</trans-unit>
-			<trans-unit id="kickstarter.field.conf_files_type.webimages" resname="kickstarter.field.conf_files_type.webimages" xml:space="preserve">
-				<source>Web-imagefiles (gif,jpg,png)</source>
+			<trans-unit id="kickstarter.field.conf_files_type.mediafile" resname="kickstarter.field.conf_files_type.mediafile" xml:space="preserve">
+				<source>Media file</source>
 			</trans-unit>
+			<trans-unit id="kickstarter.field.conf_files_type.textfile" resname="kickstarter.field.conf_files_type.textfile" xml:space="preserve">
+				<source>Text file</source>
+			</trans-unit>	
+			<trans-unit id="kickstarter.field.conf_files_uploadFolder" resname="kickstarter.field.conf_files__uploadFolder" xml:space="preserve">
+				<source>Upload folder (e.g. 1:/your path)</source>
+			</trans-unit>						
 			<trans-unit id="kickstarter.field.conf_max" resname="kickstarter.field.conf_max" xml:space="preserve">
 				<source>Max characters</source>
 			</trans-unit>
@@ -567,6 +573,9 @@
 			<trans-unit id="kickstarter.new" resname="kickstarter.new" xml:space="preserve">
 				<source>New</source>
 			</trans-unit>
+			<trans-unit id="kickstarter.newTables.extensionScannerIgnoreLine" resname="kickstarter.newTablesItem.defIcon.yellow" xml:space="preserve">
+				<source>Add @extensionScannerIgnoreLine to the field</source>
+			</trans-unit>				
 			<trans-unit id="kickstarter.newTablesItem.add_access" resname="kickstarter.newTablesItem.add_access" xml:space="preserve">
 				<source>Add Access &quot;group&quot; field</source>
 			</trans-unit>
@@ -614,7 +623,7 @@
 			</trans-unit>
 			<trans-unit id="kickstarter.newTablesItem.defIcon.yellow" resname="kickstarter.newTablesItem.defIcon.yellow" xml:space="preserve">
 				<source>Yellow</source>
-			</trans-unit>
+			</trans-unit>		
 			<trans-unit id="kickstarter.newTablesItem.header_field" resname="kickstarter.newTablesItem.header_field" xml:space="preserve">
 				<source>Label-field:</source>
 			</trans-unit>

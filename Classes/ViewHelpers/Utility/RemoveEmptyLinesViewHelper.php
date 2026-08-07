@@ -17,10 +17,7 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Utility;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
-use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
 
 /**
  * A view helper for removing empty lines.
@@ -28,15 +25,15 @@ use YolfTypo3\SavLibraryKickstarter\Utility\Conversion;
  *
  * @package SavLibraryKickstarter
  */
-class RemoveEmptyLinesViewHelper extends AbstractViewHelper
+final class RemoveEmptyLinesViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+    
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('value', 'string', 'String to process', false, null);
         $this->registerArgument('keepLine', 'string', 'If not empty, empty lines starting by this string are kept', false, '');
@@ -44,23 +41,19 @@ class RemoveEmptyLinesViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $value = $arguments['value'];
-        $keepLine = $arguments['keepLine'];
-        $htmlentitiesDecode = $arguments['htmlentitiesDecode'];
+        $value = $this->arguments['value'];
+        $keepLine = $this->arguments['keepLine'];
+        $htmlentitiesDecode = $this->arguments['htmlentitiesDecode'];
 
         if ($value === null) {
-            $value = $renderChildrenClosure();
+            $value = $this->renderChildren();
         }
 
         if (empty($keepLine)) {

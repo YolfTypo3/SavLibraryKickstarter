@@ -17,11 +17,9 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Mvc;
 
-use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use YolfTypo3\SavLibraryKickstarter\Controller\KickstarterController;
 
 /**
  * A view helper for building the repository name.
@@ -29,21 +27,15 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class RepositoryNameViewHelper extends AbstractViewHelper
+final class RepositoryNameViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-    /**
-     *
-     * @var array
-     */
-    protected static $extensionKeyMap;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('tableName', 'string', 'Table name', false, null);
         $this->registerArgument('extension', 'array', 'Extension', false, null);
@@ -52,31 +44,32 @@ class RepositoryNameViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $tableName = $arguments['tableName'];
-        $extension = $arguments['extension'];
-        $removeFirstBackslash = $arguments['removeFirstBackslash'];
-        $shortName = $arguments['shortName'];
+        $tableName = $this->arguments['tableName'];
+        $extension = $this->arguments['extension'];
+        $removeFirstBackslash = $this->arguments['removeFirstBackslash'];
+        $shortName = $this->arguments['shortName'];
 
         if ($tableName === null) {
-            $tableName = $renderChildrenClosure();
+            $tableName = $this->renderChildren();
         }
-
+        
         // Extracts the extension and the short model names
         $match = [];
         if (preg_match('/^tx_(?P<extensionName>\w+)_domain_model_(?P<shortModelName>\w+)$/', $tableName, $match)) {
-            // Gets the extension key from the prefix
-            $extensionKey = self::getExtensionKeyByPrefix('tx_' . $match['extensionName']);
+            if ($match['extensionName'] == str_replace('_', '', $extension['general'][1]['extensionKey'])) {
+                // The model is in the extension
+                $extensionKey = $extension['general'][1]['extensionKey'];
+            } else {
+                // Gets the extension key from the prefix
+                $extensionKey = KickstarterController::getExtensionKeyByPrefix('tx_' . $match['extensionName']);
+            }
             $shortModelName = GeneralUtility::underscoredToUpperCamelCase($match['shortModelName']);
         } else {
             // The model is in the extension
@@ -99,31 +92,4 @@ class RepositoryNameViewHelper extends AbstractViewHelper
         return $repositoryName;
     }
 
-    /**
-     * Returns the real extension key like 'tt_news' from an extension prefix like 'tx_ttnews'.
-     *
-     * @param string $prefix
-     *            The extension prefix (e.g. 'tx_ttnews')
-     * @return mixed Real extension key (string)or FALSE (bool) if something went wrong
-     */
-    protected static function getExtensionKeyByPrefix($prefix)
-    {
-        $result = false;
-        // Build map of short keys referencing to real keys:
-
-        if (! isset(self::$extensionKeyMap)) {
-            $packageManager = GeneralUtility::makeInstance(PackageManager::class);
-            self::$extensionKeyMap = [];
-            foreach ($packageManager->getAvailablePackages() as $package) {
-                $shortKey = str_replace('_', '', $package->getPackageKey());
-                self::$extensionKeyMap[$shortKey] = $package->getPackageKey();
-            }
-        }
-        // Lookup by the given short key:
-        $parts = explode('_', $prefix);
-        if (isset(self::$extensionKeyMap[$parts[1]])) {
-            $result = self::$extensionKeyMap[$parts[1]];
-        }
-        return $result;
-    }
 }

@@ -1,8 +1,17 @@
 'config' => [
+    <f:if condition ="{extension.general.1.compatibility} < '12x'">
+    <f:then>
     'type'  => 'input',
-    'size'  => '13',
-    'max' => '13',
     'eval'  => 'double2',
-    'checkbox'  => '0',
-    'default' => 0
+    'size'  => 6,
+    'default' => 0    
+    </f:then>
+    
+    <f:else>
+    'type' => 'number',
+    'format' => 'decimal',
+    'size'  => 6,
+    'default' => 0    
+    </f:else>
+    </f:if>
 ],

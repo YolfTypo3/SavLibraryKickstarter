@@ -41,35 +41,31 @@
 												<f:form.hidden class="hidden"
 													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][order][{sectionItemViewKey}]"
 													value="{order}" />
-												<sav:form.checkbox class="checkbox"
+												<f:form.checkbox class="checkbox"
 													name="subforms[{relationTableKey.key}][{relationTableKey.section}][fields][{subformFieldKey}][selected][{sectionItemViewKey}]"
 													value="1" checked="{selected}" />
 												<f:link.action action="editFieldConfiguration"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, viewKey:sectionItemViewKey, folderKey:selectedFolderKey, fieldKey:subformFieldKey}">
-													<f:image class="editFieldConfiguration"
-														src="{sav:be.getIcon(identifier:'actions-document')}"
-														alt="{f:translate(key:'kickstarter.edit')}"
+													<core:icon
+														identifier="actions-document"
 														title="{f:translate(key:'kickstarter.edit')}" />
 												</f:link.action>
 												<f:link.action action="moveDownField"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
-													<f:image class="moveDownField"
-														src="{sav:be.getIcon(identifier:'actions-move-down')}"
-														alt="{f:translate(key:'kickstarter.moveDown')}"
+													<core:icon
+														identifier="actions-move-down"
 														title="{f:translate(key:'kickstarter.moveDown')}" />
 												</f:link.action>
 												<f:link.action action="moveUpField"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
-													<f:image class="moveUpField"
-														src="{sav:be.getIcon(identifier:'actions-move-up')}"
-														alt="{f:translate(key:'kickstarter.moveUp')}"
+													<core:icon
+														identifier="actions-move-up"
 														title="{f:translate(key:'kickstarter.moveUp')}" />
 												</f:link.action>
 												<f:link.action action="deleteField"
 													arguments="{extensionKey:extensionKey, section:relationTableKey.section, itemKey:relationTableKey.key, fieldKey:subformFieldKey}">
-													<f:image class="deleteField"
-														src="{sav:be.getIcon(identifier:'actions-delete')}"
-														alt="{f:translate(key:'kickstarter.delete')}"
+													<core:icon
+														identifier="actions-delete"
 														title="{f:translate(key:'kickstarter.delete')}" />
 												</f:link.action>
 											</div>

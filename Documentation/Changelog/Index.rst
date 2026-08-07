@@ -6,11 +6,13 @@
 Changelog
 =========
 
-.. tabularcolumns:: |r|p{13.7cm}|
-
 =======  ===========================================================================
 Version  Changes
 =======  ===========================================================================
+14.3.0   - Compatibility changed to TYPO3 13.4.x and 14.3.x.
+
+13.4.0   - Compatibility changed to TYPO3 12.4.x and 13.4.x.
+
 11.5.0   - Compatibility changed to TYPO3 11.5.x.
          - Generation of Entity Relationship Diagram added in the documentation.
          - Generation of the documentation improved.

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -16,7 +18,7 @@
 namespace YolfTypo3\SavLibraryKickstarter\Upgrade;
 
 use TYPO3\CMS\Core\Log\LogLevel;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 use YolfTypo3\SavLibraryKickstarter\Managers\SectionManager;
@@ -30,15 +32,15 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
 {
     /**
      *
-     * @var boolean
+     * @var bool
      */
-    protected $criticalError = false;
+    protected bool $criticalError = false;
 
     /**
      *
      * @var array
      */
-    protected $allowedAttributes = [
+    protected array $allowedAttributes = [
 
         'adddelete'=> [
             'replaceBy' => 'addDelete',
@@ -89,7 +91,7 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
             'replaceBy' => 'fieldMessage',
         ],
         'format' => [
-            'replaceBy' => 'format',
+            'replaceBy' => 'dateFormat',
         ],
         'func' => [
             'replaceBy' => 'func',
@@ -189,13 +191,13 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
      *
      * @param SectionManager $sectionManager
      *            The section manager
+     *            
      * @return void
      */
-    public function preProcessing(SectionManager $sectionManager)
+    public function preProcessing(SectionManager $sectionManager): void
     {
-        $this->logger->log(LogLevel::NOTICE, sprintf('**********************************'));
-        $this->logger->log(LogLevel::NOTICE, sprintf('* Upgrade %s to sav_library_mvc.', $this->extensionKey));
-        $this->logger->log(LogLevel::NOTICE, sprintf('**********************************'));
+        $this->logger->log(LogLevel::NOTICE, sprintf(''));
+        $this->logger->log(LogLevel::NOTICE, sprintf('Begin upgrade %s to sav_library_mvc.', $this->extensionKey));
     }
 
     /**
@@ -203,9 +205,10 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
      *
      * @param SectionManager $sectionManager
      *            The section manager
+     *            
      * @return void
      */
-    public function postProcessing(SectionManager $sectionManager)
+    public function postProcessing(SectionManager $sectionManager): void
     {
         // Builds the new directory if needed
         $this->configurationManager->buildConfigurationDirectory($this->extensionKey, ConfigurationManager::TYPE_SAV_LIBRARY_MVC);
@@ -233,8 +236,11 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
         GeneralUtility::rmdir(ConfigurationManager::getExtensionDir($this->extensionKey) . 'Configuration/Library', true);
 
         if ($this->criticalError) {
-            $this->configurationManager->getController()->addFlashMessage('Conversion to SAV Library MVC contains critical errors. Check the log file', '', AbstractMessage::ERROR);
+            $this->configurationManager->getKickstarterController()->addFlashMessage('Conversion to SAV Library MVC contains critical errors. Check the log file', '', ContextualFeedbackSeverity::ERROR);
         }
+        
+        $this->logger->log(LogLevel::NOTICE, sprintf('End upgrade.'));
+      
     }
 
     /**
@@ -407,10 +413,10 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
             GeneralUtility::writeFile($cssFile . '.save', $content);
             foreach($section as $formKey => $form) {
                 $content = str_replace(
-                    $this->extensionKey . '_' . strtolower($form->title),
-                    $this->extensionKey . '.' . strtolower($form->title),
+                    $this->extensionKey . '_' . strtolower($form->getItem('title')),
+                    $this->extensionKey . '.' . strtolower($form->getItem('title')),
                     $content
-                );
+                    );
             }
 
         }
@@ -428,7 +434,7 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
      *
      * @return void
      */
-    protected function changeTableRootInSection(SectionManager $items)
+    protected function changeTableRootInSection(SectionManager $items): void
     {
         $tableRoot = 'tx_'. str_replace('_', '', $this->extensionKey);
 
@@ -501,7 +507,7 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
     }
 
 
-    protected function processFieldConfiguration(SectionManager $field, $tableKey)
+    protected function processFieldConfiguration(SectionManager $field, $tableKey): void
     {
         $configuration = $field->getItem('configuration');
         if ($configuration === null) {
@@ -538,7 +544,7 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
                             ) ||
                             (
                                 is_array($this->allowedAttributes[$attribute]['replaceBy']) &&
-                                ! array_key_exists($field->type, $this->allowedAttributes[$attribute]['replaceBy'])
+                                ! array_key_exists($field->getItem('type'), $this->allowedAttributes[$attribute]['replaceBy'])
                             )
                         );
 
@@ -556,7 +562,7 @@ class UpgradeToSavLibraryMvc extends AbstractUpgradeManager
                                     $this->logger->log(LogLevel::NOTICE, sprintf('-> NewTables #%d: the attribute value was changed in attribute <%s>.', $tableKey, $attribute));
                                 }
                                 if (is_array($this->allowedAttributes[$attribute]['replaceBy'])) {
-                                    $replaceBy = $this->allowedAttributes[$attribute]['replaceBy'][$field->type];
+                                    $replaceBy = $this->allowedAttributes[$attribute]['replaceBy'][$field->getItem('type')];
                                 } else {
                                     $replaceBy = $this->allowedAttributes[$attribute]['replaceBy'];
                                 }

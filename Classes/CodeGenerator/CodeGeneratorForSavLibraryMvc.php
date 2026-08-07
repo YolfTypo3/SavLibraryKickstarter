@@ -32,14 +32,14 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @var string
      */
-    protected static $codeTemplatesDirectory = 'Resources/Private/CodeTemplates/ForSavLibraryMvc/';
+    protected static string $codeTemplatesDirectory = 'Resources/Private/CodeTemplates/ForSavLibraryMvc/';
 
     /**
      * Builds the extension.
      *
      * @return void
      */
-    public function buildExtension()
+    public function buildExtension(): void
     {
         // Checks if the extension can be built
         if (! $this->CanBuildExtension()) {
@@ -66,6 +66,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
 
         // Generates the Configuration files
         $this->buildConfigurationFlexform();
+        $this->buildConfigurationSets();
         $this->buildConfigurationTca();
         $this->buildConfigurationTypoScript();
         $this->buildConfigurationServices();
@@ -83,6 +84,9 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
 
         // Generates the Domain repositories
         $this->buildDomainRepositories();
+        
+        // Generates the updates files
+        $this->buildUpdatesFiles();
 
         // Generates the Controller (must be the last generated part for subforms)
         $this->buildController();
@@ -100,7 +104,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildConfigurationTypoScript()
+    protected function buildConfigurationTypoScript(): void
     {
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/TypoScript/');
 
@@ -122,7 +126,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildDocumentation()
+    protected function buildDocumentation(): void
     {
         // Generates the parent documentation
         parent::buildDocumentation();
@@ -166,7 +170,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildController()
+    protected function buildController(): void
     {
         // Removes existing directories
         $this->removeDirectory('Classes/Controller');
@@ -185,7 +189,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildDomainModels()
+    protected function buildDomainModels(): void
     {
         // Removes existing directories
         $this->removeDirectory('Classes/Domain/Model');
@@ -213,7 +217,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildDomainRepositories()
+    protected function buildDomainRepositories(): void
     {
         // Removes existing directories
         $this->removeDirectory('Classes/Domain/Repository');
@@ -241,7 +245,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildConfigurationExtbasePersistence()
+    protected function buildConfigurationExtbasePersistence(): void
     {
         $fileDirectory = $this->extensionDirectory . 'Configuration/Extbase/Persistence/';
         GeneralUtility::mkdir_deep($fileDirectory);
@@ -254,7 +258,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildConfigurationRoutes()
+    protected function buildConfigurationRoutes(): void
     {
         $fileDirectory = $this->extensionDirectory . 'Configuration/Routes/';
         GeneralUtility::mkdir_deep($fileDirectory);
@@ -267,7 +271,7 @@ class CodeGeneratorForSavLibraryMvc extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildMigration()
+    protected function buildMigration(): void
     {
         if ($this->sectionManager->getItem('general')
             ->getItem(1)

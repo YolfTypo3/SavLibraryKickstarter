@@ -17,11 +17,8 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Documentation;
 
-use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
  * A viewHelper for including the table of content
@@ -29,36 +26,32 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryMvc
  */
-class IncludeTableOfContentsViewHelper extends AbstractViewHelper
+final class IncludeTableOfContentsViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('extensionKey', 'string', 'Extension key', true);
         $this->registerArgument('nbSpace', 'int', 'Number of space prepended to each line', true);
     }
 
     /**
-     * Gets the icon source for $identifier key
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
      * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $extensionKey = $arguments['extensionKey'];
-        $nbSpace = $arguments['nbSpace'];
+        $extensionKey = $this->arguments['extensionKey'];
+        $nbSpace = $this->arguments['nbSpace'];
 
-        $extensionDirectory = Environment::getPublicPath() . '/typo3conf/ext/' . $extensionKey . '/';
+        $extensionDirectory = ConfigurationManager::getExtensionDir($extensionKey);
         $fileName = $extensionDirectory . 'Documentation/TableOfContents.txt';
 
         if (file_exists($fileName)) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -18,7 +20,6 @@ namespace YolfTypo3\SavLibraryKickstarter\Managers;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
 use TYPO3\CMS\Extensionmanager\Utility\FileHandlingUtility;
 
@@ -27,28 +28,28 @@ use TYPO3\CMS\Extensionmanager\Utility\FileHandlingUtility;
  *
  * @package SavLibraryKickstarter
  */
-class ExtensionManager
+final class ExtensionManager
 {
 
     /**
      *
      * @var string
      */
-    protected $extensionKey;
+    protected string $extensionKey;
 
     /**
      * Class for install
      *
      * @var InstallUtility
      */
-    public $installUtility;
+    public InstallUtility $installUtility;
 
     /**
      * Class for file handling
      *
      * @var FileHandlingUtility
      */
-    public $fileHandlingUtility;
+    public FileHandlingUtility $fileHandlingUtility;
 
     /**
      * Constructor.
@@ -66,9 +67,10 @@ class ExtensionManager
      * Installs the extension.
      *
      * @param string $extensionKey
+     * 
      * @return void
      */
-    public function installExtension(string $extensionKey = null)
+    public function installExtension(?string $extensionKey = null): void
     {
         if ($extensionKey === null) {
             $extensionKey = $this->extensionKey;
@@ -81,9 +83,10 @@ class ExtensionManager
      * Uninstalls the extension
      *
      * @param string $extensionKey
+     * 
      * @return void
      */
-    public function uninstallExtension(string $extensionKey = null)
+    public function uninstallExtension(?string $extensionKey = null): void
     {
         if ($extensionKey === null) {
             $extensionKey = $this->extensionKey;
@@ -96,20 +99,15 @@ class ExtensionManager
      * Downloads the extension
      *
      * @param string $extensionKey
+     * 
      * @return void
      */
-    public function downloadExtension(string $extensionKey = null)
+    public function downloadExtension(?string $extensionKey = null): void
     {
         if ($extensionKey === null) {
             $extensionKey = $this->extensionKey;
         }
-
-        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
-        if (version_compare($typo3Version->getVersion(), '11.0', '<')) {
-            $fileName = $this->fileHandlingUtility->createZipFileFromExtension($extensionKey);
-        } else {
-            $fileName = $this->createZipFileFromExtension($extensionKey);
-        }
+        $fileName = $this->createZipFileFromExtension($extensionKey);
         $this->sendZipFileToBrowserAndDelete($fileName);
     }
 

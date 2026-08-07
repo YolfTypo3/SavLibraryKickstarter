@@ -18,8 +18,6 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper to check if there are new fields created in an existing table.
@@ -27,35 +25,30 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class CheckIfFieldsForSpecialViewAreRequiredViewHelper extends AbstractViewHelper
+final class CheckIfFieldsForSpecialViewAreRequiredViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('extension', 'array', 'Extension', true);
         $this->registerArgument('model', 'string', 'Model', true);
     }
 
     /**
-     * Returns true if fields are required
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
+     * Renders the view helper
      *
      * @return bool
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): bool
     {
         // Gets the arguments
-        $extension = $arguments['extension'];
-        $model = $arguments['model'];
+        $extension = $this->arguments['extension'];
+        $model = $this->arguments['model'];
 
         if (is_array($extension['forms'])) {
             foreach ($extension['forms'] as $form) {

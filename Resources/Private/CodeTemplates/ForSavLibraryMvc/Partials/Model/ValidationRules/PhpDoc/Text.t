@@ -1,1 +1,1 @@
-@TYPO3\CMS\Extbase\Annotation\Validate("Text")
+#[Validate(validator: 'Text')]

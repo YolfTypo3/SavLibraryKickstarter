@@ -1,0 +1,29 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
+<f:alias map="{
+    extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    pluginSignature:  '{extension.general.1.extensionKey->sav:format.upperCamel()->sav:format.toLower()}_{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()->sav:format.toLower()}',    }">
+mod.wizards {!
+    newContentElement.wizardItems {!
+        plugins {!
+            elements {!
+                {extension.general.1.extensionKey} {!
+                	<f:if condition="{extension.general.1.addWizardPluginIcon}">
+                	<f:then>
+                    iconIdentifier = tx-{extensionName->sav:format.toLower()}-wizard
+                    </f:then>
+                    <f:else>
+                    iconIdentifier = tx-{extensionName->sav:format.toLower()}-svgicon
+                    </f:else>
+                    </f:if>
+                    title = {extension.emconf.1.title}
+                    description = {extension.emconf.1.description}
+                    tt_content_defValues {!
+                        CType = {pluginSignature}
+                    }
+                }
+            }
+        }
+    }
+}
+</f:alias>
+</sav:utility.removeEmptyLines>

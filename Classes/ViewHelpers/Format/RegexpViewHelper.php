@@ -17,9 +17,7 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Format;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * A view helper for transforming a string to lower case.
@@ -27,15 +25,15 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *
  * @package SavLibraryKickstarter
  */
-class RegexpViewHelper extends AbstractViewHelper
+final class RegexpViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+    
     /**
      * Initializes arguments.
      *
      * return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('value', 'string', 'Value to convert', false, null);
         $this->registerArgument('pattern', 'string', 'Pattern', true);
@@ -43,23 +41,19 @@ class RegexpViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return string 
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string 
     {
         // Gets the arguments
-        $value = $arguments['value'];
-        $pattern = $arguments['pattern'];
-        $replacement = $arguments['replacement'];
+        $value = $this->arguments['value'];
+        $pattern = $this->arguments['pattern'];
+        $replacement = $this->arguments['replacement'];
 
         if ($value === null) {
-            $value = $renderChildrenClosure() ?? '';
+            $value = $this->renderChildren() ?? '';
         }
 
         return preg_replace($pattern, $replacement, $value);

@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines>
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines>
 <f:if condition="{field.conf_varchar} == 1">
 <f:then>
 {fieldName} varchar(255) DEFAULT '<f:if condition="{field.conf_default} != ''">{field.conf_default}</f:if>' NOT NULL,

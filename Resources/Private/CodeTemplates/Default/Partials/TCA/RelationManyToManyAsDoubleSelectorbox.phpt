@@ -1,3 +1,4 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 'config' => [
     <f:alias map="{where:{
         all: 'AND 1',
@@ -10,11 +11,11 @@
     <f:if condition="{field.conf_rel_table} == '_CUSTOM'">
         <f:then>
     'foreign_table' => '{field.conf_custom_table_name}',
-    'foreign_table_where' => '{where->sav:utility.getItem(key:field.conf_rel_type)}{f:if(condition:newTable.localization, then:' AND {field.conf_custom_table_name}.sys_language_uid IN (-1,0)')} {sav:builder.orderByClauseForRelationTable(arguments:extension, tableName:field.conf_rel_table, mvc:mvc)}',
+    'foreign_table_where' => '{where->sav:utility.getItem(key:field.conf_rel_type)}{f:if(condition:newTable.localization, then:' AND {field.conf_custom_table_name}.sys_language_uid IN (-1,0)')} {sav:builder.orderByClauseForRelationTable(arguments:extension, tableName:field.conf_rel_table, isMvc:isMvc)}',
         </f:then>
         <f:else>
     'foreign_table' => '{field.conf_rel_table}',
-    'foreign_table_where' => '{where->sav:utility.getItem(key:field.conf_rel_type)}{f:if(condition:newTable.localization, then:' AND {field.conf_rel_table}.sys_language_uid IN (-1,0)')} {sav:builder.orderByClauseForRelationTable(arguments:extension, tableName:field.conf_rel_table, mvc:mvc)}',
+    'foreign_table_where' => '{where->sav:utility.getItem(key:field.conf_rel_type)}{f:if(condition:newTable.localization, then:' AND {field.conf_rel_table}.sys_language_uid IN (-1,0)')} {sav:builder.orderByClauseForRelationTable(arguments:extension, tableName:field.conf_rel_table, isMvc:isMvc)}',
         </f:else>
     </f:if>
     'size' => {f:if(condition:field.conf_relations_selsize, then:field.conf_relations_selsize, else:1)},

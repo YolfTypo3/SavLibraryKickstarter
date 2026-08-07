@@ -1,13 +1,15 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <?php
-
+!
+declare(strict_types=1);
+!
 <f:alias map="{
     vendorName:     '{extension.general.1.vendorName}',
     extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
     extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:format.removeUnderscore()}',
     controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
-!
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -23,8 +25,7 @@
 !
 namespace {vendorName}\{extensionName}\Controller;
 !
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+use TYPO3\CMS\Core\Attribute\AsAllowedCallable;
 use YolfTypo3\SavLibraryPlus\Controller\Controller;
 !
 /**
@@ -33,7 +34,7 @@ use YolfTypo3\SavLibraryPlus\Controller\Controller;
  * @author {extension.emconf.1.author} <{extension.emconf.1.author_email}>
  * @package {extension.general.1.extensionKey}
  */
-class {extensionName}Controller extends AbstractPlugin 
+final class {extensionName}Controller extends Controller
 {
 	/**
 	 * PrefixId
@@ -45,7 +46,7 @@ class {extensionName}Controller extends AbstractPlugin
 	 * Extension key
 	 * @var string
 	 */
-	public $extKey = '{extension.general.1.extensionKey}';
+	public $extensionKey = '{extension.general.1.extensionKey}';
 !	
 	/**
 	 * The main function
@@ -55,27 +56,16 @@ class {extensionName}Controller extends AbstractPlugin
 	 *
 	 * @return string the plugin content
 	 */            
-	public function main(string $content, array $configuration) : string
-	{
-	  // Creates the SavLibraryPlus controller
-	  $controller = GeneralUtility::makeInstance(Controller::class);
+	#[AsAllowedCallable]
+	public function main(string $content, array $configuration): string
+	{!
+		// Sets the debug variable. Use debug ONLY for development.
+		$this->setDebug({f:if(condition:extension.general.1.debug, then:extension.general.1.debug, else:0)});
 !
-	  // Gets the extension configuration manager
-	  $extensionConfigurationManager = $controller->getExtensionConfigurationManager();
-!
-	  // Injects the extension in the extension configuration manager
-	  $extensionConfigurationManager->injectExtension($this);
-!
-	  // Injects the typoScript configuration in the extension configuration manager
-	  $extensionConfigurationManager->injectTypoScriptConfiguration($configuration);
-!
-	  // Sets the debug variable. Use debug ONLY for development
-	  $controller->setDebug({f:if(condition:extension.general.1.debug, then:extension.general.1.debug, else:0)});
-!
-	  // Renders the form
-	  $out = $controller->render();
+		// Renders the form
+		$out = $this->render($configuration);      
 !	          
-	  return $out;
+		return $out;
 	}
 }
 </f:alias>

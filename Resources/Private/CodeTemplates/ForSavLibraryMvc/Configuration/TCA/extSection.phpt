@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 'EXT' => [
     '{extension.general.1.extensionKey}' => [
         'ctrl' => [
@@ -20,7 +20,7 @@
                 </f:if> 
 
                 <f:if condition="{tableType} == 'existing' && {field.type} != 'ShowOnly'">
-                'tableFieldName' => ['{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}' => '{field.fieldname}'],
+                'tableFieldName' => ['{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey,isMvc:false)}' => '{field.fieldname}'],
                 </f:if>
                 <f:if condition="{field.conf_render_type} && {field.type} =='ShowOnly'" >
                 'renderType' => '{field.conf_render_type}',

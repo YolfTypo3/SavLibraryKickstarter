@@ -9,12 +9,8 @@ Users Manual
 Installation
 ============
 
-- Download the extension `SAV Library Kickstarter 
-  <https://extensions.typo3.org/extension/sav_library_kickstarter>`_ and install it.
-
-.. warning::
-
-   - Do not forget to include the SAV Library Kickstarter static template.
+- Install the extension `SAV Library Kickstarter 
+  <https://extensions.typo3.org/extension/sav_library_kickstarter>`_ .
 
 Creating an Extension
 =====================
@@ -31,6 +27,5 @@ Table of Contents
 
    KickstarterMenu/Index
    UpgradingPreviouslyGeneratedExtensions/Index
-   CopyingAnExtension/Index
    ManagingExtensionVersions/Index
    

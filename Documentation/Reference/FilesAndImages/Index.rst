@@ -11,9 +11,7 @@ Files and Images
 Property                                                Data type   Default      Plus MVC
 ======================================================= =========== ============ ==== ====
 :ref:`filesAndImages.addIcon`                           Boolean     0            Yes  Yes
-:ref:`filesAndImages.addLinkInEditMode`                 Boolean     0            Yes  No
-:ref:`filesAndImages.addToUploadFolder`                 String      None         Yes  No
-:ref:`filesAndImages.addToUploadFolderFromField`        Field name  None         Yes  No
+:ref:`filesAndImages.addToUploadFolder`                 String      None         Yes  Yes
 :ref:`filesAndImages.alt`                               String      None         Yes  Yes
 :ref:`filesAndImages.default`                           String      None         Yes  Yes
 :ref:`filesAndImages.fieldAlt`                          Field name  None         Yes  Yes
@@ -50,26 +48,6 @@ addIcon
         0
 
 
-.. _filesAndImages.addLinkInEditMode:
-
-addLinkInEditMode
-=================
-
-.. container:: table-row
-
-    Property 
-        addLinkInEditMode
-
-    Data type
-        Boolean
-        
-    Description
-        A hyperlink to the file will be added in the edit mode.
-
-    Default
-        0
-
-
 .. _filesAndImages.addToUploadFolder:
 
 addToUploadFolder
@@ -85,37 +63,6 @@ addToUploadFolder
 
     Description
         Adds a subpath to the UploadFolder path.
-
-
-
-
-.. _filesAndImages.addToUploadFolderFromField:
-
-addToUploadFolderFromField
-==========================
-
-.. container:: table-row
-
-    Property 
-        addToUploadFolderFromField
-
-    Data type
-        Field name
-
-    Description
-        Adds the content of the field whose name is given by ``field_name`` to
-        the uploadFolder attribute. This information is separated with an
-        underscore.
-
-        Example: if the ``field_name`` is ``my_field`` and its contents is ``123``,
-        then
-
-        ::
-
-            AddToUploadFolderFromField = my_field;
-
-        will add ``_123`` to the uploadFolder name.
-
 
 
 

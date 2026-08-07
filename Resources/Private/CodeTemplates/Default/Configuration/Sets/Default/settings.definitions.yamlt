@@ -1,0 +1,49 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
+
+<f:alias map="{
+
+	extensionNameUpperCamel: '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    extensionNameLowerCamel: '{extension.general.1.extensionKey->sav:format.lowerCamel()}'
+}">
+
+categories:
+  {extensionNameUpperCamel}:
+    label: 'SavBasicExample0'
+  {extensionNameUpperCamel}.templates:
+    label: 'Templates'
+    parent: {extensionNameUpperCamel}
+  {extensionNameUpperCamel}.pages:
+    label: 'Pages'
+    parent: {extensionNameUpperCamel}
+!
+settings:
+!
+  {extensionNameLowerCamel}.templateRootPath:
+    label: 'Templates'
+    category: SavBasicExample0.templates
+    description: 'Path to template root'
+    type: string
+    default: 'EXT:{extension.general.1.extensionKey}/Resources/Private/Templates/'
+!
+  {extensionNameLowerCamel}.partialRootPath:
+    label: 'Partials'
+    category: {extensionNameUpperCamel}.templates
+    description: 'Path to partial root'
+    type: string
+    default: 'EXT:{extension.general.1.extensionKey}/Resources/Private/Partials/'
+!
+  {extensionNameLowerCamel}.layoutRootPath:
+    label: 'Layouts'
+    category: {extensionNameUpperCamel}.templates
+    description: 'Path to layout root'
+    type: string
+    default: 'EXT:{extension.general.1.extensionKey}/Resources/Private/Layouts/'
+!
+  {extensionNameLowerCamel}.storagePid:
+    label: 'Default storage PID'
+    category: {extensionNameUpperCamel}.pages
+    description: 'Folder that stores all reccords'
+    type: int
+    default: 0
+</f:alias>
+</sav:utility.removeEmptyLines>

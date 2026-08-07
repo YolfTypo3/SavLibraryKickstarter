@@ -1,4 +1,4 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 <f:variable name="tableType" value="existing" />
 
 <?php
@@ -6,10 +6,10 @@
 $temporaryColumns = [
     <f:for each="{table.fields}" as="field">
     <f:if condition="{field.type} != 'ShowOnly'">
-    '{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}' => [
-        'exclude' => 1,
-        'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}',
-        <sav:utility.indent count="8"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{field:field, model:'{model}_{sav:builder.tableName(shortName:0, extensionKey:extension.general.1.extensionKey)}', extension:extension}" /></sav:utility.indent>
+    '{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey,isMvc:false)}' => [
+        'exclude' => true,
+        'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey,isMvc:false)}',
+        <sav:utility.indent count="8"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{field:field, model:'{model}_{sav:builder.tableName(shortName:0, extensionKey:extension.general.1.extensionKey,isMvc:false)}', extension:extension}" /></sav:utility.indent>
     ],
     </f:if>
     </f:for>
@@ -23,6 +23,6 @@ $GLOBALS['TCA']['{model}']['ctrl'] = array_merge($GLOBALS['TCA']['{model}']['ctr
 </f:if>
 !
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('{model}', $temporaryColumns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('{model}','<f:for each="{table.fields}" as="field"><f:if condition="{field.type} != 'ShowOnly'">, {sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}<f:if condition="{field.type} == 'RichTextEditor'">;;;richtext[]:rte_transform[mode=ts]</f:if></f:if></f:for>');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('{model}','<f:for each="{table.fields}" as="field"><f:if condition="{field.type} != 'ShowOnly'">, {sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey,isMvc:false)}<f:if condition="{field.type} == 'RichTextEditor'">;;;richtext[]:rte_transform[mode=ts]</f:if></f:if></f:for>');
 
 </sav:utility.removeEmptyLines></f:format.raw>

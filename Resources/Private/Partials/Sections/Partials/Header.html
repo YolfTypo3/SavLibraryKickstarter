@@ -1,6 +1,5 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
-
 <div class="header">
 	<div class="logo">
 		<f:translate key="kickstarter.{section}SectionTitle" />
@@ -18,8 +17,8 @@
 				bs-content:'{f:translate(key:\'kickstarter.saving\')}'
 			}"
 			value="{f:translate(key:'kickstarter.save')}">
-			<f:image src="{sav:be.getIcon(identifier:'actions-save')}"
-				alt="{f:translate(key:'kickstarter.save')}"
+			<core:icon 
+				identifier="actions-save"
 				title="{f:translate(key:'kickstarter.save')}" />
 		</f:form.button>
 
@@ -32,9 +31,8 @@
 				bs-content:'{f:translate(key:\'kickstarter.generating\')}'
 			}"
 			value="{f:translate(key:'kickstarter.generate')}">
-			<f:image class="installExtension"
-				src="{sav:be.getIcon(identifier:'actions-system-refresh')}"
-				alt="{f:translate(key:'kickstarter.generateExtension')}"
+			<core:icon
+				identifier="actions-system-refresh"
 				title="{f:translate(key:'kickstarter.generateExtension')}" />
 		</f:form.button>
 	</div>

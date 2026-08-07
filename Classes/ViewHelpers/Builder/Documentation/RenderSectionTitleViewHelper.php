@@ -18,8 +18,6 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Builder\Documentation;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 
 /**
  * A view helper for rendering the type to build the documentation.
@@ -37,37 +35,33 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderS
  *
  * @package SavLibraryKickstarter
  */
-class RenderSectionTitleViewHelper extends AbstractViewHelper
+final  class RenderSectionTitleViewHelper extends AbstractViewHelper
 {
-    use CompileWithContentArgumentAndRenderStatic;
 
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('title', 'string', 'Title of teh section', false, null);
         $this->registerArgument('level', 'integer', 'level of the section', false, 0);
     }
     /**
-     * Renders the viewhelper
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
      * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
 
         // Gets the arguments
-        $title = $arguments['title'];
-        $level = $arguments['level'];
+        $title = $this->arguments['title'];
+        $level = $this->arguments['level'];
 
         if ($title === null) {
-            $title = $renderChildrenClosure();
+            $title = $this->renderChildren();
         }
 
         // Gets the title length

@@ -17,45 +17,40 @@ declare(strict_types=1);
 
 namespace YolfTypo3\SavLibraryKickstarter\ViewHelpers\Utility;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Indentation ViewHelper
  */
-class IndentViewHelper extends AbstractViewHelper
+final class IndentViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+
     /**
      * Initializes arguments.
      *
      * @return void
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('count', 'integer', 'Number of white space', true);
         $this->registerArgument('excludeFirstLine', 'boolean', 'If true the first line is kept as it', false, false);
     }
 
     /**
-     * Renders the item
+     * Renders the view helper
      *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return array the options array
+     * @return string
      */
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         // Gets the arguments
-        $count = $arguments['count'];
-        $excludeFirstLine = $arguments['excludeFirstLine'];
+        $count = $this->arguments['count'];
+        $excludeFirstLine = $this->arguments['excludeFirstLine'];
 
-        $childrenContent = $renderChildrenClosure();
+        $childrenContent = $this->renderChildren();
+
         if (!is_string($childrenContent)) {
-            return gettype($childrenContent);
+            return '';
         }
         $content = explode(chr(10), $childrenContent);
         $glue = chr(10) . str_repeat(' ', $count);

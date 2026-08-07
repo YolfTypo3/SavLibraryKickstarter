@@ -1,5 +1,16 @@
-<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
 'columns' => [
+    <f:if condition="{extension.general.1.compatibility} >= '11x'">
+    'cruser_id' => [
+        'exclude' => true,
+        'label' => 'cruser_id',
+        'config' => [
+            'type' => 'number',
+            'format' => 'decimal',
+            'default' => 0
+        ],
+    ],
+    </f:if>
     <f:if condition="{table.localization}">
     'sys_language_uid' => [
         'exclude' => true,
@@ -10,8 +21,14 @@
             'renderType' => 'selectSingle',
             'foreign_table' => 'sys_language',
             'items' => [
-                ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-                ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
+                [
+                	'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', 
+                	'value' => -1
+                ],
+                [
+                	'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 
+                	'value' => 0
+                ]
             ],
             'default' => 0,
             'fieldWizard' => [
@@ -31,7 +48,10 @@
             'type' => 'select',
             'renderType' => 'selectSingle',
             'items' => [
-                ['', 0]
+                [ 
+                	'label' => '', 
+                	'value' => 0
+                ]
             ],
             'foreign_table' => 'sys_file_collection',
             'foreign_table_where' => 'AND sys_file_collection.pid=###CURRENT_PID### AND sys_file_collection.sys_language_uid IN (-1,0)',
@@ -49,13 +69,13 @@
         'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.versionLabel',
         'config' => [
             'type'=>'none',
-            'cols' => 27
+            'size' => 27
         ]
     ],
     </f:if>
     <f:if condition="{table.add_hidden}">
     'hidden' => [
-        'exclude' => 1,
+        'exclude' => true,
         'label'  => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
         'config' => [
             'type'  => 'check',
@@ -92,16 +112,28 @@
     </f:if>
     <f:if condition="{table.add_access}">
     'fe_group' => [
-        'exclude' => 1,
+        'exclude' => true,
         'label'   => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
         'config'  => [
             'type'  => 'select',
             'renderType' => 'selectSingleBox',            
             'items' => [
-                ['', 0],
-                ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hide_at_login', -1],
-                ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.any_login', -2],
-                ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.usergroups', '--div--']
+                [
+                	'label' => '', 
+                	'value' => 0
+                ],
+                [
+                	'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hide_at_login',
+                	'value' => -1
+                ],
+                [
+                	'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.any_login', 
+                	'value' => -2
+                ],
+                [
+                	'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.usergroups', 
+                	'value' => '--div--'
+                ]
             ],
             'foreign_table' => 'fe_groups'
         ]
@@ -116,7 +148,7 @@
     </f:if>   
     <f:for each="{table.fields}" as="field">
     '{field.fieldname}' => [
-        'exclude' => 1,
+        'exclude' => true,
         'label'  => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:{model}.{field.fieldname}',
         <sav:utility.indent count="8"><f:render partial="Partials/TCA/{field.type}.phpt" arguments="{_all}" /></sav:utility.indent>
         <f:if condition="{field.displayCondition}">

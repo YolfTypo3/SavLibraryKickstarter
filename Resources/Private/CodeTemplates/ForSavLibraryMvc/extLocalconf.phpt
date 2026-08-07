@@ -1,16 +1,24 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <?php
+!
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+!
 defined('TYPO3') or die();
 !
 (function () {
-<f:for each="{extension.newTables}" as="table">
-<f:if condition="{table.save_and_new}">
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig('options.saveDocNew.{table.tablename}=1');
-</f:if>
-</f:for>
+<sav:file.saveContentToFile
+    content='<f:render partial="{sav:file.getTemplateFile(templateFilePath:\'Configuration/user.tsconfigt\', extension:extension)}" arguments="{extension:extension}" />'
+    extensionKey="{extension.general.1.extensionKey}"
+    fileName="user.tsconfig"
+    directory="Configuration"
+    doNotCreateIfFileExists="{true}"
+/>
 !
     // Configures the Dispatcher
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    ExtensionUtility::configurePlugin(
         '{extension.general.1.extensionKey->sav:format.upperCamel()}',
         '{extension.general.1.pluginName->sav:format.upperCamel()}',
         // Cachable controller actions      
@@ -25,7 +33,8 @@ defined('TYPO3') or die();
             <f:for each="{extension.forms}" as="form">
             \{extension.general.1.vendorName}\{extension.general.1.extensionKey->sav:format.upperCamel()}\Controller\{form->sav:utility.getItem(key:'title')->sav:format.upperCamel()}Controller::class => '{f:if(condition:form.listViewNotCached,then:'list,')}{f:if(condition:form.singleViewNotCached,then:'single,')}edit,save,delete,deleteInSubform,upInSubform,downInSubform,deleteFile,export,exportSubmit',
             </f:for>            
-        ]
+        ],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT        
     );
 <f:if condition="{extension.general.1.addWizardPluginIcon}">
 !
@@ -35,12 +44,12 @@ defined('TYPO3') or die();
     controllerName: '{extension.forms->sav:utility.getItem()->sav:utility.getItem(key:\'title\')->sav:format.upperCamel()}'
 }">
     // Registers the icon
-    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-        \TYPO3\CMS\Core\Imaging\IconRegistry::class
+    $iconRegistry = GeneralUtility::makeInstance(
+        IconRegistry::class
     );
     $iconRegistry->registerIcon(
         'ext-{extensionName->sav:format.toLower()}-wizard',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        SvgIconProvider::class,
         ['source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg']
     );
 </f:alias>

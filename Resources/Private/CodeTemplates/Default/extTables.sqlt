@@ -1,8 +1,8 @@
-<sav:utility.removeEmptyLines keepLine="!">
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<sav:utility.removeEmptyLines keepLine="!">
 <f:for each="{extension.newTables}" as="table" key="tableKey">
 <f:alias map="{
-  model:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:mvc)}',
-  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, mvc:0)}'
+  model:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:isMvc)}',
+  modelForMM:'{sav:builder.tableName(shortName:table.tablename, extensionKey:extension.general.1.extensionKey, isMvc:false)}'
 }">
 #
 # Table structure for table '{model}'
@@ -106,7 +106,7 @@ CREATE TABLE {modelForMM}_{field.fieldname}_mm (
 #
 CREATE TABLE {table.tablename} (
     <f:for each="{table.fields}" as="field">   
-    <f:variable name="fieldName">{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey)}</f:variable>
+    <f:variable name="fieldName">{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey,isMvc:false)}</f:variable>
     <f:render partial="Partials/SQL/{field.type}.sqlt" arguments="{_all}" /> 
     </f:for>
 );
@@ -115,9 +115,9 @@ CREATE TABLE {table.tablename} (
 <f:for each="{table.fields}" as="field">
 <f:if condition="{field.conf_relations_mm}">
 #
-# Table structure for table '{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model)}_mm'
+# Table structure for table '{sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model,isMvc:false)}_mm'
 #
-CREATE TABLE {sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model)}_mm (
+CREATE TABLE {sav:builder.tableName(shortName:field.fieldname, extensionKey:extension.general.1.extensionKey, prefix:model,isMvc:false)}_mm (
     uid_local int(11) unsigned DEFAULT '0' NOT NULL,
     uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
     tablenames varchar(30) DEFAULT '' NOT NULL,

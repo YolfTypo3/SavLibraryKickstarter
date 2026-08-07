@@ -33,14 +33,14 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
      *
      * @var string
      */
-    protected static $codeTemplatesDirectory = 'Resources/Private/CodeTemplates/ForSavLibraryBasic/';
+    protected static string $codeTemplatesDirectory = 'Resources/Private/CodeTemplates/ForSavLibraryBasic/';
 
     /**
      * Builds the extension.
      *
      * @return void
      */
-    public function buildExtension()
+    public function buildExtension(): void
     {
         // Checks if the extension can be built
         if (! $this->CanBuildExtension()) {
@@ -67,6 +67,8 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
 
         // Generates the Configuration files
         $this->buildConfigurationFlexform();
+        $this->buildConfigurationPageTsConfig();
+        $this->buildConfigurationSets();
         $this->buildConfigurationTca();
         $this->buildConfigurationTypoScript();
         $this->buildConfigurationServices();
@@ -85,6 +87,9 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
 
         // Generates the Domain repositories
         $this->buildDomainRepositories();
+        
+        // Generates the updates files
+        $this->buildUpdatesFiles();
 
         // Generates the Controller
         $this->buildController();
@@ -99,7 +104,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
      *
      * @return void
      */
-    protected function buildCssFile()
+    protected function buildCssFile(): void
     {
         // Generates the Resources/Public/Css directory
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Resources/Public/Css/');
@@ -115,7 +120,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
      *
      * @return void
      */
-    protected function buildConfigurationFlexform()
+    protected function buildConfigurationFlexform(): void
     {
         // Generates the Configuration/Flexforms directory
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/Flexforms/');
@@ -132,7 +137,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
      *
      * @return void
      */
-    protected function buildConfigurationTypoScript()
+    protected function buildConfigurationTypoScript(): void
     {
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/TypoScript/');
 
@@ -154,7 +159,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
      *
      * @return void
      */
-    protected function buildFluidDirectories()
+    protected function buildFluidDirectories(): void
     {
         // Generates the Resources/Private/Layouts directory
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Resources/Private/Layouts/');
@@ -168,13 +173,13 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
         // Generates the Controller templates directory
         $forms = $this->sectionManager->getItem('forms')->getItemsAsArray();
         $form = current($forms);
-        $controllerName = GeneralUtility::underscoredToUpperCamelCase($form['title']);
+        $controllerName = GeneralUtility::underscoredToUpperCamelCase($form['title'] ?? '');
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Resources/Private/Templates/' . $controllerName . '/');
 
         // Generates the template file if it does not exists
         $views = $this->sectionManager->getItem('views')->getItemsAsArray();
         $view = current($views);
-        $templateFileName = GeneralUtility::underscoredToUpperCamelCase($view['title']);
+        $templateFileName = GeneralUtility::underscoredToUpperCamelCase($view['title'] ?? '');
         if (! file_exists($this->extensionDirectory . 'Resources/Private/Templates/' . $controllerName . '/' . $templateFileName . '.html')) {
             $fileContents = $this->generateFile('Resources/Private/Templates/Template.htmlt');
             GeneralUtility::writeFile($this->extensionDirectory . 'Resources/Private/Templates/' . $controllerName . '/' . $templateFileName . '.html', $fileContents);
@@ -186,12 +191,12 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
      *
      * @return void
      */
-    protected function buildController()
+    protected function buildController(): void
     {
         // Gets the controller name
         $forms = $this->sectionManager->getItem('forms')->getItemsAsArray();
         $form = current($forms);
-        $controllerName = GeneralUtility::underscoredToUpperCamelCase($form['title']);
+        $controllerName = GeneralUtility::underscoredToUpperCamelCase($form['title'] ?? '');
 
         if (! file_exists($this->extensionDirectory . 'Classes/Controller/' . $controllerName . 'Controller.php')) {
             GeneralUtility::mkdir_deep($this->extensionDirectory . 'Classes/Controller/');
@@ -205,7 +210,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
      *
      * @return void
      */
-    protected function buildDomainModels()
+    protected function buildDomainModels(): void
     {
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Classes/Domain/Model/');
         $fileDirectory = $this->extensionDirectory . 'Classes/Domain/Model/';
@@ -221,7 +226,7 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
      *
      * @return void
      */
-    protected function buildDomainRepositories()
+    protected function buildDomainRepositories(): void
     {
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Classes/Domain/Repository/');
         $fileDirectory = $this->extensionDirectory . 'Classes/Domain/Repository/';

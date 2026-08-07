@@ -1,6 +1,7 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 
 <f:comment>Add the field Configuration</f:comment>
+
 <f:if condition="{selectedFieldKey}">
 	<f:alias
 		map="{field:'{sectionItem.fields->sav:utility.getItem(key:selectedFieldKey)}'}">
@@ -68,7 +69,15 @@
 			<f:comment>Special Configuration depending on the field type</f:comment>
 			<div class="configuration">
 				<f:render partial="Types/{field.type}Type.html"
-					arguments="{section:section, itemKey:itemKey, fieldKey:selectedFieldKey, field:field, extension:extension, mvc:mvc}" />
+					arguments="{_all}" />
+		
+			<f:comment>Add // @extensionScannerIgnoreLine</f:comment>
+			<f:form.checkbox id="extensionScannerIgnoreLine" class="checkbox"
+				name="{section}[fields][{selectedFieldKey}][extensionScannerIgnoreLine]" value="1"
+				checked="{field.extensionScannerIgnoreLine}" />
+			<label class="clearNone" for="extensionScannerIgnoreLine"><f:translate
+					key="kickstarter.{section}.extensionScannerIgnoreLine" /></label>
+						
 				<f:alias
 					map="{value:'{field.configuration->sav:utility.getItem(key:sectionItemViewKey)}'}">
 					<f:form.hidden class="hidden"

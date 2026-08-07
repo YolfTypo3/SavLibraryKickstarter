@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -52,7 +54,7 @@ class WhereClauseParser
     /**
      * @var array
      */
-    protected $markers;
+    protected array $markers;
 
     /**
      * Processes the where clause
@@ -91,8 +93,6 @@ class WhereClauseParser
         $matchesWhere = [];
         preg_match_all(self::WHERE_PATTERN, $clause, $matchesWhere);
 
-//         debug($matchesWhere, '$matchesWhere');
-
         $operands = [];
         foreach ($matchesWhere[0] as $matchKey => $match) {
 
@@ -103,14 +103,12 @@ class WhereClauseParser
                 $methodParameter = $this->markers[$matchesSpecialExpression['marker']];
                 $methodName = $matchesSpecialExpression['method'];
                 $clause = $matchesSpecialExpression['clause'];
-                $specialOperand = '($this->' . $methodName . '(\'' . $methodParameter . '\') ? ' . $this->analyzeWhereClause($clause) . ': null)';
-                 array_push($operands, $specialOperand);
+                $specialOperand = '($this->' . $methodName . '(\'' . $methodParameter . '\') ? ' . $this->analyzeWhereClause($clause) . ': $query->greaterThan(\'uid\', 0))';
+                array_push($operands, $specialOperand);
             } else {
                 // Splits the expression from the allowed operators
                 $matchesExpression = [];
                 preg_match_all(self::EXPRESSION_PATTERN, $expression, $matchesExpression);
-
-//                 debug($matchesExpression, '$matchesExpression');
 
                 // Gets the operator
                 $operator = $matchesExpression['operator'][0];
@@ -279,9 +277,9 @@ class WhereClauseParser
 
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('fe_groups')->createQueryBuilder();
         $queryBuilder->select('uid','title','subgroup')->from('fe_groups');
-        $queryResult = $queryBuilder->execute();
+        $queryResult = $queryBuilder->executeQuery();
 
-        while ($row = $queryResult->fetch()) {
+        while ($row = $queryResult->fetchAssociative()) {
             if (in_array($row['title'], $groups)) {
                 if (empty($row['subgroup'])) {
                     $groups = explode(',',$row['uid']);
@@ -297,7 +295,7 @@ class WhereClauseParser
                 }
             }
         }
-        // Removes the last comma and adds the fina part of the string
+        // Removes the last comma and adds the final part of the string
         $result = rtrim($result, ',') . '])';
 
         return $result;

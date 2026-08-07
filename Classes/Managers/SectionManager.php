@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -53,7 +55,7 @@ final class SectionManager extends \ArrayObject
      *            The item to add.
      * @return mixed
      */
-    public function addItem($item)
+    public function addItem($item): mixed
     {
         if (is_array($item)) {
             foreach ($item as $key => $value) {
@@ -77,7 +79,7 @@ final class SectionManager extends \ArrayObject
      *            The item to add.
      * @return int
      */
-    public function addEmptyItemAndGetKey()
+    public function addEmptyItemAndGetKey(): int
     {
         $this->ksort();
         $count = $this->count();
@@ -101,7 +103,7 @@ final class SectionManager extends \ArrayObject
      *            The key of the item.
      * @return mixed
      */
-    public function getItem($itemKey)
+    public function getItem($itemKey): mixed
     {
         return $this[$itemKey] ?? null;
     }
@@ -113,7 +115,7 @@ final class SectionManager extends \ArrayObject
      *            The key of the item.
      * @return mixed
      */
-    public function getItemAndSetToZeroIfNull($itemKey)
+    public function getItemAndSetToZeroIfNull($itemKey): mixed
     {
         $itemValue = $this->getItem($itemKey);
         if ($itemValue === null) {
@@ -152,7 +154,7 @@ final class SectionManager extends \ArrayObject
      *            The key of the item to delete
      * @return void
      */
-    public function deleteItem($itemKey)
+    public function deleteItem($itemKey): void
     {
         unset($this[$itemKey]);
     }
@@ -186,9 +188,10 @@ final class SectionManager extends \ArrayObject
      * @param mixed $itemValues
      *            The item values to replace
      * @param mixed $item
+     * 
      * @return void
      */
-    public function replace($itemValues, $item = null)
+    public function replace($itemValues, $item = null): void
     {
         if ($item === null) {
             $item = $this;
@@ -215,9 +218,10 @@ final class SectionManager extends \ArrayObject
      *
      * @param mixed $itemValues
      *            The item values to replace
+     *            
      * @return void
      */
-    public function replaceAll($itemValues)
+    public function replaceAll($itemValues): void
     {
         foreach ($this as $key => $field) {
             $this->replace($itemValues, $this[$key]);
@@ -230,9 +234,10 @@ final class SectionManager extends \ArrayObject
      * @param mixed $itemValues
      *            The item values to replace
      * @param mixed $item
+     * 
      * @return void
      */
-    public function deleteAndReplace($itemValues, $item = null)
+    public function deleteAndReplace($itemValues, $item = null): void
     {
         if ($item === null) {
             $item = $this;
@@ -250,9 +255,10 @@ final class SectionManager extends \ArrayObject
      *            The search key
      * @param mixed $value
      *            Value to find
+     *            
      * @return mixed
      */
-    public function find($searchKey, $value)
+    public function find($searchKey, $value): mixed
     {
         foreach ($this as $keyField => $field) {
             $fieldValue = $this->searchFieldValue($field, $searchKey);
@@ -268,6 +274,7 @@ final class SectionManager extends \ArrayObject
      *
      * @param mixed $searchKey
      *            The search key
+     *            
      * @return SectionManager
      */
     public function sortBy($searchKey): SectionManager
@@ -315,7 +322,7 @@ final class SectionManager extends \ArrayObject
      *
      * @return mixed The searched item
      */
-    protected function searchFieldValue($field, $searchKey)
+    protected function searchFieldValue($field, $searchKey): mixed
     {
         if (is_array($searchKey)) {
             $fieldValue = $field;
@@ -343,7 +350,7 @@ final class SectionManager extends \ArrayObject
      *
      * @return void
      */
-    public function reIndex($searchKey)
+    public function reIndex($searchKey): void
     {
         $this->sortBy($searchKey);
 
@@ -372,7 +379,7 @@ final class SectionManager extends \ArrayObject
      *
      * @return void
      */
-    public function reIndexKeys()
+    public function reIndexKeys(): void
     {
         // Sorts the items
         $this->ksort();
@@ -391,9 +398,10 @@ final class SectionManager extends \ArrayObject
      *            The function to apply
      * @param \ArrayObject $item
      *            The item or sub-item.
-     * @return void
+     *            
+     * @return mixed
      */
-    public function walkItem($functionName, $arguments = null, $itemToWalk = null)
+    public function walkItem($functionName, $arguments = null, $itemToWalk = null): mixed
     {
 
         // Checks if the function is callable

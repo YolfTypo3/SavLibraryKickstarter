@@ -1,0 +1,65 @@
+module.tx_savlibrarykickstarter {
+    view {
+        # cat=plugin.tx_savlibrarykickstarter/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:sav_library_kickstarter/Resources/Private/Templates/
+        # cat=plugin.tx_savlibrarykickstarter/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:sav_library_kickstarter/Resources/Private/Partials/
+        # cat=plugin.tx_savlibrarykickstarter/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:sav_library_kickstarter/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_savlibrarykickstarter//a; type=string; label=Default storage PID
+        storagePid =
+    }
+    settings {
+        packagesDirectory = packages
+        documentationDirectory = documentation
+        versions {           
+        	13x {
+        		compatibility = TYPO3 13x
+        		dependencies {
+        			emconf {
+        				typo3 = 13.4.0-13.4.99
+        				sav_library_plus = 13.4.0-13.4.99
+        				sav_library_mvc = 13.4.0-13.4.99
+        			}
+        			composer {
+        				typo3 = ^13.4
+        				sav_library_plus = ^13.4
+        				sav_library_mvc = ^13.4
+        			}
+        		}	
+        	}  
+        	13x-14x {
+        		compatibility = TYPO3 13x-14x
+        		dependencies {
+        			emconf {
+        				typo3 = 13.4.0-14.3.99
+        				sav_library_plus = 14.3.0-14.3.99
+        				sav_library_mvc = 14.3.0-14.3.99
+        			}
+        			composer {
+        				typo3 = ^13.4|^14.3
+        				sav_library_plus = ^13.4|^14.3
+        				sav_library_mvc = ^13.4|^14.3
+        			}
+        		}	
+        	}
+        	14x {
+        		compatibility = TYPO3 14x
+        		dependencies {
+        			emconf {
+        				typo3 = 14.3.0-14.3.99
+        				sav_library_plus = 14.3.0-14.3.99
+        				sav_library_mvc = 14.3.0-14.3.99
+        			}
+        			composer {
+        				typo3 = ^14.3
+        				sav_library_plus = ^14.3
+        				sav_library_mvc = ^14.3
+        			}
+        		}	
+        	}               
+        }        	                             
+    }
+}

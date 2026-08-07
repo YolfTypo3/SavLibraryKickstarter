@@ -1,3 +1,4 @@
+{namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}
 <f:comment>Creates Resources/Public/Css/ExtensionName.css</f:comment>
 <sav:file.copyFile
     source="Resources/Private/CodeTemplates/ForSavLibraryBasic/Resources/Public/Css/Default.css"

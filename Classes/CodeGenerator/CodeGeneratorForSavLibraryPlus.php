@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace YolfTypo3\SavLibraryKickstarter\CodeGenerator;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use YolfTypo3\SavLibraryKickstarter\Managers\ConfigurationManager;
 
 /**
  * This class generates the code for a frontend plugin.
@@ -36,21 +35,14 @@ class CodeGeneratorForSavLibraryPlus extends PreprocessingForCodeGenerator
      *
      * @var string
      */
-    protected static $codeTemplatesDirectory = 'Resources/Private/CodeTemplates/ForSavLibraryPlus/';
-
-    /**
-     * The compatibility flag
-     *
-     * @var integer
-     */
-    protected $compatibility = ConfigurationManager::COMPATIBILITY_TYPO3_DEFAULT;
+    protected static string $codeTemplatesDirectory = 'Resources/Private/CodeTemplates/ForSavLibraryPlus/';
 
     /**
      * Builds the extension.
      *
      * @return void
      */
-    public function buildExtension()
+    public function buildExtension(): void
     {
         // Checks if the extension can be built
         if (! $this->CanBuildExtension()) {
@@ -81,7 +73,10 @@ class CodeGeneratorForSavLibraryPlus extends PreprocessingForCodeGenerator
         // Generates the Configuration files
         $this->buildConfigurationFlexform();
         $this->buildConfigurationLibrary();
+        $this->buildConfigurationPageTsConfig();
         $this->buildConfigurationTca();
+        $this->buildConfigurationServices();
+        $this->buildRouteEnhancer();
 
         // Generates Documentation files
         $this->buildDocumentation();
@@ -89,6 +84,9 @@ class CodeGeneratorForSavLibraryPlus extends PreprocessingForCodeGenerator
         // Generates the language files
         $this->buildLanguageFiles();
 
+        // Generates the updates files
+        $this->buildUpdatesFiles();
+        
         // Generates the Controller
         $this->buildController();
     }
@@ -102,7 +100,7 @@ class CodeGeneratorForSavLibraryPlus extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildExtConfTemplate()
+    protected function buildExtConfTemplate(): void
     {
         // Generates ext_conf_template.txt
         $fileContents = $this->generateFile('extConfTemplate.txtt');
@@ -114,7 +112,7 @@ class CodeGeneratorForSavLibraryPlus extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildConfigurationLibrary()
+    protected function buildConfigurationLibrary(): void
     {
         // Generates the Configuration/Library directory
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/Library/');
@@ -125,11 +123,26 @@ class CodeGeneratorForSavLibraryPlus extends PreprocessingForCodeGenerator
     }
 
     /**
+     * Builds the route enhancer file.
+     *
+     * @return void
+     */
+    protected function buildRouteEnhancer(): void
+    {
+        // Generates the Configuration/Routes directory
+        GeneralUtility::mkdir_deep($this->extensionDirectory . 'Configuration/Routes/');
+        
+        // Generates the file
+        $fileContents = $this->generateFile('Configuration/Routes/Default.yamlt');
+        GeneralUtility::writeFile($this->extensionDirectory . 'Configuration/Routes/Default.yaml', $fileContents); 
+    }
+    
+    /**
      * Builds the documentation.
      *
      * @return void
      */
-    protected function buildDocumentation()
+    protected function buildDocumentation(): void
     {
         // Generates the parent documentation
         parent::buildDocumentation();
@@ -173,7 +186,7 @@ class CodeGeneratorForSavLibraryPlus extends PreprocessingForCodeGenerator
      *
      * @return void
      */
-    protected function buildController()
+    protected function buildController(): void
     {
         GeneralUtility::mkdir_deep($this->extensionDirectory . 'Classes/Controller/');
         $fileContents = $this->generateFile('Classes/Controller/Controller.phpt');
