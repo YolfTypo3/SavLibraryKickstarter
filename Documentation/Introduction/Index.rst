@@ -66,7 +66,7 @@ Code Generation for the SAV Library Mvc
 ---------------------------------------
 
 The `SAV Library Mvc Extension <https://extensions.typo3.org/extension/sav_library_mvc>`_ is the new 
-development of the SAV Library which fully relies on the MVC approach
+development of the SAV Library that fully relies on the MVC approach
 with extbase and fluid. The configuration parameters to develop extension **without any
 PHP coding** are the same as in SAV Library Plus.
 
