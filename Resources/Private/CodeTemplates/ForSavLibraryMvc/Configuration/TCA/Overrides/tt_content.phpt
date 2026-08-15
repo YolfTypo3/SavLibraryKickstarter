@@ -78,7 +78,8 @@ if ($typo3Version->getMajorVersion() == 13) {
 		'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
 		null,
 		'plugins',
-		'{extension.general.1.description}'
+		'{extension.general.1.description}',
+		'FILE:EXT:{extension.general.1.extensionKey}/Configuration/Flexforms/ExtensionFlexform.xml'	
 	);
 }
 </f:case>
