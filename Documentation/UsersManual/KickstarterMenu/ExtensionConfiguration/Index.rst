@@ -94,10 +94,6 @@ This item opens the form for the configuration of the extension.
   added (only for ``Plus`` type. For ``Basic`` and ``Mvc`` TypoScript configuration files are
   always added).
 
-- **Add a wizard plugin icon**: if selected, a wizard icon will be added to the plugin.
-  The wizard icon file must be named ``ExtensionWizard.svg`` and 
-  put in the directory ``Resources/Public/Icons``.
-
 - **Keep the file ext_localconf.php if it exists**: set this option 
   if you ``manually`` modify the ``ext_localconf.php`` file. 
   It will prevent the SAV Library Kickstarter to rebuild it.

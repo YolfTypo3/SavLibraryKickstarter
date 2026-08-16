@@ -13,8 +13,15 @@
         source="Resources/Public/Icons/{iconName}"
         destinationExtension="{extension.general.1.extensionKey}"
         destination="Resources/Public/Icons/Extension.svg"
+        doNotCopyIfDestinationExists="1"
     />
 
+    <sav:file.copyFile
+        source="Resources/Public/Icons/{iconName}"
+        destinationExtension="{extension.general.1.extensionKey}"
+        destination="Resources/Public/Icons/ExtensionWizard.svg"
+        doNotCopyIfDestinationExists="1"
+    />
 </f:alias>
 
 <f:comment>Creates the files icons</f:comment>

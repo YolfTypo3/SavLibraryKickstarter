@@ -67,7 +67,6 @@ class CodeGeneratorForSavLibraryBasic extends AbstractCodeGenerator
 
         // Generates the Configuration files
         $this->buildConfigurationFlexform();
-        $this->buildConfigurationPageTsConfig();
         $this->buildConfigurationSets();
         $this->buildConfigurationTca();
         $this->buildConfigurationTypoScript();

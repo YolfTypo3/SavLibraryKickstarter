@@ -12,21 +12,10 @@ declare(strict_types=1);
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 !
 return [
-    // Icon identifier
-    'tx-{extensionNameWithoutUnderscore}-svgicon' => [
-        // Icon provider class
+    'ext-{extensionNameWithoutUnderscore}-wizard' => [
         'provider' => SvgIconProvider::class,
-        // The source SVG for the SvgIconProvider
-        'source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/Extension.svg',
-    ],
-<f:if condition="{extension.general.1.addWizardPluginIcon}">
-	'tx-{extensionNameWithoutUnderscore}-wizard' => [
-	    // Icon provider class
-        'provider' => SvgIconProvider::class,
-        // The source SVG for the SvgIconProvider
-        'source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg'
-    ],
-</f:if>    
+        'source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg',
+    ],  
 ];
 </f:alias>
 </sav:utility.removeEmptyLines>

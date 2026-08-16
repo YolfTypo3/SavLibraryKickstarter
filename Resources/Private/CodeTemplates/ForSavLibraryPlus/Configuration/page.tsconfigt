@@ -7,14 +7,7 @@ mod.wizards {!
         plugins {!
             elements {!
                 {extension.general.1.extensionKey} {!
-                	<f:if condition="{extension.general.1.addWizardPluginIcon}">
-                	<f:then>
-                    iconIdentifier = tx-{extensionName->sav:format.toLower()}-wizard
-                    </f:then>
-                    <f:else>
-                    iconIdentifier = tx-{extensionName->sav:format.toLower()}-svgicon
-                    </f:else>
-                    </f:if>
+                    iconIdentifier = ext-{extensionName->sav:format.toLower()}-wizard
                     title = {extension.emconf.1.title}
                     description = {extension.emconf.1.description}
                     tt_content_defValues {!

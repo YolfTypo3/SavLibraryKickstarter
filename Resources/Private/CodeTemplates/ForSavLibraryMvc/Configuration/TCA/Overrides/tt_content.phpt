@@ -13,6 +13,7 @@ defined('TYPO3') or die();
 !
 <f:alias map="{
     extensionName:  '{extension.general.1.extensionKey->sav:format.upperCamel()}',
+    extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:format.removeUnderscore()}',
     pluginName: '{extension.general.1.pluginName->sav:format.upperCamel()}'
 }">
 <f:switch expression="{extension.general.1.compatibility}">
@@ -24,9 +25,9 @@ $pluginSignature = ExtensionUtility::registerPlugin(
     '{extensionName}',
 	'{pluginName}',
 	'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
-	null,
+	'ext-{extensionNameWithoutUnderscore}-wizard',
 	'plugins',
-	'{extension.general.1.description}'
+	'{extension.emconf.1.description->sav:format.addslashes()}',
 );
 !
 // Activates the display of the FlexForm field
@@ -52,9 +53,9 @@ if ($typo3Version->getMajorVersion() == 13) {
 	    '{extensionName}',
 		'{pluginName}',
 		'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
-		null,
+		'ext-{extensionNameWithoutUnderscore}-wizard',
 		'plugins',
-		'{extension.general.1.description}'
+		'{extension.emconf.1.description->sav:format.addslashes()}',
 	);
 !
 	// Activates the display of the FlexForm field
@@ -76,9 +77,9 @@ if ($typo3Version->getMajorVersion() == 13) {
 	    '{extensionName}',
 		'{pluginName}',
 		'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
-		null,
+		'ext-{extensionNameWithoutUnderscore}-wizard',
 		'plugins',
-		'{extension.general.1.description}',
+		'{extension.emconf.1.description->sav:format.addslashes()}',
 		'FILE:EXT:{extension.general.1.extensionKey}/Configuration/Flexforms/ExtensionFlexform.xml'	
 	);
 }
@@ -90,9 +91,9 @@ $pluginSignature = ExtensionUtility::registerPlugin(
     '{extensionName}',
 	'{pluginName}',
 	'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
-	null,
+	'ext-{extensionNameWithoutUnderscore}-wizard',
 	'plugins',
-	'{extension.general.1.description}',
+	'{extension.emconf.1.description->sav:format.addslashes()}',
 	'FILE:EXT:{extension.general.1.extensionKey}/Configuration/Flexforms/ExtensionFlexform.xml'
 );
 </f:case>

@@ -35,23 +35,6 @@ defined('TYPO3') or die();
 		'tt_content.{extension.general.1.extensionKey}_pi1 < plugin.tx_{extensionNameWithoutUnderscore}_pi1'
 	);	    
 
-<f:if condition="{extension.general.1.addWizardPluginIcon}">
-!
-	// Registers the icon
-	$iconRegistry = GeneralUtility::makeInstance(
-   		IconRegistry::class
-	);
-	$iconRegistry->registerIcon(
-   		'ext-{extensionName->sav:format.toLower()}-wizard',
-		SvgIconProvider::class,
-		['source' => 'EXT:{extension.general.1.extensionKey}/Resources/Public/Icons/ExtensionWizard.svg']
-	);
-!
-	// Adds the page TSConfig for the Wizard Icon
-	ExtensionUtility::addPageTSConfig(
-    	'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:{extension.general.1.extensionKey}/Configuration/TsConfig/Page/Mod/Wizards/NewContentElement.tsconfig">'
-	);	
-</f:if>
 })();
 </f:alias>
 </sav:utility.removeEmptyLines>

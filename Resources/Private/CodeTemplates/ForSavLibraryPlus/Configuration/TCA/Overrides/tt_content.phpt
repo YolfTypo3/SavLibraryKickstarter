@@ -1,4 +1,7 @@
 {namespace sav=YolfTypo3\SavLibraryKickstarter\ViewHelpers}<f:format.raw><sav:utility.removeEmptyLines keepLine="!">
+<f:alias map="{
+    extensionNameWithoutUnderscore: '{extension.general.1.extensionKey->sav:format.removeUnderscore()}'
+}">
 <?php
 !
 declare(strict_types=1);
@@ -19,8 +22,10 @@ defined('TYPO3') or die();
 // Adds the plugin
 ExtensionManagementUtility::addPlugin(
     [
-        'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
-        '{extension.general.1.extensionKey}_pi1',
+        'label' => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
+        'value' => '{extension.general.1.extensionKey}_pi1',
+        'icon'	=> 'ext-{extensionNameWithoutUnderscore}-wizard',
+        'group'	=> 'plugins'
     ],
     'CType',
     '{extension.general.1.extensionKey}'
@@ -47,8 +52,10 @@ if ($typo3Version->getMajorVersion() == 13) {
 	// Adds the plugin
 	ExtensionManagementUtility::addPlugin(
 	    [
-	        'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
-	        '{extension.general.1.extensionKey}_pi1',
+	        'label' => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
+	        'value' => '{extension.general.1.extensionKey}_pi1',
+	        'icon'	=> 'ext-{extensionNameWithoutUnderscore}-wizard',
+	        'group'	=> 'plugins'
 	    ],
 	    'CType',
 	    '{extension.general.1.extensionKey}'
@@ -74,8 +81,8 @@ if ($typo3Version->getMajorVersion() == 13) {
 	    [
 	        'label' => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
 	        'value' => '{extension.general.1.extensionKey}_pi1',
-	        'icon'	=> '',
-	        'group'	=> null
+	        'icon'	=> 'ext-{extensionNameWithoutUnderscore}-wizard',
+	        'group'	=> 'plugins'
 	    ],
 	    'FILE:EXT:{extension.general.1.extensionKey}/Configuration/Flexforms/ExtensionFlexform.xml',
 	);
@@ -89,8 +96,8 @@ ExtensionManagementUtility::addPlugin(
     [
         'label' => 'LLL:EXT:{extension.general.1.extensionKey}/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1',
         'value' => '{extension.general.1.extensionKey}_pi1',
-        'icon'	=> '',
-        'group'	=> null
+        'icon'	=> 'ext-{extensionNameWithoutUnderscore}-wizard',
+        'group'	=> 'plugins'
     ],
     'FILE:EXT:{extension.general.1.extensionKey}/Configuration/Flexforms/ExtensionFlexform.xml',
 );
@@ -108,4 +115,5 @@ ExtensionManagementUtility::addToInsertRecords('{model}');
 </f:if>
 </f:alias>
 </f:for>
+</f:alias>
 </sav:utility.removeEmptyLines></f:format.raw>
