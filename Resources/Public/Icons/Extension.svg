@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-  <rect
-     style="fill:#f08d34;fill-opacity:1;stroke-width:0.99960881"
-     id="rect4167"
-     width="64"
-     height="64"
-     x="0"
-     y="-0.018181637" />
-  <path
-     d="m 32.116954,50.641398 5.323451,-7.429209 -3.037506,-0.10102 -0.05495,-5.881266 -4.461972,0 -0.05495,5.881266 -3.011874,-0.09687 5.297821,7.627103 z"
-     style="fill:#0c5d7d;fill-opacity:0;stroke:#ffffff;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="polygon3"/>
-  <path
-     d="m 13.237263,31.610269 7.033897,5.536025 0.09565,-3.1588 5.568318,-0.05712 0,-4.640138 -5.568318,-0.05719 0.09172,-3.132139 -7.221259,5.509365 z"
-     style="fill:#0c5d7d;fill-opacity:0;stroke:#ffffff;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="path651"/>
-  <path
-     d="m 32.110468,13.168622 -5.47755,7.087568 3.125434,0.09638 0.05656,5.610801 4.591135,0 0.05656,-5.610801 3.099058,0.09242 -5.451188,-7.276364 z"
-     style="fill:#ffffff;fill-opacity:0;stroke:#ffffff;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="path652"/>
-  <path
-     d="m 51.06381,31.382732 -6.414892,-5.264243 -0.107768,3.226315 -6.273856,0.0584 0,4.739317 6.273856,0.0584 -0.05543,1.715799 -0.04792,1.483291 z"
-     style="fill:#0c5d7d;fill-opacity:0;stroke:#ffffff;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     id="path653"/>
+<svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" >
+    <rect
+       style="fill:#f08d34;fill-opacity:1"
+       id="rect1"
+       width="100"
+       height="100"
+       x="0"
+       y="0" />      
+    <path
+        d="M50,15L60,25L55,25L55,40L45,40L45,25L40,25z"
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="4"
+        />       
+    <path
+        d="M85,50L75,60L75,55L60,55L60,45L75,45L75,40z"
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="4"
+        />
+    <path
+        d="M50,85L60,75L55,75L55,60L45,60L45,75L40,75z"
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="4"
+        />
+    <path
+        d="M15,50L25,60L25,55L40,55L40,45L25,45L25,40z"
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="4"
+        />
 </svg>
